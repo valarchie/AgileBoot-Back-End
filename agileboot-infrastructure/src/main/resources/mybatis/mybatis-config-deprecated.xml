@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 全局参数 -->
+<!--    <settings>
+        &lt;!&ndash; 使全局的映射器启用或禁用缓存 &ndash;&gt;
+        <setting name="cacheEnabled"             value="true"   />
+        &lt;!&ndash; 允许JDBC 支持自动生成主键 &ndash;&gt;
+        <setting name="useGeneratedKeys"         value="true"   />
+        &lt;!&ndash; 配置默认的执行器.SIMPLE就是普通执行器;REUSE执行器会重用预处理语句(prepared statements);BATCH执行器将重用语句并执行批量更新 &ndash;&gt;
+        <setting name="defaultExecutorType"      value="SIMPLE" />
+		&lt;!&ndash; 指定 MyBatis 所用日志的具体实现 &ndash;&gt;
+        <setting name="logImpl"                  value="SLF4J"  />
+        &lt;!&ndash; 使用驼峰命名法转换字段 &ndash;&gt;
+		&lt;!&ndash; <setting name="mapUnderscoreToCamelCase" value="true"/> &ndash;&gt;
+	</settings>-->
+
+</configuration>
