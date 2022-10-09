@@ -12,13 +12,13 @@
     <artifactId>agileboot-api</artifactId>
 
     <description>
-        quartz定时任务
+        外部API
     </description>
 
     <dependencies>
 
-        <!-- 定时任务 -->
-        <dependency>
+        <!-- 定时任务 暂时不用 -->
+        <!--<dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <exclusions>
@@ -27,7 +27,7 @@
                     <artifactId>c3p0</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
 
         <!-- 通用工具-->
         <dependency>

@@ -48,7 +48,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         // ----------------------------- Common -----------------------------------------
 
-        OBJECT_NOT_FOUND(Module.COMMON, 1, "找不到ID为%s 的%s"),
+        OBJECT_NOT_FOUND(Module.COMMON, 1, "找不到ID为{} 的{}"),
 
         UNSUPPORTED_OPERATION(Module.COMMON, 2, "不支持的操作"),
 
@@ -75,13 +75,13 @@ public enum ErrorCode implements ErrorCodeInterface {
 
 // ----------------------------- Upload -----------------------------------------
 
-        UPLOAD_FILE_TYPE_NOT_ALLOWED(Module.UPLOAD, 1, "不允许上传的文件类型，仅允许：%s"),
+        UPLOAD_FILE_TYPE_NOT_ALLOWED(Module.UPLOAD, 1, "不允许上传的文件类型，仅允许：{}"),
 
-        UPLOAD_FILE_NAME_EXCEED_MAX_LENGTH(Module.UPLOAD, 2, "文件名长度超过：%s "),
+        UPLOAD_FILE_NAME_EXCEED_MAX_LENGTH(Module.UPLOAD, 2, "文件名长度超过：{} "),
 
-        UPLOAD_FILE_SIZE_EXCEED_MAX_SIZE(Module.UPLOAD, 3, "文件名大小超过：%s MB"),
+        UPLOAD_FILE_SIZE_EXCEED_MAX_SIZE(Module.UPLOAD, 3, "文件名大小超过：{} MB"),
 
-        UPLOAD_IMPORT_EXCEL_FAILED(Module.UPLOAD, 4, "导入excel失败：%s"),
+        UPLOAD_IMPORT_EXCEL_FAILED(Module.UPLOAD, 4, "导入excel失败：{}"),
 
         UPLOAD_FILE_IS_EMPTY(Module.UPLOAD, 5, "上传文件为空"),
 
@@ -93,15 +93,15 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         // ----------------------------- Post -----------------------------------------
 
-        POST_NAME_IS_NOT_UNIQUE(Module.POST, 1, "岗位名称:%s, 已存在"),
+        POST_NAME_IS_NOT_UNIQUE(Module.POST, 1, "岗位名称:{}, 已存在"),
 
-        POST_CODE_IS_NOT_UNIQUE(Module.POST, 2, "岗位编号:%s, 已存在"),
+        POST_CODE_IS_NOT_UNIQUE(Module.POST, 2, "岗位编号:{}, 已存在"),
 
         POST_ALREADY_ASSIGNED_TO_USER_CAN_NOT_BE_DELETED(Module.POST, 3, "职位已分配给用户，请先取消分配再删除"),
 
         // ------------------------------- Dept ---------------------------------------------
 
-        DEPT_NAME_IS_NOT_UNIQUE(Module.DEPT, 1, "部门名称:%s, 已存在"),
+        DEPT_NAME_IS_NOT_UNIQUE(Module.DEPT, 1, "部门名称:{}, 已存在"),
 
         DEPT_PARENT_ID_IS_NOT_ALLOWED_SELF(Module.DEPT, 2, "父级部门不能选择自己"),
 
@@ -115,7 +115,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         // -------------------------------  Menu -------------------------------------------------------
 
-        MENU_NAME_IS_NOT_UNIQUE(Module.MENU, 1, "新增菜单:%s 失败，菜单名称已存在"),
+        MENU_NAME_IS_NOT_UNIQUE(Module.MENU, 1, "新增菜单:{} 失败，菜单名称已存在"),
 
         MENU_EXTERNAL_LINK_MUST_BE_HTTP(Module.MENU, 2, "菜单外链必须以 http(s)://开头"),
 
@@ -127,9 +127,9 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         // -------------------------------- Role ----------------------------------------------------
 
-        ROLE_NAME_IS_NOT_UNIQUE(Module.ROLE, 1, "角色名称：%s, 已存在"),
+        ROLE_NAME_IS_NOT_UNIQUE(Module.ROLE, 1, "角色名称：{}, 已存在"),
 
-        ROLE_KEY_IS_NOT_UNIQUE(Module.ROLE, 2, "角色标识：%s, 已存在"),
+        ROLE_KEY_IS_NOT_UNIQUE(Module.ROLE, 2, "角色标识：{}, 已存在"),
 
         ROLE_DATA_SCOPE_DUPLICATED_DEPT(Module.ROLE, 3, "重复的部门id"),
 
@@ -139,7 +139,7 @@ public enum ErrorCode implements ErrorCodeInterface {
         // ------------------------  User ------------------------------
 
 
-        USER_NON_EXIST(Module.USER, 1, "登录用户：%s 不存在"),
+        USER_NON_EXIST(Module.USER, 1, "登录用户：{} 不存在"),
 
         USER_IS_DISABLE(Module.USER, 2, "对不起， 您的账号：{} 已停用"),
 
@@ -241,11 +241,11 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         COMMON_REQUEST_TO_OFTEN(Module.COMMON, 2, "调用太过频繁"),
 
-        COMMON_REQUEST_PARAMETERS_INVALID(Module.COMMON, 3, "请求参数异常，%s"),
+        COMMON_REQUEST_PARAMETERS_INVALID(Module.COMMON, 3, "请求参数异常，{}"),
 
         COMMON_REQUEST_METHOD_INVALID(Module.COMMON, 4, "请求方式不支持"),
 
-        COMMON_NO_AUTHORIZATION(Module.PERMISSION, 1, "请求接口：%s 失败，用户未授权"),
+        COMMON_NO_AUTHORIZATION(Module.PERMISSION, 1, "请求接口：{} 失败，用户未授权"),
 
         ;
 
@@ -283,15 +283,15 @@ public enum ErrorCode implements ErrorCodeInterface {
          */
         INVALID_PARAMETER(Module.COMMON, 1,"参数异常"),
 
-        UNKNOWN_ERROR(Module.COMMON, 2,"未知异常: %s"),
+        UNKNOWN_ERROR(Module.COMMON, 2,"未知异常: {}"),
 
-        GET_ENUM_FAILED(Module.COMMON, 3,"获取枚举类型失败, 枚举类:%s"),
+        GET_ENUM_FAILED(Module.COMMON, 3,"获取枚举类型失败, 枚举类:{}"),
 
         LOGIN_CAPTCHA_GENERATE_FAIL(Module.LOGIN, 1,"验证码生成失败"),
 
         INVALID_TOKEN(Module.PERMISSION, 1,"token异常"),
 
-        DB_INTERNAL_ERROR(Module.DB, 1,  "数据库异常:%s"),
+        DB_INTERNAL_ERROR(Module.DB, 1,  "数据库异常:{}"),
 
         ;
 
