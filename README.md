@@ -62,9 +62,9 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 --- 
 
 * 特别鸣谢：[element](https://github.com/ElemeFE/element) ，[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) ，[eladmin-web](https://github.com/elunez/eladmin-web) 。
-* 阿里云折扣场：[点我进入](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) 
-* 腾讯云秒杀场：[点我进入](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
-* 阿里云优惠券：[点我领取](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) 
+* 阿里云折扣场：[点我领取](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) &nbsp;&nbsp;
+* 腾讯云秒杀场：[点我领取](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
+* 阿里云优惠券：[点我领取](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) &nbsp;&nbsp;
 * 腾讯云优惠券：[点我领取](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
 
 ## 内置功能
