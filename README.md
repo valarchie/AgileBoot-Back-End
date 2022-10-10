@@ -86,14 +86,14 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 15. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
 
 ## 在线体验
-
-- admin/admin123
+演示地址：http://vue.ruoyi.vip （可先参考Ruoyi的演示网站 ）  
+文档地址： http://doc.ruoyi.vip （TODO）
+- 账号密码：admin/admin123
 - 如果该项目对您有帮助，可以请作者喝个咖啡~
   ![扫一扫](https://oscimg.oschina.net/oscnet/up-261828407c9089ad1cc0ce3f41a0ef3fbc0.png)
 
 
-演示地址：暂无， 可先参考Ruoyi的演示网站 http://vue.ruoyi.vip  
-文档地址：TODO http://doc.ruoyi.vip
+
 
 ## 演示图
 
