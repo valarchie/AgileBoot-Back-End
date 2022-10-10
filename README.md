@@ -16,10 +16,56 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持加载动态权限菜单，多方式轻松权限控制。
 
+#### 由来
+本项目基于Ruoyi项目进行完全重构改造。  
+首先非常感谢Ruoyi作者。但是Ruoyi项目存在太多缺陷。
+- 命名比较乱七八糟（很多很糟糕的命名，包括机翻英语乱用）
+- 项目分包以及模块比较乱
+- 比较原始的Controller > Service > DAO的开发模式。过于面向过程。
+- 一大堆自己造的轮子，并且没有UT覆盖。
+- 大量逻辑嵌套在if else块当中
+- 值的前后不统一，比如有的地方1代表是，有的地方1代表否
+- 很多很奇怪的代码写法（比如return result > 0 ? true:false..    一言难尽）
+
+
+于是我做了大量的重构工作。
+
+#### 规范：
+- 切分不同环境的启动文件
+- 统一设计异常类
+- 统一设计错误码并集中管理
+- 统一系统内的变量并集中管理
+- 统一返回模型
+- 引入Google代码格式化模板（Ruoyi的代码格式很另类....）
+- 后端代码的命名基本都整改OK
+- 前端代码的命名也非常混乱，进行了整改
+#### 整改：
+- 引入hutool包以及guava包去掉大量自己造的轮子（大量工作.....）
+- 引入lombok去除大量getter setter代码
+- 调整日志级别
+- 字典类型数据完全用Enum进行代替
+- 移除SQL注入的Filter，因为迁移到Mybatis Plus就不会有这个注入的问题
+- XSS直接通过JSON拦截过滤。
+- 替换掉很多Deprecated的类以及配置
+#### 优化：
+- 优化异步服务
+- 优化Excel相关类的设计，采用hutool包成熟的轮子
+- 权限判断使用缓存
+- IP地址查询引入离线包
+- 引入多级缓存体系
+- 启动优化
+
+#### 重构内容
+
+
+
+--- 
 
 * 特别鸣谢：[element](https://github.com/ElemeFE/element) ，[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) ，[eladmin-web](https://github.com/elunez/eladmin-web) 。
-* 阿里云折扣场：[点我进入](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) ，腾讯云秒杀场：[点我进入](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
-* 阿里云优惠券：[点我领取](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) ，腾讯云优惠券：[点我领取](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
+* 阿里云折扣场：[点我进入](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) 
+* 腾讯云秒杀场：[点我进入](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
+* 阿里云优惠券：[点我领取](https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x) 
+* 腾讯云优惠券：[点我领取](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
 
 ## 内置功能
 
@@ -84,6 +130,10 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 </table>
 
 
+### 注意事项
+- IDEA会自动将.properties文件的编码设置为ISO-8859-1,请在Settings > Editor > File Encodings > Properties Files > 设置为UTF-8
+- 如需要生成新的表，请使用CodeGenerator进行生成。（大概看一下代码就知道怎么填啦）
+- 项目操作说明：https://www.cnblogs.com/valarchie/p/16777336.html
 
 ## AgileBoot前后端分离交流群
 <!-- TODO 整改 -->
