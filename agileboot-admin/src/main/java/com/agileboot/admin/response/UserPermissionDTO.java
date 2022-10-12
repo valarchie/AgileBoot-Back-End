@@ -1,6 +1,6 @@
 package com.agileboot.admin.response;
 
-import com.agileboot.domain.system.user.UserDTO;
+import com.agileboot.domain.system.user.dto.UserDTO;
 import java.util.Map;
 import java.util.Set;
 import lombok.Data;

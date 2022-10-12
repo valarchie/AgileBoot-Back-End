@@ -7,6 +7,7 @@
         <groupId>com.agileboot</groupId>
         <version>1.0.0</version>
     </parent>
+    <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>agileboot-api</artifactId>
@@ -29,12 +30,18 @@
             </exclusions>
         </dependency>-->
 
-        <!-- 通用工具-->
+        <!-- 核心模块-->
         <dependency>
             <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-common</artifactId>
+            <artifactId>agileboot-infrastructure</artifactId>
         </dependency>
 
+
+        <!-- 业务领域 -->
+        <dependency>
+            <groupId>com.agileboot</groupId>
+            <artifactId>agileboot-domain</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

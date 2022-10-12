@@ -7,6 +7,7 @@
         <groupId>com.agileboot</groupId>
         <version>1.0.0</version>
     </parent>
+    <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>agileboot-admin</artifactId>
@@ -28,10 +29,10 @@
 
 
          <!-- Mysql驱动包 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--        </dependency>-->
 
         <!-- 核心模块-->
         <dependency>
@@ -39,13 +40,8 @@
             <artifactId>agileboot-infrastructure</artifactId>
         </dependency>
 
-        <!-- 定时任务-->
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-api</artifactId>
-        </dependency>
 
-        <!-- 代码生成-->
+        <!-- 业务领域 -->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-domain</artifactId>

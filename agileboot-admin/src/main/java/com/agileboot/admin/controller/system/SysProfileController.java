@@ -8,7 +8,7 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.file.FileUploadUtils;
 import com.agileboot.domain.common.UploadFileDTO;
 import com.agileboot.domain.system.user.UserDomainService;
-import com.agileboot.domain.system.user.UserProfileDTO;
+import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserAvatarCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;

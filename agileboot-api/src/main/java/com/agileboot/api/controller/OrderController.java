@@ -13,4 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/order")
 public class OrderController extends BaseController {
 
+    /**
+     * 访问首页，提示语
+     */
+    @RequestMapping("/")
+    public String index() {
+        return "暂无订单";
+    }
+
+
 }

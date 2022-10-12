@@ -1,6 +1,6 @@
 package com.agileboot.admin.request;
 
-import com.agileboot.domain.system.user.RegisterUserModel;
+import com.agileboot.domain.system.user.model.RegisterUserModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
