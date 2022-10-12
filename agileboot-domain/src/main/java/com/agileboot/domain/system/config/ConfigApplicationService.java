@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author valarchie
  */
 @Service
-public class ConfigDomainService {
+public class ConfigApplicationService {
 
     @Autowired
     private ISysConfigService configService;

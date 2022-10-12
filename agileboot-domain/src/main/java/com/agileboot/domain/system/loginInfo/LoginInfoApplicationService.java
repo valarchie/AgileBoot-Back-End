@@ -1,7 +1,7 @@
 package com.agileboot.domain.system.loginInfo;
 
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.loginInfo.dto.LoginInfoDTO;
 import com.agileboot.domain.system.loginInfo.query.LoginInfoQuery;
 import com.agileboot.orm.entity.SysLoginInfoEntity;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
-public class LoginInfoDomainService {
+public class LoginInfoApplicationService {
 
     @Autowired
     private ISysLoginInfoService loginInfoService;

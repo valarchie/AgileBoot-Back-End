@@ -9,8 +9,8 @@ import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants.Token;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.domain.system.menu.MenuDomainService;
-import com.agileboot.domain.system.menu.dto.RouterVo;
+import com.agileboot.domain.system.menu.MenuApplicationService;
+import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
@@ -35,16 +35,16 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    private final MenuDomainService menuDomainService;
+    private final MenuApplicationService menuApplicationService;
     /**
      * 系统基础配置
      */
     private final AgileBootConfig agileBootConfig;
 
     public LoginController(LoginService loginService,
-        MenuDomainService menuDomainService, AgileBootConfig agileBootConfig) {
+        MenuApplicationService menuApplicationService, AgileBootConfig agileBootConfig) {
         this.loginService = loginService;
-        this.menuDomainService = menuDomainService;
+        this.menuApplicationService = menuApplicationService;
         this.agileBootConfig = agileBootConfig;
     }
 
@@ -105,9 +105,9 @@ public class LoginController {
      * @return 路由信息
      */
     @GetMapping("/getRouters")
-    public ResponseDTO<List<RouterVo>> getRouters() {
+    public ResponseDTO<List<RouterDTO>> getRouters() {
         Long userId = AuthenticationUtils.getUserId();
-        List<RouterVo> routerTree = menuDomainService.getRouterTree(userId);
+        List<RouterDTO> routerTree = menuApplicationService.getRouterTree(userId);
         return ResponseDTO.ok(routerTree);
     }
 

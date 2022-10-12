@@ -30,8 +30,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author valarchie
+ */
 @Service
-public class RoleDomainService {
+public class RoleApplicationService {
 
     @Autowired
     private ISysRoleService roleService;

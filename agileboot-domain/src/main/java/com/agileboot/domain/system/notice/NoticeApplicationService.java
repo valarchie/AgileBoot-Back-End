@@ -3,7 +3,7 @@ package com.agileboot.domain.system.notice;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.domain.system.notice.dto.NoticeDTO;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
-public class NoticeDomainService {
+public class NoticeApplicationService {
 
     @Autowired
     private ISysNoticeService noticeService;

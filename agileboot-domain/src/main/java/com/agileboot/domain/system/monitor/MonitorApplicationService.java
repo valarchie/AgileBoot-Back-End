@@ -25,8 +25,11 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author valarchie
+ */
 @Service
-public class MonitorDomainService {
+public class MonitorApplicationService {
 
     @Autowired
     private RedisTemplate redisTemplate;

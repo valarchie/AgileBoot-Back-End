@@ -4,10 +4,10 @@ import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
-import com.agileboot.domain.system.post.PostDomainService;
+import com.agileboot.domain.system.post.PostApplicationService;
 import com.agileboot.domain.system.post.query.PostQuery;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysPostController extends BaseController {
 
     @Autowired
-    private PostDomainService postDomainService;
+    private PostApplicationService postApplicationService;
 
     /**
      * 获取岗位列表
@@ -46,7 +46,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:post:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(PostQuery query) {
-        PageDTO pageDTO = postDomainService.getPostList(query);
+        PageDTO pageDTO = postApplicationService.getPostList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -54,7 +54,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:post:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, PostQuery query) {
-        PageDTO pageDTO = postDomainService.getPostList(query);
+        PageDTO pageDTO = postApplicationService.getPostList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), PostDTO.class, response);
     }
 
@@ -64,7 +64,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:post:query')")
     @GetMapping(value = "/{postId}")
     public ResponseDTO getInfo(@PathVariable Long postId) {
-        PostDTO post = postDomainService.getPostInfo(postId);
+        PostDTO post = postApplicationService.getPostInfo(postId);
         return ResponseDTO.ok(post);
     }
 
@@ -75,7 +75,7 @@ public class SysPostController extends BaseController {
     @AccessLog(title = "岗位管理", businessType = BusinessType.INSERT)
     @PostMapping
     public ResponseDTO add(@RequestBody AddPostCommand addCommand) {
-        postDomainService.addPost(addCommand, AuthenticationUtils.getLoginUser());
+        postApplicationService.addPost(addCommand, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
 
@@ -86,7 +86,7 @@ public class SysPostController extends BaseController {
     @AccessLog(title = "岗位管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public ResponseDTO edit(@RequestBody UpdatePostCommand updateCommand) {
-        postDomainService.updatePost(updateCommand, AuthenticationUtils.getLoginUser());
+        postApplicationService.updatePost(updateCommand, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
 
@@ -97,7 +97,7 @@ public class SysPostController extends BaseController {
     @AccessLog(title = "岗位管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
     public ResponseDTO remove(@PathVariable List<Long> postIds) {
-        postDomainService.deletePost(new BulkOperationCommand<>(postIds));
+        postApplicationService.deletePost(new BulkOperationCommand<>(postIds));
         return ResponseDTO.ok();
     }
 

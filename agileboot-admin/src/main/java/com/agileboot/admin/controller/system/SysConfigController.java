@@ -4,7 +4,7 @@ import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.system.config.dto.ConfigDTO;
-import com.agileboot.domain.system.config.ConfigDomainService;
+import com.agileboot.domain.system.config.ConfigApplicationService;
 import com.agileboot.domain.system.config.query.ConfigQuery;
 import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysConfigController extends BaseController {
 
     @Autowired
-    private ConfigDomainService configDomainService;
+    private ConfigApplicationService configApplicationService;
 
     @Autowired
     private GuavaCacheService guavaCacheService;
@@ -48,7 +48,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:config:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(ConfigQuery query) {
-        PageDTO page = configDomainService.getConfigList(query);
+        PageDTO page = configApplicationService.getConfigList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -69,7 +69,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:config:query')")
     @GetMapping(value = "/{configId}")
     public ResponseDTO<ConfigDTO> getInfo(@NotNull @Positive @PathVariable Long configId) {
-        ConfigDTO config = configDomainService.getConfigInfo(configId);
+        ConfigDTO config = configApplicationService.getConfigInfo(configId);
         return ResponseDTO.ok(config);
     }
 
@@ -81,7 +81,7 @@ public class SysConfigController extends BaseController {
     @AccessLog(title = "参数管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public ResponseDTO edit(@RequestBody ConfigUpdateCommand config) {
-        configDomainService.updateConfig(config, AuthenticationUtils.getLoginUser());
+        configApplicationService.updateConfig(config, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
 

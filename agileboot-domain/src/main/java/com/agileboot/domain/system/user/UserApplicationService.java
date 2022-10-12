@@ -5,7 +5,7 @@ import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.loginInfo.query.SearchUserQuery;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
@@ -38,8 +38,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author valarchie
+ */
 @Service
-public class UserDomainService {
+public class UserApplicationService {
 
     @Autowired
     private ISysUserService userService;

@@ -5,7 +5,7 @@ import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.system.TreeSelectedDTO;
+import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.domain.system.dept.dto.DeptDTO;
@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SuppressWarnings("AlibabaTransactionMustHaveRollback")
 @Service
-public class DeptDomainService {
+public class DeptApplicationService {
 
     @Autowired
     private ISysDeptService deptService;

@@ -6,8 +6,8 @@ import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.file.FileUploadUtils;
-import com.agileboot.domain.common.UploadFileDTO;
-import com.agileboot.domain.system.user.UserDomainService;
+import com.agileboot.domain.common.dto.UploadFileDTO;
+import com.agileboot.domain.system.user.UserApplicationService;
 import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserAvatarCommand;
@@ -37,7 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class SysProfileController extends BaseController {
 
     @Autowired
-    private UserDomainService userDomainService;
+    private UserApplicationService userApplicationService;
 
     /**
      * 个人信息
@@ -45,7 +45,7 @@ public class SysProfileController extends BaseController {
     @GetMapping
     public ResponseDTO profile() {
         LoginUser user = AuthenticationUtils.getLoginUser();
-        UserProfileDTO userProfile = userDomainService.getUserProfile(user.getUserId());
+        UserProfileDTO userProfile = userApplicationService.getUserProfile(user.getUserId());
         return ResponseDTO.ok(userProfile);
     }
 
@@ -57,7 +57,7 @@ public class SysProfileController extends BaseController {
     public ResponseDTO updateProfile(@RequestBody UpdateProfileCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
-        userDomainService.updateUserProfile(command, loginUser);
+        userApplicationService.updateUserProfile(command, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -69,7 +69,7 @@ public class SysProfileController extends BaseController {
     public ResponseDTO updatePassword(@RequestBody UpdateUserPasswordCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
-        userDomainService.updateUserPassword(loginUser, command);
+        userApplicationService.updateUserPassword(loginUser, command);
         return ResponseDTO.ok();
     }
 
@@ -85,7 +85,7 @@ public class SysProfileController extends BaseController {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         String avatar = FileUploadUtils.upload(AgileBootConfig.getAvatarPath(), file);
 
-        userDomainService.updateUserAvatar(loginUser, new UpdateUserAvatarCommand(loginUser.getUserId(), avatar));
+        userApplicationService.updateUserAvatar(loginUser, new UpdateUserAvatarCommand(loginUser.getUserId(), avatar));
         return ResponseDTO.ok(new UploadFileDTO(avatar));
     }
 }

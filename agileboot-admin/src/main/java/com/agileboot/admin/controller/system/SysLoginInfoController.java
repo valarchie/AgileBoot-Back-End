@@ -6,9 +6,9 @@ import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.loginInfo.dto.LoginInfoDTO;
-import com.agileboot.domain.system.loginInfo.LoginInfoDomainService;
+import com.agileboot.domain.system.loginInfo.LoginInfoApplicationService;
 import com.agileboot.domain.system.loginInfo.query.LoginInfoQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.orm.enums.BusinessType;
@@ -37,12 +37,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysLoginInfoController extends BaseController {
 
     @Autowired
-    private LoginInfoDomainService loginInfoDomainService;
+    private LoginInfoApplicationService loginInfoApplicationService;
 
     @PreAuthorize("@ss.hasPerm('monitor:logininfor:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(LoginInfoQuery query) {
-        PageDTO pageDTO = loginInfoDomainService.getLoginInfoList(query);
+        PageDTO pageDTO = loginInfoApplicationService.getLoginInfoList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -50,7 +50,7 @@ public class SysLoginInfoController extends BaseController {
     @PreAuthorize("@ss.hasPerm('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, LoginInfoQuery query) {
-        PageDTO pageDTO = loginInfoDomainService.getLoginInfoList(query);
+        PageDTO pageDTO = loginInfoApplicationService.getLoginInfoList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), LoginInfoDTO.class, response);
     }
 
@@ -58,7 +58,7 @@ public class SysLoginInfoController extends BaseController {
     @AccessLog(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
     public ResponseDTO remove(@PathVariable @NotNull @NotEmpty List<Long> infoIds) {
-        loginInfoDomainService.deleteLoginInfo(new BulkOperationCommand<>(infoIds));
+        loginInfoApplicationService.deleteLoginInfo(new BulkOperationCommand<>(infoIds));
         return ResponseDTO.ok();
     }
 

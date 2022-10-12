@@ -3,7 +3,7 @@ package com.agileboot.admin.controller.monitor;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.domain.system.monitor.MonitorDomainService;
+import com.agileboot.domain.system.monitor.MonitorApplicationService;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MonitorController extends BaseController {
 
     @Autowired
-    private MonitorDomainService monitorDomainService;
+    private MonitorApplicationService monitorApplicationService;
 
     @Autowired
     private RedisCacheService redisCacheService;
@@ -37,7 +37,7 @@ public class MonitorController extends BaseController {
     @PreAuthorize("@ss.hasPerm('monitor:cache:list')")
     @GetMapping("/cacheInfo")
     public ResponseDTO<RedisCacheInfoDTO> getRedisCacheInfo() {
-        RedisCacheInfoDTO redisCacheInfo = monitorDomainService.getRedisCacheInfo();
+        RedisCacheInfoDTO redisCacheInfo = monitorApplicationService.getRedisCacheInfo();
         return ResponseDTO.ok(redisCacheInfo);
     }
 
@@ -45,7 +45,7 @@ public class MonitorController extends BaseController {
     @PreAuthorize("@ss.hasPerm('monitor:server:list')")
     @GetMapping("/serverInfo")
     public ResponseDTO<ServerInfo> getServerInfo() {
-        ServerInfo serverInfo = monitorDomainService.getServerInfo();
+        ServerInfo serverInfo = monitorApplicationService.getServerInfo();
         return ResponseDTO.ok(serverInfo);
     }
 
@@ -58,7 +58,7 @@ public class MonitorController extends BaseController {
     @PreAuthorize("@ss.hasPerm('monitor:online:list')")
     @GetMapping("/onlineUser/list")
     public ResponseDTO<PageDTO> list(String ipaddr, String userName) {
-        List<OnlineUser> onlineUserList = monitorDomainService.getOnlineUserList(userName, ipaddr);
+        List<OnlineUser> onlineUserList = monitorApplicationService.getOnlineUserList(userName, ipaddr);
         return ResponseDTO.ok(new PageDTO(onlineUserList));
     }
 

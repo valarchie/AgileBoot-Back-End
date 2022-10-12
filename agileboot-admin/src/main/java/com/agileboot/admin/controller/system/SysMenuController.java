@@ -3,10 +3,10 @@ package com.agileboot.admin.controller.system;
 import cn.hutool.core.lang.tree.Tree;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
-import com.agileboot.domain.system.TreeSelectedDTO;
+import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.dto.MenuDTO;
-import com.agileboot.domain.system.menu.MenuDomainService;
+import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysMenuController extends BaseController {
 
     @Autowired
-    MenuDomainService menuDomainService;
+    MenuApplicationService menuApplicationService;
 
     /**
      * 获取菜单列表
@@ -47,7 +47,7 @@ public class SysMenuController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:menu:list')")
     @GetMapping("/list")
     public ResponseDTO<List> list(MenuQuery query) {
-        List<MenuDTO> menuList = menuDomainService.getMenuList(query);
+        List<MenuDTO> menuList = menuApplicationService.getMenuList(query);
         return ResponseDTO.ok(menuList);
     }
 
@@ -57,7 +57,7 @@ public class SysMenuController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:menu:query')")
     @GetMapping(value = "/{menuId}")
     public ResponseDTO<MenuDTO> getInfo(@PathVariable @NotNull @PositiveOrZero Long menuId) {
-        MenuDTO menu = menuDomainService.getMenuInfo(menuId);
+        MenuDTO menu = menuApplicationService.getMenuInfo(menuId);
         return ResponseDTO.ok(menu);
     }
 
@@ -67,7 +67,7 @@ public class SysMenuController extends BaseController {
     @GetMapping("/dropdownList")
     public ResponseDTO dropdownList() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        List<Tree<Long>> dropdownList = menuDomainService.getDropdownList(loginUser);
+        List<Tree<Long>> dropdownList = menuApplicationService.getDropdownList(loginUser);
         return ResponseDTO.ok(dropdownList);
     }
 
@@ -77,7 +77,7 @@ public class SysMenuController extends BaseController {
     @GetMapping(value = "/roleMenuTreeSelect/{roleId}")
     public ResponseDTO roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        TreeSelectedDTO roleDropdownList = menuDomainService.getRoleDropdownList(loginUser, roleId);
+        TreeSelectedDTO roleDropdownList = menuApplicationService.getRoleDropdownList(loginUser, roleId);
         return ResponseDTO.ok(roleDropdownList);
     }
 
@@ -89,7 +89,7 @@ public class SysMenuController extends BaseController {
     @PostMapping
     public ResponseDTO add(@RequestBody AddMenuCommand addCommand) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        menuDomainService.addMenu(addCommand, loginUser);
+        menuApplicationService.addMenu(addCommand, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -101,7 +101,7 @@ public class SysMenuController extends BaseController {
     @PutMapping
     public ResponseDTO edit(@RequestBody UpdateMenuCommand updateCommand) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        menuDomainService.updateMenu(updateCommand, loginUser);
+        menuApplicationService.updateMenu(updateCommand, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -112,7 +112,7 @@ public class SysMenuController extends BaseController {
     @AccessLog(title = "菜单管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{menuId}")
     public ResponseDTO remove(@PathVariable("menuId") Long menuId) {
-        menuDomainService.remove(menuId);
+        menuApplicationService.remove(menuId);
         return ResponseDTO.ok();
     }
 

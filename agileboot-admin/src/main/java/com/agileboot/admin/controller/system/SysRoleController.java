@@ -7,7 +7,7 @@ import com.agileboot.common.utils.poi.CustomExcelUtil;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.dto.RoleDTO;
-import com.agileboot.domain.system.role.RoleDomainService;
+import com.agileboot.domain.system.role.RoleApplicationService;
 import com.agileboot.domain.system.role.query.RoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.role.command.UpdateDataScopeCommand;
@@ -43,12 +43,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysRoleController extends BaseController {
 
     @Autowired
-    private RoleDomainService roleDomainService;
+    private RoleApplicationService roleApplicationService;
 
     @PreAuthorize("@ss.hasPerm('system:role:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(RoleQuery query) {
-        PageDTO pageDTO = roleDomainService.getRoleList(query);
+        PageDTO pageDTO = roleApplicationService.getRoleList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -56,7 +56,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:role:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, RoleQuery query) {
-        PageDTO pageDTO = roleDomainService.getRoleList(query);
+        PageDTO pageDTO = roleApplicationService.getRoleList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), RoleDTO.class, response);
     }
 
@@ -66,7 +66,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:role:query')")
     @GetMapping(value = "/{roleId}")
     public ResponseDTO getInfo(@PathVariable @NotNull Long roleId) {
-        RoleDTO roleInfo = roleDomainService.getRoleInfo(roleId);
+        RoleDTO roleInfo = roleApplicationService.getRoleInfo(roleId);
         return ResponseDTO.ok(roleInfo);
     }
 
@@ -78,7 +78,7 @@ public class SysRoleController extends BaseController {
     @PostMapping
     public ResponseDTO add(@RequestBody AddRoleCommand addCommand) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        roleDomainService.addRole(addCommand, loginUser);
+        roleApplicationService.addRole(addCommand, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -90,7 +90,7 @@ public class SysRoleController extends BaseController {
     @DeleteMapping(value = "/{roleId}")
     public ResponseDTO remove(@PathVariable("roleId")List<Long> roleIds) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        roleDomainService.deleteRoleByBulk(roleIds, loginUser);
+        roleApplicationService.deleteRoleByBulk(roleIds, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -102,7 +102,7 @@ public class SysRoleController extends BaseController {
     @PutMapping
     public ResponseDTO edit(@Validated @RequestBody UpdateRoleCommand updateCommand) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        roleDomainService.updateRole(updateCommand, loginUser);
+        roleApplicationService.updateRole(updateCommand, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -115,7 +115,7 @@ public class SysRoleController extends BaseController {
     public ResponseDTO dataScope(@PathVariable("roleId")Long roleId, @RequestBody UpdateDataScopeCommand command) {
         command.setRoleId(roleId);
 
-        roleDomainService.updateDataScope(command);
+        roleApplicationService.updateDataScope(command);
         return ResponseDTO.ok();
     }
 
@@ -129,7 +129,7 @@ public class SysRoleController extends BaseController {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setRoleId(roleId);
 
-        roleDomainService.updateStatus(command, loginUser);
+        roleApplicationService.updateStatus(command, loginUser);
         return ResponseDTO.ok();
     }
 
@@ -141,7 +141,7 @@ public class SysRoleController extends BaseController {
     @GetMapping("/{roleId}/allocated/list")
     public ResponseDTO<PageDTO> allocatedUserList(@PathVariable("roleId")Long roleId, AllocatedRoleQuery query) {
         query.setRoleId(roleId);
-        PageDTO page = roleDomainService.getAllocatedUserList(query);
+        PageDTO page = roleApplicationService.getAllocatedUserList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -152,7 +152,7 @@ public class SysRoleController extends BaseController {
     @GetMapping("/{roleId}/unallocated/list")
     public ResponseDTO<PageDTO> unallocatedUserList(@PathVariable("roleId")Long roleId, UnallocatedRoleQuery query) {
         query.setRoleId(roleId);
-        PageDTO page = roleDomainService.getUnallocatedUserList(query);
+        PageDTO page = roleApplicationService.getUnallocatedUserList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -163,7 +163,7 @@ public class SysRoleController extends BaseController {
     @AccessLog(title = "角色管理", businessType = BusinessType.GRANT)
     @DeleteMapping("/{roleId}/user/grant")
     public ResponseDTO deleteRoleOfUser(@PathVariable("roleId")Long roleId, @RequestBody Long userId) {
-        roleDomainService.deleteRoleOfUser(userId);
+        roleApplicationService.deleteRoleOfUser(userId);
         return ResponseDTO.ok();
     }
 
@@ -174,7 +174,7 @@ public class SysRoleController extends BaseController {
     @AccessLog(title = "角色管理", businessType = BusinessType.GRANT)
     @DeleteMapping("/users/{userIds}/grant/bulk")
     public ResponseDTO deleteRoleOfUserByBulk(@PathVariable("userIds") List<Long> userIds) {
-        roleDomainService.deleteRoleOfUserByBulk(userIds);
+        roleApplicationService.deleteRoleOfUserByBulk(userIds);
         return ResponseDTO.ok();
     }
 
@@ -186,7 +186,7 @@ public class SysRoleController extends BaseController {
     @PostMapping("/{roleId}/users/{userIds}/grant/bulk")
     public ResponseDTO addRoleForUserByBulk(@PathVariable("roleId") Long roleId,
         @PathVariable("userIds") List<Long> userIds) {
-        roleDomainService.addRoleOfUserByBulk(roleId, userIds);
+        roleApplicationService.addRoleOfUserByBulk(roleId, userIds);
         return ResponseDTO.ok();
     }
 }

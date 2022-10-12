@@ -5,8 +5,8 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.agileboot.common.constant.Constants;
-import com.agileboot.domain.system.menu.dto.MetaVo;
-import com.agileboot.domain.system.menu.dto.RouterVo;
+import com.agileboot.domain.system.menu.dto.MetaDTO;
+import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.enums.MenuComponentEnum;
 import com.agileboot.orm.enums.MenuTypeEnum;
@@ -17,9 +17,9 @@ import java.util.Objects;
 public class RouterModel extends SysMenuEntity {
 
 
-    public RouterVo produceDirectoryRouterVO(List<RouterVo> children) {
+    public RouterDTO produceDirectoryRouterVO(List<RouterDTO> children) {
 
-        RouterVo router = produceDefaultRouterVO();
+        RouterDTO router = produceDefaultRouterVO();
 
         if (CollUtil.isNotEmpty(children) && Objects.equals(MenuTypeEnum.DIRECTORY.getValue(), getMenuType())) {
             router.setAlwaysShow(true);
@@ -31,16 +31,16 @@ public class RouterModel extends SysMenuEntity {
     }
 
 
-    public RouterVo produceMenuFrameRouterVO() {
-        RouterVo router = new RouterVo();
+    public RouterDTO produceMenuFrameRouterVO() {
+        RouterDTO router = new RouterDTO();
 
         router.setMeta(null);
-        List<RouterVo> childrenList = new ArrayList<>();
-        RouterVo children = new RouterVo();
+        List<RouterDTO> childrenList = new ArrayList<>();
+        RouterDTO children = new RouterDTO();
         children.setPath(getPath());
         children.setComponent(getComponent());
         children.setName(StrUtil.upperFirst(getPath()));
-        children.setMeta(new MetaVo(getMenuName(), getIcon(), !getIsCache(), getPath()));
+        children.setMeta(new MetaDTO(getMenuName(), getIcon(), !getIsCache(), getPath()));
         children.setQuery(getQuery());
         childrenList.add(children);
         router.setChildren(childrenList);
@@ -49,33 +49,33 @@ public class RouterModel extends SysMenuEntity {
     }
 
 
-    public RouterVo produceInnerLinkRouterVO() {
+    public RouterDTO produceInnerLinkRouterVO() {
 
-        RouterVo router = new RouterVo();
+        RouterDTO router = new RouterDTO();
 
-        router.setMeta(new MetaVo(getMenuName(), getIcon()));
+        router.setMeta(new MetaDTO(getMenuName(), getIcon()));
         router.setPath("/");
-        List<RouterVo> childrenList = new ArrayList<>();
-        RouterVo children = new RouterVo();
+        List<RouterDTO> childrenList = new ArrayList<>();
+        RouterDTO children = new RouterDTO();
         String routerPath = trimHttpPrefixForInnerLink(getPath());
         children.setPath(routerPath);
         children.setComponent(MenuComponentEnum.INNER_LINK.description());
         children.setName(StrUtil.upperFirst(routerPath));
-        children.setMeta(new MetaVo(getMenuName(), getIcon(), getPath()));
+        children.setMeta(new MetaDTO(getMenuName(), getIcon(), getPath()));
         childrenList.add(children);
         router.setChildren(childrenList);
 
         return router;
     }
 
-    public RouterVo produceDefaultRouterVO() {
-        RouterVo router = new RouterVo();
+    public RouterDTO produceDefaultRouterVO() {
+        RouterDTO router = new RouterDTO();
         router.setHidden(!getIsVisible());
         router.setName(getRouteName());
         router.setPath(getRouterPath());
         router.setComponent(getComponentTypeForFrontEnd());
         router.setQuery(getQuery());
-        router.setMeta(new MetaVo(getMenuName(), getIcon(), !getIsCache(), getPath()));
+        router.setMeta(new MetaDTO(getMenuName(), getIcon(), !getIsCache(), getPath()));
         return router;
     }
 

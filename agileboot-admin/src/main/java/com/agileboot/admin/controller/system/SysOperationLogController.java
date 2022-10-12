@@ -5,9 +5,9 @@ import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.operationLog.dto.OperationLogDTO;
-import com.agileboot.domain.system.operationLog.OperationLogDomainService;
+import com.agileboot.domain.system.operationLog.OperationLogApplicationService;
 import com.agileboot.domain.system.operationLog.query.OperationLogQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.orm.enums.BusinessType;
@@ -33,12 +33,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysOperationLogController extends BaseController {
 
     @Autowired
-    private OperationLogDomainService operationLogDomainService;
+    private OperationLogApplicationService operationLogApplicationService;
 
     @PreAuthorize("@ss.hasPerm('monitor:operlog:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(OperationLogQuery query, HttpServletRequest request) {
-        PageDTO pageDTO = operationLogDomainService.getOperationLogList(query);
+        PageDTO pageDTO = operationLogApplicationService.getOperationLogList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -46,7 +46,7 @@ public class SysOperationLogController extends BaseController {
     @PreAuthorize("@ss.hasPerm('monitor:operlog:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, OperationLogQuery query) {
-        PageDTO pageDTO = operationLogDomainService.getOperationLogList(query);
+        PageDTO pageDTO = operationLogApplicationService.getOperationLogList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), OperationLogDTO.class, response);
     }
 
@@ -54,7 +54,7 @@ public class SysOperationLogController extends BaseController {
     @PreAuthorize("@ss.hasPerm('monitor:operlog:remove')")
     @DeleteMapping("/{operationIds}")
     public ResponseDTO remove(@PathVariable List<Long> operationIds) {
-        operationLogDomainService.deleteOperationLog(new BulkOperationCommand<>(operationIds));
+        operationLogApplicationService.deleteOperationLog(new BulkOperationCommand<>(operationIds));
         return ResponseDTO.ok();
     }
 

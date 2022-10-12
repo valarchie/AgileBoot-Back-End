@@ -3,10 +3,10 @@ package com.agileboot.admin.controller.system;
 import cn.hutool.core.lang.tree.Tree;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
-import com.agileboot.domain.system.TreeSelectedDTO;
+import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.dto.DeptDTO;
-import com.agileboot.domain.system.dept.DeptDomainService;
+import com.agileboot.domain.system.dept.DeptApplicationService;
 import com.agileboot.domain.system.dept.query.DeptQuery;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysDeptController extends BaseController {
 
     @Autowired
-    private DeptDomainService deptDomainService;
+    private DeptApplicationService deptApplicationService;
 
     /**
      * 获取部门列表
@@ -45,7 +45,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:dept:list')")
     @GetMapping("/list")
     public ResponseDTO list(DeptQuery query) {
-        List<DeptDTO> deptList = deptDomainService.getDeptList(query);
+        List<DeptDTO> deptList = deptApplicationService.getDeptList(query);
         return ResponseDTO.ok(deptList);
     }
 
@@ -59,7 +59,7 @@ public class SysDeptController extends BaseController {
         query.setDeptId(deptId);
         query.setExcludeCurrentDept(true);
 
-        List<DeptDTO> deptList = deptDomainService.getDeptList(query);
+        List<DeptDTO> deptList = deptApplicationService.getDeptList(query);
         return ResponseDTO.ok(deptList);
     }
 
@@ -69,7 +69,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:dept:query')")
     @GetMapping(value = "/{deptId}")
     public ResponseDTO<DeptDTO> getInfo(@PathVariable Long deptId) {
-        DeptDTO dept = deptDomainService.getDeptInfo(deptId);
+        DeptDTO dept = deptApplicationService.getDeptInfo(deptId);
         return ResponseDTO.ok(dept);
     }
 
@@ -78,7 +78,7 @@ public class SysDeptController extends BaseController {
      */
     @GetMapping("/dropdownList")
     public ResponseDTO<List> dropdownList() {
-        List<Tree<Long>> deptTree = deptDomainService.getDeptTree();
+        List<Tree<Long>> deptTree = deptApplicationService.getDeptTree();
         return ResponseDTO.ok(deptTree);
     }
 
@@ -87,7 +87,7 @@ public class SysDeptController extends BaseController {
      */
     @GetMapping(value = "/dropdownList/role/{roleId}")
     public ResponseDTO dropdownListForRole(@PathVariable("roleId") Long roleId) {
-        TreeSelectedDTO deptTreeForRole = deptDomainService.getDeptTreeForRole(roleId);
+        TreeSelectedDTO deptTreeForRole = deptApplicationService.getDeptTreeForRole(roleId);
         return ResponseDTO.ok(deptTreeForRole);
     }
 
@@ -98,7 +98,7 @@ public class SysDeptController extends BaseController {
     @AccessLog(title = "部门管理", businessType = BusinessType.INSERT)
     @PostMapping
     public ResponseDTO add(@RequestBody AddDeptCommand addCommand) {
-        deptDomainService.addDept(addCommand, AuthenticationUtils.getLoginUser());
+        deptApplicationService.addDept(addCommand, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
 
@@ -109,7 +109,7 @@ public class SysDeptController extends BaseController {
     @AccessLog(title = "部门管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public ResponseDTO edit(@RequestBody UpdateDeptCommand updateCommand) {
-        deptDomainService.updateDept(updateCommand, AuthenticationUtils.getLoginUser());
+        deptApplicationService.updateDept(updateCommand, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
 
@@ -120,7 +120,7 @@ public class SysDeptController extends BaseController {
     @AccessLog(title = "部门管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{deptId}")
     public ResponseDTO remove(@PathVariable @NotNull Long deptId) {
-        deptDomainService.removeDept(deptId);
+        deptApplicationService.removeDept(deptId);
         return ResponseDTO.ok();
     }
 }

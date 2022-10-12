@@ -7,11 +7,11 @@ import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.system.TreeSelectedDTO;
+import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.domain.system.menu.dto.MenuDTO;
-import com.agileboot.domain.system.menu.dto.RouterVo;
+import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.menu.model.MenuModel;
 import com.agileboot.domain.system.menu.model.RouterModel;
 import com.agileboot.domain.system.menu.query.MenuQuery;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
-public class MenuDomainService {
+public class MenuApplicationService {
 
     @Autowired
     private ISysMenuService menuService;
@@ -150,11 +150,11 @@ public class MenuDomainService {
     }
 
 
-    public List<RouterVo> buildRouterTree(List<Tree<Long>> trees) {
-        List<RouterVo> routers = new LinkedList<RouterVo>();
+    public List<RouterDTO> buildRouterTree(List<Tree<Long>> trees) {
+        List<RouterDTO> routers = new LinkedList<RouterDTO>();
         if (CollUtil.isNotEmpty(trees)) {
             for (Tree<Long> tree : trees) {
-                RouterVo routerVo = null;
+                RouterDTO routerDTO = null;
 
                 Object entity = tree.get("entity");
 
@@ -162,21 +162,21 @@ public class MenuDomainService {
                     RouterModel model = new RouterModel();
                     BeanUtil.copyProperties(entity, model, true);
 
-                    routerVo = model.produceDefaultRouterVO();
+                    routerDTO = model.produceDefaultRouterVO();
 
                     if(model.isMultipleLevelMenu(tree)) {
-                        routerVo = model.produceDirectoryRouterVO(buildRouterTree(tree.getChildren()));
+                        routerDTO = model.produceDirectoryRouterVO(buildRouterTree(tree.getChildren()));
                     }
 
                     if(model.isSingleLevelMenu()) {
-                        routerVo = model.produceMenuFrameRouterVO();
+                        routerDTO = model.produceMenuFrameRouterVO();
                     }
 
                     if(model.getParentId() == 0L && model.isInnerLink()) {
-                        routerVo = model.produceInnerLinkRouterVO();
+                        routerDTO = model.produceInnerLinkRouterVO();
                     }
 
-                    routers.add(routerVo);
+                    routers.add(routerDTO);
                 }
 
             }
@@ -186,7 +186,7 @@ public class MenuDomainService {
     }
 
 
-    public List<RouterVo> getRouterTree(Long userId) {
+    public List<RouterDTO> getRouterTree(Long userId) {
         List<Tree<Long>> trees = buildMenuEntityTree(userId);
         return buildRouterTree(trees);
     }

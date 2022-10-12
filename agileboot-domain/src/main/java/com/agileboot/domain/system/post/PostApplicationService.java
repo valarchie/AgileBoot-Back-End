@@ -4,7 +4,7 @@ import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
-public class PostDomainService {
+public class PostApplicationService {
 
     @Autowired
     private ISysPostService postService;

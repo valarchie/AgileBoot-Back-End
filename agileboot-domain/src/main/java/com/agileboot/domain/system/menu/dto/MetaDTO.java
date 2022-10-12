@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MetaVo {
+public class MetaDTO {
 
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字
@@ -33,13 +33,13 @@ public class MetaVo {
      */
     private String link;
 
-    public MetaVo(String title, String icon) {
+    public MetaDTO(String title, String icon) {
         this.title = title;
         this.icon = icon;
     }
 
 
-    public MetaVo(String title, String icon, String link) {
+    public MetaDTO(String title, String icon, String link) {
         this.title = title;
         this.icon = icon;
         if (HttpUtil.isHttp(link)) {
@@ -47,7 +47,7 @@ public class MetaVo {
         }
     }
 
-    public MetaVo(String title, String icon, boolean noCache, String link) {
+    public MetaDTO(String title, String icon, boolean noCache, String link) {
         this.title = title;
         this.icon = icon;
         this.noCache = noCache;

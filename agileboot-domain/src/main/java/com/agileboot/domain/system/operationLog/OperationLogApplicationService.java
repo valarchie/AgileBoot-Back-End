@@ -1,7 +1,7 @@
 package com.agileboot.domain.system.operationLog;
 
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.operationLog.dto.OperationLogDTO;
 import com.agileboot.domain.system.operationLog.query.OperationLogQuery;
 import com.agileboot.orm.entity.SysOperationLogEntity;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
-public class OperationLogDomainService {
+public class OperationLogApplicationService {
 
     @Autowired
     private ISysOperationLogService operationLogService;

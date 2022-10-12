@@ -1,4 +1,4 @@
-package com.agileboot.domain.system;
+package com.agileboot.domain.common.dto;
 
 import cn.hutool.core.lang.tree.Tree;
 import java.util.List;

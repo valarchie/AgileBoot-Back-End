@@ -1,4 +1,4 @@
-package com.agileboot.domain.common;
+package com.agileboot.domain.common.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

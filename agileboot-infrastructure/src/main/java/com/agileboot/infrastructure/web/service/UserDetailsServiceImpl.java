@@ -29,7 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private ISysUserService userService;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUserEntity userEntity = userService.getUserByUserName(username);

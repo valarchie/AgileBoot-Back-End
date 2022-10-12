@@ -5,11 +5,11 @@ import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
-import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.loginInfo.query.SearchUserQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
-import com.agileboot.domain.system.user.UserDomainService;
+import com.agileboot.domain.system.user.UserApplicationService;
 import com.agileboot.domain.system.user.dto.UserInfoDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.ChangeStatusCommand;
@@ -44,7 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class SysUserController extends BaseController {
 
     @Autowired
-    private UserDomainService userDomainService;
+    private UserApplicationService userApplicationService;
 
     /**
      * 获取用户列表
@@ -52,7 +52,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:user:list') AND @ss.checkDataScopeWithDeptId(#query.deptId)")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(SearchUserQuery query) {
-        PageDTO page = userDomainService.getUserList(query);
+        PageDTO page = userApplicationService.getUserList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -60,7 +60,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:user:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SearchUserQuery query) {
-        PageDTO userList = userDomainService.getUserList(query);
+        PageDTO userList = userApplicationService.getUserList(query);
         CustomExcelUtil.writeToResponse(userList.getRows(), UserDTO.class, response);
     }
 
@@ -73,7 +73,7 @@ public class SysUserController extends BaseController {
 
         for (Object command : commands) {
             AddUserCommand addUserCommand = (AddUserCommand) command;
-            userDomainService.addUser(loginUser, addUserCommand);
+            userApplicationService.addUser(loginUser, addUserCommand);
         }
         return ResponseDTO.ok();
     }
@@ -89,7 +89,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:user:query')")
     @GetMapping(value = {"/", "/{userId}"})
     public ResponseDTO<UserDetailDTO> getUserDetailInfo(@PathVariable(value = "userId", required = false) Long userId) {
-        UserDetailDTO userDetailInfo = userDomainService.getUserDetailInfo(userId);
+        UserDetailDTO userDetailInfo = userApplicationService.getUserDetailInfo(userId);
         return ResponseDTO.ok(userDetailInfo);
     }
 
@@ -101,7 +101,7 @@ public class SysUserController extends BaseController {
     @PostMapping
     public ResponseDTO add(@Validated @RequestBody AddUserCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userDomainService.addUser(loginUser, command);
+        userApplicationService.addUser(loginUser, command);
         return ResponseDTO.ok();
     }
 
@@ -113,7 +113,7 @@ public class SysUserController extends BaseController {
     @PutMapping
     public ResponseDTO edit(@Validated @RequestBody UpdateUserCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userDomainService.updateUser(loginUser, command);
+        userApplicationService.updateUser(loginUser, command);
         return ResponseDTO.ok();
     }
 
@@ -126,7 +126,7 @@ public class SysUserController extends BaseController {
     public ResponseDTO remove(@PathVariable List<Long> userIds) {
         BulkOperationCommand<Long> bulkDeleteCommand = new BulkOperationCommand(userIds);
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userDomainService.deleteUsers(loginUser, bulkDeleteCommand);
+        userApplicationService.deleteUsers(loginUser, bulkDeleteCommand);
         return ResponseDTO.ok();
     }
 
@@ -139,7 +139,7 @@ public class SysUserController extends BaseController {
     public ResponseDTO resetPassword(@PathVariable Long userId, @RequestBody ResetPasswordCommand command) {
         command.setUserId(userId);
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userDomainService.resetUserPassword(loginUser, command);
+        userApplicationService.resetUserPassword(loginUser, command);
         return ResponseDTO.ok();
     }
 
@@ -152,7 +152,7 @@ public class SysUserController extends BaseController {
     public ResponseDTO changeStatus(@PathVariable Long userId, @RequestBody ChangeStatusCommand command) {
         command.setUserId(userId);
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userDomainService.changeUserStatus(loginUser, command);
+        userApplicationService.changeUserStatus(loginUser, command);
         return ResponseDTO.ok();
     }
 
@@ -162,7 +162,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("@ss.hasPerm('system:user:query')")
     @GetMapping("/{userId}/role")
     public ResponseDTO<UserInfoDTO> getRoleOfUser(@PathVariable("userId") Long userId) {
-        UserInfoDTO userWithRole = userDomainService.getUserWithRole(userId);
+        UserInfoDTO userWithRole = userApplicationService.getUserWithRole(userId);
         return ResponseDTO.ok(userWithRole);
     }
 

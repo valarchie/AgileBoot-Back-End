@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Data
-public class RouterVo {
+public class RouterDTO {
 
     /**
      * 路由名字
@@ -51,11 +51,11 @@ public class RouterVo {
     /**
      * 其他元素
      */
-    private MetaVo meta;
+    private MetaDTO meta;
 
     /**
      * 子路由
      */
-    private List<RouterVo> children;
+    private List<RouterDTO> children;
 
 }
