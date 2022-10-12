@@ -3,7 +3,7 @@ package com.agileboot.domain.system.user.command;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.annotation.ExcelColumn;
-import com.agileboot.domain.system.user.UserModel;
+import com.agileboot.domain.system.user.model.UserModel;
 import lombok.Data;
 
 @Data

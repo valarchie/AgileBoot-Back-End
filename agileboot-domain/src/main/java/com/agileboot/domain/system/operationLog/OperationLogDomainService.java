@@ -2,6 +2,8 @@ package com.agileboot.domain.system.operationLog;
 
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.BulkOperationCommand;
+import com.agileboot.domain.system.operationLog.dto.OperationLogDTO;
+import com.agileboot.domain.system.operationLog.query.OperationLogQuery;
 import com.agileboot.orm.entity.SysOperationLogEntity;
 import com.agileboot.orm.service.ISysOperationLogService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

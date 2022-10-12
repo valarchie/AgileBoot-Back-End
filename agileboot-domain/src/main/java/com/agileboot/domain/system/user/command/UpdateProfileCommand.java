@@ -1,6 +1,6 @@
 package com.agileboot.domain.system.user.command;
 
-import com.agileboot.domain.system.user.UserModel;
+import com.agileboot.domain.system.user.model.UserModel;
 import lombok.Data;
 
 @Data
