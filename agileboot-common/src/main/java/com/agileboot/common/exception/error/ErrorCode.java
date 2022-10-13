@@ -243,7 +243,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         COMMON_REQUEST_PARAMETERS_INVALID(Module.COMMON, 3, "请求参数异常，{}"),
 
-        COMMON_REQUEST_METHOD_INVALID(Module.COMMON, 4, "请求方式不支持"),
+        COMMON_REQUEST_METHOD_INVALID(Module.COMMON, 4, "请求方式:{}不支持"),
 
         COMMON_NO_AUTHORIZATION(Module.PERMISSION, 1, "请求接口：{} 失败，用户未授权"),
 
@@ -283,9 +283,11 @@ public enum ErrorCode implements ErrorCodeInterface {
          */
         INVALID_PARAMETER(Module.COMMON, 1,"参数异常"),
 
-        UNKNOWN_ERROR(Module.COMMON, 2,"未知异常: {}"),
+        UNKNOWN_ERROR(Module.COMMON, 2,"未知异常, 请查看系统日志"),
 
         GET_ENUM_FAILED(Module.COMMON, 3,"获取枚举类型失败, 枚举类:{}"),
+
+        GET_CACHE_FAILED(Module.COMMON, 4, "获取缓存失败"),
 
         LOGIN_CAPTCHA_GENERATE_FAIL(Module.LOGIN, 1,"验证码生成失败"),
 

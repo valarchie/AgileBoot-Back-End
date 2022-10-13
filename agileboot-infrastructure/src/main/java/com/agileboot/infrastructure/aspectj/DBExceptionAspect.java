@@ -23,17 +23,19 @@ public class DBExceptionAspect {
     public void dbException() {
     }
 
+    /**
+     * 包装成ApiException 再交给globalExceptionHandler处理
+     * @param joinPoint
+     * @return
+     * @throws Throwable
+     */
     @Around("dbException()")
     public Object aroundDbException(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = null;
         try {
             proceed = joinPoint.proceed();
         } catch (Exception e) {
-//            log.error("catch the DB EXCEPTION, CLASS NAME : {} ; REQUEST：{} ;  EXCEPTION : {}",
-//                joinPoint.getSignature().toShortString(),
-//                joinPoint.getArgs(),
-//                e.getMessage());
-            throw new ApiException(e, ErrorCode.Internal.DB_INTERNAL_ERROR, e.getMessage());
+            throw new ApiException(e, ErrorCode.Internal.DB_INTERNAL_ERROR, e.getCause().getMessage());
         }
         return proceed;
     }

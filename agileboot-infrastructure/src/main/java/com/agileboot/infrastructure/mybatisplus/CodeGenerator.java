@@ -47,7 +47,7 @@ public class CodeGenerator {
         CodeGenerator generator = CodeGenerator.builder()
             .databaseUrl("jdbc:mysql://localhost:33066/agileboot")
             .username("root")
-            .password("Wds123123#")
+            .password("12345")
             .author("valarchie")
             .module("/agileboot-orm/target/generated-code")
             .parentPackage("com.agileboot")
