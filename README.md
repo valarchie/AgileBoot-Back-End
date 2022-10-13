@@ -133,7 +133,7 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 ### 注意事项
 - IDEA会自动将.properties文件的编码设置为ISO-8859-1,请在Settings > Editor > File Encodings > Properties Files > 设置为UTF-8
 - 如需要生成新的表，请使用CodeGenerator进行生成。（大概看一下代码就知道怎么填啦）
-- 项目基础环境搭建，请参考docker目录下的指南搭建。
+- 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：https://www.cnblogs.com/valarchie/p/16787097.html
 - 项目操作说明：https://www.cnblogs.com/valarchie/p/16777336.html
 
 ## AgileBoot前后端分离交流群
