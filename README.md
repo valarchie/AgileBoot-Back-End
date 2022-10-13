@@ -135,7 +135,7 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 - 如需要生成新的表，请使用CodeGenerator进行生成。（大概看一下代码就知道怎么填啦）
 - 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：https://www.cnblogs.com/valarchie/p/16787097.html
 - 项目操作说明：https://www.cnblogs.com/valarchie/p/16777336.html
-- 注意：管理后台的后端启动类是AgileBoo**Admin**Application
+- 注意：管理后台的后端启动类是AgileBoot**Admin**Application
 
 ## AgileBoot前后端分离交流群
 <!-- TODO 整改 -->
