@@ -5,6 +5,8 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
+import com.agileboot.common.exception.ApiException;
+import com.agileboot.common.exception.error.ErrorCode.Internal;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -56,25 +58,25 @@ public class CustomExcelUtil {
 
     }
 
-    public static List<?> readFromResponse(Class clazz,  MultipartFile file) {
+    public static List<?> readFromRequest(Class clazz,  MultipartFile file) {
+        ExcelReader reader;
 
-        ExcelReader reader = null;
         try {
             reader = ExcelUtil.getReader(file.getInputStream());
+            // 去除掉excel中的html标签语言  避免xss攻击
+            reader.setCellEditor(new TrimXssEditor());
         } catch (IOException e) {
             e.printStackTrace();
+            throw new ApiException(Internal.UNKNOWN_ERROR);
         }
-
 
         Field[] fields = clazz.getDeclaredFields();
 
         //自定义标题别名
-        if (fields != null) {
-            for (Field field : fields) {
-                ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
-                if (annotation != null) {
-                    reader.addHeaderAlias(annotation.name(), field.getName());
-                }
+        for (Field field : fields) {
+            ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+            if (annotation != null) {
+                reader.addHeaderAlias(annotation.name(), field.getName());
             }
         }
 
