@@ -34,30 +34,28 @@ public class ResponseDTO<T> {
         return build(null, ErrorCode.FAIL);
     }
 
+    public static <T> ResponseDTO<T> fail(T data) {
+        return build(data, ErrorCode.FAIL);
+    }
+
     public static <T> ResponseDTO<T> fail(ErrorCodeInterface code) {
         return build(null, code);
     }
 
-    public static <T> ResponseDTO<T> fail(ApiException exception) {
-        return new ResponseDTO<>(exception.getErrorCode().code(), exception.getMessage(), null);
-    }
-
     public static <T> ResponseDTO<T> fail(ErrorCodeInterface code, Object... args) {
-        return build( code, args);
+        return build(null, code, args);
     }
 
-    public static <T> ResponseDTO<T> fail(T data) { return build(ErrorCode.FAIL, data); }
-
-    public static <T> ResponseDTO<T> build(T data, ErrorCodeInterface code) {
-        return new ResponseDTO<>(code.code(), code.message(), data);
-    }
-
-    public static <T> ResponseDTO<T> build(ErrorCodeInterface code, Object... args) {
-        return new ResponseDTO<>(code.code(), StrUtil.format(code.message(), args), null);
+    public static <T> ResponseDTO<T> fail(ApiException exception) {
+        return build(exception.getErrorCode().code(), exception.getMessage());
     }
 
     public static <T> ResponseDTO<T> build(T data, ErrorCodeInterface code, Object... args) {
         return new ResponseDTO<>(code.code(), StrUtil.format(code.message(), args), data);
+    }
+
+    public static <T> ResponseDTO<T> build(Integer code, String msg) {
+        return new ResponseDTO<>(code, msg, null);
     }
 
 }
