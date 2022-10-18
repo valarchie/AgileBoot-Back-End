@@ -1,7 +1,8 @@
 package com.agileboot.common.exception.error;
 
 /**
- * 常用错误码 以及 保留错误码
+ * 错误码集合
+ *
  * @author valarchie
  */
 public enum ErrorCode implements ErrorCodeInterface {
@@ -16,15 +17,13 @@ public enum ErrorCode implements ErrorCodeInterface {
      * 由于系统内的错误码都是独一无二的，所以错误码应该放在common包集中管理
      */
     // -------------- 普通错误码 及保留错误码 ---------------
-    SUCCESS(0,"操作成功"),
+    SUCCESS(0, "操作成功"),
     FAIL(9999, "操作失败"),
 
-
-    UNKNOWN_ERROR(99999,"未知错误");
+    UNKNOWN_ERROR(99999, "未知错误");
 
     private final int code;
     private final String msg;
-
 
     ErrorCode(int code, String msg) {
         this.code = code;
@@ -44,17 +43,17 @@ public enum ErrorCode implements ErrorCodeInterface {
     /**
      * 40000~49999 为业务逻辑 错误码 （无代码异常，代码正常流转，并返回提示给用户）
      */
-    public enum Business implements ErrorCodeInterface{
+    public enum Business implements ErrorCodeInterface {
 
-        // ----------------------------- Common -----------------------------------------
+        // ----------------------------- Common --------------------------------------
 
-        OBJECT_NOT_FOUND(Module.COMMON, 1, "找不到ID为{} 的{}"),
+        OBJECT_NOT_FOUND(Module.COMMON, 1, "找不到ID为 {} 的 {}"),
 
         UNSUPPORTED_OPERATION(Module.COMMON, 2, "不支持的操作"),
 
         BULK_DELETE_IDS_IS_INVALID(Module.COMMON, 3, "批量参数ID列表为空"),
 
-        // ----------------------------- Permission -----------------------------------------
+        // ----------------------------- Permission -----------------------------------
 
         FORBIDDEN_TO_MODIFY_ADMIN(Module.PERMISSION, 1, "不允许修改管理员的信息"),
 
@@ -66,14 +65,13 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         LOGIN_ERROR(Module.LOGIN, 2, "登录失败：{}"),
 
-        CAPTCHA_CODE_WRONG(Module.LOGIN, 3, "验证码错误"),
+        LOGIN_CAPTCHA_CODE_WRONG(Module.LOGIN, 3, "验证码错误"),
 
-        CAPTCHA_CODE_EXPIRE(Module.LOGIN, 4, "验证码过期"),
+        LOGIN_CAPTCHA_CODE_EXPIRE(Module.LOGIN, 4, "验证码过期"),
 
-        CAPTCHA_CODE_NULL(Module.LOGIN, 5, "验证码为空"),
+        LOGIN_CAPTCHA_CODE_NULL(Module.LOGIN, 5, "验证码为空"),
 
-
-// ----------------------------- Upload -----------------------------------------
+        // ----------------------------- Upload -----------------------------------------
 
         UPLOAD_FILE_TYPE_NOT_ALLOWED(Module.UPLOAD, 1, "不允许上传的文件类型，仅允许：{}"),
 
@@ -91,7 +89,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         CONFIG_VALUE_IS_NOT_IN_OPTIONS(Module.CONFIG, 2, "参数键值不存在列表中"),
 
-        // ----------------------------- Post -----------------------------------------
+        // ------------------------------- Post --------------------------------------------
 
         POST_NAME_IS_NOT_UNIQUE(Module.POST, 1, "岗位名称:{}, 已存在"),
 
@@ -113,7 +111,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         DEPT_PARENT_DEPT_NO_EXIST_OR_DISABLED(Module.DEPT, 6, "该父级部门不存在或已停用"),
 
-        // -------------------------------  Menu -------------------------------------------------------
+        // -------------------------------  Menu -------------------------------------------------
 
         MENU_NAME_IS_NOT_UNIQUE(Module.MENU, 1, "新增菜单:{} 失败，菜单名称已存在"),
 
@@ -125,7 +123,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         MENU_ALREADY_ASSIGN_TO_ROLE_NOT_ALLOW_DELETE(Module.MENU, 5, "菜单已分配给角色，不允许"),
 
-        // -------------------------------- Role ----------------------------------------------------
+        // -------------------------------- Role -------------------------------------------------
 
         ROLE_NAME_IS_NOT_UNIQUE(Module.ROLE, 1, "角色名称：{}, 已存在"),
 
@@ -135,9 +133,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         ROLE_ALREADY_ASSIGN_TO_USER(Module.ROLE, 4, "角色已分配给用户，请先取消分配，再删除角色"),
 
-
-        // ------------------------  User ------------------------------
-
+        // ---------------------------------- User -----------------------------------------------
 
         USER_NON_EXIST(Module.USER, 1, "登录用户：{} 不存在"),
 
@@ -203,7 +199,7 @@ public enum ErrorCode implements ErrorCodeInterface {
         /**
          * 支付宝调用失败
          */
-        FAIL_TO_PAY_ON_ALIPAY(Module.COMMON, 1,"支付宝调用失败");
+        FAIL_TO_PAY_ON_ALIPAY(Module.COMMON, 1, "支付宝调用失败");
 
 
         private final int code;
@@ -222,8 +218,9 @@ public enum ErrorCode implements ErrorCodeInterface {
         }
 
         @Override
-        public String message() { return this.msg; }
-
+        public String message() {
+            return this.msg;
+        }
 
     }
 
@@ -233,22 +230,20 @@ public enum ErrorCode implements ErrorCodeInterface {
      */
     public enum Client implements ErrorCodeInterface {
 
-
         /**
          * 客户端错误码
          */
-        COMMON_FORBIDDEN_TO_CALL(Module.COMMON, 1,"禁止调用"),
+        COMMON_FORBIDDEN_TO_CALL(Module.COMMON, 1, "禁止调用"),
 
         COMMON_REQUEST_TO_OFTEN(Module.COMMON, 2, "调用太过频繁"),
 
         COMMON_REQUEST_PARAMETERS_INVALID(Module.COMMON, 3, "请求参数异常，{}"),
 
-        COMMON_REQUEST_METHOD_INVALID(Module.COMMON, 4, "请求方式:{}不支持"),
+        COMMON_REQUEST_METHOD_INVALID(Module.COMMON, 4, "请求方式: {} 不支持"),
 
         COMMON_NO_AUTHORIZATION(Module.PERMISSION, 1, "请求接口：{} 失败，用户未授权"),
 
         ;
-
 
         private final int code;
         private final String msg;
@@ -277,26 +272,24 @@ public enum ErrorCode implements ErrorCodeInterface {
      * 10000~19999是内部错误码  例如 框架有问题之类的
      */
     public enum Internal implements ErrorCodeInterface {
-
         /**
          * 内部错误码
          */
-        INVALID_PARAMETER(Module.COMMON, 1,"参数异常"),
+        INVALID_PARAMETER(Module.COMMON, 1, "参数异常"),
 
-        UNKNOWN_ERROR(Module.COMMON, 2,"未知异常, 请查看系统日志"),
+        UNKNOWN_ERROR(Module.COMMON, 2, "未知异常, 请查看系统日志"),
 
-        GET_ENUM_FAILED(Module.COMMON, 3,"获取枚举类型失败, 枚举类:{}"),
+        GET_ENUM_FAILED(Module.COMMON, 3, "获取枚举类型失败, 枚举类: {}"),
 
         GET_CACHE_FAILED(Module.COMMON, 4, "获取缓存失败"),
 
-        LOGIN_CAPTCHA_GENERATE_FAIL(Module.LOGIN, 1,"验证码生成失败"),
+        LOGIN_CAPTCHA_GENERATE_FAIL(Module.LOGIN, 1, "验证码生成失败"),
 
-        INVALID_TOKEN(Module.PERMISSION, 1,"token异常"),
+        INVALID_TOKEN(Module.PERMISSION, 1, "token异常"),
 
-        DB_INTERNAL_ERROR(Module.DB, 1,  "数据库异常:{}"),
+        DB_INTERNAL_ERROR(Module.DB, 1, "数据库异常: {}"),
 
         ;
-
 
         private final int code;
         private final String msg;
@@ -319,6 +312,5 @@ public enum ErrorCode implements ErrorCodeInterface {
         }
 
     }
-
 
 }

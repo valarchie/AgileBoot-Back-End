@@ -8,7 +8,7 @@ public interface ErrorCodeInterface {
 
     String message();
 
-    default String i18n() {
+    default String i18nKey() {
         return code() + "_" + name();
     }
 

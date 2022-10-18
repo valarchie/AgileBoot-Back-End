@@ -173,13 +173,13 @@ public class LoginService {
         redisCacheService.captchaCache.delete(uuid);
         if (captcha == null) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_FAIL,
-                ErrorCode.Business.CAPTCHA_CODE_EXPIRE.message()));
-            throw new ApiException(ErrorCode.Business.CAPTCHA_CODE_EXPIRE);
+                ErrorCode.Business.LOGIN_CAPTCHA_CODE_EXPIRE.message()));
+            throw new ApiException(ErrorCode.Business.LOGIN_CAPTCHA_CODE_EXPIRE);
         }
         if (!code.equalsIgnoreCase(captcha)) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_FAIL,
-                ErrorCode.Business.CAPTCHA_CODE_WRONG.message()));
-            throw new ApiException(ErrorCode.Business.CAPTCHA_CODE_WRONG);
+                ErrorCode.Business.LOGIN_CAPTCHA_CODE_WRONG.message()));
+            throw new ApiException(ErrorCode.Business.LOGIN_CAPTCHA_CODE_WRONG);
         }
     }
 

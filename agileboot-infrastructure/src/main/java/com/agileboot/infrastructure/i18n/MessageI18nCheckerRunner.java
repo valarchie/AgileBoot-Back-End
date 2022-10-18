@@ -35,10 +35,10 @@ public class MessageI18nCheckerRunner implements ApplicationRunner {
         for (Object errorCode : allErrorCodes) {
             ErrorCodeInterface errorInterface = (ErrorCodeInterface)errorCode;
             try {
-                String message = MessageUtils.message(errorInterface.i18n());
+                String message = MessageUtils.message(errorInterface.i18nKey());
             } catch (Exception e) {
                 log.warn(" in the file /resources/i18n/messages.properties, could not find i18n message for:"
-                    + errorInterface.i18n());
+                    + errorInterface.i18nKey());
             }
         }
     }
