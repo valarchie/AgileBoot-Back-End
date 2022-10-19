@@ -34,7 +34,7 @@ public class OnlineIpRegionUtil {
         }
         if (AgileBootConfig.isAddressEnabled()) {
             try {
-                String rspStr = HttpUtil.get(ADDRESS_QUERY_SITE + "ip=" + ip + "&json=true",
+                String rspStr = HttpUtil.get(ADDRESS_QUERY_SITE + "?ip=" + ip + "&json=true",
                     CharsetUtil.CHARSET_GBK);
 
                 if (StrUtil.isEmpty(rspStr)) {

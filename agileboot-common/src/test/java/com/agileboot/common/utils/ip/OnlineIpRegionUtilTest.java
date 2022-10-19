@@ -22,13 +22,10 @@ public class OnlineIpRegionUtilTest {
 
     @Test
     public void getIpRegionWithIpv4() {
-        IpRegion ipRegion = OnlineIpRegionUtil.getIpRegion("110.81.189.80");
+        IpRegion ipRegion = OnlineIpRegionUtil.getIpRegion("120.42.247.130");
 
-        if (ipRegion != null) {
-            Assert.assertEquals("中国", ipRegion.getCountry());
-            Assert.assertEquals("福建省", ipRegion.getProvince());
-            Assert.assertEquals("泉州市", ipRegion.getCity());
-        }
+        Assert.assertEquals("福建省", ipRegion.getProvince());
+        Assert.assertEquals("泉州市", ipRegion.getCity());
     }
 
     @Test
