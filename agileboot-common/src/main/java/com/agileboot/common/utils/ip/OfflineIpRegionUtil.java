@@ -6,6 +6,7 @@ import java.io.InputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.lionsoul.ip2region.xdb.Searcher;
+import sun.net.util.IPAddressUtil;
 
 @Slf4j
 public class OfflineIpRegionUtil {
@@ -34,13 +35,19 @@ public class OfflineIpRegionUtil {
     public static IpRegion getIpRegion(String ip) {
         try {
 
-            String rawRegion = searcher.search(ip);
-            if (StrUtil.isNotEmpty(rawRegion)) {
-                String[] split = rawRegion.split("\\|");
-                return new IpRegion(split[0], split[1], split[2], split[3], split[4]);
+            if (StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip)) {
+                return null;
             }
 
-            return null;
+            String rawRegion = searcher.search(ip);
+
+            if (StrUtil.isEmpty(rawRegion)) {
+                return null;
+            }
+
+            String[] split = rawRegion.split("\\|");
+            return new IpRegion(split[0], split[1], split[2], split[3], split[4]);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

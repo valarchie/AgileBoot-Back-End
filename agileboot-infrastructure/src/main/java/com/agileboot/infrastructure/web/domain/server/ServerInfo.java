@@ -50,7 +50,7 @@ public class ServerInfo {
     /**
      * 磁盘相关信息
      */
-    private List<DiskInfo> diskInfos = new LinkedList<DiskInfo>();
+    private List<DiskInfo> diskInfos = new LinkedList<>();
 
     public static ServerInfo fillInfo() {
         ServerInfo serverInfo = new ServerInfo();

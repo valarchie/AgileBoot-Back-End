@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -29,6 +30,7 @@ import org.springframework.context.annotation.Primary;
  * @author ruoyi
  */
 @Configuration
+@Slf4j
 public class DruidConfig {
 
     @Bean
@@ -46,10 +48,10 @@ public class DruidConfig {
         return druidProperties.dataSource(dataSource);
     }
 
-    @Bean(name = "dynamicDataSource")
+//    @Bean(name = "dynamicDataSource")
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource) {
-        Map<Object, Object> targetDataSources = new HashMap<>();
+        Map<Object, Object> targetDataSources = new HashMap<>(8);
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
         setDataSource(targetDataSources, DataSourceType.SLAVE.name(), "slaveDataSource");
         return new DynamicDataSource(masterDataSource, targetDataSources);
@@ -67,6 +69,7 @@ public class DruidConfig {
             DataSource dataSource = SpringUtil.getBean(beanName);
             targetDataSources.put(sourceName, dataSource);
         } catch (Exception e) {
+            log.error("设置数据库失败", e);
         }
     }
 

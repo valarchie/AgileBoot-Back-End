@@ -151,10 +151,10 @@ public class MenuApplicationService {
 
 
     public List<RouterDTO> buildRouterTree(List<Tree<Long>> trees) {
-        List<RouterDTO> routers = new LinkedList<RouterDTO>();
+        List<RouterDTO> routers = new LinkedList<>();
         if (CollUtil.isNotEmpty(trees)) {
             for (Tree<Long> tree : trees) {
-                RouterDTO routerDTO = null;
+                RouterDTO routerDTO;
 
                 Object entity = tree.get("entity");
 

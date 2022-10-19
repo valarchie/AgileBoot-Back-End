@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.interceptor.repeatSubmit;
+package com.agileboot.infrastructure.interceptor.repeatsubmit;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;

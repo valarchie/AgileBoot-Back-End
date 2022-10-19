@@ -7,6 +7,7 @@ import cn.hutool.http.HttpUtil;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.utils.jackson.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
+import sun.net.util.IPAddressUtil;
 
 /**
  * query geography address from ip
@@ -23,6 +24,10 @@ public class OnlineIpRegionUtil {
 
 
     public static IpRegion getIpRegion(String ip) {
+        if(StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip)) {
+            return null;
+        }
+
         // no need to query address for inner ip
         if (NetUtil.isInnerIP(ip)) {
             return new IpRegion("internal", "IP");
@@ -31,6 +36,7 @@ public class OnlineIpRegionUtil {
             try {
                 String rspStr = HttpUtil.get(ADDRESS_QUERY_SITE + "ip=" + ip + "&json=true",
                     CharsetUtil.CHARSET_GBK);
+
                 if (StrUtil.isEmpty(rspStr)) {
                     log.error("获取地理位置异常 {}", ip);
                     return null;

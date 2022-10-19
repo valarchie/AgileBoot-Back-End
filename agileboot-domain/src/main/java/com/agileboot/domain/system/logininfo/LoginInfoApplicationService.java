@@ -1,9 +1,9 @@
-package com.agileboot.domain.system.loginInfo;
+package com.agileboot.domain.system.logininfo;
 
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
-import com.agileboot.domain.system.loginInfo.dto.LoginInfoDTO;
-import com.agileboot.domain.system.loginInfo.query.LoginInfoQuery;
+import com.agileboot.domain.system.logininfo.dto.LoginInfoDTO;
+import com.agileboot.domain.system.logininfo.query.LoginInfoQuery;
 import com.agileboot.orm.entity.SysLoginInfoEntity;
 import com.agileboot.orm.service.ISysLoginInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

@@ -20,8 +20,8 @@ public class MenuQuery extends AbstractQuery {
 
         QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(StrUtil.isNotEmpty(menuName), columnName("menu_name"), menuName)
-            .eq(isVisible!=null, "is_visible", isVisible)
-            .eq(status!=null, "status", status);
+            .eq(isVisible != null, "is_visible", isVisible)
+            .eq(status != null, "status", status);
 
         queryWrapper.orderBy(true, true, Arrays.asList("parent_id", "order_num"));
         return queryWrapper;

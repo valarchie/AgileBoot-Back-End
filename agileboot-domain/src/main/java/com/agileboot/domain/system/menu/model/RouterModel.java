@@ -192,7 +192,9 @@ public class RouterModel extends SysMenuEntity {
      * @return 结果
      */
     public boolean isParentView() {
-        return StrUtil.isEmpty(getComponent()) && getParentId().intValue() != 0 && MenuTypeEnum.DIRECTORY.getValue() == getMenuType();
+        return StrUtil.isEmpty(getComponent())
+            && getParentId().intValue() != 0
+            && MenuTypeEnum.DIRECTORY.getValue().equals(getMenuType());
     }
 
 

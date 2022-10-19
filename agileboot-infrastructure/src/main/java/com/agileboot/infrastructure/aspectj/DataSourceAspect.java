@@ -27,7 +27,6 @@ public class DataSourceAspect {
     @Pointcut("@annotation(com.agileboot.infrastructure.annotations.DataSource)"
         + "|| @within(com.agileboot.infrastructure.annotations.DataSource)")
     public void dsPointCut() {
-
     }
 
     @Around("dsPointCut()")

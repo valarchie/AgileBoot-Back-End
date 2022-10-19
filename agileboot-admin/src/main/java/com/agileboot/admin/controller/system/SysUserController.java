@@ -6,7 +6,7 @@ import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
 import com.agileboot.domain.common.command.BulkOperationCommand;
-import com.agileboot.domain.system.loginInfo.query.SearchUserQuery;
+import com.agileboot.domain.system.logininfo.query.SearchUserQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
 import com.agileboot.domain.system.user.UserApplicationService;

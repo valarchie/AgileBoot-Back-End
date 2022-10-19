@@ -24,8 +24,10 @@ public class CaptchaMathTextCreator extends DefaultTextCreator {
         return mathExpression.toString();
     }
 
-    @SuppressWarnings("AlibabaEnumConstantsMustHaveComment")
     enum Operand {
+        /**
+         * 加减乘除操作  用来生成验证码的图片表达式
+         */
         ADD {
             @Override
             public int generateMathExpression(int x, int y, StringBuilder expression) {

@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class AddDeptCommand {
     /**

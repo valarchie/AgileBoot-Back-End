@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.interceptor.repeatSubmit;
+package com.agileboot.infrastructure.interceptor.repeatsubmit;
 
 import java.util.Objects;
 import lombok.Data;

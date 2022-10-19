@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author valarchie
  */
-@SuppressWarnings("AlibabaTransactionMustHaveRollback")
 @Service
 public class DeptApplicationService {
 

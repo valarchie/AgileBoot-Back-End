@@ -40,10 +40,6 @@ public enum CommonAnswerEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static CommonAnswerEnum getDefault() {
-        return YES;
-    }
-
     public static String getDictName() {
         return "sys_yes_no";
     }

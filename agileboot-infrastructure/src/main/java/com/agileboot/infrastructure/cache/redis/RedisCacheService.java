@@ -2,7 +2,7 @@ package com.agileboot.infrastructure.cache.redis;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.RedisUtil;
-import com.agileboot.infrastructure.interceptor.repeatSubmit.RepeatRequest;
+import com.agileboot.infrastructure.interceptor.repeatsubmit.RepeatRequest;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.service.ISysUserService;

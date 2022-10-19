@@ -85,59 +85,52 @@ public class CodeGenerator {
      */
     private void globalConfig(FastAutoGenerator generator) {
         generator.globalConfig(
-            builder -> {
-                builder
-                    // override old code of file
-                    .fileOverride()
-                    .outputDir(System.getProperty("user.dir") + module + "/src/main/java")
-                    // use date type under package of java utils
-                    .dateType(DateType.ONLY_DATE)
-                    // 配置生成文件中的author
-                    .author(author)
+            builder -> builder
+                // override old code of file
+                .fileOverride()
+                .outputDir(System.getProperty("user.dir") + module + "/src/main/java")
+                // use date type under package of java utils
+                .dateType(DateType.ONLY_DATE)
+                // 配置生成文件中的author
+                .author(author)
 //                    .enableKotlin()
-                    // generate swagger annotations.
-                    .enableSwagger()
-                    // 注释日期的格式
-                    .commentDate("yyyy-MM-dd")
-                    .build();
-            });
+                // generate swagger annotations.
+                .enableSwagger()
+                // 注释日期的格式
+                .commentDate("yyyy-MM-dd")
+                .build());
     }
 
 
     private void packageConfig(FastAutoGenerator generator) {
-        generator.packageConfig(builder -> {
-            builder
-                // parent package name
-                .parent(parentPackage)
-                .moduleName("orm")
-                .entity("entity")
-                .service("service")
-                .serviceImpl("service.impl")
-                .mapper("mapper")
-                .xml("mapper.xml")
-                .controller("controller")
-                .other("other")
-                // define dir related to OutputFileType(entity,mapper,service,controller,mapper.xml)
-                .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + module
-                    + "/src/main/resources/mapper/system/test"))
-                .build();
-
-        });
+        generator.packageConfig(builder -> builder
+            // parent package name
+            .parent(parentPackage)
+            .moduleName("orm")
+            .entity("entity")
+            .service("service")
+            .serviceImpl("service.impl")
+            .mapper("mapper")
+            .xml("mapper.xml")
+            .controller("controller")
+            .other("other")
+            // define dir related to OutputFileType(entity,mapper,service,controller,mapper.xml)
+            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + module
+                + "/src/main/resources/mapper/system/test"))
+            .build());
     }
 
     private void templateConfig(FastAutoGenerator generator) {
         //  customization code template. disable if you don't have specific requirement.
-        generator.templateConfig(builder -> {
-            builder
-                .disable(TemplateType.ENTITY)
-                .entity("/templates/entity.java")
-                .service("/templates/service.java")
-                .serviceImpl("/templates/serviceImpl.java")
-                .mapper("/templates/mapper.java")
-                .mapperXml("/templates/mapper.xml")
-                .controller("/templates/controller.java")
-                .build();
-        });
+        generator.templateConfig(builder -> builder
+            .disable(TemplateType.ENTITY)
+            .entity("/templates/entity.java")
+            .service("/templates/service.java")
+            .serviceImpl("/templates/serviceImpl.java")
+            .mapper("/templates/mapper.java")
+            .mapperXml("/templates/mapper.xml")
+            .controller("/templates/controller.java")
+            .build());
     }
 
     private void injectionConfig(FastAutoGenerator generator) {

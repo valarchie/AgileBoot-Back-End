@@ -42,12 +42,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         String roleKey = getRoleKey(userEntity.getUserId());
         Set<String> menuPermissions = getMenuPermissions(userEntity.getUserId());
-//        SysRoleEntity roleById = roleService.getById(userEntity.getRoleId());
-//
-//        Role role = new Role();
-//        if(roleById != null) {
-//            role = new Role(roleById);
-//        }
 
         return new LoginUser(userEntity, roleKey, menuPermissions);
     }
@@ -74,7 +68,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @return 菜单权限信息
      */
     public Set<String> getMenuPermissions(Long userId) {
-        Set<String> perms = new HashSet<String>();
+        Set<String> perms = new HashSet<>();
         // 管理员拥有所有权限
         if (LoginUser.isAdmin(userId)) {
             perms.add("*:*:*");

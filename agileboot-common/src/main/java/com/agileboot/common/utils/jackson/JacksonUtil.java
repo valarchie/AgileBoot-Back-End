@@ -317,7 +317,7 @@ public class JacksonUtil {
      * 序列化为JSON
      */
     public static <V> void toFile(String path, List<V> list) {
-        try (Writer writer = new FileWriter(new File(path), true)) {
+        try (Writer writer = new FileWriter(path, true)) {
             mapper.writer().writeValues(writer).writeAll(list);
         } catch (Exception e) {
             throw new JacksonException(StrUtil.format("jackson to file error, path: {}, list: {}", path, list), e);
@@ -328,7 +328,7 @@ public class JacksonUtil {
      * 序列化为JSON
      */
     public static <V> void toFile(String path, V v) {
-        try (Writer writer = new FileWriter(new File(path), true)) {
+        try (Writer writer = new FileWriter(path, true)) {
             mapper.writer().writeValues(writer).write(v);
         } catch (Exception e) {
             throw new JacksonException(StrUtil.format("jackson to file error, path: {}, data: {}", path, v), e);

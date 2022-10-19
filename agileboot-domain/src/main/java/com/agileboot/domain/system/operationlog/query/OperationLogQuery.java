@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.operationLog.query;
+package com.agileboot.domain.system.operationlog.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.entity.SysLoginInfoEntity;
@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * @author valarchie
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OperationLogQuery extends AbstractPageQuery {

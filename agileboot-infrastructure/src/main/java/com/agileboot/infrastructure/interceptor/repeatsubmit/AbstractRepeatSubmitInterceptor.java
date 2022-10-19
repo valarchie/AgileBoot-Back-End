@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.interceptor.repeatSubmit;
+package com.agileboot.infrastructure.interceptor.repeatsubmit;
 
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.core.dto.ResponseDTO;

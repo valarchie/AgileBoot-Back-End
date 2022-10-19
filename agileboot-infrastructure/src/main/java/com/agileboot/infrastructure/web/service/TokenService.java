@@ -1,5 +1,6 @@
 package com.agileboot.infrastructure.web.service;
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
@@ -114,9 +115,7 @@ public class TokenService {
         setUserAgent(loginUser);
         refreshToken(loginUser);
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put(Token.LOGIN_USER_KEY, token);
-        return createToken(claims);
+        return createToken(MapUtil.of(Token.LOGIN_USER_KEY, token));
     }
 
     /**

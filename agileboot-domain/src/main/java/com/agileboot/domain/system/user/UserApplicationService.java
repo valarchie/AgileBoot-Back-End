@@ -6,7 +6,7 @@ import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.common.command.BulkOperationCommand;
-import com.agileboot.domain.system.loginInfo.query.SearchUserQuery;
+import com.agileboot.domain.system.logininfo.query.SearchUserQuery;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;

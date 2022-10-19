@@ -2,7 +2,7 @@ package com.agileboot.infrastructure.config;
 
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants;
-import com.agileboot.infrastructure.interceptor.repeatSubmit.AbstractRepeatSubmitInterceptor;
+import com.agileboot.infrastructure.interceptor.repeatsubmit.AbstractRepeatSubmitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +26,11 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /** 本地文件上传路径 */
+        /* 本地文件上传路径 */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
             .addResourceLocations("file:" + AgileBootConfig.getProfile() + "/");
 
-        /** swagger配置 */
+        /* swagger配置 */
         registry.addResourceHandler("/swagger-ui/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }
