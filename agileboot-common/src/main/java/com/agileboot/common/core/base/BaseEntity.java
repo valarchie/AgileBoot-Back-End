@@ -7,12 +7,14 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Entity基类
  *
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class BaseEntity<T extends Model<?>> extends Model<T> {
 

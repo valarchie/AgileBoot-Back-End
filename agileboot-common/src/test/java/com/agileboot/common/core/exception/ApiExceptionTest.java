@@ -9,16 +9,21 @@ public class ApiExceptionTest {
     @Test
     public void testVarargsWithArrayArgs() {
         String errorMsg = "these parameters are null: %s, %s, %s.";
-
         Object[] array = new Object[] { "param1" , "param2" , "param3"};
 
-        String format1 = String.format(errorMsg, array);
-        String format2 = String.format(errorMsg, "param1", "param2", "param3");
+        String formatWithArray = String.format(errorMsg, array);
+        String formatWithVarargs = String.format(errorMsg, "param1", "param2", "param3");
 
-        System.out.println(format1);
-        System.out.println(format2);
+        Assert.assertEquals(formatWithVarargs, formatWithArray);
+    }
 
-        Assert.assertEquals(format1, format2);
+    @Test
+    public void testVarargsWithNullArgs() {
+        String errorMsg = "these parameters are null: %s, %s, %s.";
+
+        String format = String.format(errorMsg, "param1", null, null);
+
+        Assert.assertEquals("these parameters are null: param1, null, null.", format);
     }
 
 }

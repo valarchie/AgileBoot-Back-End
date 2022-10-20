@@ -4,6 +4,7 @@ package com.agileboot.common.utils.jackson;
  * @author valarchie
  */
 public class JacksonException extends RuntimeException {
+
     public JacksonException() {
         super();
     }

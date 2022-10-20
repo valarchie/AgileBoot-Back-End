@@ -1,4 +1,4 @@
-package com.agileboot.common.utils;
+package com.agileboot.common.utils.jackson;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

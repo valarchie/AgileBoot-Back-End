@@ -2,7 +2,7 @@ package com.agileboot.orm.query;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.common.utils.time.DatePicker;
+import com.agileboot.common.utils.time.DatePickUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Date;
 import java.util.Map;
@@ -60,10 +60,10 @@ public abstract class AbstractQuery {
 
     @SuppressWarnings("unchecked")
     public void addTimeCondition(QueryWrapper queryWrapper, String fieldName) {
-        if(queryWrapper!=null) {
+        if (queryWrapper != null) {
             queryWrapper
-                .ge(beginTime != null, fieldName, DatePicker.getBeginOfTheDay(beginTime))
-                .le(endTime != null, fieldName, DatePicker.getEndOfTheDay(endTime));
+                .ge(beginTime != null, fieldName, DatePickUtil.getBeginOfTheDay(beginTime))
+                .le(endTime != null, fieldName, DatePickUtil.getEndOfTheDay(endTime));
         }
     }
 

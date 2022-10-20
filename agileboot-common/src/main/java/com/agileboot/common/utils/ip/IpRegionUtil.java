@@ -1,6 +1,7 @@
 package com.agileboot.common.utils.ip;
 
 /**
+ * IP地理位置工具类
  * @author valarchie
  */
 public class IpRegionUtil {
