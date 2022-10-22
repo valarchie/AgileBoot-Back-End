@@ -1,15 +1,19 @@
 package com.agileboot.common.config;
 
+import com.agileboot.common.constant.Constants.UploadDir;
+import java.io.File;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
  * 读取项目相关配置
  *
- * @author ruoyi
+ * @author valarchie
  */
 @Component
 @ConfigurationProperties(prefix = "agileboot")
+@Data
 public class AgileBootConfig {
 
     /**
@@ -35,7 +39,7 @@ public class AgileBootConfig {
     /**
      * 上传路径
      */
-    private static String profile;
+    private static String fileBaseDir;
 
     /**
      * 获取地址开关
@@ -52,44 +56,12 @@ public class AgileBootConfig {
      */
     private static String rsaPrivateKey;
 
-    public String getName() {
-        return name;
+    public static String getFileBaseDir() {
+        return fileBaseDir;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getCopyrightYear() {
-        return copyrightYear;
-    }
-
-    public void setCopyrightYear(String copyrightYear) {
-        this.copyrightYear = copyrightYear;
-    }
-
-    public boolean isDemoEnabled() {
-        return demoEnabled;
-    }
-
-    public void setDemoEnabled(boolean demoEnabled) {
-        this.demoEnabled = demoEnabled;
-    }
-
-    public static String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        AgileBootConfig.profile = profile;
+    public void setFileBaseDir(String fileBaseDir) {
+        AgileBootConfig.fileBaseDir = fileBaseDir;
     }
 
     public static boolean isAddressEnabled() {
@@ -120,27 +92,27 @@ public class AgileBootConfig {
      * 获取导入上传路径
      */
     public static String getImportPath() {
-        return getProfile() + "/import";
+        return getFileBaseDir() + File.separator + UploadDir.IMPORT_PATH;
     }
 
     /**
      * 获取头像上传路径
      */
     public static String getAvatarPath() {
-        return getProfile() + "/avatar";
+        return getFileBaseDir() + File.separator + UploadDir.AVATAR_PATH;
     }
 
     /**
      * 获取下载路径
      */
     public static String getDownloadPath() {
-        return getProfile() + "/download/";
+        return getFileBaseDir() +  File.separator  + UploadDir.DOWNLOAD_PATH;
     }
 
     /**
      * 获取上传路径
      */
     public static String getUploadPath() {
-        return getProfile() + "/upload";
+        return getFileBaseDir() + File.separator + UploadDir.UPLOAD_PATH;
     }
 }

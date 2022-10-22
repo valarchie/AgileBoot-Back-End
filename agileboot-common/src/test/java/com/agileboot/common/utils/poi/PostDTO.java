@@ -1,25 +1,17 @@
-package com.agileboot.domain.system.post.dto;
+package com.agileboot.common.utils.poi;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
-import com.agileboot.orm.entity.SysPostEntity;
-import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
-import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode
 public class PostDTO {
-
-    public PostDTO(SysPostEntity entity) {
-        if (entity != null) {
-            BeanUtil.copyProperties(entity, this);
-            statusStr = BasicEnumUtil.getDescriptionByValue(CommonStatusEnum.class, entity.getStatus());
-        }
-    }
 
     @ExcelColumn(name = "岗位ID")
     private Long postId;

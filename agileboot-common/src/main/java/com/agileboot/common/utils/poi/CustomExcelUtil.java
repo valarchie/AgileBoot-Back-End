@@ -8,9 +8,12 @@ import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Internal;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -20,12 +23,30 @@ import org.springframework.web.multipart.MultipartFile;
 public class CustomExcelUtil {
 
 
-    public static void writeToResponse(List<?> list, Class clazz, HttpServletResponse response) {
+    public static void writeToResponse(List<?> list, Class<?> clazz, HttpServletResponse response) {
+        try {
+            writeToOutputStream(list, clazz, response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ApiException(Internal.UNKNOWN_ERROR);
+        }
+    }
+
+    public static List<?> readFromRequest(Class<?> clazz,  MultipartFile file) {
+        try {
+            return readFromInputStream(clazz, file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ApiException(Internal.UNKNOWN_ERROR);
+        }
+    }
+
+    public static void writeToOutputStream(List<?> list, Class<?> clazz, OutputStream outputStream) {
 
         // 通过工具类创建writer
         ExcelWriter writer = ExcelUtil.getWriter();
 
-        ExcelSheet sheetAnno = (ExcelSheet)clazz.getAnnotation(ExcelSheet.class);
+        ExcelSheet sheetAnno = clazz.getAnnotation(ExcelSheet.class);
 
         if (sheetAnno != null) {
             // 默认的sheetName是 sheet1
@@ -46,30 +67,17 @@ public class CustomExcelUtil {
         writer.setOnlyAlias(true);
 
         // 合并单元格后的标题行，使用默认标题样式
-        // writer.merge(4, "一班成绩单");
-        // 一次性写出内容，使用默认样式，强制输出标题
+        // writer.merge(4, "一班成绩单"); 一次性写出内容，使用默认样式，强制输出标题
         writer.write(list, true);
-
-        try {
-            writer.flush(response.getOutputStream(), true);
-        } catch (IOException e) {
-            writer.close();
-            e.printStackTrace();
-        }
-
+        writer.flush(outputStream, true);
     }
 
-    public static List<?> readFromRequest(Class clazz,  MultipartFile file) {
-        ExcelReader reader;
 
-        try {
-            reader = ExcelUtil.getReader(file.getInputStream());
-            // 去除掉excel中的html标签语言  避免xss攻击
-            reader.setCellEditor(new TrimXssEditor());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ApiException(Internal.UNKNOWN_ERROR);
-        }
+
+    public static List<?> readFromInputStream(Class<?> clazz,  InputStream inputStream) {
+        ExcelReader reader = ExcelUtil.getReader(inputStream);
+        // 去除掉excel中的html标签语言  避免xss攻击
+        reader.setCellEditor(new TrimXssEditor());
 
         Field[] fields = clazz.getDeclaredFields();
 

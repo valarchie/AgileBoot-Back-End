@@ -143,10 +143,6 @@ public class PermissionService {
     }
 
 
-
-
-
-
     /**
      * 判断是否包含权限
      *
@@ -157,4 +153,5 @@ public class PermissionService {
     private boolean hasPermissions(Set<String> permissions, String permission) {
         return permissions.contains(ALL_PERMISSION) || permissions.contains(StrUtil.trim(permission));
     }
+
 }

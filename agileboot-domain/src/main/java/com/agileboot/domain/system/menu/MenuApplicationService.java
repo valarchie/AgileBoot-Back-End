@@ -129,7 +129,7 @@ public class MenuApplicationService {
 
     public List<Tree<Long>> buildMenuEntityTree(Long userId) {
 
-        List<SysMenuEntity> menus = null;
+        List<SysMenuEntity> menus;
         if (AuthenticationUtils.isAdmin(userId)) {
             menus = menuService.listMenuListWithoutButton();
         } else {
@@ -190,8 +190,5 @@ public class MenuApplicationService {
         List<Tree<Long>> trees = buildMenuEntityTree(userId);
         return buildRouterTree(trees);
     }
-
-
-
 
 }

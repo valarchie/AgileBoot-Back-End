@@ -61,6 +61,18 @@ public class Constants {
 
     }
 
+    public static class UploadDir {
+
+        public static final String IMPORT_PATH = "import";
+
+        public static final String AVATAR_PATH = "avatar";
+
+        public static final String DOWNLOAD_PATH = "download";
+
+        public static final String UPLOAD_PATH = "upload";
+
+    }
+
 
 
 }

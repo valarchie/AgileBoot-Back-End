@@ -6,7 +6,7 @@ import org.junit.Test;
 public class FileUploadUtilsTest {
 
     @Test
-    public void isAllowedExtension() {
+    public void testIsAllowedExtension() {
         String[] imageTypes = new String[]{"img", "gif"};
         boolean isAllow = FileUploadUtils.isAllowedExtension("img", imageTypes);
         boolean isNotAllow = FileUploadUtils.isAllowedExtension("png", imageTypes);

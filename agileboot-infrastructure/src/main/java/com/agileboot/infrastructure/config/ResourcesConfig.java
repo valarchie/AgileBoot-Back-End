@@ -28,7 +28,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /* 本地文件上传路径 */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
-            .addResourceLocations("file:" + AgileBootConfig.getProfile() + "/");
+            .addResourceLocations("file:" + AgileBootConfig.getFileBaseDir() + "/");
 
         /* swagger配置 */
         registry.addResourceHandler("/swagger-ui/**")

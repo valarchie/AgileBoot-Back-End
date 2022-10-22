@@ -6,11 +6,11 @@ import com.agileboot.common.utils.i18n.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 统一异常类
  * @author valarchie
  */
 @Slf4j
 public class ApiException extends RuntimeException{
-
 
     protected ErrorCodeInterface errorCode;
 
@@ -24,11 +24,6 @@ public class ApiException extends RuntimeException{
     public ApiException(Throwable e, ErrorCodeInterface errorCode, Object... args) {
         super(e);
         fillErrorCode(errorCode, args);
-    }
-
-    public ApiException(Throwable e, ErrorCodeInterface errorCode) {
-        super(e);
-        fillErrorCode(errorCode);
     }
 
     public ApiException(ErrorCodeInterface errorCode, Object... args) {
@@ -46,7 +41,6 @@ public class ApiException extends RuntimeException{
 
         this.formattedMessage = StrUtil.format(this.message, args);
 
-        // TODO 错误码的 i18n 信息 应该做成缓存
         try {
             this.i18nFormattedMessage = MessageUtils.message(errorCode.i18nKey(), args);
         } catch (Exception e) {
@@ -54,7 +48,6 @@ public class ApiException extends RuntimeException{
         }
 
     }
-
 
     public ErrorCodeInterface getErrorCode() {
         return errorCode;

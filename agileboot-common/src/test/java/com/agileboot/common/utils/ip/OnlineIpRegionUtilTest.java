@@ -2,12 +2,13 @@ package com.agileboot.common.utils.ip;
 
 import com.agileboot.common.config.AgileBootConfig;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class OnlineIpRegionUtilTest {
 
-    @Before
+    @BeforeEach
     public void enableOnlineAddressQuery(){
         AgileBootConfig agileBootConfig = new AgileBootConfig();
         agileBootConfig.setAddressEnabled(true);
@@ -16,8 +17,10 @@ public class OnlineIpRegionUtilTest {
 
     @Test
     public void getIpRegionWithIpv6() {
-        IpRegion ipRegion = OnlineIpRegionUtil.getIpRegion("ABCD:EF01:2345:6789:ABCD:EF01:2345:6789");
-        Assert.assertNull(ipRegion);
+        IpRegion region = Assertions.assertDoesNotThrow(() ->
+            OnlineIpRegionUtil.getIpRegion("ABCD:EF01:2345:6789:ABCD:EF01:2345:6789")
+        );
+        Assert.assertNull(region);
     }
 
     @Test
@@ -30,17 +33,30 @@ public class OnlineIpRegionUtilTest {
 
     @Test
     public void getIpRegionWithEmpty() {
-        IpRegion ipRegion = OnlineIpRegionUtil.getIpRegion("");
+        IpRegion region = Assertions.assertDoesNotThrow(() ->
+            OnlineIpRegionUtil.getIpRegion("")
+        );
 
-        Assert.assertNull(ipRegion);
+        Assert.assertNull(region);
     }
 
 
     @Test
     public void getIpRegionWithNull() {
-        IpRegion ipRegion = OnlineIpRegionUtil.getIpRegion(null);
+        IpRegion region = Assertions.assertDoesNotThrow(() ->
+            OnlineIpRegionUtil.getIpRegion(null)
+        );
 
-        Assert.assertNull(ipRegion);
+        Assert.assertNull(region);
+    }
+
+    @Test
+    public void getIpRegionWithWrongIpString() {
+        IpRegion region = Assertions.assertDoesNotThrow(() ->
+            OnlineIpRegionUtil.getIpRegion("seffsdfsdf")
+        );
+
+        Assert.assertNull(region);
     }
 
 

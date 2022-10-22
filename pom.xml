@@ -36,6 +36,7 @@
         <lombok.version>1.18.24</lombok.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
+        <mockito.version>1.10.19</mockito.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -225,6 +226,13 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>

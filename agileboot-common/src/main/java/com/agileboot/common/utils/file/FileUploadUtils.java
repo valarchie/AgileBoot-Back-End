@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 文件上传工具类
  *
- * @author ruoyi 待改进
+ * @author valarchie
  */
 public class FileUploadUtils {
 
@@ -35,9 +35,9 @@ public class FileUploadUtils {
     public static final long MAX_FILE_SIZE = 50 * Constants.MB;
 
     /**
-     * 默认的文件名最大长度 100
+     * 默认的文件名最大长度 127
      */
-    public static final int MAX_FILE_NAME_LENGTH = 100;
+    public static final int MAX_FILE_NAME_LENGTH = 127;
 
     public static final String[] ALLOWED_DOWNLOAD_EXTENSIONS = {
         // 图片
@@ -51,29 +51,6 @@ public class FileUploadUtils {
         // pdf
         "pdf"};
 
-    /**
-     * 默认上传的地址
-     */
-    private static String defaultBaseDir = AgileBootConfig.getProfile();
-
-
-    public static String getDefaultBaseDir() {
-        return defaultBaseDir;
-    }
-
-    /**
-     * 以默认配置进行文件上传
-     *
-     * @param file 上传的文件
-     * @return 文件名称
-     */
-    public static String upload(MultipartFile file) throws IOException {
-        try {
-            return upload(getDefaultBaseDir(), file, ALLOWED_DOWNLOAD_EXTENSIONS);
-        } catch (Exception e) {
-            throw new IOException(e.getMessage(), e);
-        }
-    }
 
     /**
      * 根据文件路径上传
@@ -101,17 +78,11 @@ public class FileUploadUtils {
      */
     public static String upload(String baseDir, MultipartFile file, String[] allowedExtension)
         throws IOException {
-
-        int fileNameLength = Objects.requireNonNull(file.getOriginalFilename()).length();
-        if (fileNameLength > FileUploadUtils.MAX_FILE_NAME_LENGTH) {
-            throw new ApiException(ErrorCode.Business.UPLOAD_FILE_NAME_EXCEED_MAX_LENGTH, MAX_FILE_NAME_LENGTH);
-        }
-
         assertAllowed(file, allowedExtension);
 
         String fileName = generateFilename(file);
 
-        String absPath = getAbsoluteFile(baseDir, fileName).getAbsolutePath();
+        String absPath = getAbsoluteFilePath(baseDir, fileName).getAbsolutePath();
         file.transferTo(Paths.get(absPath));
         return getPathFileName(baseDir, fileName);
     }
@@ -120,11 +91,20 @@ public class FileUploadUtils {
      * 编码文件名
      */
     public static String generateFilename(MultipartFile file) {
-        return StrUtil.format("{}_{}_{}.{}", DateUtil.format(DateUtil.date(), DatePattern.PURE_DATETIME_PATTERN),
-            FilenameUtils.getBaseName(file.getOriginalFilename()), IdUtil.simpleUUID(), getExtension(file));
+        return StrUtil.format("{}_{}_{}.{}",
+            DateUtil.format(DateUtil.date(), DatePattern.PURE_DATETIME_PATTERN),
+            FilenameUtils.getBaseName(file.getOriginalFilename()),
+            IdUtil.simpleUUID(),
+            getExtension(file));
     }
 
-    public static File getAbsoluteFile(String uploadDir, String fileName) {
+    /**
+     * 获取上传文件的路径
+     * @param uploadDir 长传的文件夹
+     * @param fileName
+     * @return
+     */
+    public static File getAbsoluteFilePath(String uploadDir, String fileName) {
         File desc = new File(uploadDir + File.separator + fileName);
         if (!desc.exists()) {
             if (!desc.getParentFile().exists()) {
@@ -135,8 +115,8 @@ public class FileUploadUtils {
     }
 
     public static String getPathFileName(String uploadDir, String fileName) {
-        String currentDir = StrUtil.strip(uploadDir, AgileBootConfig.getProfile() + "/");
-        return Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
+        String currentDir = StrUtil.strip(uploadDir, AgileBootConfig.getFileBaseDir() + File.separator);
+        return Constants.RESOURCE_PREFIX + File.separator + currentDir + File.separator + fileName;
     }
 
     /**
@@ -145,6 +125,12 @@ public class FileUploadUtils {
      * @param file 上传的文件
      */
     public static void assertAllowed(MultipartFile file, String[] allowedExtension) {
+        int fileNameLength = Objects.requireNonNull(file.getOriginalFilename()).length();
+
+        if (fileNameLength > FileUploadUtils.MAX_FILE_NAME_LENGTH) {
+            throw new ApiException(ErrorCode.Business.UPLOAD_FILE_NAME_EXCEED_MAX_LENGTH, MAX_FILE_NAME_LENGTH);
+        }
+
         long size = file.getSize();
         if (size > MAX_FILE_SIZE) {
             throw new ApiException(ErrorCode.Business.UPLOAD_FILE_SIZE_EXCEED_MAX_SIZE, MAX_FILE_SIZE / Constants.MB);
@@ -155,7 +141,6 @@ public class FileUploadUtils {
             throw new ApiException(ErrorCode.Business.UPLOAD_FILE_TYPE_NOT_ALLOWED,
                 StrUtil.join(",", (Object[]) allowedExtension));
         }
-
     }
 
     /**

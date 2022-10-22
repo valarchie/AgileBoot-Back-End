@@ -24,7 +24,7 @@ public class OnlineIpRegionUtil {
 
 
     public static IpRegion getIpRegion(String ip) {
-        if(StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip)) {
+        if(StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip) || !IPAddressUtil.isIPv4LiteralAddress(ip)) {
             return null;
         }
 

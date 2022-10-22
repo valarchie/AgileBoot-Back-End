@@ -11,6 +11,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.file.FileUploadUtils;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class FileController {
             }
 
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
-            String filePath = AgileBootConfig.getDownloadPath() + fileName;
+            String filePath = AgileBootConfig.getDownloadPath() + File.separator + fileName;
 
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
 

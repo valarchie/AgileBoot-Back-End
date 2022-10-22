@@ -35,9 +35,11 @@ public class OfflineIpRegionUtil {
     public static IpRegion getIpRegion(String ip) {
         try {
 
-            if (StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip)) {
+            if (StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip)
+                || !IPAddressUtil.isIPv4LiteralAddress(ip)) {
                 return null;
             }
+
 
             String rawRegion = searcher.search(ip);
 
