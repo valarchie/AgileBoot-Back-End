@@ -166,6 +166,19 @@
             <artifactId>mockito-all</artifactId>
         </dependency>
 
+        <!--   TODO 正式环境请注释掉     -->
+        <dependency>
+            <groupId>it.ozimov</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.7.3</version>
+            <!-- 不排除掉slf4j的话 会冲突-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
         <dependency>

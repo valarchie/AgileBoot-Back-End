@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -35,6 +36,7 @@ public class DruidConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.druid.master")
+    @ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
     public DataSource masterDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);
@@ -42,6 +44,7 @@ public class DruidConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.druid.slave")
+    @ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.slave", name = "enabled", havingValue = "true")
     public DataSource slaveDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
