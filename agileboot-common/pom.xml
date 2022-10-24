@@ -166,6 +166,11 @@
             <artifactId>mockito-all</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+        </dependency>
+
         <!--   TODO 正式环境请注释掉     -->
         <dependency>
             <groupId>it.ozimov</groupId>

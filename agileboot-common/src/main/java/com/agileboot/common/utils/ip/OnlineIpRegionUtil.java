@@ -7,7 +7,6 @@ import cn.hutool.http.HttpUtil;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.utils.jackson.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
-import sun.net.util.IPAddressUtil;
 
 /**
  * query geography address from ip
@@ -24,7 +23,7 @@ public class OnlineIpRegionUtil {
 
 
     public static IpRegion getIpRegion(String ip) {
-        if(StrUtil.isBlank(ip) || IPAddressUtil.isIPv6LiteralAddress(ip) || !IPAddressUtil.isIPv4LiteralAddress(ip)) {
+        if(StrUtil.isBlank(ip) || IpUtil.isValidIpv6(ip) || !IpUtil.isValidIpv4(ip)) {
             return null;
         }
 
