@@ -171,7 +171,7 @@
             <artifactId>commons-validator</artifactId>
         </dependency>
 
-        <!--   TODO 正式环境请注释掉     -->
+        <!--   TODO 正式环境请注释掉  version需要统一管理   -->
         <dependency>
             <groupId>it.ozimov</groupId>
             <artifactId>embedded-redis</artifactId>

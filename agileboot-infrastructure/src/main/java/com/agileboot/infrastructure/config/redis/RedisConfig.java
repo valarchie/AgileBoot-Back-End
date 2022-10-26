@@ -67,7 +67,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    @ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
     public DefaultRedisScript<Long> limitScript() {
         DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
         redisScript.setScriptText(limitScriptText());
