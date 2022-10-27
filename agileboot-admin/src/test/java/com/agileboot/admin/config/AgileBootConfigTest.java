@@ -3,6 +3,8 @@ package com.agileboot.admin.config;
 
 import com.agileboot.admin.AgileBooAdminApplication;
 import com.agileboot.common.config.AgileBootConfig;
+import com.agileboot.common.constant.Constants.UploadSubDir;
+import java.io.File;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -19,8 +21,7 @@ public class AgileBootConfigTest {
 
     @Test
     public void testConfig() {
-
-        String fileBaseDir = "D:\\agileboot\\uploadPath";
+        String fileBaseDir = "D:\\agileboot\\profile";
 
         Assertions.assertEquals("AgileBoot", config.getName());
         Assertions.assertEquals("1.0.0", config.getVersion());
@@ -30,10 +31,14 @@ public class AgileBootConfigTest {
         Assertions.assertEquals(false, AgileBootConfig.isAddressEnabled());
         Assertions.assertEquals("math", AgileBootConfig.getCaptchaType());
         Assertions.assertEquals("math", AgileBootConfig.getCaptchaType());
-        Assertions.assertEquals(fileBaseDir + "\\import", AgileBootConfig.getImportPath());
-        Assertions.assertEquals(fileBaseDir + "\\avatar", AgileBootConfig.getAvatarPath());
-        Assertions.assertEquals(fileBaseDir + "\\download", AgileBootConfig.getDownloadPath());
-        Assertions.assertEquals(fileBaseDir + "\\upload", AgileBootConfig.getUploadPath());
+        Assertions.assertEquals(fileBaseDir + "\\import",
+            AgileBootConfig.getFileBaseDir() + File.separator + UploadSubDir.IMPORT_PATH);
+        Assertions.assertEquals(fileBaseDir + "\\avatar",
+            AgileBootConfig.getFileBaseDir() + File.separator + UploadSubDir.AVATAR_PATH);
+        Assertions.assertEquals(fileBaseDir + "\\download",
+            AgileBootConfig.getFileBaseDir() + File.separator + UploadSubDir.DOWNLOAD_PATH);
+        Assertions.assertEquals(fileBaseDir + "\\upload",
+            AgileBootConfig.getFileBaseDir() + File.separator + UploadSubDir.UPLOAD_PATH);
     }
 
 }

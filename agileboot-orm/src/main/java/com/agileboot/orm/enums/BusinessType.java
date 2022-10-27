@@ -52,6 +52,7 @@ public enum BusinessType implements BasicEnum<Integer> {
      * 清空数据
      */
     CLEAN(8, "清空"),
+
     ;
 
     private final int value;

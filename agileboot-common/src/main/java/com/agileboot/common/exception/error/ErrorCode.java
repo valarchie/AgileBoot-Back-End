@@ -53,6 +53,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         BULK_DELETE_IDS_IS_INVALID(Module.COMMON, 3, "批量参数ID列表为空"),
 
+        FILE_NOT_ALLOWED_TO_DOWNLOAD(Module.COMMON, 3, "文件名称({})非法，不允许下载"),
+
         // ----------------------------- Permission -----------------------------------
 
         FORBIDDEN_TO_MODIFY_ADMIN(Module.PERMISSION, 1, "不允许修改管理员的信息"),
@@ -82,6 +84,8 @@ public enum ErrorCode implements ErrorCodeInterface {
         UPLOAD_IMPORT_EXCEL_FAILED(Module.UPLOAD, 4, "导入excel失败：{}"),
 
         UPLOAD_FILE_IS_EMPTY(Module.UPLOAD, 5, "上传文件为空"),
+
+        UPLOAD_FILE_FAILED(Module.UPLOAD, 6, "上传文件失败：{}"),
 
         // ----------------------------- Config -----------------------------------------
 
@@ -275,7 +279,7 @@ public enum ErrorCode implements ErrorCodeInterface {
         /**
          * 内部错误码
          */
-        INVALID_PARAMETER(Module.COMMON, 1, "参数异常"),
+        INVALID_PARAMETER(Module.COMMON, 1, "参数异常：{}"),
 
         UNKNOWN_ERROR(Module.COMMON, 2, "未知异常, 请查看系统日志"),
 

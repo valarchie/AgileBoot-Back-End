@@ -3,16 +3,15 @@ package com.agileboot.admin.controller.common;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.util.StrUtil;
 import com.agileboot.admin.response.UploadDTO;
-import com.agileboot.common.config.AgileBootConfig;
+import com.agileboot.common.constant.Constants.UploadSubDir;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.file.FileUploadUtils;
-import java.io.File;
-import java.io.IOException;
+import com.agileboot.common.utils.jackson.JacksonUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -40,24 +39,25 @@ public class FileController {
 
     /**
      * 通用下载请求
-     *
+     * download接口  其实不是很有必要
      * @param fileName 文件名称
      */
     @GetMapping("/download")
     public ResponseEntity<byte[]> fileDownload(String fileName, HttpServletResponse response) {
         try {
             if (!FileUploadUtils.isAllowDownload(fileName)) {
-                throw new Exception(StrUtil.format("文件名称({})非法，不允许下载。 ", fileName));
+                // 返回类型是ResponseEntity 不能捕获异常， 需要手动将错误填到 ResponseEntity
+                ResponseDTO<Object> fail = ResponseDTO.fail(
+                    new ApiException(Business.FILE_NOT_ALLOWED_TO_DOWNLOAD, fileName));
+                return new ResponseEntity<>(JacksonUtil.to(fail).getBytes(), null, HttpStatus.OK);
             }
 
-            String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
-            String filePath = AgileBootConfig.getDownloadPath() + File.separator + fileName;
+            String filePath = FileUploadUtils.getFileAbsolutePath(UploadSubDir.DOWNLOAD_PATH, fileName);
+
+            HttpHeaders downloadHeader = FileUploadUtils.getDownloadHeader(fileName);
 
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Content-Disposition", String.format("attachment;filename=%s", realFileName));
-            return new ResponseEntity<>(FileUtil.readBytes(filePath), headers, HttpStatus.OK);
+            return new ResponseEntity<>(FileUtil.readBytes(filePath), downloadHeader, HttpStatus.OK);
         } catch (Exception e) {
             log.error("下载文件失败", e);
             return null;
@@ -68,22 +68,24 @@ public class FileController {
      * 通用上传请求（单个）
      */
     @PostMapping("/upload")
-    public ResponseDTO<UploadDTO> uploadFile(MultipartFile file) throws IOException {
+    public ResponseDTO<UploadDTO> uploadFile(MultipartFile file) {
         if (file == null) {
             throw new ApiException(ErrorCode.Business.UPLOAD_FILE_IS_EMPTY);
         }
 
-        // 上传文件路径
-        String filePath = AgileBootConfig.getUploadPath();
         // 上传并返回新文件名称
-        String fileName = FileUploadUtils.upload(filePath, file);
+        String fileName = FileUploadUtils.upload(UploadSubDir.UPLOAD_PATH, file);
 
         String url = ServletHolderUtil.getContextUrl() + fileName;
 
         UploadDTO uploadDTO = UploadDTO.builder()
+            // 全路径
             .url(url)
+            // 相对路径
             .fileName(fileName)
+            // 新生成的文件名
             .newFileName(FileNameUtil.getName(fileName))
+            // 原始的文件名
             .originalFilename(file.getOriginalFilename()).build();
 
         return ResponseDTO.ok(uploadDTO);
@@ -93,20 +95,17 @@ public class FileController {
      * 通用上传请求（多个）
      */
     @PostMapping("/uploads")
-    public ResponseDTO<List<UploadDTO>> uploadFiles(List<MultipartFile> files) throws Exception {
+    public ResponseDTO<List<UploadDTO>> uploadFiles(List<MultipartFile> files) {
         if (CollUtil.isEmpty(files)) {
             throw new ApiException(ErrorCode.Business.UPLOAD_FILE_IS_EMPTY);
         }
-
-        // 上传文件路径
-        String filePath = AgileBootConfig.getUploadPath();
 
         List<UploadDTO> uploads = new ArrayList<>();
 
         for (MultipartFile file : files) {
             if (file != null) {
                 // 上传并返回新文件名称
-                String fileName = FileUploadUtils.upload(filePath, file);
+                String fileName = FileUploadUtils.upload(UploadSubDir.UPLOAD_PATH, file);
                 String url = ServletHolderUtil.getContextUrl() + fileName;
                 UploadDTO uploadDTO = UploadDTO.builder()
                     .url(url)

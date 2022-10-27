@@ -1,6 +1,8 @@
 package com.agileboot.admin.controller.system;
 
 import com.agileboot.common.config.AgileBootConfig;
+import com.agileboot.common.constant.Constants;
+import com.agileboot.common.constant.Constants.UploadSubDir;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;
@@ -83,9 +85,9 @@ public class SysProfileController extends BaseController {
             throw new ApiException(ErrorCode.Business.USER_UPLOAD_FILE_FAILED);
         }
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        String avatar = FileUploadUtils.upload(AgileBootConfig.getAvatarPath(), file);
+        String avatarUrl = FileUploadUtils.upload(UploadSubDir.AVATAR_PATH, file);
 
-        userApplicationService.updateUserAvatar(loginUser, new UpdateUserAvatarCommand(loginUser.getUserId(), avatar));
-        return ResponseDTO.ok(new UploadFileDTO(avatar));
+        userApplicationService.updateUserAvatar(loginUser, new UpdateUserAvatarCommand(loginUser.getUserId(), avatarUrl));
+        return ResponseDTO.ok(new UploadFileDTO(avatarUrl));
     }
 }

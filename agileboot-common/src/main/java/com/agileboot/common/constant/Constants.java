@@ -24,11 +24,6 @@ public class Constants {
      */
     public static final String HTTPS = "https://";
 
-    /**
-     * 资源映射路径 前缀
-     */
-    public static final String RESOURCE_PREFIX = "/profile";
-
 
     public static class Token {
         /**
@@ -61,7 +56,12 @@ public class Constants {
 
     }
 
-    public static class UploadDir {
+    /**
+     * 资源映射路径 前缀
+     */
+    public static final String RESOURCE_PREFIX = "profile";
+
+    public static class UploadSubDir {
 
         public static final String IMPORT_PATH = "import";
 

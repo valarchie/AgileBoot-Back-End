@@ -27,7 +27,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /* 本地文件上传路径 */
-        registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
+        registry.addResourceHandler("/" + Constants.RESOURCE_PREFIX + "/**")
             .addResourceLocations("file:" + AgileBootConfig.getFileBaseDir() + "/");
 
         /* swagger配置 */

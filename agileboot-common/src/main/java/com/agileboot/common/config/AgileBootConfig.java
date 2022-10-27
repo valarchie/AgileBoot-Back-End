@@ -1,6 +1,6 @@
 package com.agileboot.common.config;
 
-import com.agileboot.common.constant.Constants.UploadDir;
+import com.agileboot.common.constant.Constants;
 import java.io.File;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -61,7 +61,7 @@ public class AgileBootConfig {
     }
 
     public void setFileBaseDir(String fileBaseDir) {
-        AgileBootConfig.fileBaseDir = fileBaseDir;
+        AgileBootConfig.fileBaseDir = fileBaseDir  + File.separator + Constants.RESOURCE_PREFIX;
     }
 
     public static boolean isAddressEnabled() {
@@ -88,31 +88,4 @@ public class AgileBootConfig {
         AgileBootConfig.rsaPrivateKey = rsaPrivateKey;
     }
 
-    /**
-     * 获取导入上传路径
-     */
-    public static String getImportPath() {
-        return getFileBaseDir() + File.separator + UploadDir.IMPORT_PATH;
-    }
-
-    /**
-     * 获取头像上传路径
-     */
-    public static String getAvatarPath() {
-        return getFileBaseDir() + File.separator + UploadDir.AVATAR_PATH;
-    }
-
-    /**
-     * 获取下载路径
-     */
-    public static String getDownloadPath() {
-        return getFileBaseDir() +  File.separator  + UploadDir.DOWNLOAD_PATH;
-    }
-
-    /**
-     * 获取上传路径
-     */
-    public static String getUploadPath() {
-        return getFileBaseDir() + File.separator + UploadDir.UPLOAD_PATH;
-    }
 }

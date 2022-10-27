@@ -8,8 +8,8 @@ agileboot:
   copyright-year: 2022
   # 实例演示开关
   demo-enabled: true
-  # 文件路径 示例（ Windows配置D:\agileboot\uploadPath，Linux配置 /home/agileboot/uploadPath）
-  file-base-dir: D:\agileboot\uploadPath
+  # 文件基路径 示例（ Windows配置D:\agileboot，Linux配置 /home/agileboot）
+  file-base-dir: D:\agileboot
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
