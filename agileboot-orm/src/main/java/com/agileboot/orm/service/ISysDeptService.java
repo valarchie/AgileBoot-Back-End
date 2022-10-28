@@ -30,8 +30,8 @@ public interface ISysDeptService extends IService<SysDeptEntity> {
      */
     boolean existChildrenDeptById(Long deptId, Boolean enabled);
 
-    boolean isChildOfTargetDeptId(Long ancestorId, Long childId);
+    boolean isChildOfTheDept(Long ancestorId, Long childId);
 
-    boolean hasChildDeptById(Long deptId);
+    boolean hasDirectChildDept(Long deptId);
 
 }

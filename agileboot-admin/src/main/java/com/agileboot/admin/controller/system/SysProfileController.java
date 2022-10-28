@@ -80,7 +80,7 @@ public class SysProfileController extends BaseController {
      */
     @AccessLog(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
-    public ResponseDTO avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
+    public ResponseDTO avatar(@RequestParam("avatarfile") MultipartFile file) {
         if (file.isEmpty()) {
             throw new ApiException(ErrorCode.Business.USER_UPLOAD_FILE_FAILED);
         }

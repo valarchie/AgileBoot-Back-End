@@ -37,7 +37,7 @@ public class SysOperationLogController extends BaseController {
 
     @PreAuthorize("@ss.hasPerm('monitor:operlog:list')")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO> list(OperationLogQuery query, HttpServletRequest request) {
+    public ResponseDTO<PageDTO> list(OperationLogQuery query) {
         PageDTO pageDTO = operationLogApplicationService.getOperationLogList(query);
         return ResponseDTO.ok(pageDTO);
     }

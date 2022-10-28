@@ -252,6 +252,7 @@
         <module>agileboot-domain</module>
         <module>agileboot-infrastructure</module>
         <module>agileboot-orm</module>
+        <module>agileboot-integration-test</module>
     </modules>
     <packaging>pom</packaging>
 

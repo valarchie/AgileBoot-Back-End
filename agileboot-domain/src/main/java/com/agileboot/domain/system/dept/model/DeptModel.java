@@ -29,7 +29,7 @@ public class DeptModel extends SysDeptEntity {
 
 
     public void checkExistChildDept(ISysDeptService deptService) {
-        if (deptService.hasChildDeptById(getDeptId())) {
+        if (deptService.hasDirectChildDept(getDeptId())) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_CHILD_DEPT_NOT_ALLOW_DELETE);
         }
     }

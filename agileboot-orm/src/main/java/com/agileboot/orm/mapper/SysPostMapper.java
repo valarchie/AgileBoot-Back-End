@@ -13,6 +13,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysPostMapper extends BaseMapper<SysPostEntity> {
 
-
-
 }

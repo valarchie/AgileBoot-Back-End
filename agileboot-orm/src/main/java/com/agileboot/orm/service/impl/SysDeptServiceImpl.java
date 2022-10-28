@@ -41,14 +41,14 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptEntity
     }
 
     @Override
-    public boolean isChildOfTargetDeptId(Long ancestorId, Long childId) {
+    public boolean isChildOfTheDept(Long ancestorId, Long childId) {
         QueryWrapper<SysDeptEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.apply("dept_id = '" + childId + "' or FIND_IN_SET ( " + ancestorId + " , ancestors)");
         return this.baseMapper.exists(queryWrapper);
     }
 
     @Override
-    public boolean hasChildDeptById(Long deptId) {
+    public boolean hasDirectChildDept(Long deptId) {
         QueryWrapper<SysDeptEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(deptId != null, "parent_id", deptId);
         return baseMapper.exists(queryWrapper);
