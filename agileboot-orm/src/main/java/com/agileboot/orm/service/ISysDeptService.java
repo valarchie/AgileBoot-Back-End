@@ -21,7 +21,7 @@ public interface ISysDeptService extends IService<SysDeptEntity> {
      * @param parentId
      * @return
      */
-    boolean isDeptNameUnique(String deptName, Long deptId, Long parentId);
+    boolean isDeptNameDuplicated(String deptName, Long deptId, Long parentId);
 
     /**
      * 检测部门底下是否还有正在使用中的子部门

@@ -20,27 +20,27 @@ class SysRoleServiceImplTest {
 
     @Test
     @Rollback
-    void testIsRoleNameUnique() {
-        boolean addWithSame = roleService.isRoleNameUnique(null, "超级管理员");
-        boolean updateWithSame = roleService.isRoleNameUnique(1L, "超级管理员");
-        boolean addWithoutSame = roleService.isRoleNameUnique(null, "超级管理员1");
+    void testIsRoleNameDuplicated() {
+        boolean addWithSame = roleService.isRoleNameDuplicated(null, "超级管理员");
+        boolean updateWithSame = roleService.isRoleNameDuplicated(1L, "超级管理员");
+        boolean addWithoutSame = roleService.isRoleNameDuplicated(null, "超级管理员1");
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
 
     @Test
     @Rollback
-    void testIsRoleCodeUnique() {
-        boolean addWithSame = roleService.isRoleKeyUnique(null, "admin");
-        boolean updateWithSame = roleService.isRoleKeyUnique(1L, "admin");
-        boolean addWithoutSame = roleService.isRoleKeyUnique(null, "admin1");
+    void testIsRoleKeyDuplicated() {
+        boolean addWithSame = roleService.isRoleKeyDuplicated(null, "admin");
+        boolean updateWithSame = roleService.isRoleKeyDuplicated(1L, "admin");
+        boolean addWithoutSame = roleService.isRoleKeyDuplicated(null, "admin1");
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
 

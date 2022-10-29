@@ -31,19 +31,19 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity
      * @return 结果
      */
     @Override
-    public boolean isPostNameUnique(Long postId, String postName) {
+    public boolean isPostNameDuplicated(Long postId, String postName) {
         QueryWrapper<SysPostEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne(postId != null, "post_id", postId)
             .eq("post_name", postName);
-        return !baseMapper.exists(queryWrapper);
+        return baseMapper.exists(queryWrapper);
     }
 
     @Override
-    public boolean isPostCodeUnique(Long postId, String postCode) {
+    public boolean isPostCodeDuplicated(Long postId, String postCode) {
         QueryWrapper<SysPostEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne(postId != null, "post_id", postId)
             .eq("post_code", postCode);
-        return !baseMapper.exists(queryWrapper);
+        return baseMapper.exists(queryWrapper);
     }
 
 

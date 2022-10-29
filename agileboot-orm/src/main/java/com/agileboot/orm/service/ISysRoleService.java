@@ -18,13 +18,13 @@ public interface ISysRoleService extends IService<SysRoleEntity> {
      * 校验角色名称是否唯一
      * @return 结果
      */
-    boolean isRoleNameUnique(Long roleId, String roleName);
+    boolean isRoleNameDuplicated(Long roleId, String roleName);
 
     /**
      * 校验角色权限是否唯一
      * @return 结果
      */
-    boolean isRoleKeyUnique(Long roleId, String roleKey);
+    boolean isRoleKeyDuplicated(Long roleId, String roleKey);
 
 
 

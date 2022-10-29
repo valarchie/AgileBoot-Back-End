@@ -27,19 +27,19 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
     private SysUserMapper userMapper;
 
     @Override
-    public boolean isRoleNameUnique(Long roleId, String roleName) {
+    public boolean isRoleNameDuplicated(Long roleId, String roleName) {
         QueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne(roleId != null, "role_id", roleId)
             .eq("role_name", roleName);
-        return !this.baseMapper.exists(queryWrapper);
+        return this.baseMapper.exists(queryWrapper);
     }
 
     @Override
-    public boolean isRoleKeyUnique(Long roleId, String roleKey) {
+    public boolean isRoleKeyDuplicated(Long roleId, String roleKey) {
         QueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne(roleId != null, "role_id", roleId)
             .eq("role_key", roleKey);
-        return !this.baseMapper.exists(queryWrapper);
+        return this.baseMapper.exists(queryWrapper);
     }
 
     @Override

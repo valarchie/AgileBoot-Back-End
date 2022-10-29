@@ -19,14 +19,14 @@ class SysDeptServiceImplTest {
 
     @Test
     @Rollback
-    void testIsDeptNameUnique() {
-        boolean addWithSame = deptService.isDeptNameUnique("AgileBoot科技", null, null);
-        boolean updateWithSame = deptService.isDeptNameUnique("AgileBoot科技", 1L, null);
-        boolean addSameInParent = deptService.isDeptNameUnique("深圳总公司", null, 1L);
+    void testIsDeptNameDuplicated() {
+        boolean addWithSame = deptService.isDeptNameDuplicated("AgileBoot科技", null, null);
+        boolean updateWithSame = deptService.isDeptNameDuplicated("AgileBoot科技", 1L, null);
+        boolean addSameInParent = deptService.isDeptNameDuplicated("深圳总公司", null, 1L);
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertFalse(addSameInParent);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertTrue(addSameInParent);
     }
 
 

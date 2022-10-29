@@ -37,7 +37,7 @@ public interface ISysMenuService extends IService<SysMenuEntity> {
      * @param parentId
      * @return
      */
-    boolean isMenuNameUnique(String menuName, Long menuId, Long parentId);
+    boolean isMenuNameDuplicated(String menuName, Long menuId, Long parentId);
 
     /**
      * 是否存在菜单子节点

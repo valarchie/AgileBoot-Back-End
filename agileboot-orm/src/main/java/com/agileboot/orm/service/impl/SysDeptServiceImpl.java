@@ -26,13 +26,13 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptEntity
 
 
     @Override
-    public boolean isDeptNameUnique(String deptName, Long deptId, Long parentId) {
+    public boolean isDeptNameDuplicated(String deptName, Long deptId, Long parentId) {
         QueryWrapper<SysDeptEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("dept_name", deptName)
             .ne(deptId != null, "dept_id", deptId)
             .eq(parentId != null, "parent_id", parentId);
 
-        return !this.baseMapper.exists(queryWrapper);
+        return this.baseMapper.exists(queryWrapper);
     }
 
 

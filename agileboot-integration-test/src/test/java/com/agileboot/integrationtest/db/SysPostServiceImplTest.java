@@ -1,7 +1,6 @@
 package com.agileboot.integrationtest.db;
 
 import com.agileboot.integrationtest.IntegrationTestApplication;
-import com.agileboot.orm.service.ISysDeptService;
 import com.agileboot.orm.service.ISysPostService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,27 +19,27 @@ class SysPostServiceImplTest {
 
     @Test
     @Rollback
-    void testIsPostNameUnique() {
-        boolean addWithSame = postService.isPostNameUnique(null, "董事长");
-        boolean updateWithSame = postService.isPostNameUnique(1L, "董事长");
-        boolean addWithoutSame = postService.isPostNameUnique(null, "董事长1");
+    void testIsPostNameDuplicated() {
+        boolean addWithSame = postService.isPostNameDuplicated(null, "董事长");
+        boolean updateWithSame = postService.isPostNameDuplicated(1L, "董事长");
+        boolean addWithoutSame = postService.isPostNameDuplicated(null, "董事长1");
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
 
     @Test
     @Rollback
-    void testIsPostCodeUnique() {
-        boolean addWithSame = postService.isPostCodeUnique(null, "ceo");
-        boolean updateWithSame = postService.isPostCodeUnique(1L, "ceo");
-        boolean addWithoutSame = postService.isPostCodeUnique(null, "ceo1");
+    void testIsPostCodeDuplicated() {
+        boolean addWithSame = postService.isPostCodeDuplicated(null, "ceo");
+        boolean updateWithSame = postService.isPostCodeDuplicated(1L, "ceo");
+        boolean addWithoutSame = postService.isPostCodeDuplicated(null, "ceo1");
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
 

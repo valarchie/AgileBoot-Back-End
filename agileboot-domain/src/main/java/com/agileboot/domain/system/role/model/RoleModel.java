@@ -31,7 +31,7 @@ public class RoleModel extends SysRoleEntity {
     private List<Long> deptIds;
 
     public void checkRoleNameUnique(ISysRoleService roleService) {
-        if (!roleService.isRoleNameUnique(getRoleId(), getRoleName())) {
+        if (roleService.isRoleNameDuplicated(getRoleId(), getRoleName())) {
             throw new ApiException(ErrorCode.Business.ROLE_NAME_IS_NOT_UNIQUE, getRoleName());
         }
     }
@@ -43,7 +43,7 @@ public class RoleModel extends SysRoleEntity {
     }
 
     public void checkRoleKeyUnique(ISysRoleService roleService) {
-        if (!roleService.isRoleKeyUnique(getRoleId(), getRoleKey())) {
+        if (roleService.isRoleKeyDuplicated(getRoleId(), getRoleKey())) {
             throw new ApiException(ErrorCode.Business.ROLE_KEY_IS_NOT_UNIQUE, getRoleKey());
         }
     }

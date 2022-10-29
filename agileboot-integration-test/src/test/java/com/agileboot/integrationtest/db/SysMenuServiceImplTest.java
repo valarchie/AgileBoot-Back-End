@@ -3,10 +3,8 @@ package com.agileboot.integrationtest.db;
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.integrationtest.IntegrationTestApplication;
 import com.agileboot.orm.entity.SysMenuEntity;
-import com.agileboot.orm.enums.MenuTypeEnum;
 import com.agileboot.orm.service.ISysMenuService;
 import java.util.List;
-import java.util.Objects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -42,14 +40,14 @@ class SysMenuServiceImplTest {
 
     @Test
     @Rollback
-    void testIsMenuNameUnique() {
-        boolean addWithSame = menuService.isMenuNameUnique("用户管理", null, 1L);
-        boolean updateWithSame = menuService.isMenuNameUnique("用户管理", 5L, 1L);
-        boolean addWithoutSame = menuService.isMenuNameUnique("用户管理", null, 2L);
+    void testIsMenuNameDuplicated() {
+        boolean addWithSame = menuService.isMenuNameDuplicated("用户管理", null, 1L);
+        boolean updateWithSame = menuService.isMenuNameDuplicated("用户管理", 5L, 1L);
+        boolean addWithoutSame = menuService.isMenuNameDuplicated("用户管理", null, 2L);
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
     @Test

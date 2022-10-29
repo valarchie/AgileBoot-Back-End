@@ -34,36 +34,36 @@ class SysUserServiceImplTest {
 
     @Test
     @Rollback
-    void testIsUserNameUnique() {
-        boolean isUnique = userService.isUserNameUnique("admin");
+    void testIsUserNameDuplicated() {
+        boolean isDuplicated = userService.isUserNameDuplicated("admin");
 
-        Assertions.assertTrue(isUnique);
+        Assertions.assertTrue(isDuplicated);
     }
 
 
     @Test
     @Rollback
-    void testIsPhoneUnique() {
-        boolean addWithSame = userService.isPhoneUnique("15888888889", null);
-        boolean updateWithSame = userService.isPhoneUnique("15888888889", 1L);
-        boolean addWithoutSame = userService.isPhoneUnique("15888888899", null);
+    void testIsPhoneDuplicated() {
+        boolean addWithSame = userService.isPhoneDuplicated("15888888889", null);
+        boolean updateWithSame = userService.isPhoneDuplicated("15888888889", 1L);
+        boolean addWithoutSame = userService.isPhoneDuplicated("15888888899", null);
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
 
     @Test
     @Rollback
-    void testIsEmailUnique() {
-        boolean addWithSame = userService.isEmailUnique("agileboot@163.com", null);
-        boolean updateWithSame = userService.isEmailUnique("agileboot@163.com", 1L);
-        boolean addWithoutSame = userService.isEmailUnique("agileboot@164.com", null);
+    void testIsEmailDuplicated() {
+        boolean addWithSame = userService.isEmailDuplicated("agileboot@163.com", null);
+        boolean updateWithSame = userService.isEmailDuplicated("agileboot@163.com", 1L);
+        boolean addWithoutSame = userService.isEmailDuplicated("agileboot@164.com", null);
 
-        Assertions.assertFalse(addWithSame);
-        Assertions.assertTrue(updateWithSame);
-        Assertions.assertTrue(addWithoutSame);
+        Assertions.assertTrue(addWithSame);
+        Assertions.assertFalse(updateWithSame);
+        Assertions.assertFalse(addWithoutSame);
     }
 
     @Test

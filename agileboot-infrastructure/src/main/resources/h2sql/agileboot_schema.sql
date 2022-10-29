@@ -1,9 +1,9 @@
 
 --- int后面不能带数字， 索引相关的语句也不允许， 保留最简单原始的语句即可
-
+create sequence if not exists sys_config_seq start with 6 increment by 1;
 create table sys_config
 (
-    config_id       int auto_increment,
+    config_id       int default next value for sys_config_seq,
     config_name     varchar(128)  default '' not null comment '配置名称',
     config_key      varchar(128)  default '' not null comment '配置键名',
     config_options  varchar(1024) default '' not null comment '可选的选项',
@@ -19,9 +19,10 @@ create table sys_config
     deleted         int    default 0  not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_dept_seq start with 11 increment by 1;
 create table sys_dept
 (
-    dept_id      int auto_increment,
+    dept_id      int default next value for sys_dept_seq,
     parent_id    bigint      default 0  not null comment '父部门id',
     ancestors    text                   not null comment '祖级列表',
     dept_name    varchar(64) default '' not null comment '部门名称',
@@ -40,9 +41,10 @@ create table sys_dept
     deleted      tinyint  default 0  not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_login_info_seq start with 1 increment by 1;
 create table sys_login_info
 (
-    info_id          bigint auto_increment,
+    info_id          bigint default next value for sys_login_info_seq,
     username         varchar(50)  default '' not null comment '用户账号',
     ip_address       varchar(128) default '' not null comment '登录IP地址',
     login_location   varchar(255) default '' not null comment '登录地点',
@@ -54,9 +56,10 @@ create table sys_login_info
     deleted          tinyint   default 0  not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_menu_seq start with 63 increment by 1;
 create table sys_menu
 (
-    menu_id      bigint auto_increment,
+    menu_id      bigint default next value for sys_menu_seq,
     menu_name    varchar(64)              not null comment '菜单名称',
     parent_id    bigint       default 0   not null comment '父菜单ID',
     order_num    int          default 0   not null comment '显示顺序',
@@ -80,9 +83,10 @@ create table sys_menu
     deleted      tinyint   default 0   not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_notice_seq start with 3 increment by 1;
 create table sys_notice
 (
-    notice_id      int auto_increment,
+    notice_id      int default next value for sys_notice_seq,
     notice_title   varchar(64)             not null comment '公告标题',
     notice_type    smallint                not null comment '公告类型（1通知 2公告）',
     notice_content text                    null comment '公告内容',
@@ -97,9 +101,10 @@ create table sys_notice
     deleted        tinyint   default 0  not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_operation_log_seq start with 1 increment by 1;
 create table sys_operation_log
 (
-    operation_id      bigint auto_increment,
+    operation_id      bigint default next value for sys_operation_log_seq,
     business_type     smallint      default 0  not null comment '业务类型（0其它 1新增 2修改 3删除）',
     request_method    smallint      default 0  not null comment '请求方式',
     request_module    varchar(64)   default '' not null comment '请求模块',
@@ -120,9 +125,10 @@ create table sys_operation_log
     deleted           tinyint    default 0  not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_post_seq start with 5 increment by 1;
 create table sys_post
 (
-    post_id      bigint auto_increment,
+    post_id      bigint default next value for sys_post_seq,
     post_code    varchar(64)            not null comment '岗位编码',
     post_name    varchar(64)            not null comment '岗位名称',
     post_sort    int                    not null comment '显示顺序',
@@ -137,9 +143,10 @@ create table sys_post
     deleted      tinyint  default 0  not null comment '逻辑删除'
 );
 
+create sequence if not exists sys_role_seq start with 4 increment by 1;
 create table sys_role
 (
-    role_id      bigint auto_increment,
+    role_id      bigint default next value for sys_role_seq,
     role_name    varchar(32)              not null comment '角色名称',
     role_key     varchar(128)             not null comment '角色权限字符串',
     role_sort    int                      not null comment '显示顺序',
@@ -162,9 +169,10 @@ create table sys_role_menu
     menu_id bigint auto_increment not null comment '菜单ID'
 );
 
+create sequence if not exists sys_user_seq start with 4 increment by 1;
 create table sys_user
 (
-    user_id      bigint auto_increment,
+    user_id      bigint default next value for sys_user_seq,
     post_id      bigint                  null comment '职位id',
     role_id      bigint                  null comment '角色id',
     dept_id      bigint                  null comment '部门ID',

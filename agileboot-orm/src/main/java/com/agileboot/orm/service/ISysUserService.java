@@ -25,7 +25,7 @@ public interface ISysUserService extends IService<SysUserEntity> {
      * @param userId
      * @return
      */
-    boolean isPhoneUnique(String phone, Long userId);
+    boolean isPhoneDuplicated(String phone, Long userId);
 
     /**
      * 检测邮箱是否唯一
@@ -33,14 +33,14 @@ public interface ISysUserService extends IService<SysUserEntity> {
      * @param userId
      * @return
      */
-    boolean isEmailUnique(String email, Long userId);
+    boolean isEmailDuplicated(String email, Long userId);
 
     /**
      * 检测用户名是否
      * @param userName
      * @return
      */
-    boolean isUserNameUnique(String userName);
+    boolean isUserNameDuplicated(String userName);
 
     /**
      * 获取用户的角色

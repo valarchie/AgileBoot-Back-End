@@ -43,12 +43,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
     }
 
     @Override
-    public boolean isMenuNameUnique(String menuName, Long menuId, Long parentId) {
+    public boolean isMenuNameDuplicated(String menuName, Long menuId, Long parentId) {
         QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("menu_name", menuName)
             .ne(menuId != null, "menu_id", menuId)
             .eq(parentId != null, "parent_id", parentId);
-        return !this.baseMapper.exists(queryWrapper);
+        return this.baseMapper.exists(queryWrapper);
     }
 
 

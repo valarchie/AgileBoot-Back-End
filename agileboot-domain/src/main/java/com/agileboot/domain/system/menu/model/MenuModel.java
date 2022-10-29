@@ -19,7 +19,7 @@ public class MenuModel extends SysMenuEntity {
 
 
     public void checkMenuNameUnique(ISysMenuService menuService) {
-        if (!menuService.isMenuNameUnique(getMenuName(), getMenuId(), getParentId())) {
+        if (menuService.isMenuNameDuplicated(getMenuName(), getMenuId(), getParentId())) {
             throw new ApiException(ErrorCode.Business.MENU_NAME_IS_NOT_UNIQUE);
         }
     }

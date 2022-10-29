@@ -17,13 +17,13 @@ public interface ISysPostService extends IService<SysPostEntity> {
      * 校验岗位名称
      * @return 结果
      */
-    boolean isPostNameUnique(Long postId, String postName);
+    boolean isPostNameDuplicated(Long postId, String postName);
 
     /**
      * 校验岗位编码
      * @return 结果
      */
-    boolean isPostCodeUnique(Long postId, String postCode);
+    boolean isPostCodeDuplicated(Long postId, String postCode);
 
 
     /**
