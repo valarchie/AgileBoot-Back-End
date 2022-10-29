@@ -129,7 +129,8 @@ public class PermissionService {
         }
 
         if (role.getDataScope() == DataScopeEnum.CURRENT_DEPT_AND_CHILDREN_DEPT &&
-            deptService.isChildOfTheDept(loginUser.getDeptId(), targetDeptId)) {
+            (deptService.isChildOfTheDept(loginUser.getDeptId(), targetDeptId)
+                || Objects.equals(loginUser.getDeptId(), targetDeptId))) {
             return true;
         }
 

@@ -1,0 +1,148 @@
+package com.agileboot.integrationtest.db;
+
+import com.agileboot.domain.system.logininfo.query.SearchUserQuery;
+import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
+import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
+import com.agileboot.integrationtest.IntegrationTestApplication;
+import com.agileboot.orm.entity.SysMenuEntity;
+import com.agileboot.orm.entity.SysPostEntity;
+import com.agileboot.orm.entity.SysRoleEntity;
+import com.agileboot.orm.entity.SysUserEntity;
+import com.agileboot.orm.result.SearchUserDO;
+import com.agileboot.orm.service.ISysMenuService;
+import com.agileboot.orm.service.ISysUserService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@SpringBootTest(classes = IntegrationTestApplication.class)
+@RunWith(SpringRunner.class)
+class SysUserServiceImplTest {
+
+    @Autowired
+    ISysUserService userService;
+    @Autowired
+    ISysMenuService menuService;
+
+    @Test
+    @Rollback
+    void testIsUserNameUnique() {
+        boolean isUnique = userService.isUserNameUnique("admin");
+
+        Assertions.assertTrue(isUnique);
+    }
+
+
+    @Test
+    @Rollback
+    void testIsPhoneUnique() {
+        boolean addWithSame = userService.isPhoneUnique("15888888889", null);
+        boolean updateWithSame = userService.isPhoneUnique("15888888889", 1L);
+        boolean addWithoutSame = userService.isPhoneUnique("15888888899", null);
+
+        Assertions.assertFalse(addWithSame);
+        Assertions.assertTrue(updateWithSame);
+        Assertions.assertTrue(addWithoutSame);
+    }
+
+
+    @Test
+    @Rollback
+    void testIsEmailUnique() {
+        boolean addWithSame = userService.isEmailUnique("agileboot@163.com", null);
+        boolean updateWithSame = userService.isEmailUnique("agileboot@163.com", 1L);
+        boolean addWithoutSame = userService.isEmailUnique("agileboot@164.com", null);
+
+        Assertions.assertFalse(addWithSame);
+        Assertions.assertTrue(updateWithSame);
+        Assertions.assertTrue(addWithoutSame);
+    }
+
+    @Test
+    @Rollback
+    void testGetRoleOfUser() {
+        SysRoleEntity roleOfUser = userService.getRoleOfUser(1L);
+
+        Assertions.assertEquals(1L, roleOfUser.getRoleId());
+        Assertions.assertEquals("超级管理员", roleOfUser.getRoleName());
+        Assertions.assertEquals("admin", roleOfUser.getRoleKey());
+    }
+
+    @Test
+    @Rollback
+    void testGetPostOfUser() {
+        SysPostEntity postOfUser = userService.getPostOfUser(1L);
+
+        Assertions.assertEquals(1L, postOfUser.getPostId());
+        Assertions.assertEquals("董事长", postOfUser.getPostName());
+        Assertions.assertEquals("ceo", postOfUser.getPostCode());
+    }
+
+    @Test
+    @Rollback
+    void testGetMenuPermissionsForUsers() {
+        Set<String> permissionByUser = userService.getMenuPermissionsForUser(2L);
+        List<SysMenuEntity> allMenus = menuService.list();
+        Set<String> allPermissions = allMenus.stream().map(SysMenuEntity::getPerms).collect(Collectors.toSet());
+
+        Assertions.assertEquals(allPermissions.size() - 1, permissionByUser.size());
+    }
+
+    @Test
+    @Rollback
+    void testGetUserByUserName() {
+        SysUserEntity admin = userService.getUserByUserName("admin");
+
+        Assertions.assertEquals(1L, admin.getUserId());
+        Assertions.assertEquals(1L, admin.getRoleId());
+        Assertions.assertEquals(1L, admin.getPostId());
+    }
+
+    @Test
+    @Rollback
+    void testGetRoleAssignedUserList() {
+        AllocatedRoleQuery allocatedRoleQuery = new AllocatedRoleQuery();
+        allocatedRoleQuery.setRoleId(1L);
+        allocatedRoleQuery.setUsername("admin");
+
+        Page<SysUserEntity> roleAssignedPage = userService.getUserListByRole(allocatedRoleQuery);
+
+        Assertions.assertEquals(1, roleAssignedPage.getTotal());
+        Assertions.assertEquals("admin", roleAssignedPage.getRecords().get(0).getUsername());
+    }
+
+    @Test
+    @Rollback
+    void testGetRoleUnassignedUserList() {
+        UnallocatedRoleQuery unallocatedRoleQuery = new UnallocatedRoleQuery();
+        unallocatedRoleQuery.setRoleId(3L);
+        unallocatedRoleQuery.setUsername("ag2");
+
+        Page<SysUserEntity> roleAssignedPage = userService.getUserListByRole(unallocatedRoleQuery);
+
+        Assertions.assertEquals(1, roleAssignedPage.getTotal());
+        Assertions.assertEquals("ag2", roleAssignedPage.getRecords().get(0).getUsername());
+    }
+
+    @Test
+    @Rollback
+    void testGetUserList() {
+        SearchUserQuery searchUserQuery = new SearchUserQuery();
+        searchUserQuery.setUsername("a");
+
+        Page<SearchUserDO> userList = userService.getUserList(searchUserQuery);
+
+        Assertions.assertEquals(3, userList.getTotal());
+        Assertions.assertEquals("admin", userList.getRecords().get(0).getUsername());
+    }
+
+
+}

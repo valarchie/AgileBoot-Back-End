@@ -29,13 +29,13 @@ public class DeptModel extends SysDeptEntity {
 
 
     public void checkExistChildDept(ISysDeptService deptService) {
-        if (deptService.hasDirectChildDept(getDeptId())) {
+        if (deptService.hasChildrenDept(getDeptId(), null)) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_CHILD_DEPT_NOT_ALLOW_DELETE);
         }
     }
 
-    public void checkExistLinkedUsers(ISysUserService userService) {
-        if (userService.checkDeptExistUser(getDeptId())) {
+    public void checkExistLinkedUsers(ISysDeptService deptService) {
+        if (deptService.isDeptAssignedToUsers(getDeptId())) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_LINK_USER_NOT_ALLOW_DELETE);
         }
     }
@@ -58,7 +58,7 @@ public class DeptModel extends SysDeptEntity {
      */
     public void checkStatusAllowChange(ISysDeptService deptService) {
         if (CommonStatusEnum.DISABLE.getValue().equals(getStatus()) &&
-            deptService.existChildrenDeptById(getDeptId(), true)) {
+            deptService.hasChildrenDept(getDeptId(), true)) {
             throw new ApiException(ErrorCode.Business.DEPT_STATUS_ID_IS_NOT_ALLOWED_CHANGE);
         }
 

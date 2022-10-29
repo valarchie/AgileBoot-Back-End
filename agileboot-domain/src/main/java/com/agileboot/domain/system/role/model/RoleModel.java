@@ -8,7 +8,6 @@ import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
-import com.agileboot.orm.service.ISysUserService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -32,19 +31,19 @@ public class RoleModel extends SysRoleEntity {
     private List<Long> deptIds;
 
     public void checkRoleNameUnique(ISysRoleService roleService) {
-        if (roleService.checkRoleNameUnique(getRoleId(), getRoleName())) {
+        if (!roleService.isRoleNameUnique(getRoleId(), getRoleName())) {
             throw new ApiException(ErrorCode.Business.ROLE_NAME_IS_NOT_UNIQUE, getRoleName());
         }
     }
 
-    public void checkRoleCanBeDelete(ISysUserService userService) {
-        if (userService.checkExistUserLinkToRole(getRoleId())) {
+    public void checkRoleCanBeDelete(ISysRoleService userService) {
+        if (userService.isAssignedToUsers(getRoleId())) {
             throw new ApiException(ErrorCode.Business.ROLE_NAME_IS_NOT_UNIQUE, getRoleName());
         }
     }
 
     public void checkRoleKeyUnique(ISysRoleService roleService) {
-        if (roleService.checkRoleKeyUnique(getRoleId(), getRoleKey())) {
+        if (!roleService.isRoleKeyUnique(getRoleId(), getRoleKey())) {
             throw new ApiException(ErrorCode.Business.ROLE_KEY_IS_NOT_UNIQUE, getRoleKey());
         }
     }

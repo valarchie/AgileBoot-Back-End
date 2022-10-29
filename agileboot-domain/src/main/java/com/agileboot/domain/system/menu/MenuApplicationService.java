@@ -18,6 +18,7 @@ import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.util.AuthenticationUtils;
 import com.agileboot.orm.entity.SysMenuEntity;
+import com.agileboot.orm.enums.MenuTypeEnum;
 import com.agileboot.orm.service.ISysMenuService;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class MenuApplicationService {
 
     public List<Tree<Long>> getDropdownList(LoginUser loginUser) {
         List<SysMenuEntity> menuEntityList =
-            loginUser.isAdmin() ? menuService.list() : menuService.selectMenuListByUserId(loginUser.getUserId());
+            loginUser.isAdmin() ? menuService.list() : menuService.getMenuListByUserId(loginUser.getUserId());
 
         return buildMenuTreeSelect(menuEntityList);
     }
@@ -55,11 +56,11 @@ public class MenuApplicationService {
 
     public TreeSelectedDTO getRoleDropdownList(LoginUser loginUser, Long roleId) {
         List<SysMenuEntity> menus = loginUser.isAdmin() ?
-            menuService.list() : menuService.selectMenuListByUserId(loginUser.getUserId());
+            menuService.list() : menuService.getMenuListByUserId(loginUser.getUserId());
 
         TreeSelectedDTO tree = new TreeSelectedDTO();
         tree.setMenus(buildMenuTreeSelect(menus));
-        tree.setCheckedKeys(menuService.selectMenuListByRoleId(roleId));
+        tree.setCheckedKeys(menuService.getMenuIdsByRoleId(roleId));
 
         return tree;
     }
@@ -128,19 +129,22 @@ public class MenuApplicationService {
 
 
     public List<Tree<Long>> buildMenuEntityTree(Long userId) {
-
-        List<SysMenuEntity> menus;
+        List<SysMenuEntity> allMenus;
         if (AuthenticationUtils.isAdmin(userId)) {
-            menus = menuService.listMenuListWithoutButton();
+            allMenus = menuService.list();
         } else {
-            menus = menuService.listMenuListWithoutButtonByUserId(userId);
+            allMenus = menuService.getMenuListByUserId(userId);
         }
+
+        List<SysMenuEntity> noButtonMenus = allMenus.stream()
+            .filter(menu -> !MenuTypeEnum.BUTTON.getValue().equals(menu.getMenuType()))
+            .collect(Collectors.toList());
 
         TreeNodeConfig config = new TreeNodeConfig();
         //默认为id可以不设置
         config.setIdKey("menuId");
 
-        return TreeUtil.build(menus, 0L, config, (menu, tree) -> {
+        return TreeUtil.build(noButtonMenus, 0L, config, (menu, tree) -> {
             // 也可以使用 tree.setId(dept.getId());等一些默认值
             tree.setId(menu.getMenuId());
             tree.setParentId(menu.getParentId());

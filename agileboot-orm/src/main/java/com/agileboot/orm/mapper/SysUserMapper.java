@@ -34,7 +34,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
         + " LEFT JOIN sys_user u ON u.role_id = r.role_id "
         + "WHERE r.deleted = 0 "
         + " AND u.user_id = #{userId}")
-    List<SysRoleEntity> selectRolesByUserId(Long userId);
+    List<SysRoleEntity> getRolesByUserId(Long userId);
 
     /**
      * 查询用户所属岗位组
@@ -47,8 +47,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
         + " LEFT JOIN sys_user u ON p.post_id = u.post_id "
         + "WHERE u.user_id = #{userId} "
         + " AND p.deleted = 0")
-    List<SysPostEntity> selectPostsByUserId(Long userId);
-
+    List<SysPostEntity> getPostsByUserId(Long userId);
 
     /**
      * 根据用户ID查询权限
@@ -64,22 +63,13 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
         + "WHERE m.status = 1 AND m.deleted = 0 "
         + " AND r.status = 1 AND r.deleted = 0 "
         + " AND u.user_id = #{userId}")
-    Set<String> selectMenuPermsByUserId(Long userId);
-
-
-    @Select("SELECT DISTINCT u.user_id, u.dept_id, u.username, u.nick_name, u.email "
-        + " , u.phone_number, u.status, u.create_time "
-        + "FROM sys_user u "
-        + " LEFT JOIN sys_dept d ON u.dept_id = d.dept_id "
-        + " LEFT JOIN sys_role r ON r.role_id = u.role_id "
-        + " ${ew.customSqlSegment}")
-    List<SysUserEntity> selectRoleAssignedUserList(Page<SysUserEntity> page,
-        @Param(Constants.WRAPPER) Wrapper<SysUserEntity> queryWrapper);
+    Set<String> getMenuPermsByUserId(Long userId);
 
     /**
-     * 根据条件分页查询未分配用户角色列表
-     *
-     * @return 用户信息集合信息
+     * 根据条件分页查询角色关联的用户列表
+     * @param page
+     * @param queryWrapper
+     * @return
      */
     @Select("SELECT DISTINCT u.user_id, u.dept_id, u.username, u.nick_name, u.email "
         + " , u.phone_number, u.status, u.create_time "
@@ -87,7 +77,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
         + " LEFT JOIN sys_dept d ON u.dept_id = d.dept_id "
         + " LEFT JOIN sys_role r ON r.role_id = u.role_id"
         + " ${ew.customSqlSegment}")
-    List<SysUserEntity> selectRoleUnassignedUserList(Page<SysUserEntity> page,
+    Page<SysUserEntity> getUserListByRole(Page<SysUserEntity> page,
         @Param(Constants.WRAPPER) Wrapper<SysUserEntity> queryWrapper);
 
     /**
@@ -99,7 +89,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
         + "FROM sys_user u "
         + " LEFT JOIN sys_dept d ON u.dept_id = d.dept_id "
         + "${ew.customSqlSegment}")
-    List<SearchUserDO> selectUserList(Page<SearchUserDO> page,
+    Page<SearchUserDO> getUserList(Page<SearchUserDO> page,
         @Param(Constants.WRAPPER) Wrapper<SearchUserDO> queryWrapper);
 
 }

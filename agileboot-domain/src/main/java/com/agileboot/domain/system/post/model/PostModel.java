@@ -18,7 +18,7 @@ public class PostModel extends SysPostEntity {
 
 
     public void checkCanBeDelete(ISysPostService postService) {
-        if (postService.isAssignedToUser(this.getPostId())) {
+        if (postService.isAssignedToUsers(this.getPostId())) {
             throw new ApiException(ErrorCode.Business.POST_ALREADY_ASSIGNED_TO_USER_CAN_NOT_BE_DELETED);
         }
     }

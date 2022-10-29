@@ -147,13 +147,13 @@ public class RoleApplicationService {
 
 
     public PageDTO getAllocatedUserList(AllocatedRoleQuery query) {
-        Page<SysUserEntity> page = userService.selectAllocatedList(query);
+        Page<SysUserEntity> page = userService.getUserListByRole(query);
         List<UserDTO> dtoList = page.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
         return new PageDTO(dtoList, page.getTotal());
     }
 
     public PageDTO getUnallocatedUserList(UnallocatedRoleQuery query) {
-        Page<SysUserEntity> page = userService.selectUnallocatedList(query);
+        Page<SysUserEntity> page = userService.getUserListByRole(query);
         List<UserDTO> dtoList = page.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
         return new PageDTO(dtoList, page.getTotal());
     }

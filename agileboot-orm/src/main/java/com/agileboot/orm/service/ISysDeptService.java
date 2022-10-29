@@ -21,17 +21,29 @@ public interface ISysDeptService extends IService<SysDeptEntity> {
      * @param parentId
      * @return
      */
-    boolean checkDeptNameUnique(String deptName, Long deptId, Long parentId);
+    boolean isDeptNameUnique(String deptName, Long deptId, Long parentId);
 
     /**
      * 检测部门底下是否还有正在使用中的子部门
      * @param deptId
      * @return
      */
-    boolean existChildrenDeptById(Long deptId, Boolean enabled);
+    boolean hasChildrenDept(Long deptId, Boolean enabled);
 
-    boolean isChildOfTheDept(Long ancestorId, Long childId);
+    /**
+     * 是否是目标部门的子部门
+     * @param parentId 目标部门id
+     * @param childId 子部门id
+     * @return
+     */
+    boolean isChildOfTheDept(Long parentId, Long childId);
 
-    boolean hasDirectChildDept(Long deptId);
+    /**
+     * 检测该部门是否已有用户使用
+     * @param deptId
+     * @return
+     */
+    boolean isDeptAssignedToUsers(Long deptId);
+
 
 }

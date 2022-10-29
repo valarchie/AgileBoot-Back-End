@@ -1,5 +1,6 @@
 package com.agileboot.orm.service.impl;
 
+import cn.hutool.core.collection.ListUtil;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.enums.MenuTypeEnum;
@@ -27,8 +28,6 @@ import org.springframework.stereotype.Service;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity> implements ISysMenuService {
 
     @Autowired
-    private SysRoleMapper roleMapper;
-    @Autowired
     private SysRoleMenuMapper roleMenuMapper;
 
 
@@ -39,27 +38,27 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
      * @return 选中菜单列表
      */
     @Override
-    public List<Long> selectMenuListByRoleId(Long roleId) {
-        return this.baseMapper.selectMenuListByRoleId(roleId);
+    public List<Long> getMenuIdsByRoleId(Long roleId) {
+        return this.baseMapper.selectMenuIdsByRoleId(roleId);
     }
 
     @Override
-    public boolean checkMenuNameUnique(String menuName, Long menuId, Long parentId) {
+    public boolean isMenuNameUnique(String menuName, Long menuId, Long parentId) {
         QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("menu_name", menuName)
-            .ne(menuId!=null, "menu_id", menuId)
+            .ne(menuId != null, "menu_id", menuId)
             .eq(parentId != null, "parent_id", parentId);
-        return this.baseMapper.exists(queryWrapper);
+        return !this.baseMapper.exists(queryWrapper);
     }
 
 
-
     @Override
-    public boolean hasChildByMenuId(Long menuId) {
+    public boolean hasChildrenMenu(Long menuId) {
         QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parent_id", menuId);
         return baseMapper.exists(queryWrapper);
     }
+
     /**
      * 查询菜单使用数量
      *
@@ -67,45 +66,18 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
      * @return 结果
      */
     @Override
-    public boolean checkMenuExistRole(Long menuId) {
+    public boolean isMenuAssignToRoles(Long menuId) {
         QueryWrapper<SysRoleMenuEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("menu_id", menuId);
         return roleMenuMapper.exists(queryWrapper);
     }
 
-    @Override
-    public List<SysMenuEntity> listMenuListWithoutButtonByUserId(Long userId) {
-        List<SysMenuEntity> sysMenuList = this.baseMapper.selectMenuListByUserId(userId);
 
-        if (sysMenuList == null) {
-            return null;
-        }
-
-        return sysMenuList.stream()
-            .filter(menu -> !Objects.equals(menu.getMenuType(), MenuTypeEnum.BUTTON.getValue()))
-            .collect(Collectors.toList());
-    }
 
     @Override
-    public List<SysMenuEntity> listMenuListWithoutButton() {
-        List<SysMenuEntity> sysMenuList = this.list();
-
-        if (sysMenuList == null) {
-            return null;
-        }
-
-        return sysMenuList.stream()
-            .filter(menu -> !MenuTypeEnum.BUTTON.getValue().equals(menu.getMenuType()))
-            .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SysMenuEntity> selectMenuListByUserId(Long userId) {
+    public List<SysMenuEntity> getMenuListByUserId(Long userId) {
         return baseMapper.selectMenuListByUserId(userId);
     }
-
-
-
 
 
 }

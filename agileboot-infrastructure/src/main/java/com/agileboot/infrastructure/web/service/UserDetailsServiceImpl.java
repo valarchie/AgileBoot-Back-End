@@ -73,7 +73,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (LoginUser.isAdmin(userId)) {
             perms.add("*:*:*");
         } else {
-            perms.addAll(userService.selectMenuPermsByUserId(userId));
+            perms.addAll(userService.getMenuPermissionsForUser(userId));
         }
         return perms;
     }

@@ -43,8 +43,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
         + " LEFT JOIN sys_role_menu rm ON m.menu_id = rm.menu_id "
         + "WHERE rm.role_id = #{roleId} "
         + " AND m.deleted = 0 "
-        + "GROUP BY m.menu_id "
-        + "ORDER BY m.parent_id, m.order_num")
-    List<Long> selectMenuListByRoleId(@Param("roleId") Long roleId);
+        + "GROUP BY m.menu_id ")
+    List<Long> selectMenuIdsByRoleId(@Param("roleId") Long roleId);
 
 }

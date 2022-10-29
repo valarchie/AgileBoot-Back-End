@@ -18,21 +18,21 @@ import lombok.NoArgsConstructor;
 public class UserModel extends SysUserEntity {
 
     public void checkUsernameIsUnique(ISysUserService userService) {
-        if (userService.checkUserNameUnique(getUsername())) {
+        if (!userService.isUserNameUnique(getUsername())) {
             throw new ApiException(ErrorCode.Business.USER_NAME_IS_NOT_UNIQUE);
         }
     }
 
 
     public void checkPhoneNumberIsUnique(ISysUserService userService) {
-        if (StrUtil.isNotEmpty(getPhoneNumber()) && userService.checkPhoneUnique(getPhoneNumber(),
+        if (StrUtil.isNotEmpty(getPhoneNumber()) && !userService.isPhoneUnique(getPhoneNumber(),
             getUserId())) {
             throw new ApiException(ErrorCode.Business.USER_PHONE_NUMBER_IS_NOT_UNIQUE);
         }
     }
 
     public void checkEmailIsUnique(ISysUserService userService) {
-        if (StrUtil.isNotEmpty(getEmail()) && userService.checkEmailUnique(getEmail(), getUserId())) {
+        if (StrUtil.isNotEmpty(getEmail()) && !userService.isEmailUnique(getEmail(), getUserId())) {
             throw new ApiException(ErrorCode.Business.USER_EMAIL_IS_NOT_UNIQUE);
         }
     }

@@ -62,7 +62,7 @@ public class UserApplicationService {
 
 
     public PageDTO getUserList(SearchUserQuery query) {
-        Page<SearchUserDO> searchUserDOPage = userService.selectUserList(query);
+        Page<SearchUserDO> searchUserDOPage = userService.getUserList(query);
         List<UserDTO> userDTOList = searchUserDOPage.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
         return new PageDTO(userDTOList, searchUserDOPage.getTotal());
     }

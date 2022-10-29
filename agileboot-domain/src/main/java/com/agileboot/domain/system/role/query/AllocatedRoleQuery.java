@@ -24,4 +24,5 @@ public class AllocatedRoleQuery extends AbstractPageQuery {
 
         return queryWrapper;
     }
+
 }

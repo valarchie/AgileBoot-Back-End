@@ -78,7 +78,7 @@ public class DeptApplicationService {
     @Transactional
     public void addDept(AddDeptCommand addCommand, LoginUser loginUser) {
         DeptModel deptModel = addCommand.toModel();
-        if (deptService.checkDeptNameUnique(deptModel.getDeptName(), null, deptModel.getParentId())) {
+        if (!deptService.isDeptNameUnique(deptModel.getDeptName(), null, deptModel.getParentId())) {
             throw new ApiException(ErrorCode.Business.DEPT_NAME_IS_NOT_UNIQUE, deptModel.getDeptName());
         }
 
@@ -94,7 +94,7 @@ public class DeptApplicationService {
         getDeptModel(updateCommand.getDeptId());
 
         DeptModel deptModel = updateCommand.toModel();
-        if (deptService.checkDeptNameUnique(deptModel.getDeptName(), deptModel.getDeptId(), deptModel.getParentId())) {
+        if (!deptService.isDeptNameUnique(deptModel.getDeptName(), deptModel.getDeptId(), deptModel.getParentId())) {
             throw new ApiException(ErrorCode.Business.DEPT_NAME_IS_NOT_UNIQUE, deptModel.getDeptName());
         }
 
@@ -112,7 +112,7 @@ public class DeptApplicationService {
         DeptModel deptModel = getDeptModel(deptId);
 
         deptModel.checkExistChildDept(deptService);
-        deptModel.checkExistLinkedUsers(userService);
+        deptModel.checkExistLinkedUsers(deptService);
 
         deptService.removeById(deptId);
     }

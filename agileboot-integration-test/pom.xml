@@ -21,16 +21,22 @@
             <artifactId>agileboot-common</artifactId>
         </dependency>
 
-        <!-- 核心模块-->
+        <!-- 核心模块 -->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-infrastructure</artifactId>
         </dependency>
 
-        <!-- 系统模块-->
+        <!-- 系统模块 -->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-orm</artifactId>
+        </dependency>
+
+        <!-- 业务模块 -->
+        <dependency>
+            <groupId>com.agileboot</groupId>
+            <artifactId>agileboot-domain</artifactId>
         </dependency>
 
         <dependency>

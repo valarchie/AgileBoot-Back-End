@@ -17,13 +17,13 @@ public interface ISysPostService extends IService<SysPostEntity> {
      * 校验岗位名称
      * @return 结果
      */
-    boolean checkPostNameUnique(Long postId, String postName);
+    boolean isPostNameUnique(Long postId, String postName);
 
     /**
      * 校验岗位编码
      * @return 结果
      */
-    boolean checkPostCodeUnique(Long postId, String postCode);
+    boolean isPostCodeUnique(Long postId, String postCode);
 
 
     /**
@@ -31,6 +31,6 @@ public interface ISysPostService extends IService<SysPostEntity> {
      * @param postId 职位id
      * @return
      */
-    boolean isAssignedToUser(Long postId);
+    boolean isAssignedToUsers(Long postId);
 
 }
