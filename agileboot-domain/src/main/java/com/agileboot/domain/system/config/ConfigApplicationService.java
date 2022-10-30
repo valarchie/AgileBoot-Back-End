@@ -1,11 +1,10 @@
 package com.agileboot.domain.system.config;
 
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.domain.system.config.dto.ConfigDTO;
 import com.agileboot.domain.system.config.model.ConfigModel;
+import com.agileboot.domain.system.config.model.ConfigModelFactory;
 import com.agileboot.domain.system.config.query.ConfigQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysConfigEntity;
@@ -32,31 +31,20 @@ public class ConfigApplicationService {
         return new PageDTO(records, page.getTotal());
     }
 
-
     public ConfigDTO getConfigInfo(Long id) {
         SysConfigEntity byId = configService.getById(id);
         return new ConfigDTO(byId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateConfig(ConfigUpdateCommand updateCommand, LoginUser loginUser) {
-        ConfigModel configModel = getConfigModel(updateCommand.getConfigId());
+        ConfigModel configModel = ConfigModelFactory.loadFromUpdateCommand(updateCommand, configService);
 
-        configModel.setConfigValue(updateCommand.getConfigValue());
-        configModel.checkCanBeEdit();
-
+        configModel.checkCanBeModify();
         configModel.logUpdater(loginUser);
+
         configModel.updateById();
     }
 
-    public ConfigModel getConfigModel(Long id) {
-        SysConfigEntity byId = configService.getById(id);
-
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, id, "参数配置");
-        }
-
-        return new ConfigModel(byId);
-    }
 
 }

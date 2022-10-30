@@ -10,6 +10,7 @@ import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.domain.system.dept.dto.DeptDTO;
 import com.agileboot.domain.system.dept.model.DeptModel;
+import com.agileboot.domain.system.dept.model.DeptModelFactory;
 import com.agileboot.domain.system.dept.query.DeptQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysDeptEntity;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * 部门服务
  * @author valarchie
  */
 @Service
@@ -36,8 +38,6 @@ public class DeptApplicationService {
     @Autowired
     private ISysRoleService roleService;
 
-    @Autowired
-    private ISysUserService userService;
 
     public List<DeptDTO> getDeptList(DeptQuery query) {
         List<SysDeptEntity> list = deptService.list(query.toQueryWrapper());
@@ -75,41 +75,33 @@ public class DeptApplicationService {
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addDept(AddDeptCommand addCommand, LoginUser loginUser) {
-        DeptModel deptModel = addCommand.toModel();
-        if (deptService.isDeptNameDuplicated(deptModel.getDeptName(), null, deptModel.getParentId())) {
-            throw new ApiException(ErrorCode.Business.DEPT_NAME_IS_NOT_UNIQUE, deptModel.getDeptName());
-        }
+        DeptModel deptModel = DeptModelFactory.loadFromAddCommand(addCommand, new DeptModel());
 
+        deptModel.checkDeptNameUnique(deptService);
         deptModel.generateAncestors(deptService);
         deptModel.logCreator(loginUser);
 
         deptModel.insert();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateDept(UpdateDeptCommand updateCommand, LoginUser loginUser) {
-        // TODO 需要再调整一下
-        getDeptModel(updateCommand.getDeptId());
+        DeptModel deptModel = DeptModelFactory.loadFromUpdateCommand(updateCommand, deptService);
 
-        DeptModel deptModel = updateCommand.toModel();
-        if (deptService.isDeptNameDuplicated(deptModel.getDeptName(), deptModel.getDeptId(), deptModel.getParentId())) {
-            throw new ApiException(ErrorCode.Business.DEPT_NAME_IS_NOT_UNIQUE, deptModel.getDeptName());
-        }
-
+        deptModel.checkDeptNameUnique(deptService);
         deptModel.checkParentId();
         deptModel.checkStatusAllowChange(deptService);
         deptModel.generateAncestors(deptService);
-
         deptModel.logUpdater(loginUser);
 
         deptModel.updateById();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void removeDept(Long deptId) {
-        DeptModel deptModel = getDeptModel(deptId);
+        DeptModel deptModel = DeptModelFactory.loadFromDb(deptId, deptService);
 
         deptModel.checkExistChildDept(deptService);
         deptModel.checkExistLinkedUsers(deptService);
@@ -117,14 +109,6 @@ public class DeptApplicationService {
         deptService.removeById(deptId);
     }
 
-    public DeptModel getDeptModel(Long id) {
-        SysDeptEntity byId = deptService.getById(id);
 
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, id, "参数配置");
-        }
-
-        return new DeptModel(byId);
-    }
 
 }

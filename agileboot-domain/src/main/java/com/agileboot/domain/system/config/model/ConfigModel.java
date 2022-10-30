@@ -1,6 +1,5 @@
 package com.agileboot.domain.system.config.model;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -11,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 @Data
 public class ConfigModel extends SysConfigEntity {
@@ -18,7 +18,7 @@ public class ConfigModel extends SysConfigEntity {
     private Set<String> configOptionSet;
 
     public ConfigModel(SysConfigEntity entity) {
-        BeanUtil.copyProperties(entity, this);
+        BeanUtils.copyProperties(entity, this);
 
         List<String> options =
             JSONUtil.isTypeJSONArray(entity.getConfigOptions()) ? JSONUtil.toList(entity.getConfigOptions(),
@@ -27,16 +27,16 @@ public class ConfigModel extends SysConfigEntity {
         this.configOptionSet = new HashSet<>(options);
     }
 
-    public void checkCanBeEdit() {
+    public void checkCanBeModify() {
+
         if (StrUtil.isBlank(getConfigValue())) {
             throw new ApiException(ErrorCode.Business.CONFIG_VALUE_IS_NOT_ALLOW_TO_EMPTY);
         }
 
-        if(!configOptionSet.isEmpty()&& !configOptionSet.contains(getConfigValue())) {
+        if (!configOptionSet.isEmpty() && !configOptionSet.contains(getConfigValue())) {
             throw new ApiException(ErrorCode.Business.CONFIG_VALUE_IS_NOT_IN_OPTIONS);
         }
 
     }
-
 
 }

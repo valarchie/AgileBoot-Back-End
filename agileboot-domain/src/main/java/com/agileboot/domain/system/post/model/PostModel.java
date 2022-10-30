@@ -1,21 +1,20 @@
 package com.agileboot.domain.system.post.model;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.service.ISysPostService;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 @NoArgsConstructor
 public class PostModel extends SysPostEntity {
 
     public PostModel(SysPostEntity entity) {
         if (entity != null) {
-            BeanUtil.copyProperties(entity, this);
+            BeanUtils.copyProperties(entity, this);
         }
     }
-
 
     public void checkCanBeDelete(ISysPostService postService) {
         if (postService.isAssignedToUsers(this.getPostId())) {

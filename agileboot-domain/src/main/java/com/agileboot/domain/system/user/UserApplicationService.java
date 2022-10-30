@@ -34,6 +34,7 @@ import com.agileboot.orm.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -208,7 +209,7 @@ public class UserApplicationService {
         }
 
         UserModel userModel = new UserModel();
-        BeanUtil.copyProperties(byId, userModel);
+        BeanUtils.copyProperties(byId, userModel);
         return userModel;
     }
 

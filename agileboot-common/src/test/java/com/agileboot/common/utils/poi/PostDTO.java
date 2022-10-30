@@ -1,6 +1,5 @@
 package com.agileboot.common.utils.poi;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;

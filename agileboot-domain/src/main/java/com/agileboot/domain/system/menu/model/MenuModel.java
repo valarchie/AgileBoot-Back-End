@@ -1,19 +1,19 @@
 package com.agileboot.domain.system.menu.model;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.http.HttpUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.service.ISysMenuService;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 @NoArgsConstructor
 public class MenuModel extends SysMenuEntity {
 
     public MenuModel(SysMenuEntity entity) {
         if (entity != null) {
-            BeanUtil.copyProperties(entity, this);
+            BeanUtils.copyProperties(entity, this);
         }
     }
 

@@ -31,7 +31,7 @@ public class DeptQuery extends AbstractQuery {
             .and(deptId != null && isExcludeCurrentDept, o ->
                 o.ne("dept_id", deptId)
                     .or()
-                    .apply("FIND_IN_SET ( dept_id , ancestors)")
+                    .apply("FIND_IN_SET (dept_id , ancestors)")
             );
 
         return queryWrapper;

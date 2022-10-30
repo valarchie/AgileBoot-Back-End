@@ -14,7 +14,6 @@ import lombok.Data;
 public class ConfigDTO {
 
     public ConfigDTO(SysConfigEntity entity) {
-
         if (entity != null) {
             configId = entity.getConfigId() + "";
             configName = entity.getConfigName();

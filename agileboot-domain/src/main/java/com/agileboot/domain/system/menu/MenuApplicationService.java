@@ -1,6 +1,5 @@
 package com.agileboot.domain.system.menu;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
@@ -23,6 +22,7 @@ import com.agileboot.orm.service.ISysMenuService;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -164,7 +164,7 @@ public class MenuApplicationService {
 
                 if (entity != null) {
                     RouterModel model = new RouterModel();
-                    BeanUtil.copyProperties(entity, model, true);
+                    BeanUtils.copyProperties(entity, model);
 
                     routerDTO = model.produceDefaultRouterVO();
 
