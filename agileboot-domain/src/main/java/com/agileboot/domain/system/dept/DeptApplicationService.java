@@ -3,8 +3,6 @@ package com.agileboot.domain.system.dept;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
@@ -17,7 +15,6 @@ import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.service.ISysDeptService;
 import com.agileboot.orm.service.ISysRoleService;
-import com.agileboot.orm.service.ISysUserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,7 +88,7 @@ public class DeptApplicationService {
         DeptModel deptModel = DeptModelFactory.loadFromUpdateCommand(updateCommand, deptService);
 
         deptModel.checkDeptNameUnique(deptService);
-        deptModel.checkParentId();
+        deptModel.checkParentIdConflict();
         deptModel.checkStatusAllowChange(deptService);
         deptModel.generateAncestors(deptService);
         deptModel.logUpdater(loginUser);
@@ -103,8 +100,8 @@ public class DeptApplicationService {
     public void removeDept(Long deptId) {
         DeptModel deptModel = DeptModelFactory.loadFromDb(deptId, deptService);
 
-        deptModel.checkExistChildDept(deptService);
-        deptModel.checkExistLinkedUsers(deptService);
+        deptModel.checkHasChildDept(deptService);
+        deptModel.checkDeptAssignedToUsers(deptService);
 
         deptService.removeById(deptId);
     }

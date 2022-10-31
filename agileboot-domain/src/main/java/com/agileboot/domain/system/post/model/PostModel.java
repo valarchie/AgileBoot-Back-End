@@ -22,4 +22,16 @@ public class PostModel extends SysPostEntity {
         }
     }
 
+    public void checkPostNameUnique(ISysPostService postService) {
+        if (postService.isPostNameDuplicated(getPostId(), getPostName())) {
+            throw new ApiException(ErrorCode.Business.POST_NAME_IS_NOT_UNIQUE, getPostName());
+        }
+    }
+
+    public void checkPostCodeUnique(ISysPostService postService) {
+        if (postService.isPostCodeDuplicated(getPostId(), getPostCode())) {
+            throw new ApiException(ErrorCode.Business.POST_CODE_IS_NOT_UNIQUE, getPostCode());
+        }
+    }
+
 }

@@ -12,6 +12,7 @@ import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.domain.system.menu.dto.MenuDTO;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.menu.model.MenuModel;
+import com.agileboot.domain.system.menu.model.MenuModelFactory;
 import com.agileboot.domain.system.menu.model.RouterModel;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -90,23 +91,13 @@ public class MenuApplicationService {
 
 
     public void remove(Long menuId) {
-        MenuModel menuModel = getMenuModel(menuId);
+        MenuModel menuModel = MenuModelFactory.loadFromDb(menuId, menuService);
 
         menuModel.checkHasChildMenus(menuService);
         menuModel.checkMenuAlreadyAssignToRole(menuService);
 
         menuModel.deleteById();
     }
-
-
-    public MenuModel getMenuModel(Long menuId) {
-        SysMenuEntity byId = menuService.getById(menuId);
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, menuId, "菜单");
-        }
-        return new MenuModel(byId);
-    }
-
 
 
     /**

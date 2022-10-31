@@ -1,12 +1,11 @@
 package com.agileboot.domain.system.user;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.common.command.BulkOperationCommand;
-import com.agileboot.domain.system.logininfo.query.SearchUserQuery;
+import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;
@@ -122,7 +121,6 @@ public class UserApplicationService {
 
     public void updateUser(LoginUser loginUser, UpdateUserCommand command) {
         UserModel model = command.toModel();
-
 
         model.checkPhoneNumberIsUnique(userService);
         model.checkEmailIsUnique(userService);

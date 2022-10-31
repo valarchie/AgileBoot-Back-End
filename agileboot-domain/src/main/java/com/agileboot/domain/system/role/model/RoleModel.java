@@ -19,9 +19,6 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class RoleModel extends SysRoleEntity {
 
-
-
-
     public RoleModel(SysRoleEntity entity) {
         if (entity != null) {
             BeanUtils.copyProperties(entity,this);
@@ -85,7 +82,7 @@ public class RoleModel extends SysRoleEntity {
     }
 
 
-    public void saveMenus(ISysRoleMenuService roleMenuService) {
+    private void saveMenus(ISysRoleMenuService roleMenuService) {
         List<SysRoleMenuEntity> list = new ArrayList<>();
         if (getMenuIds() != null) {
             for (Long menuId : getMenuIds()) {

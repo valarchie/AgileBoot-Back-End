@@ -4,6 +4,7 @@ import com.agileboot.domain.system.dept.model.DeptModel;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import lombok.Data;
 
@@ -12,9 +13,12 @@ import lombok.Data;
  */
 @Data
 public class AddDeptCommand {
+
     /**
      * 父部门ID
      */
+    @NotNull
+    @PositiveOrZero
     private Long parentId;
 
     /**

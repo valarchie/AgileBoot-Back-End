@@ -23,7 +23,6 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-
     public void checkPhoneNumberIsUnique(ISysUserService userService) {
         if (StrUtil.isNotEmpty(getPhoneNumber()) && userService.isPhoneDuplicated(getPhoneNumber(),
             getUserId())) {
@@ -49,7 +48,6 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-
     public void modifyPassword(UpdateUserPasswordCommand command) {
         if (!AuthenticationUtils.matchesPassword(command.getOldPassword(), getPassword())) {
             throw new ApiException(ErrorCode.Business.USER_PASSWORD_IS_NOT_CORRECT);
@@ -64,7 +62,5 @@ public class UserModel extends SysUserEntity {
     public void resetPassword(String newPassword) {
         setPassword(AuthenticationUtils.encryptPassword(newPassword));
     }
-
-
 
 }

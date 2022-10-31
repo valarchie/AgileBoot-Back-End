@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.logininfo.query;
+package com.agileboot.domain.system.user.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.query.AbstractPageQuery;

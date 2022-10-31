@@ -85,7 +85,7 @@ public class RoleApplicationService {
     public void deleteRole(Long roleId, LoginUser loginUser) {
         RoleModel roleModel = getRoleModel(roleId);
 
-        roleModel.checkRoleNameUnique(roleService);
+        roleModel.checkRoleCanBeDelete(roleService);
 
         roleModel.logUpdater(loginUser);
 

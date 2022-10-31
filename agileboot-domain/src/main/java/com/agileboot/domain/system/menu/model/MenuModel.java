@@ -38,11 +38,13 @@ public class MenuModel extends SysMenuEntity {
         }
     }
 
+
     public void checkHasChildMenus(ISysMenuService menuService) {
         if (menuService.hasChildrenMenu(getMenuId())) {
             throw new ApiException(ErrorCode.Business.MENU_EXIST_CHILD_MENU_NOT_ALLOW_DELETE);
         }
     }
+
 
     public void checkMenuAlreadyAssignToRole(ISysMenuService menuService) {
         if (menuService.isMenuAssignToRoles(getMenuId())) {

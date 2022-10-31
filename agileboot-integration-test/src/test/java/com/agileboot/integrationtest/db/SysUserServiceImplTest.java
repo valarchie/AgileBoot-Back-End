@@ -1,6 +1,6 @@
 package com.agileboot.integrationtest.db;
 
-import com.agileboot.domain.system.logininfo.query.SearchUserQuery;
+import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.integrationtest.IntegrationTestApplication;

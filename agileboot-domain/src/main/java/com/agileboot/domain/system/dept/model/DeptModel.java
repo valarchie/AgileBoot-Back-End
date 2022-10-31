@@ -25,26 +25,30 @@ public class DeptModel extends SysDeptEntity {
         }
     }
 
-    public void checkParentId() {
+    public void checkParentIdConflict() {
         if (Objects.equals(getParentId(), getDeptId())) {
             throw new ApiException(ErrorCode.Business.DEPT_PARENT_ID_IS_NOT_ALLOWED_SELF);
         }
     }
 
-
-    public void checkExistChildDept(ISysDeptService deptService) {
+    public void checkHasChildDept(ISysDeptService deptService) {
         if (deptService.hasChildrenDept(getDeptId(), null)) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_CHILD_DEPT_NOT_ALLOW_DELETE);
         }
     }
 
-    public void checkExistLinkedUsers(ISysDeptService deptService) {
+    public void checkDeptAssignedToUsers(ISysDeptService deptService) {
         if (deptService.isDeptAssignedToUsers(getDeptId())) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_LINK_USER_NOT_ALLOW_DELETE);
         }
     }
 
     public void generateAncestors(ISysDeptService deptService) {
+        if (getParentId() == 0) {
+            setAncestors(getParentId().toString());
+            return;
+        }
+
         SysDeptEntity parentDept = deptService.getById(getParentId());
 
         if (parentDept == null || CommonStatusEnum.DISABLE.equals(

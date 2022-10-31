@@ -3,7 +3,6 @@ package com.agileboot.admin.controller.common;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.admin.request.LoginDTO;
-import com.agileboot.admin.request.RegisterDTO;
 import com.agileboot.admin.response.UserPermissionDTO;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants.Token;
@@ -11,6 +10,7 @@ import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
+import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
@@ -113,7 +113,7 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public ResponseDTO register(@RequestBody RegisterDTO user) {
+    public ResponseDTO register(@RequestBody AddUserCommand command) {
         return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
     }
 

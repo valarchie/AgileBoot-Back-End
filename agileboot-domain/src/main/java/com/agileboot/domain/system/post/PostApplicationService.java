@@ -42,15 +42,8 @@ public class PostApplicationService {
     public void addPost(AddPostCommand addCommand, LoginUser loginUser) {
         PostModel postModel = addCommand.toModel();
 
-        // check这种全局唯一性的判断 不适合放在 model领域类当中， 所以放在db service中  比较合适
-        if (postService.isPostNameDuplicated(null, postModel.getPostName())) {
-            throw new ApiException(ErrorCode.Business.POST_NAME_IS_NOT_UNIQUE, postModel.getPostName());
-        }
-
-        if (postService.isPostCodeDuplicated(null, postModel.getPostCode())) {
-            throw new ApiException(ErrorCode.Business.POST_CODE_IS_NOT_UNIQUE, postModel.getPostCode());
-        }
-
+        postModel.checkPostNameUnique(postService);
+        postModel.checkPostCodeUnique(postService);
         postModel.logCreator(loginUser);
 
         postModel.insert();
@@ -59,15 +52,8 @@ public class PostApplicationService {
     public void updatePost(UpdatePostCommand updateCommand, LoginUser loginUser) {
         PostModel postModel = updateCommand.toModel();
 
-        // check这种全局唯一性的判断 不适合放在 model领域类当中， 所以放在db service中  比较合适
-        if (postService.isPostNameDuplicated(postModel.getPostId(), postModel.getPostName())) {
-            throw new ApiException(ErrorCode.Business.POST_NAME_IS_NOT_UNIQUE, postModel.getPostName());
-        }
-
-        if (postService.isPostCodeDuplicated(postModel.getPostId(), postModel.getPostCode())) {
-            throw new ApiException(ErrorCode.Business.POST_CODE_IS_NOT_UNIQUE, postModel.getPostCode());
-        }
-
+        postModel.checkPostNameUnique(postService);
+        postModel.checkPostCodeUnique(postService);
         postModel.logUpdater(loginUser);
 
         postModel.updateById();
