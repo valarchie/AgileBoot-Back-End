@@ -4,8 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
@@ -82,7 +80,7 @@ public class MenuApplicationService {
         MenuModel model = updateCommand.toModel();
         model.checkMenuNameUnique(menuService);
         model.checkExternalLink();
-        model.checkParentId();
+        model.checkParentIdConflict();
 
         model.logUpdater(loginUser);
 
@@ -121,7 +119,7 @@ public class MenuApplicationService {
 
     public List<Tree<Long>> buildMenuEntityTree(Long userId) {
         List<SysMenuEntity> allMenus;
-        if (AuthenticationUtils.isAdmin(userId)) {
+        if (LoginUser.isAdmin(userId)) {
             allMenus = menuService.list();
         } else {
             allMenus = menuService.getMenuListByUserId(userId);

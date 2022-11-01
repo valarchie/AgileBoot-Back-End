@@ -3,6 +3,7 @@ package com.agileboot.domain.system.role.model;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.service.ISysRoleMenuService;
@@ -36,9 +37,9 @@ public class RoleModel extends SysRoleEntity {
         }
     }
 
-    public void checkRoleCanBeDelete(ISysRoleService userService) {
-        if (userService.isAssignedToUsers(getRoleId())) {
-            throw new ApiException(ErrorCode.Business.ROLE_NAME_IS_NOT_UNIQUE, getRoleName());
+    public void checkRoleCanBeDelete(ISysRoleService roleService) {
+        if (roleService.isAssignedToUsers(getRoleId())) {
+            throw new ApiException(Business.ROLE_ALREADY_ASSIGN_TO_USER, getRoleName());
         }
     }
 
@@ -51,6 +52,7 @@ public class RoleModel extends SysRoleEntity {
     public void generateDeptIdSet() {
         if (deptIds == null) {
             setDeptIdSet("");
+            return;
         }
 
         if (deptIds.size() > new HashSet<>(deptIds).size()) {
@@ -71,16 +73,20 @@ public class RoleModel extends SysRoleEntity {
     public void updateById(ISysRoleMenuService roleMenuService) {
         this.updateById();
         // 清空之前的角色菜单关联
-        roleMenuService.getBaseMapper().deleteByMap(Collections.singletonMap("role_id", getRoleId()));
+        cleanOldMenus(roleMenuService);
         saveMenus(roleMenuService);
     }
 
     public void deleteById(ISysRoleMenuService roleMenuService) {
         this.deleteById();
         // 清空之前的角色菜单关联
-        roleMenuService.getBaseMapper().deleteByMap(Collections.singletonMap("role_id", getRoleId()));
+        cleanOldMenus(roleMenuService);
     }
 
+
+    private void cleanOldMenus(ISysRoleMenuService roleMenuService) {
+        roleMenuService.getBaseMapper().deleteByMap(Collections.singletonMap("role_id", getRoleId()));
+    }
 
     private void saveMenus(ISysRoleMenuService roleMenuService) {
         List<SysRoleMenuEntity> list = new ArrayList<>();

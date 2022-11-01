@@ -9,13 +9,9 @@ import lombok.Data;
 @Data
 public class NoticeModel extends SysNoticeEntity {
 
-
     public void checkFields() {
-        Integer noticeType = this.getNoticeType();
-        BasicEnumUtil.fromValue(NoticeTypeEnum.class, noticeType);
-
-        Integer status = this.getStatus();
-        BasicEnumUtil.fromValue(CommonStatusEnum.class, status);
+        BasicEnumUtil.fromValue(NoticeTypeEnum.class, getNoticeType());
+        BasicEnumUtil.fromValue(CommonStatusEnum.class, getStatus());
     }
 
 }

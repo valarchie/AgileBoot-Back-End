@@ -24,7 +24,6 @@ public class MenuModel extends SysMenuEntity {
         }
     }
 
-
     public void checkExternalLink() {
         if (getIsExternal() && !HttpUtil.isHttp(getPath()) && !HttpUtil.isHttps(getPath())) {
             throw new ApiException(ErrorCode.Business.MENU_EXTERNAL_LINK_MUST_BE_HTTP);
@@ -32,7 +31,7 @@ public class MenuModel extends SysMenuEntity {
     }
 
 
-    public void checkParentId() {
+    public void checkParentIdConflict() {
         if (getMenuId().equals(getParentId())) {
             throw new ApiException(ErrorCode.Business.MENU_PARENT_ID_NOT_ALLOW_SELF);
         }

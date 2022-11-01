@@ -27,7 +27,11 @@ public interface ISysRoleService extends IService<SysRoleEntity> {
     boolean isRoleKeyDuplicated(Long roleId, String roleKey);
 
 
-
+    /**
+     * 检测角色是否分配给用户
+     * @param roleId
+     * @return
+     */
     boolean isAssignedToUsers(Long roleId);
 
 

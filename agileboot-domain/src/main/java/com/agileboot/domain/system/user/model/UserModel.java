@@ -37,13 +37,15 @@ public class UserModel extends SysUserEntity {
     }
 
     public void checkCanBeDelete(LoginUser loginUser) {
-        if (Objects.equals(getUserId(), loginUser.getUserId())) {
+        if (Objects.equals(getUserId(), loginUser.getUserId())
+            || LoginUser.isAdmin(getUserId())) {
             throw new ApiException(ErrorCode.Business.USER_CURRENT_USER_CAN_NOT_BE_DELETE);
         }
     }
 
     public void checkCanBeModify(LoginUser loginUser) {
         if (LoginUser.isAdmin(this.getUserId()) && !loginUser.isAdmin()) {
+            // TODO 这个异常需要更明确
             throw new ApiException(Business.UNSUPPORTED_OPERATION);
         }
     }
