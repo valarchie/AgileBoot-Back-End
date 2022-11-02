@@ -10,7 +10,6 @@ import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.result.SearchUserDO;
 import java.util.Date;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 @ExcelSheet(name = "用户列表")
 @Data
@@ -18,7 +17,7 @@ public class UserDTO {
 
     public UserDTO(SysUserEntity entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity, this);
+            BeanUtil.copyProperties(entity, this);
             SysDeptEntity dept = SpringUtil.getBean(GuavaCacheService.class).deptCache
                 .get(entity.getDeptId() + "");
             if (dept != null) {
@@ -29,7 +28,7 @@ public class UserDTO {
 
     public UserDTO(SearchUserDO entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity, this);
+            BeanUtil.copyProperties(entity, this);
         }
     }
 

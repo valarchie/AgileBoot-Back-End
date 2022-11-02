@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.operationlog.dto;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.orm.entity.SysOperationLogEntity;
@@ -18,7 +19,7 @@ public class OperationLogDTO {
 
     public OperationLogDTO(SysOperationLogEntity entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity, this);
+            BeanUtil.copyProperties(entity, this);
             this.requestMethod = BasicEnumUtil.getDescriptionByValue(RequestMethodEnum.class,
                 entity.getRequestMethod());
             this.statusStr = BasicEnumUtil.getDescriptionByValue(OperationStatusEnum.class, entity.getStatus());

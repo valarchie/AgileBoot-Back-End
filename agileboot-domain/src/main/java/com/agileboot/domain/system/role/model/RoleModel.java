@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.role.model;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
@@ -14,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 @Data
 @NoArgsConstructor
@@ -22,10 +22,9 @@ public class RoleModel extends SysRoleEntity {
 
     public RoleModel(SysRoleEntity entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity,this);
+            BeanUtil.copyProperties(entity,this);
         }
     }
-
 
     private List<Long> menuIds;
 

@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.user;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.exception.ApiException;
@@ -207,7 +208,7 @@ public class UserApplicationService {
         }
 
         UserModel userModel = new UserModel();
-        BeanUtils.copyProperties(byId, userModel);
+        BeanUtil.copyProperties(byId, userModel);
         return userModel;
     }
 

@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.dept.model;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.orm.entity.SysDeptEntity;
@@ -15,7 +16,7 @@ public class DeptModel extends SysDeptEntity {
 
     public DeptModel(SysDeptEntity entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity, this);
+            BeanUtil.copyProperties(entity, this);
         }
     }
 

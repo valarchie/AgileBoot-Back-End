@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.menu.model;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.http.HttpUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
@@ -13,7 +14,7 @@ public class MenuModel extends SysMenuEntity {
 
     public MenuModel(SysMenuEntity entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity, this);
+            BeanUtil.copyProperties(entity, this);
         }
     }
 

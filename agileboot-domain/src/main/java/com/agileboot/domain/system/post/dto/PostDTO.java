@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.post.dto;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
@@ -16,7 +17,7 @@ public class PostDTO {
 
     public PostDTO(SysPostEntity entity) {
         if (entity != null) {
-            BeanUtils.copyProperties(entity, this);
+            BeanUtil.copyProperties(entity, this);
             statusStr = BasicEnumUtil.getDescriptionByValue(CommonStatusEnum.class, entity.getStatus());
         }
     }

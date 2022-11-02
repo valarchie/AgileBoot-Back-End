@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.config.model;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -18,7 +19,7 @@ public class ConfigModel extends SysConfigEntity {
     private Set<String> configOptionSet;
 
     public ConfigModel(SysConfigEntity entity) {
-        BeanUtils.copyProperties(entity, this);
+        BeanUtil.copyProperties(entity, this);
 
         List<String> options =
             JSONUtil.isTypeJSONArray(entity.getConfigOptions()) ? JSONUtil.toList(entity.getConfigOptions(),

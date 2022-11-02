@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.menu.command;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.domain.system.menu.model.MenuModel;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -44,7 +45,7 @@ public class AddMenuCommand {
 
     public MenuModel toModel() {
         MenuModel model = new MenuModel();
-        BeanUtils.copyProperties(this, model);
+        BeanUtil.copyProperties(this, model);
         return model;
     }
 
