@@ -7,7 +7,9 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.util.AuthenticationUtils;
 import com.agileboot.orm.service.ISysUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ class UserModelTest {
     private final ISysUserService userService = mock(ISysUserService.class);
 
     private static final long USER_ID = 1L;
+    private static final long ADMIN_USER_ID = 1L;
 
     @Test
     void testCheckUsernameIsUnique() {
@@ -103,7 +106,7 @@ class UserModelTest {
         UserModel userModel = new UserModel();
         userModel.setUserId(2L);
         LoginUser loginUser = new LoginUser();
-        loginUser.setUserId(USER_ID);
+        loginUser.setUserId(ADMIN_USER_ID);
 
         Assertions.assertDoesNotThrow(()-> userModel.checkCanBeDelete(loginUser));
     }
@@ -111,7 +114,7 @@ class UserModelTest {
     @Test
     void testCheckCanBeModifyWhenFailed() {
         UserModel userModel = new UserModel();
-        userModel.setUserId(USER_ID);
+        userModel.setUserId(ADMIN_USER_ID);
         LoginUser loginUser = new LoginUser();
         loginUser.setUserId(2L);
 
@@ -122,21 +125,61 @@ class UserModelTest {
     @Test
     void testCheckCanBeModifyWhenSuccessful() {
         UserModel adminUser = new UserModel();
-        adminUser.setUserId(USER_ID);
+        adminUser.setUserId(ADMIN_USER_ID);
         UserModel normalUser = new UserModel();
         normalUser.setUserId(2L);
         LoginUser loginUser = new LoginUser();
-        loginUser.setUserId(USER_ID);
+        loginUser.setUserId(ADMIN_USER_ID);
 
         Assertions.assertDoesNotThrow(()->adminUser.checkCanBeModify(loginUser));
         Assertions.assertDoesNotThrow(()->normalUser.checkCanBeModify(loginUser));
     }
 
     @Test
-    void testModifyPassword() {
+    void testModifyPasswordWhenSuccessful() {
+        UserModel userModel = new UserModel();
+        userModel.setPassword("$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy");
+        UpdateUserPasswordCommand passwordCommand = new UpdateUserPasswordCommand();
+        passwordCommand.setOldPassword("admin123");
+        String newPassword = "admin456";
+        passwordCommand.setNewPassword(newPassword);
+
+        userModel.modifyPassword(passwordCommand);
+
+        Assertions.assertTrue(AuthenticationUtils.matchesPassword(newPassword, userModel.getPassword()));
+    }
+
+    @Test
+    void testModifyPasswordWhenPasswordWrong() {
+        UserModel userModel = new UserModel();
+        userModel.setPassword("$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy");
+        UpdateUserPasswordCommand passwordCommand = new UpdateUserPasswordCommand();
+        passwordCommand.setOldPassword("admin999");
+        String newPassword = "admin456";
+        passwordCommand.setNewPassword(newPassword);
+
+        ApiException exception = assertThrows(ApiException.class, () -> userModel.modifyPassword(passwordCommand));
+        Assertions.assertEquals(Business.USER_PASSWORD_IS_NOT_CORRECT, exception.getErrorCode());
+    }
+
+    @Test
+    void testModifyPasswordWhenOldNewPasswordSame() {
+        UserModel userModel = new UserModel();
+        userModel.setPassword("$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy");
+        UpdateUserPasswordCommand passwordCommand = new UpdateUserPasswordCommand();
+        passwordCommand.setOldPassword("admin123");
+        String newPassword = "admin123";
+        passwordCommand.setNewPassword(newPassword);
+
+        ApiException exception = assertThrows(ApiException.class, () -> userModel.modifyPassword(passwordCommand));
+        Assertions.assertEquals(Business.USER_NEW_PASSWORD_IS_THE_SAME_AS_OLD, exception.getErrorCode());
     }
 
     @Test
     void testResetPassword() {
+        UserModel userModel = new UserModel();
+        userModel.resetPassword("admin456");
+
+        Assertions.assertTrue(AuthenticationUtils.matchesPassword("admin456", userModel.getPassword()));
     }
 }
