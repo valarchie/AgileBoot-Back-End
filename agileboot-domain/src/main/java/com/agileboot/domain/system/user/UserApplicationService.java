@@ -1,11 +1,10 @@
 package com.agileboot.domain.system.user;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.common.command.BulkOperationCommand;
+import com.agileboot.domain.system.role.model.RoleModelFactory;
+import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
@@ -79,8 +78,8 @@ public class UserApplicationService {
 
 
     public void updateUserProfile(UpdateProfileCommand command, LoginUser loginUser) {
-        UserModel userModel = getUserModel(command.getUserId());
-        command.updateModel(userModel);
+        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        userModel.loadUpdateProfileCommand(command);
 
         userModel.checkPhoneNumberIsUnique(userService);
         userModel.checkEmailIsUnique(userService);
@@ -109,7 +108,7 @@ public class UserApplicationService {
     }
 
     public void addUser(LoginUser loginUser, AddUserCommand command) {
-        UserModel model = command.toModel();
+        UserModel model = UserModelFactory.loadFromAddCommand(command, new UserModel());
 
         model.checkUsernameIsUnique(userService);
         model.checkPhoneNumberIsUnique(userService);
@@ -121,7 +120,8 @@ public class UserApplicationService {
     }
 
     public void updateUser(LoginUser loginUser, UpdateUserCommand command) {
-        UserModel model = command.toModel();
+        UserModel model = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        model.loadUpdateUserCommand(command);
 
         model.checkPhoneNumberIsUnique(userService);
         model.checkEmailIsUnique(userService);
@@ -134,17 +134,17 @@ public class UserApplicationService {
         redisCacheService.userCache.delete(model.getUserId());
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUsers(LoginUser loginUser, BulkOperationCommand<Long> command) {
         for (Long id : command.getIds()) {
-            UserModel userModel = getUserModel(id);
+            UserModel userModel = UserModelFactory.loadFromDb(id, userService);
             userModel.checkCanBeDelete(loginUser);
             userModel.deleteById();
         }
     }
 
     public void updateUserPassword(LoginUser loginUser, UpdateUserPasswordCommand command) {
-        UserModel userModel = getUserModel(command.getUserId());
+        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.modifyPassword(command);
         userModel.updateById();
 
@@ -157,7 +157,7 @@ public class UserApplicationService {
     }
 
     public void resetUserPassword(LoginUser loginUser, ResetPasswordCommand command) {
-        UserModel userModel = getUserModel(command.getUserId());
+        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.checkCanBeModify(loginUser);
         userModel.resetPassword(command.getPassword());
 
@@ -168,7 +168,7 @@ public class UserApplicationService {
     }
 
     public void changeUserStatus(LoginUser loginUser, ChangeStatusCommand command) {
-        UserModel userModel = getUserModel(command.getUserId());
+        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.setStatus(Convert.toInt(command.getStatus()));
 
         userModel.checkCanBeModify(loginUser);
@@ -179,7 +179,7 @@ public class UserApplicationService {
     }
 
     public void updateUserAvatar(LoginUser loginUser, UpdateUserAvatarCommand command) {
-        UserModel userModel = getUserModel(command.getUserId());
+        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.setAvatar(command.getAvatar());
 
         userModel.logUpdater(loginUser);
@@ -189,29 +189,14 @@ public class UserApplicationService {
     }
 
     public UserInfoDTO getUserWithRole(Long userId) {
-        UserModel userModel = getUserModel(userId);
-        UserDTO userDTO = new UserDTO(userModel);
-
-        SysRoleEntity roleEntity = roleService.getById(userModel.getRoleId());
-        RoleDTO roleDTO = new RoleDTO(roleEntity);
+        UserModel userModel = UserModelFactory.loadFromDb(userId, userService);
+        SysRoleEntity roleEntity = RoleModelFactory.loadFromDb(userModel.getRoleId(), roleService);
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();
-        userInfoDTO.setUser(userDTO);
-        userInfoDTO.setRole(roleDTO);
+        userInfoDTO.setUser(new UserDTO(userModel));
+        userInfoDTO.setRole(new RoleDTO(roleEntity));
         return userInfoDTO;
     }
-
-    public UserModel getUserModel(Long userId) {
-        SysUserEntity byId = userService.getById(userId);
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, userId, "用户");
-        }
-
-        UserModel userModel = new UserModel();
-        BeanUtil.copyProperties(byId, userModel);
-        return userModel;
-    }
-
 
 
 }

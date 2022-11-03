@@ -85,7 +85,8 @@ public class DeptApplicationService {
 
     @Transactional(rollbackFor = Exception.class)
     public void updateDept(UpdateDeptCommand updateCommand, LoginUser loginUser) {
-        DeptModel deptModel = DeptModelFactory.loadFromUpdateCommand(updateCommand, deptService);
+        DeptModel deptModel = DeptModelFactory.loadFromDb(updateCommand.getDeptId(), deptService);
+        deptModel.loadUpdateCommand(updateCommand);
 
         deptModel.checkDeptNameUnique(deptService);
         deptModel.checkParentIdConflict();

@@ -2,18 +2,19 @@ package com.agileboot.domain.system.role;
 
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.domain.system.role.command.UpdateDataScopeCommand;
 import com.agileboot.domain.system.role.command.UpdateRoleCommand;
 import com.agileboot.domain.system.role.command.UpdateStatusCommand;
 import com.agileboot.domain.system.role.dto.RoleDTO;
 import com.agileboot.domain.system.role.model.RoleModel;
+import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.query.RoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
+import com.agileboot.domain.system.user.model.UserModel;
+import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.service.TokenService;
@@ -58,13 +59,13 @@ public class RoleApplicationService {
     }
 
     public RoleDTO getRoleInfo(Long roleId) {
-        SysRoleEntity byId = roleService.getById(roleId);
+        SysRoleEntity byId = RoleModelFactory.loadFromDb(roleId, roleService);
         return new RoleDTO(byId);
     }
 
 
     public void addRole(AddRoleCommand addCommand, LoginUser loginUser) {
-        RoleModel roleModel = addCommand.toModel();
+        RoleModel roleModel = RoleModelFactory.loadFromAddCommand(addCommand, new RoleModel());
 
         roleModel.checkRoleNameUnique(roleService);
         roleModel.checkRoleKeyUnique(roleService);
@@ -83,7 +84,7 @@ public class RoleApplicationService {
     }
 
     public void deleteRole(Long roleId, LoginUser loginUser) {
-        RoleModel roleModel = getRoleModel(roleId);
+        RoleModel roleModel = RoleModelFactory.loadFromDb(roleId, roleService);
 
         roleModel.checkRoleCanBeDelete(roleService);
 
@@ -94,13 +95,9 @@ public class RoleApplicationService {
 
 
     public void updateRole(UpdateRoleCommand updateCommand, LoginUser loginUser) {
-        SysRoleEntity byId = roleService.getById(updateCommand.getRoleId());
+        RoleModel roleModel = RoleModelFactory.loadFromDb(updateCommand.getRoleId(), roleService);
+        roleModel.loadFromUpdateCommand(updateCommand);
 
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, updateCommand.getRoleId(), "角色");
-        }
-
-        RoleModel roleModel = updateCommand.toModel();
         roleModel.checkRoleKeyUnique(roleService);
         roleModel.checkRoleNameUnique(roleService);
 
@@ -114,19 +111,8 @@ public class RoleApplicationService {
         }
     }
 
-
-    public RoleModel getRoleModel(Long roleId) {
-        SysRoleEntity byId = roleService.getById(roleId);
-
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, roleId, "角色");
-        }
-
-        return new RoleModel(byId);
-    }
-
     public void updateStatus(UpdateStatusCommand command, LoginUser loginUser) {
-        RoleModel roleModel = getRoleModel(command.getRoleId());
+        RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService);
         roleModel.setStatus(command.getStatus());
         roleModel.setUpdaterId(loginUser.getUserId());
         roleModel.setUpdaterName(loginUser.getUsername());
@@ -134,7 +120,7 @@ public class RoleApplicationService {
     }
 
     public void updateDataScope(UpdateDataScopeCommand command) {
-        RoleModel roleModel = getRoleModel(command.getRoleId());
+        RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService);
         roleModel.setDeptIds(command.getDeptIds());
         roleModel.setDataScope(command.getDataScope());
 
@@ -160,11 +146,9 @@ public class RoleApplicationService {
 
 
     public void deleteRoleOfUser(Long userId) {
-        SysUserEntity user = userService.getById(userId);
-        if (user != null) {
-            user.setRoleId(null);
-            user.updateById();
-        }
+        UserModel user = UserModelFactory.loadFromDb(userId, userService);
+        user.setRoleId(null);
+        user.updateById();
     }
 
     public void deleteRoleOfUserByBulk(List<Long> userIds) {
@@ -186,7 +170,7 @@ public class RoleApplicationService {
         }
 
         for (Long userId : userIds) {
-            SysUserEntity user = userService.getById(userId);
+            UserModel user = UserModelFactory.loadFromDb(userId, userService);
             user.setRoleId(roleId);
             user.updateById();
         }

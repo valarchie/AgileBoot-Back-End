@@ -12,7 +12,7 @@ public class NoticeUpdateCommand extends NoticeAddCommand {
 
     @NotNull
     @Positive
-    protected String noticeId;
+    protected Long noticeId;
 
 
     @Override

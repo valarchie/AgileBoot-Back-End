@@ -46,25 +46,4 @@ public class AddUserCommand {
     private String remark;
 
 
-    public UserModel toModel() {
-        UserModel model = new UserModel();
-
-        model.setDeptId(deptId);
-        model.setUsername(username);
-        model.setNickName(nickName);
-        model.setEmail(email);
-        model.setPhoneNumber(phoneNumber);
-        model.setSex(sex);
-        if (StrUtil.isNotEmpty(password)) {
-            model.setPassword(password);
-        }
-        model.setStatus(Convert.toInt(status));
-
-        model.setRoleId(roleId);
-        model.setPostId(postId);
-        model.setRemark(remark);
-
-        return model;
-    }
-
 }

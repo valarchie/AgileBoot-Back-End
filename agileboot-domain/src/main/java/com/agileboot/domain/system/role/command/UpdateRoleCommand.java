@@ -12,11 +12,4 @@ public class UpdateRoleCommand extends AddRoleCommand {
     @PositiveOrZero
     private Long roleId;
 
-    @Override
-    public RoleModel toModel() {
-        RoleModel roleModel = super.toModel();
-        roleModel.setRoleId(this.roleId);
-        return roleModel;
-    }
-
 }

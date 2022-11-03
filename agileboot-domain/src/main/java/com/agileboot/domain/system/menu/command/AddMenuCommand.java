@@ -43,10 +43,4 @@ public class AddMenuCommand {
 
     private String icon;
 
-    public MenuModel toModel() {
-        MenuModel model = new MenuModel();
-        BeanUtil.copyProperties(this, model);
-        return model;
-    }
-
 }

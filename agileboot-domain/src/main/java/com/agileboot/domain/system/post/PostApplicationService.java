@@ -9,6 +9,7 @@ import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.post.model.PostModel;
+import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.post.query.PostQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysPostEntity;
@@ -35,12 +36,12 @@ public class PostApplicationService {
     }
 
     public PostDTO getPostInfo(Long postId) {
-        SysPostEntity byId = postService.getById(postId);
+        SysPostEntity byId = PostModelFactory.loadFromDb(postId, postService);
         return new PostDTO(byId);
     }
 
     public void addPost(AddPostCommand addCommand, LoginUser loginUser) {
-        PostModel postModel = addCommand.toModel();
+        PostModel postModel = PostModelFactory.loadFromAddCommand(addCommand, new PostModel());
 
         postModel.checkPostNameUnique(postService);
         postModel.checkPostCodeUnique(postService);
@@ -50,7 +51,8 @@ public class PostApplicationService {
     }
 
     public void updatePost(UpdatePostCommand updateCommand, LoginUser loginUser) {
-        PostModel postModel = updateCommand.toModel();
+        PostModel postModel = PostModelFactory.loadFromDb(updateCommand.getPostId(), postService);
+        postModel.loadFromUpdateCommand(updateCommand);
 
         postModel.checkPostNameUnique(postService);
         postModel.checkPostCodeUnique(postService);
@@ -62,23 +64,13 @@ public class PostApplicationService {
 
     public void deletePost(BulkOperationCommand<Long> deleteCommand) {
         for (Long id : deleteCommand.getIds()) {
-            PostModel postModel = getPostModel(id);
+            PostModel postModel = PostModelFactory.loadFromDb(id, postService);
             postModel.checkCanBeDelete(postService);
         }
 
         postService.removeBatchByIds(deleteCommand.getIds());
     }
 
-
-    public PostModel getPostModel(Long id) {
-        SysPostEntity byId = postService.getById(id);
-
-        if (byId == null) {
-            throw new ApiException(Business.OBJECT_NOT_FOUND, id, "职位");
-        }
-
-        return new PostModel(byId);
-    }
 
 
 }

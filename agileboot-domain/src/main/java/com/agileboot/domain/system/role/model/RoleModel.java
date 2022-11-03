@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.system.role.command.UpdateRoleCommand;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.service.ISysRoleMenuService;
@@ -23,6 +24,12 @@ public class RoleModel extends SysRoleEntity {
     public RoleModel(SysRoleEntity entity) {
         if (entity != null) {
             BeanUtil.copyProperties(entity,this);
+        }
+    }
+
+    public void loadFromUpdateCommand(UpdateRoleCommand command) {
+        if (command != null) {
+            BeanUtil.copyProperties(command, this, "roleId");
         }
     }
 

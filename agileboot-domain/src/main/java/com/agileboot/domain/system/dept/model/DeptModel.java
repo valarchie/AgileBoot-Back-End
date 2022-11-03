@@ -1,15 +1,16 @@
 package com.agileboot.domain.system.dept.model;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.convert.Convert;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import com.agileboot.orm.service.ISysDeptService;
 import java.util.Objects;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 @NoArgsConstructor
 public class DeptModel extends SysDeptEntity {
@@ -18,6 +19,11 @@ public class DeptModel extends SysDeptEntity {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
         }
+    }
+
+    public void loadUpdateCommand(UpdateDeptCommand updateCommand) {
+        DeptModelFactory.loadFromAddCommand(updateCommand, this);
+        setStatus(Convert.toInt(updateCommand.getStatus(), 0));
     }
 
     public void checkDeptNameUnique(ISysDeptService deptService) {

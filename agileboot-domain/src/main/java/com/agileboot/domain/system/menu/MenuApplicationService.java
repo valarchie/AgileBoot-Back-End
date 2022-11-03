@@ -67,7 +67,7 @@ public class MenuApplicationService {
 
 
     public void addMenu(AddMenuCommand addCommand, LoginUser loginUser) {
-        MenuModel model = addCommand.toModel();
+        MenuModel model = MenuModelFactory.loadFromAddCommand(addCommand, new MenuModel());
 
         model.checkMenuNameUnique(menuService);
         model.checkExternalLink();
@@ -78,7 +78,9 @@ public class MenuApplicationService {
     }
 
     public void updateMenu(UpdateMenuCommand updateCommand, LoginUser loginUser) {
-        MenuModel model = updateCommand.toModel();
+        MenuModel model = MenuModelFactory.loadFromDb(updateCommand.getMenuId(), menuService);
+        model.loadUpdateCommand(updateCommand);
+
         model.checkMenuNameUnique(menuService);
         model.checkExternalLink();
         model.checkParentIdConflict();

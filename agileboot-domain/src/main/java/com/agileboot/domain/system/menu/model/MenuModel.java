@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.http.HttpUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.service.ISysMenuService;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,12 @@ public class MenuModel extends SysMenuEntity {
     public MenuModel(SysMenuEntity entity) {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
+        }
+    }
+
+    public void loadUpdateCommand(UpdateMenuCommand command) {
+        if (command != null) {
+            MenuModelFactory.loadFromAddCommand(command, this);
         }
     }
 

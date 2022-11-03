@@ -10,11 +10,4 @@ public class UpdateMenuCommand extends AddMenuCommand {
     @NotNull
     private Long menuId;
 
-    @Override
-    public MenuModel toModel() {
-        MenuModel model = super.toModel();
-        model.setMenuId(menuId);
-        return model;
-    }
-
 }

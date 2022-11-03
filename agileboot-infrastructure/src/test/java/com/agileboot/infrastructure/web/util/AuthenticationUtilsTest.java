@@ -7,15 +7,13 @@ class AuthenticationUtilsTest {
 
     @Test
     void testMatchesPassword() {
-        // 每次加密后的密码是不同的  但是代表的是同一份密码
-        boolean match1 = AuthenticationUtils.matchesPassword("admin123",
-            "$2a$10$vh0eep5P2Rj2x.mjjOSq/O1LT645Qwmohp.ciOA0.6E261rlOVSSO");
+        // 每次加密散列后的密码是不同的  但是代表的是同一份密码
+        String password = "admin123";
+        String encryptPassword1 = "$2a$10$vh0eep5P2Rj2x.mjjOSq/O1LT645Qwmohp.ciOA0.6E261rlOVSSO";
+        String encryptPassword2 = "$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy";
 
-        boolean match2 = AuthenticationUtils.matchesPassword("admin123",
-            "$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy");
-
-        Assertions.assertEquals(true, match1);
-        Assertions.assertEquals(true, match2);
+        Assertions.assertTrue(AuthenticationUtils.matchesPassword(password,encryptPassword1));
+        Assertions.assertTrue(AuthenticationUtils.matchesPassword(password,encryptPassword2));
     }
 
     @Test

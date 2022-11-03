@@ -3,10 +3,10 @@ package com.agileboot.domain.system.post.model;
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.service.ISysPostService;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 @NoArgsConstructor
 public class PostModel extends SysPostEntity {
@@ -16,6 +16,13 @@ public class PostModel extends SysPostEntity {
             BeanUtil.copyProperties(entity, this);
         }
     }
+
+    public void loadFromUpdateCommand(UpdatePostCommand command) {
+        if (command != null) {
+            BeanUtil.copyProperties(command, this, "postId");
+        }
+    }
+
 
     public void checkCanBeDelete(ISysPostService postService) {
         if (postService.isAssignedToUsers(this.getPostId())) {

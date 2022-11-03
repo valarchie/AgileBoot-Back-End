@@ -1,10 +1,8 @@
 package com.agileboot.domain.system.dept.model;
 
-import cn.hutool.core.convert.Convert;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
-import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.service.ISysDeptService;
 
@@ -33,11 +31,6 @@ public class DeptModelFactory {
         return model;
     }
 
-    public static DeptModel loadFromUpdateCommand(UpdateDeptCommand updateCommand, ISysDeptService deptService) {
-        DeptModel deptModel = loadFromDb(updateCommand.getDeptId(), deptService);
-        loadFromAddCommand(updateCommand, deptModel);
-        deptModel.setStatus(Convert.toInt(updateCommand.getStatus(), 0));
-        return deptModel;
-    }
+
 
 }

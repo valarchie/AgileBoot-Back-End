@@ -8,6 +8,7 @@ import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.domain.system.notice.dto.NoticeDTO;
 import com.agileboot.domain.system.notice.model.NoticeModel;
+import com.agileboot.domain.system.notice.model.NoticeModelFactory;
 import com.agileboot.domain.system.notice.query.NoticeQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysNoticeEntity;
@@ -41,10 +42,9 @@ public class NoticeApplicationService {
 
 
     public void addNotice(NoticeAddCommand addCommand, LoginUser loginUser) {
-        NoticeModel noticeModel = addCommand.toModel();
+        NoticeModel noticeModel = NoticeModelFactory.loadFromAddCommand(addCommand, new NoticeModel());
 
         noticeModel.checkFields();
-
         noticeModel.logCreator(loginUser);
 
         noticeModel.insert();
@@ -52,16 +52,10 @@ public class NoticeApplicationService {
 
 
     public void updateNotice(NoticeUpdateCommand updateCommand, LoginUser loginUser) {
-        SysNoticeEntity byId = noticeService.getById(updateCommand.getNoticeId());
-
-        if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, updateCommand.getNoticeId(), "通知公告");
-        }
-
-        NoticeModel noticeModel = updateCommand.toModel();
+        NoticeModel noticeModel = NoticeModelFactory.loadFromDb(updateCommand.getNoticeId(), noticeService);
+        noticeModel.loadUpdateCommand(updateCommand);
 
         noticeModel.checkFields();
-
         noticeModel.logUpdater(loginUser);
 
         noticeModel.updateById();

@@ -48,18 +48,4 @@ public class AddRoleCommand {
     @NotNull
     private List<Long> menuIds;
 
-    public RoleModel toModel() {
-        RoleModel model = new RoleModel();
-
-        model.setRoleName(this.roleName);
-        model.setRoleKey(this.roleKey);
-        model.setRoleSort(Convert.toInt(this.roleSort));
-        model.setDataScope(Convert.toInt(this.dataScope));
-        model.setStatus(Convert.toInt(status));
-        model.setRemark(this.remark);
-        model.setMenuIds(menuIds);
-
-        return model;
-    }
-
 }

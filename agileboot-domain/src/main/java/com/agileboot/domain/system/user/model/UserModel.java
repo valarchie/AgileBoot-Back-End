@@ -1,9 +1,12 @@
 package com.agileboot.domain.system.user.model;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.system.user.command.UpdateProfileCommand;
+import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.util.AuthenticationUtils;
@@ -16,6 +19,25 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserModel extends SysUserEntity {
+
+    public UserModel(SysUserEntity entity) {
+        if (entity != null) {
+            BeanUtil.copyProperties(entity, this);
+        }
+    }
+
+    public void loadUpdateUserCommand(UpdateUserCommand command) {
+        if (command != null) {
+            BeanUtil.copyProperties(command, this, "userId");
+        }
+    }
+
+    public void loadUpdateProfileCommand(UpdateProfileCommand command) {
+        if (command != null) {
+            BeanUtil.copyProperties(command, this, "userId");
+        }
+    }
+
 
     public void checkUsernameIsUnique(ISysUserService userService) {
         if (userService.isUserNameDuplicated(getUsername())) {
