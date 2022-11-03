@@ -45,7 +45,7 @@ public class NoticeApplicationService {
         NoticeModel noticeModel = NoticeModelFactory.loadFromAddCommand(addCommand, new NoticeModel());
 
         noticeModel.checkFields();
-        noticeModel.logCreator(loginUser);
+//        noticeModel.logCreator(loginUser);
 
         noticeModel.insert();
     }
@@ -56,7 +56,7 @@ public class NoticeApplicationService {
         noticeModel.loadUpdateCommand(updateCommand);
 
         noticeModel.checkFields();
-        noticeModel.logUpdater(loginUser);
+//        noticeModel.logUpdater(loginUser);
 
         noticeModel.updateById();
     }

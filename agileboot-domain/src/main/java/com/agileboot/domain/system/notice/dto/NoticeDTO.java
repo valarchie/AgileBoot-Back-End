@@ -1,6 +1,8 @@
 package com.agileboot.domain.system.notice.dto;
 
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.orm.entity.SysNoticeEntity;
+import com.agileboot.orm.entity.SysUserEntity;
 import java.util.Date;
 import lombok.Data;
 
@@ -15,7 +17,11 @@ public class NoticeDTO {
             this.noticeContent = entity.getNoticeContent();
             this.status = entity.getStatus() + "";
             this.createTime = entity.getCreateTime();
-            this.creatorName = entity.getCreatorName();
+
+            SysUserEntity cacheUser = CacheCenter.redisCache.userCache.getObjectById(entity.getCreatorId());
+            if (cacheUser != null) {
+                this.creatorName = cacheUser.getUsername();
+            }
         }
     }
 

@@ -45,13 +45,13 @@ public class CodeGenerator {
     public static void main(String[] args) {
 
         CodeGenerator generator = CodeGenerator.builder()
-            .databaseUrl("jdbc:mysql://localhost:33066/agileboot")
+            .databaseUrl("jdbc:mysql://localhost:33067/agileboot4")
             .username("root")
             .password("12345")
             .author("valarchie")
             .module("/agileboot-orm/target/generated-code")
             .parentPackage("com.agileboot")
-            .tableName("sys_user")
+            .tableName("sys_config")
             // 决定是否继承基类
             .isExtendsFromBaseEntity(true)
             .build();
@@ -195,9 +195,11 @@ public class CodeGenerator {
 //            .superClass(BaseEntity.class)
 //            .addSuperEntityColumns("creator_id", "create_time", "creator_name", "updater_id", "update_time", "updater_name", "deleted")
 //                    .addIgnoreColumns("age")
-            // 两种配置方式
+            // 两种配置方式 都可以
             .addTableFills(new Column("create_time", FieldFill.INSERT))
+            .addTableFills(new Column("creator_id", FieldFill.INSERT))
             .addTableFills(new Property("updateTime", FieldFill.INSERT_UPDATE))
+            .addTableFills(new Property("updaterId", FieldFill.INSERT_UPDATE))
             // ID strategy AUTO, NONE, INPUT, ASSIGN_ID, ASSIGN_UUID;
             .idType(IdType.AUTO)
             .formatFileName("%sEntity");

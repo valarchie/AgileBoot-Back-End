@@ -1,6 +1,7 @@
 package com.agileboot.common.core.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -19,27 +20,19 @@ import lombok.EqualsAndHashCode;
 public class BaseEntity<T extends Model<?>> extends Model<T> {
 
     @ApiModelProperty("创建者ID")
-    @TableField("creator_id")
+    @TableField(value = "creator_id", fill = FieldFill.INSERT)
     private Long creatorId;
-
-    @ApiModelProperty("创建者")
-    @TableField("creator_name")
-    private String creatorName;
 
     @ApiModelProperty("创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     @ApiModelProperty("更新者ID")
-    @TableField("updater_id")
+    @TableField(value = "updater_id", fill = FieldFill.UPDATE, updateStrategy = FieldStrategy.NOT_NULL)
     private Long updaterId;
 
-    @ApiModelProperty("更新者")
-    @TableField("updater_name")
-    private String updaterName;
-
     @ApiModelProperty("更新时间")
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     @ApiModelProperty("删除标志（0代表存在 1代表删除）")
@@ -50,14 +43,12 @@ public class BaseEntity<T extends Model<?>> extends Model<T> {
     public void logCreator(BaseUser user) {
         if (user != null) {
             this.creatorId = user.getUserId();
-            this.creatorName = user.getUsername();
         }
     }
 
     public void logUpdater(BaseUser user) {
         if (user != null) {
             this.updaterId = user.getUserId();
-            this.updaterName = user.getUsername();
         }
     }
 

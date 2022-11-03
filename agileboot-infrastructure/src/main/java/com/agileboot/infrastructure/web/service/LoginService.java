@@ -106,7 +106,7 @@ public class LoginService {
         ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_SUCCESS,
             LoginStatusEnum.LOGIN_SUCCESS.description()));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        recordLoginInfo(loginUser.getUserId());
+        recordLoginInfo(loginUser.getEntity());
         // 生成token
         return tokenService.createToken(loginUser);
     }
@@ -185,12 +185,9 @@ public class LoginService {
 
     /**
      * 记录登录信息
-     *
-     * @param userId 用户ID
+     * @param entity
      */
-    public void recordLoginInfo(Long userId) {
-        SysUserEntity entity = new SysUserEntity();
-        entity.setUserId(userId);
+    public void recordLoginInfo(SysUserEntity entity) {
         entity.setLoginIp(ServletUtil.getClientIP(ServletHolderUtil.getRequest()));
         entity.setLoginDate(DateUtil.date());
         entity.updateById();

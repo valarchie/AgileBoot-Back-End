@@ -115,7 +115,7 @@ public class RoleApplicationService {
         RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService);
         roleModel.setStatus(command.getStatus());
         roleModel.setUpdaterId(loginUser.getUserId());
-        roleModel.setUpdaterName(loginUser.getUsername());
+//        roleModel.setUpdaterName(loginUser.getUsername());
         roleModel.updateById();
     }
 

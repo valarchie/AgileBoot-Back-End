@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author valarchie
- * @since 2022-10-02
+ * @since 2022-11-03
  */
 @Getter
 @Setter
