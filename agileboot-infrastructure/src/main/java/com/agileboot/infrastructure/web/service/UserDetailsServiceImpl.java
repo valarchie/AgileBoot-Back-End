@@ -4,12 +4,17 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysRoleEntity;
+import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.enums.UserStatusEnum;
+import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysUserService;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +33,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private ISysUserService userService;
+
+    @Autowired
+    private ISysRoleMenuService roleMenuService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

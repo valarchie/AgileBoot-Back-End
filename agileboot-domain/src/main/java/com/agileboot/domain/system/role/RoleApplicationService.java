@@ -59,7 +59,7 @@ public class RoleApplicationService {
     }
 
     public RoleDTO getRoleInfo(Long roleId) {
-        SysRoleEntity byId = RoleModelFactory.loadFromDb(roleId, roleService);
+        SysRoleEntity byId = RoleModelFactory.loadFromDb(roleId, roleService, roleMenuService);
         return new RoleDTO(byId);
     }
 
@@ -84,7 +84,7 @@ public class RoleApplicationService {
     }
 
     public void deleteRole(Long roleId, LoginUser loginUser) {
-        RoleModel roleModel = RoleModelFactory.loadFromDb(roleId, roleService);
+        RoleModel roleModel = RoleModelFactory.loadFromDb(roleId, roleService, roleMenuService);
 
         roleModel.checkRoleCanBeDelete(roleService);
 
@@ -95,7 +95,7 @@ public class RoleApplicationService {
 
 
     public void updateRole(UpdateRoleCommand updateCommand, LoginUser loginUser) {
-        RoleModel roleModel = RoleModelFactory.loadFromDb(updateCommand.getRoleId(), roleService);
+        RoleModel roleModel = RoleModelFactory.loadFromDb(updateCommand.getRoleId(), roleService, roleMenuService);
         roleModel.loadFromUpdateCommand(updateCommand);
 
         roleModel.checkRoleKeyUnique(roleService);
@@ -112,7 +112,7 @@ public class RoleApplicationService {
     }
 
     public void updateStatus(UpdateStatusCommand command, LoginUser loginUser) {
-        RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService);
+        RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService, roleMenuService);
         roleModel.setStatus(command.getStatus());
         roleModel.setUpdaterId(loginUser.getUserId());
 //        roleModel.setUpdaterName(loginUser.getUsername());
@@ -120,7 +120,7 @@ public class RoleApplicationService {
     }
 
     public void updateDataScope(UpdateDataScopeCommand command) {
-        RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService);
+        RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService, roleMenuService);
         roleModel.setDeptIds(command.getDeptIds());
         roleModel.setDataScope(command.getDataScope());
 

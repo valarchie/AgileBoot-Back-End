@@ -1,6 +1,6 @@
 package com.agileboot.infrastructure.annotations;
 
-import com.agileboot.common.enums.DataSourceType;
+import com.agileboot.infrastructure.enums.DataSourceType;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

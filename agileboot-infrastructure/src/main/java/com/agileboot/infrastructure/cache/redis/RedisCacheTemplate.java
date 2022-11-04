@@ -71,7 +71,7 @@ public class RedisCacheTemplate<T> {
      * @param id
      * @return
      */
-    public T getCachedObjectById(Object id) {
+    public T getObjectOnlyInCacheById(Object id) {
         String cachedKey = generateKey(id);
         try {
             Optional<T> optional = guavaCache.get(cachedKey);
@@ -88,7 +88,7 @@ public class RedisCacheTemplate<T> {
      * @param cachedKey 直接通过redis的key来搜索
      * @return
      */
-    public T getCachedObjectByKey(String cachedKey) {
+    public T getObjectOnlyInCacheByKey(String cachedKey) {
         try {
             Optional<T> optional = guavaCache.get(cachedKey);
             log.debug("find the guava cache of key: {}", cachedKey);

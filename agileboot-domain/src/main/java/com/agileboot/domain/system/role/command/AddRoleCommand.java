@@ -1,8 +1,6 @@
 package com.agileboot.domain.system.role.command;
 
-import cn.hutool.core.convert.Convert;
 import com.agileboot.common.annotation.ExcelColumn;
-import com.agileboot.domain.system.role.model.RoleModel;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

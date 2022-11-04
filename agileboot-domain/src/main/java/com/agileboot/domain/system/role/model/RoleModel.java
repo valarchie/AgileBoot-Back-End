@@ -1,11 +1,14 @@
 package com.agileboot.domain.system.role.model;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.role.command.UpdateRoleCommand;
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.service.ISysRoleMenuService;
@@ -14,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -53,6 +58,12 @@ public class RoleModel extends SysRoleEntity {
         if (roleService.isRoleKeyDuplicated(getRoleId(), getRoleKey())) {
             throw new ApiException(ErrorCode.Business.ROLE_KEY_IS_NOT_UNIQUE, getRoleKey());
         }
+    }
+
+    /**
+     *   用户可能在请求参数中，传输比自身更大的权限，导致越权
+     */
+    public void checkAssignedPermissionsExceedLoginUser(LoginUser loginUser) {
     }
 
     public void generateDeptIdSet() {

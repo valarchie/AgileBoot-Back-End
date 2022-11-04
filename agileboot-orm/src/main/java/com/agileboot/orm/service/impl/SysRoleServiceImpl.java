@@ -3,6 +3,7 @@ package com.agileboot.orm.service.impl;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.mapper.SysRoleMapper;
+import com.agileboot.orm.mapper.SysRoleMenuMapper;
 import com.agileboot.orm.mapper.SysUserMapper;
 import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
@@ -25,6 +26,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Autowired
+    private SysRoleMenuMapper roleMenuMapper;
 
     @Override
     public boolean isRoleNameDuplicated(Long roleId, String roleName) {

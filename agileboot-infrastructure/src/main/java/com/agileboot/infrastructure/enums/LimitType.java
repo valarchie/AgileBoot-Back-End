@@ -1,4 +1,4 @@
-package com.agileboot.common.enums;
+package com.agileboot.infrastructure.enums;
 
 /**
  * 限流类型

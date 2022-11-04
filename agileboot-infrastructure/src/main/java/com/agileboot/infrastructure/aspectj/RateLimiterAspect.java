@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.aspectj;
 
 import cn.hutool.extra.servlet.ServletUtil;
-import com.agileboot.common.enums.LimitType;
+import com.agileboot.infrastructure.enums.LimitType;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;

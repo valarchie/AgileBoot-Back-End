@@ -75,7 +75,7 @@ public class MonitorApplicationService {
         Collection<String> keys = redisUtil.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
 
         List<OnlineUser> allOnlineUsers = keys.stream().map(
-                o -> mapLoginUserToUserOnline(redisCacheService.loginUserCache.getCachedObjectByKey(o)))
+                o -> mapLoginUserToUserOnline(redisCacheService.loginUserCache.getObjectOnlyInCacheByKey(o)))
             .filter(Objects::nonNull)
             .collect(Collectors.toList());
 

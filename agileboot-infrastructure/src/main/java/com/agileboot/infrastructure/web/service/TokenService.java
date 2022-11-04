@@ -17,7 +17,6 @@ import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +75,7 @@ public class TokenService {
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Token.LOGIN_USER_KEY);
 
-                return redisCacheService.loginUserCache.getCachedObjectById(uuid);
+                return redisCacheService.loginUserCache.getObjectOnlyInCacheById(uuid);
             } catch (Exception e) {
                 log.error("fail to get cached user from redis", e);
                 throw new ApiException(e, ErrorCode.UNKNOWN_ERROR);

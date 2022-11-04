@@ -1,6 +1,6 @@
 package com.agileboot.infrastructure.annotations;
 
-import com.agileboot.common.enums.LimitType;
+import com.agileboot.infrastructure.enums.LimitType;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

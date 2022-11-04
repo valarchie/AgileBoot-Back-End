@@ -28,6 +28,7 @@ import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.result.SearchUserDO;
 import com.agileboot.orm.service.ISysPostService;
+import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
 import com.agileboot.orm.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -52,6 +53,9 @@ public class UserApplicationService {
 
     @Autowired
     private ISysPostService postService;
+
+    @Autowired
+    private ISysRoleMenuService roleMenuService;
 
     @Autowired
     private TokenService tokenService;
@@ -190,7 +194,7 @@ public class UserApplicationService {
 
     public UserInfoDTO getUserWithRole(Long userId) {
         UserModel userModel = UserModelFactory.loadFromDb(userId, userService);
-        SysRoleEntity roleEntity = RoleModelFactory.loadFromDb(userModel.getRoleId(), roleService);
+        SysRoleEntity roleEntity = RoleModelFactory.loadFromDb(userModel.getRoleId(), roleService, roleMenuService);
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setUser(new UserDTO(userModel));

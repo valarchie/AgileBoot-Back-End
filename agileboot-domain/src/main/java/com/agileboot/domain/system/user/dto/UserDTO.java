@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.entity.SysUserEntity;
@@ -23,6 +24,12 @@ public class UserDTO {
             if (dept != null) {
                 this.deptName = dept.getDeptName();
             }
+
+            SysUserEntity creator = CacheCenter.redisCache.userCache.getObjectById(entity.getCreatorId());
+            if (creator != null) {
+                this.creatorName = creator.getUsername();
+            }
+
         }
     }
 
