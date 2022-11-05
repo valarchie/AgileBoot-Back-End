@@ -42,7 +42,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 获取通知公告列表
      */
-    @PreAuthorize("@ss.hasPerm('system:notice:list')")
+    @PreAuthorize("@permission.has('system:notice:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(NoticeQuery query) {
         PageDTO pageDTO = noticeApplicationService.getNoticeList(query);
@@ -52,7 +52,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 根据通知公告编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPerm('system:notice:query')")
+    @PreAuthorize("@permission.has('system:notice:query')")
     @GetMapping(value = "/{noticeId}")
     public ResponseDTO<NoticeDTO> getInfo(@PathVariable @NotNull @Positive Long noticeId) {
         return ResponseDTO.ok(noticeApplicationService.getNoticeInfo(noticeId));
@@ -61,7 +61,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 新增通知公告
      */
-    @PreAuthorize("@ss.hasPerm('system:notice:add')")
+    @PreAuthorize("@permission.has('system:notice:add')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody NoticeAddCommand addCommand) {
@@ -72,7 +72,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 修改通知公告
      */
-    @PreAuthorize("@ss.hasPerm('system:notice:edit')")
+    @PreAuthorize("@permission.has('system:notice:edit')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody NoticeUpdateCommand updateCommand) {
@@ -83,7 +83,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 删除通知公告
      */
-    @PreAuthorize("@ss.hasPerm('system:notice:remove')")
+    @PreAuthorize("@permission.has('system:notice:remove')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{noticeIds}")
     public ResponseDTO<?> remove(@PathVariable List<Long> noticeIds) {

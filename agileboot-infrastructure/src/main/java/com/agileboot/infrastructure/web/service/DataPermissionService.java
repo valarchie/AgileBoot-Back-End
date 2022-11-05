@@ -1,0 +1,73 @@
+package com.agileboot.infrastructure.web.service;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.permission.DataCondition;
+import com.agileboot.infrastructure.web.domain.permission.DataPermissionChecker;
+import com.agileboot.infrastructure.web.domain.permission.DataPermissionCheckerFactory;
+import com.agileboot.orm.entity.SysUserEntity;
+import com.agileboot.orm.service.ISysUserService;
+import java.util.List;
+import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * 数据权限校验服务
+ * @author valarchie
+ */
+@Service("dataScope")
+public class DataPermissionService {
+
+    @Autowired
+    private ISysUserService userService;
+
+    /**
+     * 通过userId 校验当前用户 对 目标用户是否有操作权限
+     * @param userId
+     * @return
+     */
+    public boolean checkUserId(Long userId) {
+        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SysUserEntity targetUser = userService.getById(userId);
+        return checkDataScope(loginUser, targetUser.getDeptId(), userId);
+    }
+
+    /**
+     * 通过userId 校验当前用户 对 目标用户是否有操作权限
+     * @param userIds
+     * @return
+     */
+    public boolean checkUserIds(List<Long> userIds) {
+        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+
+        if (CollUtil.isNotEmpty(userIds)) {
+            for (Long userId : userIds) {
+                SysUserEntity targetUser = userService.getById(userId);
+                boolean checkResult = checkDataScope(loginUser, targetUser.getDeptId(), userId);
+                if (!checkResult) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean checkDeptId(Long deptId) {
+        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        return checkDataScope(loginUser, deptId, null);
+    }
+
+
+    public boolean checkDataScope(LoginUser loginUser, Long targetDeptId, Long targetUserId) {
+        DataCondition dataCondition = DataCondition.builder().targetDeptId(targetDeptId).targetUserId(targetUserId).build();
+        DataPermissionChecker checker = DataPermissionCheckerFactory.getChecker(loginUser);
+        return checker.check(loginUser, dataCondition);
+    }
+
+
+
+}

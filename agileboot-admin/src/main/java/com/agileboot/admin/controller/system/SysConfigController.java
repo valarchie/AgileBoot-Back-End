@@ -45,7 +45,7 @@ public class SysConfigController extends BaseController {
     /**
      * 获取参数配置列表
      */
-    @PreAuthorize("@ss.hasPerm('system:config:list')")
+    @PreAuthorize("@permission.has('system:config:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(ConfigQuery query) {
         PageDTO page = configApplicationService.getConfigList(query);
@@ -66,7 +66,7 @@ public class SysConfigController extends BaseController {
     /**
      * 根据参数编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPerm('system:config:query')")
+    @PreAuthorize("@permission.has('system:config:query')")
     @GetMapping(value = "/{configId}")
     public ResponseDTO<ConfigDTO> getInfo(@NotNull @Positive @PathVariable Long configId) {
         ConfigDTO config = configApplicationService.getConfigInfo(configId);
@@ -77,7 +77,7 @@ public class SysConfigController extends BaseController {
     /**
      * 修改参数配置
      */
-    @PreAuthorize("@ss.hasPerm('system:config:edit')")
+    @PreAuthorize("@permission.has('system:config:edit')")
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody ConfigUpdateCommand config) {
@@ -88,7 +88,7 @@ public class SysConfigController extends BaseController {
     /**
      * 刷新参数缓存
      */
-    @PreAuthorize("@ss.hasPerm('system:config:remove')")
+    @PreAuthorize("@permission.has('system:config:remove')")
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/refreshCache")
     public ResponseDTO<?> refreshCache() {

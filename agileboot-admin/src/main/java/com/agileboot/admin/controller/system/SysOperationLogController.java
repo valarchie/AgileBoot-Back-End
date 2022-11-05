@@ -34,7 +34,7 @@ public class SysOperationLogController extends BaseController {
     @Autowired
     private OperationLogApplicationService operationLogApplicationService;
 
-    @PreAuthorize("@ss.hasPerm('monitor:operlog:list')")
+    @PreAuthorize("@permission.has('monitor:operlog:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(OperationLogQuery query) {
         PageDTO pageDTO = operationLogApplicationService.getOperationLogList(query);
@@ -42,7 +42,7 @@ public class SysOperationLogController extends BaseController {
     }
 
     @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.EXPORT)
-    @PreAuthorize("@ss.hasPerm('monitor:operlog:export')")
+    @PreAuthorize("@permission.has('monitor:operlog:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, OperationLogQuery query) {
         PageDTO pageDTO = operationLogApplicationService.getOperationLogList(query);
@@ -50,7 +50,7 @@ public class SysOperationLogController extends BaseController {
     }
 
     @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.DELETE)
-    @PreAuthorize("@ss.hasPerm('monitor:operlog:remove')")
+    @PreAuthorize("@permission.has('monitor:operlog:remove')")
     @DeleteMapping("/{operationIds}")
     public ResponseDTO<?> remove(@PathVariable List<Long> operationIds) {
         operationLogApplicationService.deleteOperationLog(new BulkOperationCommand<>(operationIds));
@@ -58,7 +58,7 @@ public class SysOperationLogController extends BaseController {
     }
 
     @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.CLEAN)
-    @PreAuthorize("@ss.hasPerm('monitor:operlog:remove')")
+    @PreAuthorize("@permission.has('monitor:operlog:remove')")
     @DeleteMapping("/clean")
     public ResponseDTO<?> clean() {
         return ResponseDTO.fail(ErrorCode.Business.UNSUPPORTED_OPERATION);

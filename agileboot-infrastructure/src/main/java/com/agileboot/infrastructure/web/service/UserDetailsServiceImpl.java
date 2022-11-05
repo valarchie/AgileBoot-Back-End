@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 /**
  * 用户验证处理
  *
- * @author ruoyi valarchie
+ * @author valarchie
  */
 @Service
 @Slf4j

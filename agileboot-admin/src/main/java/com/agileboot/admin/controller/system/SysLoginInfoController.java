@@ -39,7 +39,7 @@ public class SysLoginInfoController extends BaseController {
     @Autowired
     private LoginInfoApplicationService loginInfoApplicationService;
 
-    @PreAuthorize("@ss.hasPerm('monitor:logininfor:list')")
+    @PreAuthorize("@permission.has('monitor:logininfor:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(LoginInfoQuery query) {
         PageDTO pageDTO = loginInfoApplicationService.getLoginInfoList(query);
@@ -47,14 +47,14 @@ public class SysLoginInfoController extends BaseController {
     }
 
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.EXPORT)
-    @PreAuthorize("@ss.hasPerm('monitor:logininfor:export')")
+    @PreAuthorize("@permission.has('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, LoginInfoQuery query) {
         PageDTO pageDTO = loginInfoApplicationService.getLoginInfoList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), LoginInfoDTO.class, response);
     }
 
-    @PreAuthorize("@ss.hasPerm('monitor:logininfor:remove')")
+    @PreAuthorize("@permission.has('monitor:logininfor:remove')")
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{infoIds}")
     public ResponseDTO<?> remove(@PathVariable @NotNull @NotEmpty List<Long> infoIds) {
@@ -62,7 +62,7 @@ public class SysLoginInfoController extends BaseController {
         return ResponseDTO.ok();
     }
 
-    @PreAuthorize("@ss.hasPerm('monitor:logininfor:remove')")
+    @PreAuthorize("@permission.has('monitor:logininfor:remove')")
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/clean")
     public ResponseDTO<?> clean() {

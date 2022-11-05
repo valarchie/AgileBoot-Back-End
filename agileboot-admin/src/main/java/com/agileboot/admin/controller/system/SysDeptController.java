@@ -42,7 +42,7 @@ public class SysDeptController extends BaseController {
     /**
      * 获取部门列表
      */
-    @PreAuthorize("@ss.hasPerm('system:dept:list')")
+    @PreAuthorize("@permission.has('system:dept:list')")
     @GetMapping("/list")
     public ResponseDTO<?> list(DeptQuery query) {
         List<DeptDTO> deptList = deptApplicationService.getDeptList(query);
@@ -52,7 +52,7 @@ public class SysDeptController extends BaseController {
     /**
      * 查询部门列表（排除当前部门，比如在修改部门的上级部门的时候，需要排除自身当前的部门，因为上级部门不能选自己）
      */
-    @PreAuthorize("@ss.hasPerm('system:dept:list')")
+    @PreAuthorize("@permission.has('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
     public ResponseDTO<?> excludeCurrentDeptItself(@PathVariable(value = "deptId", required = false) Long deptId) {
         DeptQuery query = new DeptQuery();
@@ -66,7 +66,7 @@ public class SysDeptController extends BaseController {
     /**
      * 根据部门编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPerm('system:dept:query')")
+    @PreAuthorize("@permission.has('system:dept:query')")
     @GetMapping(value = "/{deptId}")
     public ResponseDTO<DeptDTO> getInfo(@PathVariable Long deptId) {
         DeptDTO dept = deptApplicationService.getDeptInfo(deptId);
@@ -94,7 +94,7 @@ public class SysDeptController extends BaseController {
     /**
      * 新增部门
      */
-    @PreAuthorize("@ss.hasPerm('system:dept:add')")
+    @PreAuthorize("@permission.has('system:dept:add')")
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody AddDeptCommand addCommand) {
@@ -105,7 +105,7 @@ public class SysDeptController extends BaseController {
     /**
      * 修改部门
      */
-    @PreAuthorize("@ss.hasPerm('system:dept:edit') AND @ss.checkDataScopeWithDeptId(#updateCommand.deptId)")
+    @PreAuthorize("@permission.has('system:dept:edit') AND @dataScope.checkDeptId(#updateCommand.deptId)")
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody UpdateDeptCommand updateCommand) {
@@ -116,7 +116,7 @@ public class SysDeptController extends BaseController {
     /**
      * 删除部门
      */
-    @PreAuthorize("@ss.hasPerm('system:dept:remove') AND @ss.checkDataScopeWithDeptId(#deptId)")
+    @PreAuthorize("@permission.has('system:dept:remove') AND @dataScope.checkDeptId(#deptId)")
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{deptId}")
     public ResponseDTO<?> remove(@PathVariable @NotNull Long deptId) {

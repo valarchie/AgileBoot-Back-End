@@ -18,7 +18,6 @@ public class RouterModel extends SysMenuEntity {
 
 
     public RouterDTO produceDirectoryRouterVO(List<RouterDTO> children) {
-
         RouterDTO router = produceDefaultRouterVO();
 
         if (CollUtil.isNotEmpty(children) && Objects.equals(MenuTypeEnum.DIRECTORY.getValue(), getMenuType())) {

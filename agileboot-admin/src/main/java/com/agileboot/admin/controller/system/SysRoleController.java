@@ -45,7 +45,7 @@ public class SysRoleController extends BaseController {
     @Autowired
     private RoleApplicationService roleApplicationService;
 
-    @PreAuthorize("@ss.hasPerm('system:role:list')")
+    @PreAuthorize("@permission.has('system:role:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(RoleQuery query) {
         PageDTO pageDTO = roleApplicationService.getRoleList(query);
@@ -53,7 +53,7 @@ public class SysRoleController extends BaseController {
     }
 
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.EXPORT)
-    @PreAuthorize("@ss.hasPerm('system:role:export')")
+    @PreAuthorize("@permission.has('system:role:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, RoleQuery query) {
         PageDTO pageDTO = roleApplicationService.getRoleList(query);
@@ -63,7 +63,7 @@ public class SysRoleController extends BaseController {
     /**
      * 根据角色编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPerm('system:role:query')")
+    @PreAuthorize("@permission.has('system:role:query')")
     @GetMapping(value = "/{roleId}")
     public ResponseDTO<?> getInfo(@PathVariable @NotNull Long roleId) {
         RoleDTO roleInfo = roleApplicationService.getRoleInfo(roleId);
@@ -73,7 +73,7 @@ public class SysRoleController extends BaseController {
     /**
      * 新增角色
      */
-    @PreAuthorize("@ss.hasPerm('system:role:add')")
+    @PreAuthorize("@permission.has('system:role:add')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody AddRoleCommand addCommand) {
@@ -85,7 +85,7 @@ public class SysRoleController extends BaseController {
     /**
      * 新增角色
      */
-    @PreAuthorize("@ss.hasPerm('system:role:remove')")
+    @PreAuthorize("@permission.has('system:role:remove')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
     @DeleteMapping(value = "/{roleId}")
     public ResponseDTO<?> remove(@PathVariable("roleId")List<Long> roleIds) {
@@ -97,7 +97,7 @@ public class SysRoleController extends BaseController {
     /**
      * 修改保存角色
      */
-    @PreAuthorize("@ss.hasPerm('system:role:edit')")
+    @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@Validated @RequestBody UpdateRoleCommand updateCommand) {
@@ -109,7 +109,7 @@ public class SysRoleController extends BaseController {
     /**
      * 修改保存数据权限
      */
-    @PreAuthorize("@ss.hasPerm('system:role:edit')")
+    @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{roleId}/dataScope")
     public ResponseDTO<?> dataScope(@PathVariable("roleId")Long roleId, @RequestBody UpdateDataScopeCommand command) {
@@ -122,7 +122,7 @@ public class SysRoleController extends BaseController {
     /**
      * 状态修改
      */
-    @PreAuthorize("@ss.hasPerm('system:role:edit')")
+    @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{roleId}/status")
     public ResponseDTO<?> changeStatus(@PathVariable("roleId")Long roleId, @RequestBody UpdateStatusCommand command) {
@@ -137,7 +137,7 @@ public class SysRoleController extends BaseController {
     /**
      * 查询已分配用户角色列表
      */
-    @PreAuthorize("@ss.hasPerm('system:role:list')")
+    @PreAuthorize("@permission.has('system:role:list')")
     @GetMapping("/{roleId}/allocated/list")
     public ResponseDTO<PageDTO> allocatedUserList(@PathVariable("roleId")Long roleId, AllocatedRoleQuery query) {
         query.setRoleId(roleId);
@@ -148,7 +148,7 @@ public class SysRoleController extends BaseController {
     /**
      * 查询未分配用户角色列表
      */
-    @PreAuthorize("@ss.hasPerm('system:role:list')")
+    @PreAuthorize("@permission.has('system:role:list')")
     @GetMapping("/{roleId}/unallocated/list")
     public ResponseDTO<PageDTO> unallocatedUserList(@PathVariable("roleId")Long roleId, UnallocatedRoleQuery query) {
         query.setRoleId(roleId);
@@ -159,7 +159,7 @@ public class SysRoleController extends BaseController {
     /**
      * 取消授权用户
      */
-    @PreAuthorize("@ss.hasPerm('system:role:edit')")
+    @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.GRANT)
     @DeleteMapping("/{roleId}/user/grant")
     public ResponseDTO<?> deleteRoleOfUser(@PathVariable("roleId")Long roleId, @RequestBody Long userId) {
@@ -170,7 +170,7 @@ public class SysRoleController extends BaseController {
     /**
      * 批量取消授权用户
      */
-    @PreAuthorize("@ss.hasPerm('system:role:edit')")
+    @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.GRANT)
     @DeleteMapping("/users/{userIds}/grant/bulk")
     public ResponseDTO<?> deleteRoleOfUserByBulk(@PathVariable("userIds") List<Long> userIds) {
@@ -181,7 +181,7 @@ public class SysRoleController extends BaseController {
     /**
      * 批量选择用户授权
      */
-    @PreAuthorize("@ss.hasPerm('system:role:edit')")
+    @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.GRANT)
     @PostMapping("/{roleId}/users/{userIds}/grant/bulk")
     public ResponseDTO<?> addRoleForUserByBulk(@PathVariable("roleId") Long roleId,

@@ -1,5 +1,6 @@
 package com.agileboot.infrastructure.web.domain.permission;
 
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.service.ISysDeptService;
 import lombok.Data;
 
@@ -11,5 +12,7 @@ import lombok.Data;
 public abstract class DataPermissionChecker {
 
     private ISysDeptService deptService;
+
+    public abstract boolean check(LoginUser loginUser, DataCondition condition);
 
 }

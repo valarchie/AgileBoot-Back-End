@@ -34,7 +34,7 @@ public class MonitorController extends BaseController {
     @Autowired
     private RedisCacheService redisCacheService;
 
-    @PreAuthorize("@ss.hasPerm('monitor:cache:list')")
+    @PreAuthorize("@permission.has('monitor:cache:list')")
     @GetMapping("/cacheInfo")
     public ResponseDTO<RedisCacheInfoDTO> getRedisCacheInfo() {
         RedisCacheInfoDTO redisCacheInfo = monitorApplicationService.getRedisCacheInfo();
@@ -42,7 +42,7 @@ public class MonitorController extends BaseController {
     }
 
 
-    @PreAuthorize("@ss.hasPerm('monitor:server:list')")
+    @PreAuthorize("@permission.has('monitor:server:list')")
     @GetMapping("/serverInfo")
     public ResponseDTO<ServerInfo> getServerInfo() {
         ServerInfo serverInfo = monitorApplicationService.getServerInfo();
@@ -55,7 +55,7 @@ public class MonitorController extends BaseController {
      * @param userName
      * @return
      */
-    @PreAuthorize("@ss.hasPerm('monitor:online:list')")
+    @PreAuthorize("@permission.has('monitor:online:list')")
     @GetMapping("/onlineUser/list")
     public ResponseDTO<PageDTO> list(String ipaddr, String userName) {
         List<OnlineUser> onlineUserList = monitorApplicationService.getOnlineUserList(userName, ipaddr);
@@ -65,7 +65,7 @@ public class MonitorController extends BaseController {
     /**
      * 强退用户
      */
-    @PreAuthorize("@ss.hasPerm('monitor:online:forceLogout')")
+    @PreAuthorize("@permission.has('monitor:online:forceLogout')")
     @AccessLog(title = "在线用户", businessType = BusinessTypeEnum.FORCE_LOGOUT)
     @DeleteMapping("/onlineUser/{tokenId}")
     public ResponseDTO<Object> forceLogout(@PathVariable String tokenId) {

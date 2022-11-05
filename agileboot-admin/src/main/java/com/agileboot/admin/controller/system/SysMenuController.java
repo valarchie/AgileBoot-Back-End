@@ -44,7 +44,7 @@ public class SysMenuController extends BaseController {
     /**
      * 获取菜单列表
      */
-    @PreAuthorize("@ss.hasPerm('system:menu:list')")
+    @PreAuthorize("@permission.has('system:menu:list')")
     @GetMapping("/list")
     public ResponseDTO<List> list(MenuQuery query) {
         List<MenuDTO> menuList = menuApplicationService.getMenuList(query);
@@ -54,7 +54,7 @@ public class SysMenuController extends BaseController {
     /**
      * 根据菜单编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPerm('system:menu:query')")
+    @PreAuthorize("@permission.has('system:menu:query')")
     @GetMapping(value = "/{menuId}")
     public ResponseDTO<MenuDTO> getInfo(@PathVariable @NotNull @PositiveOrZero Long menuId) {
         MenuDTO menu = menuApplicationService.getMenuInfo(menuId);
@@ -84,7 +84,7 @@ public class SysMenuController extends BaseController {
     /**
      * 新增菜单
      */
-    @PreAuthorize("@ss.hasPerm('system:menu:add')")
+    @PreAuthorize("@permission.has('system:menu:add')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody AddMenuCommand addCommand) {
@@ -95,7 +95,7 @@ public class SysMenuController extends BaseController {
     /**
      * 修改菜单
      */
-    @PreAuthorize("@ss.hasPerm('system:menu:edit')")
+    @PreAuthorize("@permission.has('system:menu:edit')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody UpdateMenuCommand updateCommand) {
@@ -106,7 +106,7 @@ public class SysMenuController extends BaseController {
     /**
      * 删除菜单
      */
-    @PreAuthorize("@ss.hasPerm('system:menu:remove')")
+    @PreAuthorize("@permission.has('system:menu:remove')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{menuId}")
     public ResponseDTO<?> remove(@PathVariable("menuId") Long menuId) {

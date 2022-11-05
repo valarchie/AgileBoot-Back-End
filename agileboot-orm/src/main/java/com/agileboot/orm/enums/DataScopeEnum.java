@@ -12,9 +12,9 @@ public enum DataScopeEnum implements BasicEnum<Integer> {
      * 数据权限范围
      */
     ALL(1, "所有数据权限"),
-    SELF_DEFINE(2, "自定义数据权限"),
-    CURRENT_DEPT(3, "本部门数据权限"),
-    CURRENT_DEPT_AND_CHILDREN_DEPT(4, "本部门以及子孙部门数据权限"),
+    CUSTOM_DEFINE(2, "自定义数据权限"),
+    SINGLE_DEPT(3, "本部门数据权限"),
+    DEPT_TREE(4, "本部门以及子孙部门数据权限"),
     ONLY_SELF(5, "仅本人数据权限");
 
     private final int value;

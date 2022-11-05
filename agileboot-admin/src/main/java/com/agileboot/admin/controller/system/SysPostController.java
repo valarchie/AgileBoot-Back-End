@@ -42,7 +42,7 @@ public class SysPostController extends BaseController {
     /**
      * 获取岗位列表
      */
-    @PreAuthorize("@ss.hasPerm('system:post:list')")
+    @PreAuthorize("@permission.has('system:post:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(PostQuery query) {
         PageDTO pageDTO = postApplicationService.getPostList(query);
@@ -50,7 +50,7 @@ public class SysPostController extends BaseController {
     }
 
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.EXPORT)
-    @PreAuthorize("@ss.hasPerm('system:post:export')")
+    @PreAuthorize("@permission.has('system:post:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, PostQuery query) {
         PageDTO pageDTO = postApplicationService.getPostList(query);
@@ -60,7 +60,7 @@ public class SysPostController extends BaseController {
     /**
      * 根据岗位编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPerm('system:post:query')")
+    @PreAuthorize("@permission.has('system:post:query')")
     @GetMapping(value = "/{postId}")
     public ResponseDTO<?> getInfo(@PathVariable Long postId) {
         PostDTO post = postApplicationService.getPostInfo(postId);
@@ -70,7 +70,7 @@ public class SysPostController extends BaseController {
     /**
      * 新增岗位
      */
-    @PreAuthorize("@ss.hasPerm('system:post:add')")
+    @PreAuthorize("@permission.has('system:post:add')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody AddPostCommand addCommand) {
@@ -81,7 +81,7 @@ public class SysPostController extends BaseController {
     /**
      * 修改岗位
      */
-    @PreAuthorize("@ss.hasPerm('system:post:edit')")
+    @PreAuthorize("@permission.has('system:post:edit')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody UpdatePostCommand updateCommand) {
@@ -92,7 +92,7 @@ public class SysPostController extends BaseController {
     /**
      * 删除岗位
      */
-    @PreAuthorize("@ss.hasPerm('system:post:remove')")
+    @PreAuthorize("@permission.has('system:post:remove')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{postIds}")
     public ResponseDTO<?> remove(@PathVariable List<Long> postIds) {
