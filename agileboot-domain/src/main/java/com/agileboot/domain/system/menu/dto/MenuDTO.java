@@ -2,7 +2,7 @@ package com.agileboot.domain.system.menu.dto;
 
 import cn.hutool.core.util.BooleanUtil;
 import com.agileboot.orm.entity.SysMenuEntity;
-import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
+import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import java.util.Date;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class MenuDTO {
             this.perms = entity.getPerms();
             this.path = entity.getPath();
             this.status = entity.getStatus() + "";
-            this.statusStr = BasicEnumUtil.getDescriptionByValue(CommonStatusEnum.class, entity.getStatus());
+            this.statusStr = BasicEnumUtil.getDescriptionByValue(StatusEnum.class, entity.getStatus());
             this.createTime = entity.getCreateTime();
             this.isExternal = BooleanUtil.toInt(entity.getIsExternal()) + "";
             this.isCache = BooleanUtil.toInt(entity.getIsCache()) + "";

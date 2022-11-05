@@ -4,8 +4,8 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
-import com.agileboot.orm.enums.dictionary.CommonAnswerEnum;
-import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
+import com.agileboot.orm.enums.dictionary.YesOrNoEnum;
+import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.dictionary.GenderEnum;
 import com.agileboot.orm.enums.dictionary.NoticeStatusEnum;
 import com.agileboot.orm.enums.dictionary.NoticeTypeEnum;
@@ -34,8 +34,8 @@ public class MapCache {
     private static void initDictionaryCache() {
 
         DICTIONARY_CACHE.put(BusinessTypeEnum.getDictName(), arrayToList(BusinessTypeEnum.values()));
-        DICTIONARY_CACHE.put(CommonAnswerEnum.getDictName(), arrayToList(CommonAnswerEnum.values()));
-        DICTIONARY_CACHE.put(CommonStatusEnum.getDictName(), arrayToList(CommonStatusEnum.values()));
+        DICTIONARY_CACHE.put(YesOrNoEnum.getDictName(), arrayToList(YesOrNoEnum.values()));
+        DICTIONARY_CACHE.put(StatusEnum.getDictName(), arrayToList(StatusEnum.values()));
         DICTIONARY_CACHE.put(GenderEnum.getDictName(), arrayToList(GenderEnum.values()));
         DICTIONARY_CACHE.put(NoticeStatusEnum.getDictName(), arrayToList(NoticeStatusEnum.values()));
         DICTIONARY_CACHE.put(NoticeTypeEnum.getDictName(), arrayToList(NoticeTypeEnum.values()));

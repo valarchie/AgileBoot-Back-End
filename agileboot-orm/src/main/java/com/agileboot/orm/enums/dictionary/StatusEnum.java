@@ -6,7 +6,7 @@ import com.agileboot.orm.enums.interfaces.DictionaryEnum;
  * 除非表有特殊指明的话，一般用这个枚举代表 status字段
  * @author valarchie
  */
-public enum CommonStatusEnum implements DictionaryEnum<Integer> {
+public enum StatusEnum implements DictionaryEnum<Integer> {
     /**
      * 开关状态
      */
@@ -17,7 +17,7 @@ public enum CommonStatusEnum implements DictionaryEnum<Integer> {
     private final String description;
     private final String cssTag;
 
-    CommonStatusEnum(int value, String description, String cssTag) {
+    StatusEnum(int value, String description, String cssTag) {
         this.value = value;
         this.description = description;
         this.cssTag = cssTag;
@@ -38,11 +38,11 @@ public enum CommonStatusEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static CommonStatusEnum getDefault() {
+    public static StatusEnum getDefault() {
         return ENABLE;
     }
 
     public static String getDictName() {
-        return "sys_normal_disable";
+        return "sys_status";
     }
 }

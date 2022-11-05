@@ -1,9 +1,6 @@
 package com.agileboot.domain.system.post;
 
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
@@ -11,7 +8,6 @@ import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.post.model.PostModel;
 import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.post.query.PostQuery;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.service.ISysPostService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -40,23 +36,21 @@ public class PostApplicationService {
         return new PostDTO(byId);
     }
 
-    public void addPost(AddPostCommand addCommand, LoginUser loginUser) {
+    public void addPost(AddPostCommand addCommand) {
         PostModel postModel = PostModelFactory.loadFromAddCommand(addCommand, new PostModel());
 
         postModel.checkPostNameUnique(postService);
         postModel.checkPostCodeUnique(postService);
-        postModel.logCreator(loginUser);
 
         postModel.insert();
     }
 
-    public void updatePost(UpdatePostCommand updateCommand, LoginUser loginUser) {
+    public void updatePost(UpdatePostCommand updateCommand) {
         PostModel postModel = PostModelFactory.loadFromDb(updateCommand.getPostId(), postService);
         postModel.loadFromUpdateCommand(updateCommand);
 
         postModel.checkPostNameUnique(postService);
         postModel.checkPostCodeUnique(postService);
-        postModel.logUpdater(loginUser);
 
         postModel.updateById();
     }

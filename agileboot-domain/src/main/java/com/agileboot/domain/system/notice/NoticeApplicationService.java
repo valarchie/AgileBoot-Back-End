@@ -1,8 +1,6 @@
 package com.agileboot.domain.system.notice;
 
 import com.agileboot.common.core.page.PageDTO;
-import com.agileboot.common.exception.ApiException;
-import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
@@ -10,7 +8,6 @@ import com.agileboot.domain.system.notice.dto.NoticeDTO;
 import com.agileboot.domain.system.notice.model.NoticeModel;
 import com.agileboot.domain.system.notice.model.NoticeModelFactory;
 import com.agileboot.domain.system.notice.query.NoticeQuery;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysNoticeEntity;
 import com.agileboot.orm.service.ISysNoticeService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -41,22 +38,20 @@ public class NoticeApplicationService {
     }
 
 
-    public void addNotice(NoticeAddCommand addCommand, LoginUser loginUser) {
+    public void addNotice(NoticeAddCommand addCommand) {
         NoticeModel noticeModel = NoticeModelFactory.loadFromAddCommand(addCommand, new NoticeModel());
 
         noticeModel.checkFields();
-//        noticeModel.logCreator(loginUser);
 
         noticeModel.insert();
     }
 
 
-    public void updateNotice(NoticeUpdateCommand updateCommand, LoginUser loginUser) {
+    public void updateNotice(NoticeUpdateCommand updateCommand) {
         NoticeModel noticeModel = NoticeModelFactory.loadFromDb(updateCommand.getNoticeId(), noticeService);
         noticeModel.loadUpdateCommand(updateCommand);
 
         noticeModel.checkFields();
-//        noticeModel.logUpdater(loginUser);
 
         noticeModel.updateById();
     }

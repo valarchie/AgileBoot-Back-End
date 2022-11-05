@@ -70,8 +70,6 @@ public class RoleApplicationService {
         roleModel.checkRoleNameUnique(roleService);
         roleModel.checkRoleKeyUnique(roleService);
 
-        roleModel.logCreator(loginUser);
-
         roleModel.insert(roleMenuService);
     }
 
@@ -88,8 +86,6 @@ public class RoleApplicationService {
 
         roleModel.checkRoleCanBeDelete(roleService);
 
-        roleModel.logUpdater(loginUser);
-
         roleModel.deleteById(roleMenuService);
     }
 
@@ -101,12 +97,10 @@ public class RoleApplicationService {
         roleModel.checkRoleKeyUnique(roleService);
         roleModel.checkRoleNameUnique(roleService);
 
-        roleModel.logUpdater(loginUser);
-
         roleModel.updateById(roleMenuService);
 
         if (loginUser.isAdmin()) {
-            loginUser.setMenuPermissions(userDetailsService.getMenuPermissions(loginUser.getUserId()));
+            loginUser.getRoleInfo().setMenuPermissions(userDetailsService.getMenuPermissions(loginUser.getUserId()));
             tokenService.setLoginUser(loginUser);
         }
     }
@@ -127,7 +121,7 @@ public class RoleApplicationService {
         roleModel.generateDeptIdSet();
         roleModel.updateById();
 
-        CacheCenter.guavaCache.roleCache.invalidate(command.getRoleId() + "");
+        CacheCenter.roleCache.invalidate(command.getRoleId() + "");
 
     }
 

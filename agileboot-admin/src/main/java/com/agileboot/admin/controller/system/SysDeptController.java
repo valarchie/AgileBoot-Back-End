@@ -10,8 +10,8 @@ import com.agileboot.domain.system.dept.DeptApplicationService;
 import com.agileboot.domain.system.dept.query.DeptQuery;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@ss.hasPerm('system:dept:list')")
     @GetMapping("/list")
-    public ResponseDTO list(DeptQuery query) {
+    public ResponseDTO<?> list(DeptQuery query) {
         List<DeptDTO> deptList = deptApplicationService.getDeptList(query);
         return ResponseDTO.ok(deptList);
     }
@@ -54,7 +54,7 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@ss.hasPerm('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
-    public ResponseDTO excludeCurrentDeptItself(@PathVariable(value = "deptId", required = false) Long deptId) {
+    public ResponseDTO<?> excludeCurrentDeptItself(@PathVariable(value = "deptId", required = false) Long deptId) {
         DeptQuery query = new DeptQuery();
         query.setDeptId(deptId);
         query.setExcludeCurrentDept(true);
@@ -86,7 +86,7 @@ public class SysDeptController extends BaseController {
      * 加载对应角色部门列表树
      */
     @GetMapping(value = "/dropdownList/role/{roleId}")
-    public ResponseDTO dropdownListForRole(@PathVariable("roleId") Long roleId) {
+    public ResponseDTO<?> dropdownListForRole(@PathVariable("roleId") Long roleId) {
         TreeSelectedDTO deptTreeForRole = deptApplicationService.getDeptTreeForRole(roleId);
         return ResponseDTO.ok(deptTreeForRole);
     }
@@ -95,9 +95,9 @@ public class SysDeptController extends BaseController {
      * 新增部门
      */
     @PreAuthorize("@ss.hasPerm('system:dept:add')")
-    @AccessLog(title = "部门管理", businessType = BusinessType.INSERT)
+    @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO add(@RequestBody AddDeptCommand addCommand) {
+    public ResponseDTO<?> add(@RequestBody AddDeptCommand addCommand) {
         deptApplicationService.addDept(addCommand, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
@@ -106,9 +106,9 @@ public class SysDeptController extends BaseController {
      * 修改部门
      */
     @PreAuthorize("@ss.hasPerm('system:dept:edit') AND @ss.checkDataScopeWithDeptId(#updateCommand.deptId)")
-    @AccessLog(title = "部门管理", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO edit(@RequestBody UpdateDeptCommand updateCommand) {
+    public ResponseDTO<?> edit(@RequestBody UpdateDeptCommand updateCommand) {
         deptApplicationService.updateDept(updateCommand, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
@@ -117,9 +117,9 @@ public class SysDeptController extends BaseController {
      * 删除部门
      */
     @PreAuthorize("@ss.hasPerm('system:dept:remove') AND @ss.checkDataScopeWithDeptId(#deptId)")
-    @AccessLog(title = "部门管理", businessType = BusinessType.DELETE)
+    @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{deptId}")
-    public ResponseDTO remove(@PathVariable @NotNull Long deptId) {
+    public ResponseDTO<?> remove(@PathVariable @NotNull Long deptId) {
         deptApplicationService.removeDept(deptId);
         return ResponseDTO.ok();
     }

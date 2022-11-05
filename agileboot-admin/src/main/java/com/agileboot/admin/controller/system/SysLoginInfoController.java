@@ -11,7 +11,7 @@ import com.agileboot.domain.system.logininfo.dto.LoginInfoDTO;
 import com.agileboot.domain.system.logininfo.LoginInfoApplicationService;
 import com.agileboot.domain.system.logininfo.query.LoginInfoQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
@@ -46,7 +46,7 @@ public class SysLoginInfoController extends BaseController {
         return ResponseDTO.ok(pageDTO);
     }
 
-    @AccessLog(title = "登录日志", businessType = BusinessType.EXPORT)
+    @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@ss.hasPerm('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, LoginInfoQuery query) {
@@ -55,17 +55,17 @@ public class SysLoginInfoController extends BaseController {
     }
 
     @PreAuthorize("@ss.hasPerm('monitor:logininfor:remove')")
-    @AccessLog(title = "登录日志", businessType = BusinessType.DELETE)
+    @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{infoIds}")
-    public ResponseDTO remove(@PathVariable @NotNull @NotEmpty List<Long> infoIds) {
+    public ResponseDTO<?> remove(@PathVariable @NotNull @NotEmpty List<Long> infoIds) {
         loginInfoApplicationService.deleteLoginInfo(new BulkOperationCommand<>(infoIds));
         return ResponseDTO.ok();
     }
 
     @PreAuthorize("@ss.hasPerm('monitor:logininfor:remove')")
-    @AccessLog(title = "登录日志", businessType = BusinessType.CLEAN)
+    @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/clean")
-    public ResponseDTO clean() {
+    public ResponseDTO<?> clean() {
         return ResponseDTO.fail(ErrorCode.Business.UNSUPPORTED_OPERATION);
     }
 }

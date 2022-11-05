@@ -16,7 +16,7 @@ import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.service.LoginService;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
 import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,13 +87,13 @@ public class LoginController {
      * @return 用户信息
      */
     @GetMapping("/getLoginUserInfo")
-    public ResponseDTO getLoginUserInfo() {
+    public ResponseDTO<?> getLoginUserInfo() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
 
         UserPermissionDTO permissionDTO = new UserPermissionDTO();
         permissionDTO.setUser(new UserDTO(loginUser.getEntity()));
-        permissionDTO.setRoleKey(loginUser.getRoleKey());
-        permissionDTO.setPermissions(loginUser.getMenuPermissions());
+        permissionDTO.setRoleKey(loginUser.getRoleInfo().getRoleKey());
+        permissionDTO.setPermissions(loginUser.getRoleInfo().getMenuPermissions());
         permissionDTO.setDictTypes(MapCache.dictionaryCache());
 
         return ResponseDTO.ok(permissionDTO);
@@ -113,7 +113,7 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public ResponseDTO register(@RequestBody AddUserCommand command) {
+    public ResponseDTO<?> register(@RequestBody AddUserCommand command) {
         return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
     }
 

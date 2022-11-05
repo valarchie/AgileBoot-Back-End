@@ -7,9 +7,9 @@ import com.agileboot.domain.system.monitor.MonitorApplicationService;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
-import com.agileboot.infrastructure.web.domain.OnlineUser;
-import com.agileboot.infrastructure.web.domain.server.ServerInfo;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.domain.system.monitor.dto.OnlineUser;
+import com.agileboot.domain.system.monitor.dto.ServerInfo;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,7 +66,7 @@ public class MonitorController extends BaseController {
      * 强退用户
      */
     @PreAuthorize("@ss.hasPerm('monitor:online:forceLogout')")
-    @AccessLog(title = "在线用户", businessType = BusinessType.FORCE)
+    @AccessLog(title = "在线用户", businessType = BusinessTypeEnum.FORCE_LOGOUT)
     @DeleteMapping("/onlineUser/{tokenId}")
     public ResponseDTO<Object> forceLogout(@PathVariable String tokenId) {
         redisCacheService.loginUserCache.delete(tokenId);

@@ -2,10 +2,9 @@ package com.agileboot.infrastructure.web.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.login.Role;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
+import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.enums.DataScopeEnum;
 import com.agileboot.orm.service.ISysDeptService;
@@ -28,10 +27,6 @@ public class PermissionService {
 
     @Autowired
     private ISysUserService userService;
-
-    @Autowired
-    private GuavaCacheService guavaCacheService;
-
     /**
      * 所有权限标识
      */
@@ -49,10 +44,10 @@ public class PermissionService {
             return false;
         }
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        if (loginUser == null || CollUtil.isEmpty(loginUser.getMenuPermissions())) {
+        if (loginUser == null || CollUtil.isEmpty(loginUser.getRoleInfo().getMenuPermissions())) {
             return false;
         }
-        return hasPermissions(loginUser.getMenuPermissions(), permission);
+        return hasPermissions(loginUser.getRoleInfo().getMenuPermissions(), permission);
     }
 
 
@@ -63,14 +58,12 @@ public class PermissionService {
      */
     public boolean checkDataScopeWithUserId(Long userId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
-
         if (loginUser == null) {
             return false;
         }
-        Role role = guavaCacheService.roleCache.get(loginUser.getRoleId() + "");
-        SysUserEntity targetUser = userService.getById(userId);
 
-        return checkDataScope(loginUser, role, targetUser.getDeptId(), userId);
+        SysUserEntity targetUser = userService.getById(userId);
+        return checkDataScope(loginUser, targetUser.getDeptId(), userId);
     }
 
     /**
@@ -84,12 +77,11 @@ public class PermissionService {
         if (loginUser == null) {
             return false;
         }
-        Role role = guavaCacheService.roleCache.get(loginUser.getRoleId() + "");
 
         if (CollUtil.isNotEmpty(userIds)) {
             for (Long userId : userIds) {
                 SysUserEntity targetUser = userService.getById(userId);
-                boolean checkResult = checkDataScope(loginUser, role, targetUser.getDeptId(), userId);
+                boolean checkResult = checkDataScope(loginUser, targetUser.getDeptId(), userId);
                 if (!checkResult) {
                     return false;
                 }
@@ -104,37 +96,37 @@ public class PermissionService {
         if (loginUser == null) {
             return false;
         }
-        Role role = guavaCacheService.roleCache.get(loginUser.getRoleId() + "");
 
-        return checkDataScope(loginUser, role, deptId, null);
+        return checkDataScope(loginUser, deptId, null);
     }
 
-    public boolean checkDataScope(LoginUser loginUser, Role role, Long targetDeptId, Long targetUserId) {
+    public boolean checkDataScope(LoginUser loginUser, Long targetDeptId, Long targetUserId) {
+        RoleInfo roleInfo = loginUser.getRoleInfo();
 
-        if (targetDeptId == null && role.getDataScope() != DataScopeEnum.ALL) {
+        if (targetDeptId == null && roleInfo.getDataScope() != DataScopeEnum.ALL) {
             return false;
         }
 
-        if(role.getDataScope() == DataScopeEnum.ALL) {
+        if(roleInfo.getDataScope() == DataScopeEnum.ALL) {
             return true;
         }
 
-        if (role.getDataScope() == DataScopeEnum.SELF_DEFINE &&
-            CollUtil.safeContains(role.getDeptIdSet(), targetDeptId)) {
+        if (roleInfo.getDataScope() == DataScopeEnum.SELF_DEFINE &&
+            CollUtil.safeContains(roleInfo.getDeptIdSet(), targetDeptId)) {
             return true;
         }
 
-        if(role.getDataScope() == DataScopeEnum.CURRENT_DEPT && Objects.equals(loginUser.getDeptId(), targetDeptId)) {
+        if(roleInfo.getDataScope() == DataScopeEnum.CURRENT_DEPT && Objects.equals(loginUser.getDeptId(), targetDeptId)) {
             return true;
         }
 
-        if (role.getDataScope() == DataScopeEnum.CURRENT_DEPT_AND_CHILDREN_DEPT &&
+        if (roleInfo.getDataScope() == DataScopeEnum.CURRENT_DEPT_AND_CHILDREN_DEPT &&
             (deptService.isChildOfTheDept(loginUser.getDeptId(), targetDeptId)
                 || Objects.equals(loginUser.getDeptId(), targetDeptId))) {
             return true;
         }
 
-        if (role.getDataScope() == DataScopeEnum.ONLY_SELF
+        if (roleInfo.getDataScope() == DataScopeEnum.ONLY_SELF
             && targetUserId != null
             && Objects.equals(loginUser.getUserId(), targetUserId)) {
             return true;

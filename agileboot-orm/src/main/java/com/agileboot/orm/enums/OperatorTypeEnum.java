@@ -3,7 +3,7 @@ package com.agileboot.orm.enums;
 import com.agileboot.orm.enums.interfaces.BasicEnum;
 
 /**
- * Http Method
+ * 操作者类型
  */
 public enum OperatorTypeEnum implements BasicEnum<Integer> {
 

@@ -4,7 +4,6 @@ import com.agileboot.common.core.base.BaseUser;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
-import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class LoginUser extends BaseUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
-
     /**
      * 用户唯一标识
      */
@@ -35,30 +33,27 @@ public class LoginUser extends BaseUser implements UserDetails {
      */
     private Long expireTime;
 
-
+    /**
+     * 登录信息
+     */
     private LoginInfo loginInfo = new LoginInfo();
 
     /**
-     * 权限列表
+     * 角色信息
      */
-    private Set<String> menuPermissions;
-
-    private String roleKey;
+    private RoleInfo roleInfo = new RoleInfo();
 
     private SysUserEntity entity;
 
 
-    public LoginUser(Set<String> permissions) {
-        this.menuPermissions = permissions;
-    }
-
-    public LoginUser(SysUserEntity entity, String roleKey, Set<String> permissions) {
+    public LoginUser(SysUserEntity entity, RoleInfo roleInfo) {
         setUsername(entity.getUsername());
         setUserId(entity.getUserId());
         setDeptId(entity.getDeptId());
         setRoleId(entity.getRoleId());
-        this.menuPermissions = permissions;
-        this.roleKey = roleKey;
+        if (roleInfo != null) {
+            this.roleInfo = roleInfo;
+        }
         this.entity = entity;
     }
 

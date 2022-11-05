@@ -24,7 +24,7 @@ import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.enums.LoginStatusEnum;
-import com.agileboot.orm.enums.SystemConfigEnum;
+import com.agileboot.orm.enums.ConfigKeyEnum;
 import com.google.code.kaptcha.Producer;
 import java.awt.image.BufferedImage;
 import javax.annotation.Resource;
@@ -194,7 +194,7 @@ public class LoginService {
     }
 
     private boolean isCaptchaOn() {
-        return Convert.toBool(guavaCacheService.configCache.get(SystemConfigEnum.CAPTCHA.getValue()));
+        return Convert.toBool(guavaCacheService.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
     }
 
 }

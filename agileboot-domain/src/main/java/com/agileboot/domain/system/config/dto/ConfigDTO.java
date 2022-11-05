@@ -4,7 +4,7 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.orm.entity.SysConfigEntity;
-import com.agileboot.orm.enums.dictionary.CommonAnswerEnum;
+import com.agileboot.orm.enums.dictionary.YesOrNoEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +23,7 @@ public class ConfigDTO {
                 JSONUtil.isTypeJSONArray(entity.getConfigOptions()) ? JSONUtil.toList(entity.getConfigOptions(),
                     String.class) : ListUtil.empty();
             isAllowChange = Convert.toInt(entity.getIsAllowChange()) + "";
-            isAllowChangeStr = BasicEnumUtil.getDescriptionByBool(CommonAnswerEnum.class, entity.getIsAllowChange());
+            isAllowChangeStr = BasicEnumUtil.getDescriptionByBool(YesOrNoEnum.class, entity.getIsAllowChange());
             remark = entity.getRemark();
             createTime = entity.getCreateTime();
         }

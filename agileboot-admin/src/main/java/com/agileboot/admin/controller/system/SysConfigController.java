@@ -10,8 +10,8 @@ import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.map.MapCache;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import com.agileboot.orm.result.DictionaryData;
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -78,9 +78,9 @@ public class SysConfigController extends BaseController {
      * 修改参数配置
      */
     @PreAuthorize("@ss.hasPerm('system:config:edit')")
-    @AccessLog(title = "参数管理", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO edit(@RequestBody ConfigUpdateCommand config) {
+    public ResponseDTO<?> edit(@RequestBody ConfigUpdateCommand config) {
         configApplicationService.updateConfig(config, AuthenticationUtils.getLoginUser());
         return ResponseDTO.ok();
     }
@@ -89,7 +89,7 @@ public class SysConfigController extends BaseController {
      * 刷新参数缓存
      */
     @PreAuthorize("@ss.hasPerm('system:config:remove')")
-    @AccessLog(title = "参数管理", businessType = BusinessType.CLEAN)
+    @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/refreshCache")
     public ResponseDTO<?> refreshCache() {
         guavaCacheService.configCache.invalidateAll();

@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 部门服务
@@ -72,18 +71,15 @@ public class DeptApplicationService {
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
     public void addDept(AddDeptCommand addCommand, LoginUser loginUser) {
         DeptModel deptModel = DeptModelFactory.loadFromAddCommand(addCommand, new DeptModel());
 
         deptModel.checkDeptNameUnique(deptService);
         deptModel.generateAncestors(deptService);
-        deptModel.logCreator(loginUser);
 
         deptModel.insert();
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void updateDept(UpdateDeptCommand updateCommand, LoginUser loginUser) {
         DeptModel deptModel = DeptModelFactory.loadFromDb(updateCommand.getDeptId(), deptService);
         deptModel.loadUpdateCommand(updateCommand);
@@ -92,12 +88,10 @@ public class DeptApplicationService {
         deptModel.checkParentIdConflict();
         deptModel.checkStatusAllowChange(deptService);
         deptModel.generateAncestors(deptService);
-        deptModel.logUpdater(loginUser);
 
         deptModel.updateById();
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void removeDept(Long deptId) {
         DeptModel deptModel = DeptModelFactory.loadFromDb(deptId, deptService);
 

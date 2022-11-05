@@ -40,7 +40,7 @@ public enum OperationStatusEnum implements DictionaryEnum<Integer> {
     }
 
     public static String getDictName() {
-        return "sys_common_status";
+        return "sys_operation_status";
     }
 
 }

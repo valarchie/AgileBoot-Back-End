@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.annotations;
 
-import com.agileboot.orm.enums.BusinessType;
 import com.agileboot.orm.enums.OperatorTypeEnum;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,7 +26,7 @@ public @interface AccessLog {
     /**
      * 功能
      */
-    BusinessType businessType() default BusinessType.OTHER;
+    BusinessTypeEnum businessType() default BusinessTypeEnum.OTHER;
 
     /**
      * 操作人类别

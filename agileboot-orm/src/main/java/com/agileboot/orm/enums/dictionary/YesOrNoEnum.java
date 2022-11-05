@@ -6,7 +6,7 @@ import com.agileboot.orm.enums.interfaces.DictionaryEnum;
  * 系统内代表是与否的枚举
  * @author valarchie
  */
-public enum CommonAnswerEnum implements DictionaryEnum<Integer> {
+public enum YesOrNoEnum implements DictionaryEnum<Integer> {
     /**
      * 是与否
      */
@@ -17,7 +17,7 @@ public enum CommonAnswerEnum implements DictionaryEnum<Integer> {
     private final String description;
     private final String cssTag;
 
-    CommonAnswerEnum(int value, String description, String cssTag) {
+    YesOrNoEnum(int value, String description, String cssTag) {
         this.value = value;
         this.description = description;
         this.cssTag = cssTag;

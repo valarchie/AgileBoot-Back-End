@@ -7,7 +7,7 @@ import com.agileboot.orm.enums.interfaces.BasicEnum;
  * @author valarchie
  * 对应 sys_config表的config_key字段
  */
-public enum SystemConfigEnum implements BasicEnum<String> {
+public enum ConfigKeyEnum implements BasicEnum<String> {
 
     /**
      * 菜单类型
@@ -21,7 +21,7 @@ public enum SystemConfigEnum implements BasicEnum<String> {
     private final String value;
     private final String description;
 
-    SystemConfigEnum(String value, String description) {
+    ConfigKeyEnum(String value, String description) {
         this.value = value;
         this.description = description;
     }

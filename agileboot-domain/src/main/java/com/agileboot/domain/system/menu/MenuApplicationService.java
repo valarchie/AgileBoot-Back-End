@@ -15,14 +15,12 @@ import com.agileboot.domain.system.menu.model.MenuModelFactory;
 import com.agileboot.domain.system.menu.model.RouterModel;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.enums.MenuTypeEnum;
 import com.agileboot.orm.service.ISysMenuService;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,26 +64,22 @@ public class MenuApplicationService {
     }
 
 
-    public void addMenu(AddMenuCommand addCommand, LoginUser loginUser) {
+    public void addMenu(AddMenuCommand addCommand) {
         MenuModel model = MenuModelFactory.loadFromAddCommand(addCommand, new MenuModel());
 
         model.checkMenuNameUnique(menuService);
         model.checkExternalLink();
 
-        model.logCreator(loginUser);
-
         model.insert();
     }
 
-    public void updateMenu(UpdateMenuCommand updateCommand, LoginUser loginUser) {
+    public void updateMenu(UpdateMenuCommand updateCommand) {
         MenuModel model = MenuModelFactory.loadFromDb(updateCommand.getMenuId(), menuService);
         model.loadUpdateCommand(updateCommand);
 
         model.checkMenuNameUnique(menuService);
         model.checkExternalLink();
         model.checkParentIdConflict();
-
-        model.logUpdater(loginUser);
 
         model.updateById();
     }

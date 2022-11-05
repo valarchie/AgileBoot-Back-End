@@ -9,7 +9,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.orm.service.ISysUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

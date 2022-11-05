@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.util;
+package com.agileboot.infrastructure.security;
 
 
 import com.agileboot.common.exception.ApiException;

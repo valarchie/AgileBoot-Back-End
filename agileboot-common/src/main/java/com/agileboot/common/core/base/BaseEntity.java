@@ -40,16 +40,4 @@ public class BaseEntity<T extends Model<?>> extends Model<T> {
     @TableLogic
     private Boolean deleted;
 
-    public void logCreator(BaseUser user) {
-        if (user != null) {
-            this.creatorId = user.getUserId();
-        }
-    }
-
-    public void logUpdater(BaseUser user) {
-        if (user != null) {
-            this.updaterId = user.getUserId();
-        }
-    }
-
 }

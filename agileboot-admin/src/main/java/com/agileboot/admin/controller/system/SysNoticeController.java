@@ -10,8 +10,7 @@ import com.agileboot.domain.system.notice.NoticeApplicationService;
 import com.agileboot.domain.system.notice.query.NoticeQuery;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -63,10 +62,10 @@ public class SysNoticeController extends BaseController {
      * 新增通知公告
      */
     @PreAuthorize("@ss.hasPerm('system:notice:add')")
-    @AccessLog(title = "通知公告", businessType = BusinessType.INSERT)
+    @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO add(@RequestBody NoticeAddCommand addCommand) {
-        noticeApplicationService.addNotice(addCommand, AuthenticationUtils.getLoginUser());
+    public ResponseDTO<?> add(@RequestBody NoticeAddCommand addCommand) {
+        noticeApplicationService.addNotice(addCommand);
         return ResponseDTO.ok();
     }
 
@@ -74,10 +73,10 @@ public class SysNoticeController extends BaseController {
      * 修改通知公告
      */
     @PreAuthorize("@ss.hasPerm('system:notice:edit')")
-    @AccessLog(title = "通知公告", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO edit(@RequestBody NoticeUpdateCommand updateCommand) {
-        noticeApplicationService.updateNotice(updateCommand, AuthenticationUtils.getLoginUser());
+    public ResponseDTO<?> edit(@RequestBody NoticeUpdateCommand updateCommand) {
+        noticeApplicationService.updateNotice(updateCommand);
         return ResponseDTO.ok();
     }
 
@@ -85,9 +84,9 @@ public class SysNoticeController extends BaseController {
      * 删除通知公告
      */
     @PreAuthorize("@ss.hasPerm('system:notice:remove')")
-    @AccessLog(title = "通知公告", businessType = BusinessType.DELETE)
+    @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{noticeIds}")
-    public ResponseDTO remove(@PathVariable List<Long> noticeIds) {
+    public ResponseDTO<?> remove(@PathVariable List<Long> noticeIds) {
         noticeApplicationService.deleteNotice(new BulkOperationCommand<>(noticeIds));
         return ResponseDTO.ok();
     }

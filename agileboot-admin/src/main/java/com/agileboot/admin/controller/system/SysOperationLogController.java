@@ -10,9 +10,8 @@ import com.agileboot.domain.system.operationlog.dto.OperationLogDTO;
 import com.agileboot.domain.system.operationlog.OperationLogApplicationService;
 import com.agileboot.domain.system.operationlog.query.OperationLogQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,7 +41,7 @@ public class SysOperationLogController extends BaseController {
         return ResponseDTO.ok(pageDTO);
     }
 
-    @AccessLog(title = "操作日志", businessType = BusinessType.EXPORT)
+    @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@ss.hasPerm('monitor:operlog:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, OperationLogQuery query) {
@@ -50,18 +49,18 @@ public class SysOperationLogController extends BaseController {
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), OperationLogDTO.class, response);
     }
 
-    @AccessLog(title = "操作日志", businessType = BusinessType.DELETE)
+    @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.DELETE)
     @PreAuthorize("@ss.hasPerm('monitor:operlog:remove')")
     @DeleteMapping("/{operationIds}")
-    public ResponseDTO remove(@PathVariable List<Long> operationIds) {
+    public ResponseDTO<?> remove(@PathVariable List<Long> operationIds) {
         operationLogApplicationService.deleteOperationLog(new BulkOperationCommand<>(operationIds));
         return ResponseDTO.ok();
     }
 
-    @AccessLog(title = "操作日志", businessType = BusinessType.CLEAN)
+    @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.CLEAN)
     @PreAuthorize("@ss.hasPerm('monitor:operlog:remove')")
     @DeleteMapping("/clean")
-    public ResponseDTO clean() {
+    public ResponseDTO<?> clean() {
         return ResponseDTO.fail(ErrorCode.Business.UNSUPPORTED_OPERATION);
     }
 }

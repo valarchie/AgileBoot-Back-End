@@ -17,8 +17,8 @@ import com.agileboot.domain.system.user.command.ResetPasswordCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class SysUserController extends BaseController {
         return ResponseDTO.ok(page);
     }
 
-    @AccessLog(title = "用户管理", businessType = BusinessType.EXPORT)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@ss.hasPerm('system:user:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SearchUserQuery query) {
@@ -64,7 +64,7 @@ public class SysUserController extends BaseController {
         CustomExcelUtil.writeToResponse(userList.getRows(), UserDTO.class, response);
     }
 
-    @AccessLog(title = "用户管理", businessType = BusinessType.IMPORT)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.IMPORT)
     @PreAuthorize("@ss.hasPerm('system:user:import')")
     @PostMapping("/importData")
     public ResponseDTO<?> importData(MultipartFile file) {
@@ -97,7 +97,7 @@ public class SysUserController extends BaseController {
      * 新增用户
      */
     @PreAuthorize("@ss.hasPerm('system:user:add') AND @ss.checkDataScopeWithDeptId(#command.deptId)")
-    @AccessLog(title = "用户管理", businessType = BusinessType.INSERT)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@Validated @RequestBody AddUserCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
@@ -109,7 +109,7 @@ public class SysUserController extends BaseController {
      * 修改用户
      */
     @PreAuthorize("@ss.hasPerm('system:user:edit') AND @ss.checkDataScopeWithUserId(#command.userId)")
-    @AccessLog(title = "用户管理", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@Validated @RequestBody UpdateUserCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
@@ -121,7 +121,7 @@ public class SysUserController extends BaseController {
      * 删除用户
      */
     @PreAuthorize("@ss.hasPerm('system:user:remove') AND @ss.checkDataScopeWithUserIds(#userIds)")
-    @AccessLog(title = "用户管理", businessType = BusinessType.DELETE)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{userIds}")
     public ResponseDTO<?> remove(@PathVariable List<Long> userIds) {
         BulkOperationCommand<Long> bulkDeleteCommand = new BulkOperationCommand(userIds);
@@ -134,7 +134,7 @@ public class SysUserController extends BaseController {
      * 重置密码
      */
     @PreAuthorize("@ss.hasPerm('system:user:resetPwd') AND @ss.checkDataScopeWithUserId(#userId)")
-    @AccessLog(title = "用户管理", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{userId}/password/reset")
     public ResponseDTO<?> resetPassword(@PathVariable Long userId, @RequestBody ResetPasswordCommand command) {
         command.setUserId(userId);
@@ -147,7 +147,7 @@ public class SysUserController extends BaseController {
      * 状态修改
      */
     @PreAuthorize("@ss.hasPerm('system:user:edit') AND @ss.checkDataScopeWithUserId(#command.userId)")
-    @AccessLog(title = "用户管理", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{userId}/status")
     public ResponseDTO<?> changeStatus(@PathVariable Long userId, @RequestBody ChangeStatusCommand command) {
         command.setUserId(userId);

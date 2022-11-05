@@ -11,8 +11,8 @@ import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
-import com.agileboot.orm.enums.BusinessType;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -65,7 +65,7 @@ public class SysMenuController extends BaseController {
      * 获取菜单下拉树列表
      */
     @GetMapping("/dropdownList")
-    public ResponseDTO dropdownList() {
+    public ResponseDTO<?> dropdownList() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         List<Tree<Long>> dropdownList = menuApplicationService.getDropdownList(loginUser);
         return ResponseDTO.ok(dropdownList);
@@ -75,7 +75,7 @@ public class SysMenuController extends BaseController {
      * 加载对应角色菜单列表树
      */
     @GetMapping(value = "/roleMenuTreeSelect/{roleId}")
-    public ResponseDTO roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
+    public ResponseDTO<?> roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         TreeSelectedDTO roleDropdownList = menuApplicationService.getRoleDropdownList(loginUser, roleId);
         return ResponseDTO.ok(roleDropdownList);
@@ -85,11 +85,10 @@ public class SysMenuController extends BaseController {
      * 新增菜单
      */
     @PreAuthorize("@ss.hasPerm('system:menu:add')")
-    @AccessLog(title = "菜单管理", businessType = BusinessType.INSERT)
+    @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO add(@RequestBody AddMenuCommand addCommand) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        menuApplicationService.addMenu(addCommand, loginUser);
+    public ResponseDTO<?> add(@RequestBody AddMenuCommand addCommand) {
+        menuApplicationService.addMenu(addCommand);
         return ResponseDTO.ok();
     }
 
@@ -97,11 +96,10 @@ public class SysMenuController extends BaseController {
      * 修改菜单
      */
     @PreAuthorize("@ss.hasPerm('system:menu:edit')")
-    @AccessLog(title = "菜单管理", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO edit(@RequestBody UpdateMenuCommand updateCommand) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        menuApplicationService.updateMenu(updateCommand, loginUser);
+    public ResponseDTO<?> edit(@RequestBody UpdateMenuCommand updateCommand) {
+        menuApplicationService.updateMenu(updateCommand);
         return ResponseDTO.ok();
     }
 
@@ -109,9 +107,9 @@ public class SysMenuController extends BaseController {
      * 删除菜单
      */
     @PreAuthorize("@ss.hasPerm('system:menu:remove')")
-    @AccessLog(title = "菜单管理", businessType = BusinessType.DELETE)
+    @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{menuId}")
-    public ResponseDTO remove(@PathVariable("menuId") Long menuId) {
+    public ResponseDTO<?> remove(@PathVariable("menuId") Long menuId) {
         menuApplicationService.remove(menuId);
         return ResponseDTO.ok();
     }

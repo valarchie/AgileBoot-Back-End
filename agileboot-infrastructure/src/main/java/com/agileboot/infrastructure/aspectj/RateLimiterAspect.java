@@ -7,7 +7,7 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.infrastructure.annotations.RateLimiter;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;

@@ -10,7 +10,7 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.orm.entity.SysOperationLogEntity;
 import com.agileboot.orm.enums.RequestMethodEnum;
 import com.agileboot.orm.enums.dictionary.OperationStatusEnum;

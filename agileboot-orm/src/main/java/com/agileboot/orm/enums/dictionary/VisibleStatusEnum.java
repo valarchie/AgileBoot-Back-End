@@ -44,7 +44,7 @@ public enum VisibleStatusEnum implements DictionaryEnum<Integer> {
     }
 
     public static String getDictName() {
-        return "sys_show_hide";
+        return "sys_visible";
     }
 
 }

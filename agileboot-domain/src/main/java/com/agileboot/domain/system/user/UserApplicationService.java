@@ -3,6 +3,7 @@ package com.agileboot.domain.system.user;
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
+import com.agileboot.domain.system.role.model.RoleModel;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
@@ -34,10 +35,8 @@ import com.agileboot.orm.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author valarchie
@@ -81,13 +80,12 @@ public class UserApplicationService {
     }
 
 
-    public void updateUserProfile(UpdateProfileCommand command, LoginUser loginUser) {
+    public void updateUserProfile(UpdateProfileCommand command) {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.loadUpdateProfileCommand(command);
 
         userModel.checkPhoneNumberIsUnique(userService);
         userModel.checkEmailIsUnique(userService);
-        userModel.logUpdater(loginUser);
 
         userModel.updateById();
 
@@ -118,8 +116,6 @@ public class UserApplicationService {
         model.checkPhoneNumberIsUnique(userService);
         model.checkEmailIsUnique(userService);
 
-        model.logCreator(loginUser);
-
         model.insert();
     }
 
@@ -131,14 +127,11 @@ public class UserApplicationService {
         model.checkEmailIsUnique(userService);
         model.checkCanBeModify(loginUser);
 
-        model.logUpdater(loginUser);
-
         model.updateById();
 
         redisCacheService.userCache.delete(model.getUserId());
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void deleteUsers(LoginUser loginUser, BulkOperationCommand<Long> command) {
         for (Long id : command.getIds()) {
             UserModel userModel = UserModelFactory.loadFromDb(id, userService);
@@ -154,8 +147,6 @@ public class UserApplicationService {
 
         loginUser.setEntity(userModel);
 
-        userModel.logUpdater(loginUser);
-
         tokenService.setLoginUser(loginUser);
         redisCacheService.userCache.delete(userModel.getUserId());
     }
@@ -164,8 +155,6 @@ public class UserApplicationService {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.checkCanBeModify(loginUser);
         userModel.resetPassword(command.getPassword());
-
-        userModel.logUpdater(loginUser);
 
         userModel.updateById();
         redisCacheService.userCache.delete(userModel.getUserId());
@@ -176,7 +165,6 @@ public class UserApplicationService {
         userModel.setStatus(Convert.toInt(command.getStatus()));
 
         userModel.checkCanBeModify(loginUser);
-        userModel.logUpdater(loginUser);
 
         userModel.updateById();
         redisCacheService.userCache.delete(userModel.getUserId());
@@ -186,19 +174,19 @@ public class UserApplicationService {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.setAvatar(command.getAvatar());
 
-        userModel.logUpdater(loginUser);
         userModel.updateById();
+
         tokenService.setLoginUser(loginUser);
         redisCacheService.userCache.delete(userModel.getUserId());
     }
 
     public UserInfoDTO getUserWithRole(Long userId) {
         UserModel userModel = UserModelFactory.loadFromDb(userId, userService);
-        SysRoleEntity roleEntity = RoleModelFactory.loadFromDb(userModel.getRoleId(), roleService, roleMenuService);
+        RoleModel roleModel = RoleModelFactory.loadFromDb(userModel.getRoleId(), roleService, roleMenuService);
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setUser(new UserDTO(userModel));
-        userInfoDTO.setRole(new RoleDTO(roleEntity));
+        userInfoDTO.setRole(new RoleDTO(roleModel));
         return userInfoDTO;
     }
 

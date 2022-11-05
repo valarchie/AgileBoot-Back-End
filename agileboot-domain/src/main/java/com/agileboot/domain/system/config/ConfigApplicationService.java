@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author valarchie
@@ -36,12 +35,10 @@ public class ConfigApplicationService {
         return new ConfigDTO(byId);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void updateConfig(ConfigUpdateCommand updateCommand, LoginUser loginUser) {
         ConfigModel configModel = ConfigModelFactory.loadFromUpdateCommand(updateCommand, configService);
 
         configModel.checkCanBeModify();
-        configModel.logUpdater(loginUser);
 
         configModel.updateById();
     }

@@ -1,7 +1,5 @@
 package com.agileboot.admin.controller.system;
 
-import com.agileboot.common.config.AgileBootConfig;
-import com.agileboot.common.constant.Constants;
 import com.agileboot.common.constant.Constants.UploadSubDir;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
@@ -16,9 +14,8 @@ import com.agileboot.domain.system.user.command.UpdateUserAvatarCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.util.AuthenticationUtils;
-import com.agileboot.orm.enums.BusinessType;
-import java.io.IOException;
+import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +42,7 @@ public class SysProfileController extends BaseController {
      * 个人信息
      */
     @GetMapping
-    public ResponseDTO profile() {
+    public ResponseDTO<?> profile() {
         LoginUser user = AuthenticationUtils.getLoginUser();
         UserProfileDTO userProfile = userApplicationService.getUserProfile(user.getUserId());
         return ResponseDTO.ok(userProfile);
@@ -54,21 +51,21 @@ public class SysProfileController extends BaseController {
     /**
      * 修改用户
      */
-    @AccessLog(title = "个人信息", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "个人信息", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO updateProfile(@RequestBody UpdateProfileCommand command) {
+    public ResponseDTO<?> updateProfile(@RequestBody UpdateProfileCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
-        userApplicationService.updateUserProfile(command, loginUser);
+        userApplicationService.updateUserProfile(command);
         return ResponseDTO.ok();
     }
 
     /**
      * 重置密码
      */
-    @AccessLog(title = "个人信息", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "个人信息", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/password")
-    public ResponseDTO updatePassword(@RequestBody UpdateUserPasswordCommand command) {
+    public ResponseDTO<?> updatePassword(@RequestBody UpdateUserPasswordCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
         userApplicationService.updateUserPassword(loginUser, command);
@@ -78,9 +75,9 @@ public class SysProfileController extends BaseController {
     /**
      * 头像上传
      */
-    @AccessLog(title = "用户头像", businessType = BusinessType.UPDATE)
+    @AccessLog(title = "用户头像", businessType = BusinessTypeEnum.MODIFY)
     @PostMapping("/avatar")
-    public ResponseDTO avatar(@RequestParam("avatarfile") MultipartFile file) {
+    public ResponseDTO<?> avatar(@RequestParam("avatarfile") MultipartFile file) {
         if (file.isEmpty()) {
             throw new ApiException(ErrorCode.Business.USER_UPLOAD_FILE_FAILED);
         }

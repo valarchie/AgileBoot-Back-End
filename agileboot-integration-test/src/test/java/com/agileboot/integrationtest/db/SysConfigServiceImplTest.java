@@ -1,7 +1,7 @@
 package com.agileboot.integrationtest.db;
 
 import com.agileboot.integrationtest.IntegrationTestApplication;
-import com.agileboot.orm.enums.SystemConfigEnum;
+import com.agileboot.orm.enums.ConfigKeyEnum;
 import com.agileboot.orm.service.ISysConfigService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class SysConfigServiceImplTest {
 
     @Test
     void testGetConfigValueByKey() {
-        String configValue = configService.getConfigValueByKey(SystemConfigEnum.CAPTCHA.getValue());
+        String configValue = configService.getConfigValueByKey(ConfigKeyEnum.CAPTCHA.getValue());
         Assertions.assertFalse(Boolean.parseBoolean(configValue));
     }
 

@@ -1,7 +1,7 @@
 package com.agileboot.domain.system.dept.dto;
 
 import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
+import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import lombok.Data;
 
@@ -18,7 +18,7 @@ public class DeptDTO {
             this.email = entity.getEmail();
             this.phone = entity.getPhone();
             this.status = entity.getStatus() + "";
-            this.statusStr = BasicEnumUtil.getDescriptionByValue(CommonStatusEnum.class, entity.getStatus());
+            this.statusStr = BasicEnumUtil.getDescriptionByValue(StatusEnum.class, entity.getStatus());
         }
     }
 

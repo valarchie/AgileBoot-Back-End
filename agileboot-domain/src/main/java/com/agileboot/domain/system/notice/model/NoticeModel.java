@@ -3,7 +3,7 @@ package com.agileboot.domain.system.notice.model;
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.orm.entity.SysNoticeEntity;
-import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
+import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.dictionary.NoticeTypeEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class NoticeModel extends SysNoticeEntity {
 
     public void checkFields() {
         BasicEnumUtil.fromValue(NoticeTypeEnum.class, getNoticeType());
-        BasicEnumUtil.fromValue(CommonStatusEnum.class, getStatus());
+        BasicEnumUtil.fromValue(StatusEnum.class, getStatus());
     }
 
 }

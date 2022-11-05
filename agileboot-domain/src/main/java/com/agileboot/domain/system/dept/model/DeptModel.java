@@ -6,7 +6,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.enums.dictionary.CommonStatusEnum;
+import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import com.agileboot.orm.service.ISysDeptService;
 import java.util.Objects;
@@ -58,8 +58,8 @@ public class DeptModel extends SysDeptEntity {
 
         SysDeptEntity parentDept = deptService.getById(getParentId());
 
-        if (parentDept == null || CommonStatusEnum.DISABLE.equals(
-            BasicEnumUtil.fromValue(CommonStatusEnum.class, parentDept.getStatus()))) {
+        if (parentDept == null || StatusEnum.DISABLE.equals(
+            BasicEnumUtil.fromValue(StatusEnum.class, parentDept.getStatus()))) {
             throw new ApiException(ErrorCode.Business.DEPT_PARENT_DEPT_NO_EXIST_OR_DISABLED);
         }
 
@@ -72,7 +72,7 @@ public class DeptModel extends SysDeptEntity {
      * @param deptService
      */
     public void checkStatusAllowChange(ISysDeptService deptService) {
-        if (CommonStatusEnum.DISABLE.getValue().equals(getStatus()) &&
+        if (StatusEnum.DISABLE.getValue().equals(getStatus()) &&
             deptService.hasChildrenDept(getDeptId(), true)) {
             throw new ApiException(ErrorCode.Business.DEPT_STATUS_ID_IS_NOT_ALLOWED_CHANGE);
         }

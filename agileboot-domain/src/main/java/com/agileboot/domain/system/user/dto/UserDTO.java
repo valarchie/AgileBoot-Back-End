@@ -25,7 +25,7 @@ public class UserDTO {
                 this.deptName = dept.getDeptName();
             }
 
-            SysUserEntity creator = CacheCenter.redisCache.userCache.getObjectById(entity.getCreatorId());
+            SysUserEntity creator = CacheCenter.userCache.getObjectById(entity.getCreatorId());
             if (creator != null) {
                 this.creatorName = creator.getUsername();
             }
