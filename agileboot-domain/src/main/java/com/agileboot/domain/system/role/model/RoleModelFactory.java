@@ -25,12 +25,6 @@ public class RoleModelFactory {
             throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, roleId, "角色");
         }
 
-//        LambdaQueryChainWrapper<SysRoleMenuEntity> menuQuery = roleMenuService.lambdaQuery()
-//            .select(SysRoleMenuEntity::getMenuId)
-//            .eq(SysRoleMenuEntity::getRoleId, roleId);
-//        List<SysRoleMenuEntity> list = roleMenuService.list(menuQuery);
-//        List<Long> menuIds = list.stream().map(SysRoleMenuEntity::getMenuId).collect(Collectors.toList());
-
         return new RoleModel(byId);
     }
 

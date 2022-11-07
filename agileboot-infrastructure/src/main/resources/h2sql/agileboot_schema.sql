@@ -10,9 +10,7 @@ create table sys_config
     config_value    varchar(256)  default '' not null comment '配置值',
     is_allow_change int              not null comment '是否允许修改',
     creator_id      int                   null comment '创建者ID',
-    creator_name    varchar(64)   default '' null comment '创建者',
     updater_id      int                   null comment '更新者ID',
-    updater_name    varchar(64)   default '' null comment '更新者',
     update_time     datetime                 null comment '更新时间',
     create_time     datetime                 null comment '创建时间',
     remark          varchar(128)             null comment '备注',
@@ -33,10 +31,8 @@ create table sys_dept
     email        varchar(128)           null comment '邮箱',
     status       smallint    default 0  not null comment '部门状态（0正常 1停用）',
     creator_id   bigint                 null comment '创建者ID',
-    creator_name varchar(64) default '' null comment '创建者',
     create_time  datetime               null comment '创建时间',
     updater_id   bigint                 null comment '更新者ID',
-    updater_name varchar(64) default '' null comment '更新者',
     update_time  datetime               null comment '更新时间',
     deleted      tinyint  default 0  not null comment '逻辑删除'
 );
@@ -74,10 +70,8 @@ create table sys_menu
     perms        varchar(128)             null comment '权限标识',
     icon         varchar(128) default '#' null comment '菜单图标',
     creator_id   bigint                   null comment '创建者ID',
-    creator_name varchar(64)  default ''  null comment '创建者',
     create_time  datetime                 null comment '创建时间',
     updater_id   bigint                   null comment '更新者ID',
-    updater_name varchar(64)  default ''  null comment '更新者',
     update_time  datetime                 null comment '更新时间',
     remark       varchar(512) default ''  null comment '备注',
     deleted      tinyint   default 0   not null comment '逻辑删除'
@@ -92,10 +86,8 @@ create table sys_notice
     notice_content text                    null comment '公告内容',
     status         smallint     default 0  not null comment '公告状态（1正常 0关闭）',
     creator_id     bigint                  not null comment '创建者ID',
-    creator_name   varchar(64)             not null comment '创建者',
     create_time    datetime                null comment '创建时间',
     updater_id     bigint                  null comment '更新者ID',
-    updater_name   varchar(64)             null comment '更新者',
     update_time    datetime                null comment '更新时间',
     remark         varchar(255) default '' not null comment '备注',
     deleted        tinyint   default 0  not null comment '逻辑删除'
@@ -135,10 +127,8 @@ create table sys_post
     status       smallint               not null comment '状态（1正常 0停用）',
     remark       varchar(512)           null comment '备注',
     creator_id   bigint                 null,
-    creator_name varchar(64) default '' null comment '创建者',
     create_time  datetime               null comment '创建时间',
     updater_id   bigint                 null,
-    updater_name varchar(64) default '' null comment '更新者',
     update_time  datetime               null comment '更新时间',
     deleted      tinyint  default 0  not null comment '逻辑删除'
 );
@@ -154,10 +144,8 @@ create table sys_role
     dept_id_set  varchar(1024) default '' null comment '角色所拥有的部门数据权限',
     status       smallint                 not null comment '角色状态（1正常 0停用）',
     creator_id   bigint                   null comment '创建者ID',
-    creator_name varchar(64)   default '' null comment '创建者',
     create_time  datetime                 null comment '创建时间',
     updater_id   bigint                   null comment '更新者ID',
-    updater_name varchar(64)   default '' null comment '更新者',
     update_time  datetime                 null comment '更新时间',
     remark       varchar(512)             null comment '备注',
     deleted      tinyint    default 0  not null comment '删除标志（0代表存在 1代表删除）'
@@ -188,10 +176,8 @@ create table sys_user
     login_ip     varchar(128) default '' null comment '最后登录IP',
     login_date   datetime                null comment '最后登录时间',
     creator_id   bigint                  null comment '更新者ID',
-    creator_name varchar(64)  default '' null comment '创建者',
     create_time  datetime                null comment '创建时间',
     updater_id   bigint                  null comment '更新者ID',
-    updater_name varchar(64)  default '' null comment '更新者',
     update_time  datetime                null comment '更新时间',
     remark       varchar(512)            null comment '备注',
     deleted      tinyint   default 0  not null comment '删除标志（0代表存在 1代表删除）'

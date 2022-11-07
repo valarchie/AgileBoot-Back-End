@@ -121,8 +121,6 @@ public class RoleApplicationService {
         roleModel.generateDeptIdSet();
         roleModel.updateById();
 
-        CacheCenter.roleCache.invalidate(command.getRoleId() + "");
-
     }
 
 
