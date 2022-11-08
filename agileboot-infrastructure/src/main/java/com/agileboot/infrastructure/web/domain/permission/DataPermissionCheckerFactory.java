@@ -48,7 +48,8 @@ public class DataPermissionCheckerFactory {
 
         DataScopeEnum dataScope = loginUser.getRoleInfo().getDataScope();
         switch (dataScope) {
-            case ALL:return allChecker;
+            case ALL:
+                return allChecker;
             case CUSTOM_DEFINE:
                 return customChecker;
             case SINGLE_DEPT:

@@ -5,6 +5,7 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,7 @@ public class PostDTO {
 
     @ExcelColumn(name = "状态")
     private String statusStr;
+
+    private Date createTime;
 
 }

@@ -26,7 +26,7 @@ public class NoticeQuery extends AbstractPageQuery {
         QueryWrapper<SysNoticeEntity> sysNoticeWrapper = new QueryWrapper<>();
         sysNoticeWrapper.like(StrUtil.isNotEmpty(noticeTitle), "notice_title", noticeTitle)
             .eq(noticeType != null, "notice_type", noticeType)
-            .like(StrUtil.isNotEmpty(creatorName), "creator_name", creatorName);
+            .like(StrUtil.isNotEmpty(creatorName), "u.username", creatorName);
 
         return sysNoticeWrapper;
     }

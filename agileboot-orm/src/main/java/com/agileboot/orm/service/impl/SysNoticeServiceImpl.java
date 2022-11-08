@@ -3,6 +3,8 @@ package com.agileboot.orm.service.impl;
 import com.agileboot.orm.entity.SysNoticeEntity;
 import com.agileboot.orm.mapper.SysNoticeMapper;
 import com.agileboot.orm.service.ISysNoticeService;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNoticeEntity> implements ISysNoticeService {
+
+    @Override
+    public Page<SysNoticeEntity> getNoticeList(Page<SysNoticeEntity> page, Wrapper<SysNoticeEntity> queryWrapper) {
+        return this.baseMapper.getNoticeList(page, queryWrapper);
+    }
 
 }

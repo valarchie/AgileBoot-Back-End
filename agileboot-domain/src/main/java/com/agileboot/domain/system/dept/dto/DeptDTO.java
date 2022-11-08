@@ -3,6 +3,7 @@ package com.agileboot.domain.system.dept.dto;
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
+import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -18,6 +19,7 @@ public class DeptDTO {
             this.email = entity.getEmail();
             this.phone = entity.getPhone();
             this.status = entity.getStatus() + "";
+            this.createTime = entity.getCreateTime();
             this.statusStr = BasicEnumUtil.getDescriptionByValue(StatusEnum.class, entity.getStatus());
         }
     }
@@ -40,5 +42,7 @@ public class DeptDTO {
     private String status;
 
     private String statusStr;
+
+    private Date createTime;
 
 }

@@ -1,7 +1,6 @@
 package com.agileboot.infrastructure.web.service;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
@@ -10,7 +9,6 @@ import com.agileboot.infrastructure.web.domain.permission.DataPermissionCheckerF
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.service.ISysUserService;
 import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +30,9 @@ public class DataPermissionService {
     public boolean checkUserId(Long userId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         SysUserEntity targetUser = userService.getById(userId);
+        if (targetUser == null) {
+            return true;
+        }
         return checkDataScope(loginUser, targetUser.getDeptId(), userId);
     }
 
@@ -41,18 +42,14 @@ public class DataPermissionService {
      * @return
      */
     public boolean checkUserIds(List<Long> userIds) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-
         if (CollUtil.isNotEmpty(userIds)) {
             for (Long userId : userIds) {
-                SysUserEntity targetUser = userService.getById(userId);
-                boolean checkResult = checkDataScope(loginUser, targetUser.getDeptId(), userId);
+                boolean checkResult = checkUserId(userId);
                 if (!checkResult) {
                     return false;
                 }
             }
         }
-
         return true;
     }
 
