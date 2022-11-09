@@ -25,10 +25,15 @@ public class SingleDeptDataPermissionChecker extends DataPermissionChecker {
         if (condition == null || loginUser == null) {
             return false;
         }
+
+        if (loginUser.getDeptId() == null || condition.getTargetDeptId() == null) {
+            return false;
+        }
+
         Long currentDeptId = loginUser.getDeptId();
         Long targetDeptId = condition.getTargetDeptId();
 
-        return targetDeptId != null && Objects.equals(currentDeptId, targetDeptId);
+        return Objects.equals(currentDeptId, targetDeptId);
     }
 
 

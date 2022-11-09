@@ -25,13 +25,18 @@ public class DeptTreeDataPermissionChecker extends DataPermissionChecker {
         if (condition == null || loginUser == null) {
             return false;
         }
+
+        if (loginUser.getDeptId() == null || condition.getTargetDeptId() == null) {
+            return false;
+        }
+
         Long currentDeptId = loginUser.getDeptId();
         Long targetDeptId = condition.getTargetDeptId();
 
         boolean isContainsTargetDept = deptService.isChildOfTheDept(loginUser.getDeptId(), targetDeptId);
         boolean isSameDept = Objects.equals(currentDeptId, targetDeptId);
 
-        return targetDeptId != null && isContainsTargetDept && isSameDept;
+        return isContainsTargetDept || isSameDept;
     }
 
 }

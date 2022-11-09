@@ -26,9 +26,14 @@ public class OnlySelfDataPermissionChecker extends DataPermissionChecker {
         if (condition == null || loginUser == null) {
             return false;
         }
+
+        if (loginUser.getUserId() == null || condition.getTargetUserId() == null) {
+            return false;
+        }
+
         Long currentUserId = loginUser.getUserId();
         Long targetUserId = condition.getTargetUserId();
-        return targetUserId != null && Objects.equals(currentUserId, targetUserId);
+        return Objects.equals(currentUserId, targetUserId);
     }
 
 }

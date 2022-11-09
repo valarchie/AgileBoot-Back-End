@@ -29,6 +29,11 @@ public class CustomDataPermissionChecker extends DataPermissionChecker {
         if (condition == null || loginUser == null) {
             return false;
         }
+
+        if (loginUser.getRoleInfo() == null) {
+            return false;
+        }
+
         Set<Long> deptIdSet = loginUser.getRoleInfo().getDeptIdSet();
         Long targetDeptId = condition.getTargetDeptId();
 
