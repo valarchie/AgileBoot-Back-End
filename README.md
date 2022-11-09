@@ -1,20 +1,24 @@
 <p align="center">
 
-[//]: # (	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">)
+<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.0.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.5.0</h1>
+
 <h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发框架</h4>
 <p align="center">
 </p>
 
-## 平台简介
+## ⚡平台简介⚡
+[![SpringBoot](https://img.shields.io/badge/springboot-2.7-blue.svg)](https://docs.spring.io/spring-boot/docs/2.1.5.RELEASE/reference/htmlsingle/)  
 
-AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+AgileBoot是一套全部开源的精简快速开发平台，毫无保留给个人及企业免费使用。本项目的目标是做一款精简可靠，代码风格优良规范的小型开发脚手架。
+适合个人开发者的小型项目或者公司内部项目使用。
 
 * 前端采用Vue3、Element UI。[AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Back-End) ，保持同步更新。
-* 后端采用Spring Boot、Spring Security、Redis & Jwt、Mybatis Plus。
+* 后端采用Spring Boot、Spring Security、Redis & Jwt、Mybatis Plus、MySql。
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持加载动态权限菜单，多方式轻松权限控制。
+* 🙌 有大量的单元测试，集成测试覆盖确保业务逻辑正确。🙌
 
 #### 由来
 本项目基于Ruoyi项目进行完全重构改造。  
@@ -47,6 +51,7 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 - 移除SQL注入的Filter，因为迁移到Mybatis Plus就不会有这个注入的问题
 - XSS直接通过JSON拦截过滤。
 - 替换掉很多Deprecated的类以及配置
+- 数据库的整体重构设计，缩减至10张表。
 #### 优化：
 - 优化异步服务
 - 优化Excel相关类的设计，采用hutool包成熟的轮子
@@ -57,15 +62,8 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 
 #### 重构内容
 
-
-
 --- 
 
-* 特别鸣谢：[element](https://github.com/ElemeFE/element) ，[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) ，[eladmin-web](https://github.com/elunez/eladmin-web) 。
-* 阿里云折扣场：https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x
-* 腾讯云秒杀场：[点我领取](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
-* 阿里云优惠券：https://cn.aliyun.com/minisite/goods?from_alibabacloud=&userCode=djbhhf1x
-* 腾讯云优惠券：[点我领取](https://url.cn/mKgcHVNb) &nbsp;&nbsp;
 
 ## 内置功能
 
@@ -89,10 +87,6 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 演示地址：http://vue.ruoyi.vip （可先参考Ruoyi的演示网站 ）  
 文档地址： http://doc.ruoyi.vip （TODO）
 - 账号密码：admin/admin123
-- 如果该项目对您有帮助，可以请作者喝个咖啡~
-  ![扫一扫](https://oscimg.oschina.net/oscnet/up-261828407c9089ad1cc0ce3f41a0ef3fbc0.png)
-
-
 
 
 ## 演示图
@@ -140,3 +134,9 @@ AgileBoot是一套全部开源的快速开发平台，毫无保留给个人及�
 ## AgileBoot前后端分离交流群
 <!-- TODO 整改 -->
 QQ群：  [![加入QQ群](https://img.shields.io/badge/1398880-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TR5guoXS0HssErVWefmdFRirJvfpEvp1&jump_from=webapi&authKey=VkWMmVhp/pNdWuRD8sqgM+Sv2+Vy2qCJQSeLmeXlLtfER2RJBi6zL56PdcRlCmTs) 点击按钮入群。
+
+
+
+
+- 如果该项目对您有帮助，可以请作者喝个咖啡~
+  ![扫一扫](https://oscimg.oschina.net/oscnet/up-261828407c9089ad1cc0ce3f41a0ef3fbc0.png)
