@@ -1,6 +1,6 @@
 <p align="center">
 
-<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
+<img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.5.0</h1>
 
