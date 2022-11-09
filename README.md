@@ -139,4 +139,5 @@ QQ群：  [![加入QQ群](https://img.shields.io/badge/1398880-blue.svg)](https:
 
 
 - 如果该项目对您有帮助，可以请作者喝个咖啡~
-  ![扫一扫](https://oscimg.oschina.net/oscnet/up-261828407c9089ad1cc0ce3f41a0ef3fbc0.png)
+<img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-261828407c9089ad1cc0ce3f41a0ef3fbc0.png">
+
