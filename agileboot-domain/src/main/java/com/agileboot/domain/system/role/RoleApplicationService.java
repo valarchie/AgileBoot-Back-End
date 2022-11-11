@@ -161,6 +161,10 @@ public class RoleApplicationService {
             return;
         }
 
+        RoleModel roleModel = RoleModelFactory.loadFromDb(roleId, roleService, roleMenuService);
+
+        roleModel.checkRoleAvailable();
+
         for (Long userId : userIds) {
             UserModel user = UserModelFactory.loadFromDb(userId, userService);
             user.setRoleId(roleId);

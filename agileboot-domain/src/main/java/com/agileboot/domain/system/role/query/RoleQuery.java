@@ -27,7 +27,11 @@ public class RoleQuery extends AbstractPageQuery {
             .eq(StrUtil.isNotEmpty(roleKey), "role_key", roleKey)
             .like(StrUtil.isNotEmpty(roleName), "role_name", roleName);
 
+        // TODO 这一段可以进行优化
         this.addTimeCondition(queryWrapper, "create_time");
+
+        this.setOrderByColumn("role_sort");
+        this.addSortCondition(queryWrapper);
 
         return queryWrapper;
     }

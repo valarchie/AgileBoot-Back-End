@@ -32,6 +32,7 @@ import com.agileboot.orm.service.ISysPostService;
 import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
 import com.agileboot.orm.service.ISysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -96,7 +97,9 @@ public class UserApplicationService {
         SysUserEntity userEntity = userService.getById(userId);
         UserDetailDTO detailDTO = new UserDetailDTO();
 
-        List<RoleDTO> roleDTOs = roleService.list().stream().map(RoleDTO::new).collect(Collectors.toList());
+        QueryWrapper<SysRoleEntity> roleQuery = new QueryWrapper<>();
+        roleQuery.orderByAsc("role_sort");
+        List<RoleDTO> roleDTOs = roleService.list(roleQuery).stream().map(RoleDTO::new).collect(Collectors.toList());
         List<PostDTO> postDTOs = postService.list().stream().map(PostDTO::new).collect(Collectors.toList());
         detailDTO.setRoles(roleDTOs);
         detailDTO.setPosts(postDTOs);

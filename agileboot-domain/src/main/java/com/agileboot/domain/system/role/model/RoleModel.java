@@ -9,6 +9,7 @@ import com.agileboot.domain.system.role.command.UpdateRoleCommand;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
+import com.agileboot.orm.enums.dictionary.StatusEnum;
 import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
 import java.util.ArrayList;
@@ -53,6 +54,12 @@ public class RoleModel extends SysRoleEntity {
     public void checkRoleKeyUnique(ISysRoleService roleService) {
         if (roleService.isRoleKeyDuplicated(getRoleId(), getRoleKey())) {
             throw new ApiException(ErrorCode.Business.ROLE_KEY_IS_NOT_UNIQUE, getRoleKey());
+        }
+    }
+
+    public void checkRoleAvailable() {
+        if (StatusEnum.DISABLE.getValue().equals(getStatus())) {
+            throw new ApiException(Business.ROLE_IS_NOT_AVAILABLE, getRoleName());
         }
     }
 

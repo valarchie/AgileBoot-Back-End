@@ -137,6 +137,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         ROLE_ALREADY_ASSIGN_TO_USER(Module.ROLE, 4, "角色已分配给用户，请先取消分配，再删除角色"),
 
+        ROLE_IS_NOT_AVAILABLE(Module.ROLE, 5, "角色：{} 已禁用，无法分配给用户"),
+
         // ---------------------------------- User -----------------------------------------------
 
         USER_NON_EXIST(Module.USER, 1, "登录用户：{} 不存在"),
