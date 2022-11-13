@@ -17,7 +17,7 @@ server:
       min-spare: 100
 
 
-# Spring配置
+# Spring配置 如果需要无Mysql  无Redis直接启动的话  dev改为test
 spring:
   profiles:
     active: basic,dev
