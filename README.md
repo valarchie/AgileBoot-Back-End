@@ -27,7 +27,6 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 适合个人开发者的小型项目或者公司内部项目使用。也可作为供初学者学习使用的案例。
 
 
---- 
 * 前端采用Vue3、Element UI。对应前端仓库 [AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Back-End) ，保持同步更新。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt、Mybatis Plus、MySql。
 * 权限认证使用Jwt，支持多终端认证系统。
@@ -132,10 +131,10 @@ git clone https://github.com/valarchie/AgileBoot-Back-End
 git clone https://github.com/valarchie/AgileBoot-Front-End
 ```
 
-##### 安装好Mysql和Redis
+#### 安装好Mysql和Redis
 
 
-#### 后端
+#### 后端启动
 ```
 1. 生成所需的数据库表
 找到后端项目根目录下的sql目录中的agileboot_xxxxx.sql脚本文件。 导入到你新建的数据库中。
@@ -157,7 +156,7 @@ git clone https://github.com/valarchie/AgileBoot-Front-End
 
 ```
 
-#### 前端
+#### 前端启动
 ```
 1. npm install
 
@@ -177,7 +176,7 @@ ready in 4376ms.
 
 
 > 对于想要尝试全栈项目的前端人员，这边提供更简便的后端启动方式，无需配置Mysql和Redis直接启动
-#### 后端（内存数据库和Redis启动方式）
+#### 无Mysql/Redis 后端启动
 ```
 1. 找到agilboot-admin模块下的resource文件中的application.yml文件
 
