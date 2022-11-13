@@ -189,6 +189,8 @@ spring.profiles.active: basic,test
 agileboot.embedded-test: false
 改为
 agileboot.embedded-test: true
+
+3. 找到agileboot-admin模块中的AgileBootAdminApplication启动类，直接启动即可
 ```
 
 
