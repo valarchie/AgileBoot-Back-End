@@ -185,9 +185,12 @@ spring.profiles.active: basic,dev
 改为
 spring.profiles.active: basic,test
 
-agileboot.embedded-test: false
+agileboot.embedded.mysql: false
+agileboot.embedded.redis: false
 改为
-agileboot.embedded-test: true
+agileboot.embedded.mysql: true
+agileboot.embedded.redis: true
+
 
 3. 找到agileboot-admin模块中的AgileBootAdminApplication启动类，直接启动即可
 ```
@@ -236,7 +239,7 @@ agileboot
 ├         ├── dto -- 返回数据类
 ├         ├── model -- 领域模型类
 ├         ├── query -- 查询参数模型（查询）
-│         ├────── UserApplicationService -- 应用服务（事务层）
+│         ├────── UserApplicationService -- 应用服务（事务层，操作领域模型类完成业务逻辑）
 │
 ├── agileboot-integration-test -- 集成测试模块
 │

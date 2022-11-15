@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
 
 @Configuration
-@ConditionalOnExpression("'${agileboot.embedded-test}' == 'true'")
+@ConditionalOnExpression("'${agileboot.embedded.redis}' == 'true'")
 public class EmbeddedRedisConfig {
 
     @Value("${spring.redis.port}")

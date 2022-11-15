@@ -36,7 +36,7 @@ public class DruidConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.druid.master")
-    @ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
+    @ConditionalOnExpression("'${agileboot.embedded.mysql}' != 'true'")
     public DataSource masterDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);
@@ -44,7 +44,7 @@ public class DruidConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.druid.slave")
-    @ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
+    @ConditionalOnExpression("'${agileboot.embedded.mysql}' != 'true'")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.slave", name = "enabled", havingValue = "true")
     public DataSource slaveDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();

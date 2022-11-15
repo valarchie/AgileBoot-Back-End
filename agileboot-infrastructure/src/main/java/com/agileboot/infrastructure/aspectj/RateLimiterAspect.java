@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Slf4j
-@ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
+@ConditionalOnExpression("'${agileboot.embedded.redis}' != 'true'")
 public class RateLimiterAspect {
 
     private RedisTemplate<Object, Object> redisTemplate;

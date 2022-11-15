@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author ruoyi
  */
-@ConditionalOnExpression("'${agileboot.embedded-test}' != 'true'")
+@ConditionalOnExpression("'${agileboot.embedded.mysql}' != 'true'")
 @Configuration
 public class DruidProperties {
 
