@@ -272,7 +272,7 @@ agileboot
 
 
 ## 💥 在线体验 💥
-演示地址：http://vue.ruoyi.vip （可先参考Ruoyi的演示网站 ）  
+演示地址：www.agileboot.vip  
 >  账号密码：admin/admin123
 
 

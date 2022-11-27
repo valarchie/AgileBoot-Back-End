@@ -46,3 +46,5 @@ nbdist/
 !*/build/*.html
 !*/build/*.xml
 /agileboot-admin/src/main/resources/application-dev.yml
+/agileboot-infrastructure/src/main/resources/application-prod.yml
+/agileboot-infrastructure/src/main/resources/logback-prod.xml
