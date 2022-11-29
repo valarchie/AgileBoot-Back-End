@@ -27,12 +27,8 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         this.setFieldValByName("updateTime", new Date(), metaObject);
-
         Long newUpdaterId = getUserIdSafely();
-//        Long oldUpdaterId = (Long) metaObject.getValue("updaterId");
-//        Long updaterId = newUpdaterId == null ? oldUpdaterId : null;
 
-//        this.setFieldValByName("updaterId", newUpdaterId, metaObject);
         this.strictUpdateFill(metaObject, "updaterId", Long.class, newUpdaterId);
     }
 

@@ -320,6 +320,7 @@ agileboot
 
 ## 🌻 注意事项 🌻
 - IDEA会自动将.properties文件的编码设置为ISO-8859-1,请在Settings > Editor > File Encodings > Properties Files > 设置为UTF-8
+- 请导入统一的代码格式化模板（Google）: Settings > Editor > Code Style > Java > 设置按钮 > import schema > 选择项目根目录下的GoogleStyle.xml文件
 - 如需要生成新的表，请使用CodeGenerator类进行生成。
   - 填入数据库地址，账号密码，库名。然后填入所需的表名执行代码即可。（大概看一下代码就知道怎么填啦）
 - 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：

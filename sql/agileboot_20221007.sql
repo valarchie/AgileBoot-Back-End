@@ -139,7 +139,7 @@ CREATE TABLE `sys_menu` (
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', 'system', null, '', '0', '1', '1', '1', '1', '', 'system', '0',  '2022-05-21 08:30:54', null,  null, '系统管理目录', '0');
 INSERT INTO `sys_menu` VALUES ('2', '系统监控', '0', '2', 'monitor', null, '', '0', '1', '1', '1', '1', '', 'monitor', '0',  '2022-05-21 08:30:54', null,  null, '系统监控目录', '0');
 INSERT INTO `sys_menu` VALUES ('3', '系统工具', '0', '3', 'tool', null, '', '0', '1', '1', '1', '1', '', 'tool', '0',  '2022-05-21 08:30:54', null,  null, '系统工具目录', '0');
-INSERT INTO `sys_menu` VALUES ('4', 'AgileBoot官网', '0', '4', 'http://ruoyi.vip', null, '', '1', '1', '1', '1', '1', '', 'guide', '0',  '2022-05-21 08:30:54', null,  null, '若依官网地址', '0');
+INSERT INTO `sys_menu` VALUES ('4', 'AgileBoot官网', '0', '4', 'https://juejin.cn/column/7159946528827080734', null, '', '1', '1', '1', '1', '1', '', 'guide', '0',  '2022-05-21 08:30:54', null,  null, 'Agileboot官网地址', '0');
 INSERT INTO `sys_menu` VALUES ('5', '用户管理', '1', '1', 'user', 'system/user/index', '', '0', '1', '2', '1', '1', 'system:user:list', 'user', '0',  '2022-05-21 08:30:54', null,  null, '用户管理菜单', '0');
 INSERT INTO `sys_menu` VALUES ('6', '角色管理', '1', '2', 'role', 'system/role/index', '', '0', '1', '2', '1', '1', 'system:role:list', 'peoples', '0',  '2022-05-21 08:30:54', null,  null, '角色管理菜单', '0');
 INSERT INTO `sys_menu` VALUES ('7', '菜单管理', '1', '3', 'menu', 'system/menu/index', '', '0', '1', '2', '1', '1', 'system:menu:list', 'tree-table', '0',  '2022-05-21 08:30:54', null,  null, '菜单管理菜单', '0');

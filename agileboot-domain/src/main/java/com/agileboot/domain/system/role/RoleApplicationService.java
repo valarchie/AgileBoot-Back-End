@@ -108,8 +108,6 @@ public class RoleApplicationService {
     public void updateStatus(UpdateStatusCommand command, LoginUser loginUser) {
         RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService, roleMenuService);
         roleModel.setStatus(command.getStatus());
-        roleModel.setUpdaterId(loginUser.getUserId());
-//        roleModel.setUpdaterName(loginUser.getUsername());
         roleModel.updateById();
     }
 
