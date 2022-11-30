@@ -68,7 +68,7 @@ public class SysProfileController extends BaseController {
     public ResponseDTO<?> updatePassword(@RequestBody UpdateUserPasswordCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
-        userApplicationService.updateUserPassword(loginUser, command);
+        userApplicationService.updatePasswordBySelf(loginUser, command);
         return ResponseDTO.ok();
     }
 

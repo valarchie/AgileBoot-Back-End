@@ -6,7 +6,7 @@ import com.agileboot.domain.system.config.dto.ConfigDTO;
 import com.agileboot.domain.system.config.model.ConfigModel;
 import com.agileboot.domain.system.config.model.ConfigModelFactory;
 import com.agileboot.domain.system.config.query.ConfigQuery;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.orm.entity.SysConfigEntity;
 import com.agileboot.orm.service.ISysConfigService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -35,12 +35,14 @@ public class ConfigApplicationService {
         return new ConfigDTO(byId);
     }
 
-    public void updateConfig(ConfigUpdateCommand updateCommand, LoginUser loginUser) {
+    public void updateConfig(ConfigUpdateCommand updateCommand) {
         ConfigModel configModel = ConfigModelFactory.loadFromUpdateCommand(updateCommand, configService);
 
         configModel.checkCanBeModify();
-
         configModel.updateById();
+
+        CacheCenter.configCache.get(configModel.getConfigKey());
+        CacheCenter.configCache.invalidate(configModel.getConfigKey());
     }
 
 

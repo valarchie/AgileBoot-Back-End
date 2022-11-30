@@ -112,7 +112,7 @@ public class UserApplicationService {
         return detailDTO;
     }
 
-    public void addUser(LoginUser loginUser, AddUserCommand command) {
+    public void addUser(AddUserCommand command) {
         UserModel model = UserModelFactory.loadFromAddCommand(command, new UserModel());
 
         model.checkUsernameIsUnique(userService);
@@ -122,14 +122,12 @@ public class UserApplicationService {
         model.insert();
     }
 
-    public void updateUser(LoginUser loginUser, UpdateUserCommand command) {
+    public void updateUser(UpdateUserCommand command) {
         UserModel model = UserModelFactory.loadFromDb(command.getUserId(), userService);
         model.loadUpdateUserCommand(command);
 
         model.checkPhoneNumberIsUnique(userService);
         model.checkEmailIsUnique(userService);
-        model.checkCanBeModify(loginUser);
-
         model.updateById();
 
         redisCacheService.userCache.delete(model.getUserId());
@@ -143,7 +141,7 @@ public class UserApplicationService {
         }
     }
 
-    public void updateUserPassword(LoginUser loginUser, UpdateUserPasswordCommand command) {
+    public void updatePasswordBySelf(LoginUser loginUser, UpdateUserPasswordCommand command) {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.modifyPassword(command);
         userModel.updateById();
@@ -154,29 +152,27 @@ public class UserApplicationService {
         redisCacheService.userCache.delete(userModel.getUserId());
     }
 
-    public void resetUserPassword(LoginUser loginUser, ResetPasswordCommand command) {
+    public void resetUserPassword(ResetPasswordCommand command) {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
-        userModel.checkCanBeModify(loginUser);
-        userModel.resetPassword(command.getPassword());
 
+        userModel.resetPassword(command.getPassword());
         userModel.updateById();
+
         redisCacheService.userCache.delete(userModel.getUserId());
     }
 
-    public void changeUserStatus(LoginUser loginUser, ChangeStatusCommand command) {
+    public void changeUserStatus(ChangeStatusCommand command) {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+
         userModel.setStatus(Convert.toInt(command.getStatus()));
-
-        userModel.checkCanBeModify(loginUser);
-
         userModel.updateById();
+
         redisCacheService.userCache.delete(userModel.getUserId());
     }
 
     public void updateUserAvatar(LoginUser loginUser, UpdateUserAvatarCommand command) {
         UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
         userModel.setAvatar(command.getAvatar());
-
         userModel.updateById();
 
         tokenService.setLoginUser(loginUser);

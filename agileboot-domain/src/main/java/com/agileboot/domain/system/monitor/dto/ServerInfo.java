@@ -155,21 +155,20 @@ public class ServerInfo {
      * @return 转换后值
      */
     public String convertFileSize(long size) {
+        float castedSize = (float) size;
+
         if (size >= Constants.GB) {
-            return String.format("%.1f GB", (float) size / Constants.GB);
+            return String.format("%.1f GB", castedSize / Constants.GB);
         }
 
         if (size >= Constants.MB) {
-            float ratio = (float) size / Constants.MB;
-            return String.format(ratio > 100 ? "%.0f MB" : "%.1f MB", Constants.MB);
+            return String.format("%.1f MB", castedSize / Constants.MB);
         }
 
         if (size >= Constants.KB) {
-            float ratio = (float) size / Constants.KB;
-            return String.format(ratio > 100 ? "%.0f KB" : "%.1f KB", Constants.KB);
+            return String.format("%.1f KB", castedSize / Constants.KB);
         }
 
-        return String.format("%d B", size);
-
+        return String.format("%.1f KB", castedSize / Constants.KB);
     }
 }

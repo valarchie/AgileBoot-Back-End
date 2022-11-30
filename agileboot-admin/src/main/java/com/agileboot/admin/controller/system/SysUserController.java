@@ -69,11 +69,10 @@ public class SysUserController extends BaseController {
     @PostMapping("/importData")
     public ResponseDTO<?> importData(MultipartFile file) {
         List<?> commands = CustomExcelUtil.readFromRequest(AddUserCommand.class, file);
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
 
         for (Object command : commands) {
             AddUserCommand addUserCommand = (AddUserCommand) command;
-            userApplicationService.addUser(loginUser, addUserCommand);
+            userApplicationService.addUser(addUserCommand);
         }
         return ResponseDTO.ok();
     }
@@ -100,8 +99,7 @@ public class SysUserController extends BaseController {
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@Validated @RequestBody AddUserCommand command) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userApplicationService.addUser(loginUser, command);
+        userApplicationService.addUser(command);
         return ResponseDTO.ok();
     }
 
@@ -112,8 +110,7 @@ public class SysUserController extends BaseController {
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@Validated @RequestBody UpdateUserCommand command) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userApplicationService.updateUser(loginUser, command);
+        userApplicationService.updateUser(command);
         return ResponseDTO.ok();
     }
 
@@ -138,8 +135,7 @@ public class SysUserController extends BaseController {
     @PutMapping("/{userId}/password/reset")
     public ResponseDTO<?> resetPassword(@PathVariable Long userId, @RequestBody ResetPasswordCommand command) {
         command.setUserId(userId);
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userApplicationService.resetUserPassword(loginUser, command);
+        userApplicationService.resetUserPassword(command);
         return ResponseDTO.ok();
     }
 
@@ -151,8 +147,7 @@ public class SysUserController extends BaseController {
     @PutMapping("/{userId}/status")
     public ResponseDTO<?> changeStatus(@PathVariable Long userId, @RequestBody ChangeStatusCommand command) {
         command.setUserId(userId);
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        userApplicationService.changeUserStatus(loginUser, command);
+        userApplicationService.changeUserStatus(command);
         return ResponseDTO.ok();
     }
 

@@ -65,12 +65,6 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-    public void checkCanBeModify(LoginUser loginUser) {
-        if (LoginUser.isAdmin(this.getUserId()) && !loginUser.isAdmin()) {
-            // TODO 这个异常需要更明确
-            throw new ApiException(Business.UNSUPPORTED_OPERATION);
-        }
-    }
 
     public void modifyPassword(UpdateUserPasswordCommand command) {
         if (!AuthenticationUtils.matchesPassword(command.getOldPassword(), getPassword())) {
@@ -85,6 +79,15 @@ public class UserModel extends SysUserEntity {
 
     public void resetPassword(String newPassword) {
         setPassword(AuthenticationUtils.encryptPassword(newPassword));
+    }
+
+    @Override
+    public boolean updateById() {
+        if (LoginUser.isAdmin(this.getUserId())) {
+            throw new ApiException(Business.USER_ADMIN_CAN_NOT_BE_MODIFY);
+        }
+
+       return super.updateById();
     }
 
 }

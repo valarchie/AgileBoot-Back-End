@@ -81,7 +81,7 @@ public class SysConfigController extends BaseController {
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody ConfigUpdateCommand config) {
-        configApplicationService.updateConfig(config, AuthenticationUtils.getLoginUser());
+        configApplicationService.updateConfig(config);
         return ResponseDTO.ok();
     }
 

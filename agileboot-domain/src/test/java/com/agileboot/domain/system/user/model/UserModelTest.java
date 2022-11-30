@@ -112,30 +112,6 @@ class UserModelTest {
     }
 
     @Test
-    void testCheckCanBeModifyWhenFailed() {
-        UserModel userModel = new UserModel();
-        userModel.setUserId(ADMIN_USER_ID);
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUserId(2L);
-
-        ApiException exception = assertThrows(ApiException.class, () -> userModel.checkCanBeModify(loginUser));
-        Assertions.assertEquals(Business.UNSUPPORTED_OPERATION, exception.getErrorCode());
-    }
-
-    @Test
-    void testCheckCanBeModifyWhenSuccessful() {
-        UserModel adminUser = new UserModel();
-        adminUser.setUserId(ADMIN_USER_ID);
-        UserModel normalUser = new UserModel();
-        normalUser.setUserId(2L);
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUserId(ADMIN_USER_ID);
-
-        Assertions.assertDoesNotThrow(()->adminUser.checkCanBeModify(loginUser));
-        Assertions.assertDoesNotThrow(()->normalUser.checkCanBeModify(loginUser));
-    }
-
-    @Test
     void testModifyPasswordWhenSuccessful() {
         UserModel userModel = new UserModel();
         userModel.setPassword("$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy");

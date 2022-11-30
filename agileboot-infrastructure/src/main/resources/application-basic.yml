@@ -3,7 +3,7 @@ agileboot:
   # 名称
   name: AgileBoot
   # 版本
-  version: 1.0.0
+  version: 1.6.0
   # 版权年份
   copyright-year: 2022
   # 实例演示开关
@@ -63,7 +63,7 @@ spring:
   devtools:
     restart:
       # 热部署开关  线上记得关闭
-      enabled: true
+      enabled: false
   # compatible with swagger
   mvc:
     pathmatch:

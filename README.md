@@ -256,8 +256,8 @@ agileboot
 
 请求分为两类：一类是查询，一类是操作（即对数据有进行更新）。
 
-查询：Controller > xxxQuery > xxxApplicationService > xxxService(Db) > xxxMapper
-操作：Controller > xxxCommand > xxxApplicationService > xxxModel(处理逻辑) > save 或者 update (本项目直接采用JPA的方式进行插入已经更新数据)
+**查询**：Controller > xxxQuery > xxxApplicationService > xxxService(Db) > xxxMapper  
+**操作**：Controller > xxxCommand > xxxApplicationService > xxxModel(处理逻辑) > save 或者 update (本项目直接采用JPA的方式进行插入已经更新数据)
 
 --- 
 
@@ -272,7 +272,7 @@ agileboot
 
 
 ## 💥 在线体验 💥
-演示地址：www.agileboot.vip  
+演示地址：www.agileboot.cc  
 >  账号密码：admin/admin123
 
 

@@ -171,6 +171,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         USER_CURRENT_USER_CAN_NOT_BE_DELETE(Module.USER, 14, "当前用户不允许被删除"),
 
+        USER_ADMIN_CAN_NOT_BE_MODIFY(Module.USER, 15, "管理员不允许做任何修改"),
+
         ;
 
 

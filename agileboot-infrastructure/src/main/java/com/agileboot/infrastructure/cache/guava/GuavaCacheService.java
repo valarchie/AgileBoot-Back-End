@@ -22,9 +22,6 @@ public class GuavaCacheService {
     @Autowired
     private ISysDeptService deptService;
 
-    @Autowired
-    private ISysRoleService roleService;
-
     public GuavaCacheTemplate<String> configCache = new GuavaCacheTemplate<String>() {
         @Override
         public String getObjectFromDb(Object id) {
