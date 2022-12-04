@@ -1,10 +1,12 @@
 package com.agileboot.infrastructure.i18n;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCodeInterface;
 import com.agileboot.common.utils.i18n.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MessageI18nCheckerRunner implements ApplicationRunner {
 
+    @Value("agileboot.checkI18nKey")
+    private String checkI18nKey;
+
     public static Object[] allErrorCodes = ArrayUtil.addAll(
         ErrorCode.Internal.values(),
         ErrorCode.External.values(),
@@ -25,7 +30,9 @@ public class MessageI18nCheckerRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        checkEveryMessage();
+        if (Convert.toBool(checkI18nKey)) {
+            checkEveryMessage();
+        }
     }
 
     /**

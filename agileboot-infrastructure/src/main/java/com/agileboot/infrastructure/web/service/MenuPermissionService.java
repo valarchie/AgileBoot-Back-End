@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 @Service("permission")
 public class MenuPermissionService {
 
-    @Autowired
-    private ISysUserService userService;
     /**
      * 所有权限标识
      */

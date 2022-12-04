@@ -117,6 +117,7 @@ public class LoginUser extends BaseUser implements UserDetails {
         return isAdmin(getUserId());
     }
 
+    // TODO 多租户需要做改动
     public static boolean isAdmin(Long userId) {
         return userId != null && 1L == userId;
     }
