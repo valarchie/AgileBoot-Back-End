@@ -272,7 +272,9 @@ agileboot
 
 
 ## 💥 在线体验 💥
-演示地址：www.agileboot.cc  
+演示地址：
+- www.agileboot.vip  
+- www.agileboot.cc
 >  账号密码：admin/admin123
 
 
