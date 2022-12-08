@@ -3,8 +3,8 @@ package com.agileboot.infrastructure.web.service;
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.permission.AbstractDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
-import com.agileboot.infrastructure.web.domain.permission.DataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.DataPermissionCheckerFactory;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.service.ISysUserService;
@@ -63,7 +63,7 @@ public class DataPermissionService {
 
     public boolean checkDataScope(LoginUser loginUser, Long targetDeptId, Long targetUserId) {
         DataCondition dataCondition = DataCondition.builder().targetDeptId(targetDeptId).targetUserId(targetUserId).build();
-        DataPermissionChecker checker = DataPermissionCheckerFactory.getChecker(loginUser);
+        AbstractDataPermissionChecker checker = DataPermissionCheckerFactory.getChecker(loginUser);
         return checker.check(loginUser, dataCondition);
     }
 

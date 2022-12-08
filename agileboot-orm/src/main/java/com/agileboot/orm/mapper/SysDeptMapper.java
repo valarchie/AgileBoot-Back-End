@@ -2,8 +2,6 @@ package com.agileboot.orm.mapper;
 
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import java.util.List;
-import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>

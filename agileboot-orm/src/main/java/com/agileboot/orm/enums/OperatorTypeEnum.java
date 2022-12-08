@@ -4,6 +4,7 @@ import com.agileboot.orm.enums.interfaces.BasicEnum;
 
 /**
  * 操作者类型
+ * @author valarchie
  */
 public enum OperatorTypeEnum implements BasicEnum<Integer> {
 

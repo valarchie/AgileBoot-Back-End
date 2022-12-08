@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * data permission scope
- *
+ * TODO 可以删掉这个类
  * @author rouyi valarchie
  */
 @Target(ElementType.METHOD)

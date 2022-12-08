@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author valarchie
+ */
 public class RouterModel extends SysMenuEntity {
 
 

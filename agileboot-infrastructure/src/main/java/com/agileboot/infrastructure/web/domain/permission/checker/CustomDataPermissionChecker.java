@@ -2,15 +2,13 @@ package com.agileboot.infrastructure.web.domain.permission.checker;
 
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.infrastructure.web.domain.permission.AbstractDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
-import com.agileboot.infrastructure.web.domain.permission.DataPermissionChecker;
 import com.agileboot.orm.service.ISysDeptService;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.parameters.P;
 
 /**
  * 数据权限测试接口
@@ -19,7 +17,7 @@ import org.springframework.security.core.parameters.P;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomDataPermissionChecker extends DataPermissionChecker {
+public class CustomDataPermissionChecker extends AbstractDataPermissionChecker {
 
     private ISysDeptService deptService;
 

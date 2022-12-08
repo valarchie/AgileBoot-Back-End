@@ -12,6 +12,9 @@ import com.agileboot.orm.result.SearchUserDO;
 import java.util.Date;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @ExcelSheet(name = "用户列表")
 @Data
 public class UserDTO {

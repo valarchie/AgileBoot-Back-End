@@ -7,6 +7,9 @@ import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.service.ISysPostService;
 
+/**
+ * @author valarchie
+ */
 public class PostModelFactory {
 
     public static PostModel loadFromDb(Long postId, ISysPostService postService) {

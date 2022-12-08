@@ -8,6 +8,9 @@ import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.service.ISysPostService;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @NoArgsConstructor
 public class PostModel extends SysPostEntity {
 

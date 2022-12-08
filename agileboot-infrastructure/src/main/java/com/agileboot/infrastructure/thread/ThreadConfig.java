@@ -1,5 +1,8 @@
 package com.agileboot.infrastructure.thread;
 
+/**
+ * @author valarchie
+ */
 public class ThreadConfig {
 
     public final static int CORE_POOL_SIZE = 50;

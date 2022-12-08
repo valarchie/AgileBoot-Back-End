@@ -5,6 +5,9 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import java.util.Objects;
 
+/**
+ * @author valarchie
+ */
 public class BasicEnumUtil {
 
     public static String UNKNOWN = "未知";

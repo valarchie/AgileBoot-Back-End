@@ -8,6 +8,9 @@ import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import java.util.Date;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 @ExcelSheet(name = "登录日志")
 public class LoginInfoDTO {

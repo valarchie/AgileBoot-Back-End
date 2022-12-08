@@ -1,6 +1,7 @@
 package com.agileboot.infrastructure.web.domain.permission.checker;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
@@ -8,13 +9,11 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
 import com.agileboot.orm.service.ISysDeptService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Any;
 
 class DeptTreeDataPermissionCheckerTest {
 
-    private ISysDeptService deptService = mock(ISysDeptService.class);
+    private final ISysDeptService deptService = mock(ISysDeptService.class);
 
     @Test
     void testCheckWhenParameterNull() {

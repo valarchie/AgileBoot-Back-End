@@ -7,8 +7,8 @@ package com.agileboot.orm.enums.interfaces;
 public interface DictionaryEnum<T> extends BasicEnum {
 
     /**
-     *
-     * @return 获取css标签
+     * 获取css标签
+     * @return css标签
      */
     String cssTag();
 

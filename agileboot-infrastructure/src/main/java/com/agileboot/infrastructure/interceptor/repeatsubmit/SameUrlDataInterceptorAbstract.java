@@ -28,7 +28,6 @@ public class SameUrlDataInterceptorAbstract extends AbstractRepeatSubmitIntercep
     @NonNull
     private RedisCacheService redisCacheService;
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation) {
         String nowParams = "";

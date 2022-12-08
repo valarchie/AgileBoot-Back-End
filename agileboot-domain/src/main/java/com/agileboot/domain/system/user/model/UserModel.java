@@ -8,14 +8,17 @@ import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.service.ISysUserService;
 import java.util.Objects;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @Data
 @NoArgsConstructor
 public class UserModel extends SysUserEntity {

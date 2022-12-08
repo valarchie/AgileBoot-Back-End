@@ -12,6 +12,9 @@ import com.agileboot.orm.service.ISysDeptService;
 import java.util.Objects;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @NoArgsConstructor
 public class DeptModel extends SysDeptEntity {
 

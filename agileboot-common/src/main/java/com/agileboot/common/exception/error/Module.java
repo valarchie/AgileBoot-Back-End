@@ -2,6 +2,7 @@ package com.agileboot.common.exception.error;
 
 /**
  * 系统内的模块
+ * @author valarchie
  */
 public enum Module {
 

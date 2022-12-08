@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.mybatisplus;
 
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import java.util.Date;
 import lombok.extern.slf4j.Slf4j;

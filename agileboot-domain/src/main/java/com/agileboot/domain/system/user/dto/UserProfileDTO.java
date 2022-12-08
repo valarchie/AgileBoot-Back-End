@@ -1,6 +1,5 @@
 package com.agileboot.domain.system.user.dto;
 
-import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.orm.entity.SysPostEntity;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysUserEntity;

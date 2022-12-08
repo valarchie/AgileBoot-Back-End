@@ -12,9 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 缓存接口实现类
+ * @author valarchie
  */
 @Slf4j
-public abstract class GuavaCacheTemplate<T> {
+public abstract class AbstractGuavaCacheTemplate<T> {
 
     private final LoadingCache<String, Optional<T>> guavaCache = CacheBuilder.newBuilder()
         // 基于容量回收。缓存的最大数量。超过就取MAXIMUM_CAPACITY = 1 << 30。依靠LRU队列recencyQueue来进行容量淘汰

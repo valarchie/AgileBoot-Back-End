@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @Data
 @NoArgsConstructor
 public class DeptQuery extends AbstractQuery {

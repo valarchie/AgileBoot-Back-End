@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class UserDetailDTO {
 

@@ -8,6 +8,7 @@ import com.agileboot.orm.service.ISysConfigService;
 
 /**
  * 配置模型工厂
+ * @author valarchie
  */
 public class ConfigModelFactory {
 

@@ -2,6 +2,9 @@ package com.agileboot.common.core.base;
 
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class BaseUser {
 

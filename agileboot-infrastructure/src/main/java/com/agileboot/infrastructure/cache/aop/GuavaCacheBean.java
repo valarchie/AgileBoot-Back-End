@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
-
+/**
+ * @author valarchie
+ */
 //@Component
 public class GuavaCacheBean implements Cache {
 

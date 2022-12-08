@@ -1,6 +1,5 @@
 package com.agileboot.domain.system.dept.command;
 
-import com.agileboot.domain.system.dept.model.DeptModel;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -57,17 +56,5 @@ public class AddDeptCommand {
     @Size(max = 50, message = "邮箱长度不能超过50个字符")
     private String email;
 
-    public DeptModel toModel() {
-        DeptModel model = new DeptModel();
 
-        model.setParentId(parentId);
-        model.setAncestors(ancestors);
-        model.setDeptName(deptName);
-        model.setOrderNum(orderNum);
-        model.setLeaderName(leaderName);
-        model.setPhone(phone);
-        model.setEmail(email);
-
-        return model;
-    }
 }

@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class ConfigDTO {
 

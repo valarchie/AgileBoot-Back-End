@@ -6,6 +6,9 @@ import com.agileboot.orm.entity.SysRoleEntity;
 import java.util.Date;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 @ExcelSheet(name = "角色列表")
 public class RoleDTO {

@@ -3,6 +3,9 @@ package com.agileboot.domain.system.user.command;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @Data
 @NoArgsConstructor
 public class UpdateUserAvatarCommand {

@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 
+/**
+ * @author valarchie
+ */
 public class JsonHtmlXssSerializer extends JsonDeserializer<String> {
 
     public JsonHtmlXssSerializer() {

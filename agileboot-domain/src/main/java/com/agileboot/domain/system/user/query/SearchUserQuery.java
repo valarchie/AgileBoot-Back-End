@@ -6,6 +6,9 @@ import com.agileboot.orm.result.SearchUserDO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class SearchUserQuery extends AbstractPageQuery {
 

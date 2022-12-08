@@ -3,13 +3,17 @@ package com.agileboot.common.exception;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.error.ErrorCodeInterface;
 import com.agileboot.common.utils.i18n.MessageUtils;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * 统一异常类
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
+@Data
 public class ApiException extends RuntimeException{
 
     protected ErrorCodeInterface errorCode;
@@ -47,14 +51,6 @@ public class ApiException extends RuntimeException{
             log.error("could not found i18nMessage entry for key: " + errorCode.i18nKey());
         }
 
-    }
-
-    public ErrorCodeInterface getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(ErrorCodeInterface errorCode) {
-        this.errorCode = errorCode;
     }
 
     @Override

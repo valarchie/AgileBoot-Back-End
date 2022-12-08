@@ -7,6 +7,9 @@ import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import java.util.Date;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class MenuDTO {
 

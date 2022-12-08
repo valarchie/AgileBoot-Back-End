@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class UpdateDataScopeCommand {
 

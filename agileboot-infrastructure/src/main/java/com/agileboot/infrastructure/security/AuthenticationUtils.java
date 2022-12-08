@@ -27,28 +27,6 @@ public class AuthenticationUtils {
     }
 
     /**
-     * 获取部门ID
-     **/
-    public static Long getDeptId() {
-        try {
-            return getLoginUser().getDeptId();
-        } catch (Exception e) {
-            throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_DEPT_ID);
-        }
-    }
-
-    /**
-     * 获取用户账户
-     **/
-    public static String getUsername() {
-        try {
-            return getLoginUser().getUsername();
-        } catch (Exception e) {
-            throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_ACCOUNT);
-        }
-    }
-
-    /**
      * 获取用户
      **/
     public static LoginUser getLoginUser() {

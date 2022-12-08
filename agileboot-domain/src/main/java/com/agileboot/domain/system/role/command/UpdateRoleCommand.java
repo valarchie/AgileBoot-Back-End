@@ -1,10 +1,12 @@
 package com.agileboot.domain.system.role.command;
 
-import com.agileboot.domain.system.role.model.RoleModel;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class UpdateRoleCommand extends AddRoleCommand {
 

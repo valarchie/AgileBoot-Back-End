@@ -1,8 +1,8 @@
 package com.agileboot.infrastructure.cache;
 
 import cn.hutool.extra.spring.SpringUtil;
+import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheTemplate;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.interceptor.repeatsubmit.RepeatRequest;
@@ -14,13 +14,14 @@ import org.springframework.stereotype.Component;
 
 /**
  * 缓存中心  提供全局访问点
+ * @author valarchie
  */
 @Component
 public class CacheCenter {
 
-    public static GuavaCacheTemplate<String> configCache;
+    public static AbstractGuavaCacheTemplate<String> configCache;
 
-    public static GuavaCacheTemplate<SysDeptEntity> deptCache;
+    public static AbstractGuavaCacheTemplate<SysDeptEntity> deptCache;
 
     public static RedisCacheTemplate<String> captchaCache;
 

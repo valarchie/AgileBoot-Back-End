@@ -2,7 +2,6 @@ package com.agileboot.infrastructure.web.domain.permission;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.infrastructure.web.domain.permission.checker.AllDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.checker.CustomDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.checker.DefaultDataPermissionChecker;
@@ -20,12 +19,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DataPermissionCheckerFactory {
-    private static DataPermissionChecker allChecker;
-    private static DataPermissionChecker customChecker;
-    private static DataPermissionChecker singleDeptChecker;
-    private static DataPermissionChecker deptTreeChecker;
-    private static DataPermissionChecker onlySelfChecker;
-    private static DataPermissionChecker defaultSelfChecker;
+    private static AbstractDataPermissionChecker allChecker;
+    private static AbstractDataPermissionChecker customChecker;
+    private static AbstractDataPermissionChecker singleDeptChecker;
+    private static AbstractDataPermissionChecker deptTreeChecker;
+    private static AbstractDataPermissionChecker onlySelfChecker;
+    private static AbstractDataPermissionChecker defaultSelfChecker;
 
 
     @PostConstruct
@@ -41,7 +40,7 @@ public class DataPermissionCheckerFactory {
     }
 
 
-    public static DataPermissionChecker getChecker(LoginUser loginUser) {
+    public static AbstractDataPermissionChecker getChecker(LoginUser loginUser) {
         if (loginUser == null) {
             return deptTreeChecker;
         }

@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.lionsoul.ip2region.xdb.Searcher;
 
+/**
+ * @author valarchie
+ */
 @Slf4j
 public class OfflineIpRegionUtil {
 

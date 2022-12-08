@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 缓存接口实现类
+ * @author valarchie
  */
 @Slf4j
 public class RedisCacheTemplate<T> {

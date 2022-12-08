@@ -17,6 +17,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface ISysNoticeService extends IService<SysNoticeEntity> {
 
+    /**
+     * 获取公告列表
+     * @param page 页码对象
+     * @param queryWrapper 查询对象
+     * @return
+     */
     Page<SysNoticeEntity> getNoticeList(Page<SysNoticeEntity> page,
         @Param(Constants.WRAPPER) Wrapper<SysNoticeEntity> queryWrapper);
 

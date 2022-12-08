@@ -12,6 +12,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections4.SetUtils;
 
+/**
+ * @author valarchie
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

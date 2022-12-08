@@ -8,8 +8,10 @@ import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.service.ISysMenuService;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
+/**
+ * @author valarchie
+ */
 @NoArgsConstructor
 public class MenuModel extends SysMenuEntity {
 

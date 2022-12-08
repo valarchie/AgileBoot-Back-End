@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * @author valarchie
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PostQuery extends AbstractPageQuery {

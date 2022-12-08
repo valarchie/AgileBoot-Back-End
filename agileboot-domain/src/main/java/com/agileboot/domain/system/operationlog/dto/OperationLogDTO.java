@@ -11,8 +11,10 @@ import com.agileboot.orm.enums.dictionary.OperationStatusEnum;
 import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
 import java.util.Date;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
+/**
+ * @author valarchie
+ */
 @Data
 @ExcelSheet(name = "操作日志")
 public class OperationLogDTO {

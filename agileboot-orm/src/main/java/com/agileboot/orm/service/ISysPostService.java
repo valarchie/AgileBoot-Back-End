@@ -15,12 +15,16 @@ public interface ISysPostService extends IService<SysPostEntity> {
 
     /**
      * 校验岗位名称
+     * @param postId 职位Id
+     * @param postName 职位名称
      * @return 结果
      */
     boolean isPostNameDuplicated(Long postId, String postName);
 
     /**
      * 校验岗位编码
+     * @param postId 职位id
+     * @param postCode 职位代码
      * @return 结果
      */
     boolean isPostCodeDuplicated(Long postId, String postCode);

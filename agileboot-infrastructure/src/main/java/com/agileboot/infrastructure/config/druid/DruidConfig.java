@@ -1,8 +1,8 @@
 package com.agileboot.infrastructure.config.druid;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.agileboot.infrastructure.enums.DataSourceType;
 import com.agileboot.infrastructure.datasource.DynamicDataSource;
+import com.agileboot.infrastructure.enums.DataSourceType;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;

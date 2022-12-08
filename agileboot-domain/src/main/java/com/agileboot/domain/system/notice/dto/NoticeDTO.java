@@ -6,6 +6,9 @@ import com.agileboot.orm.entity.SysUserEntity;
 import java.util.Date;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class NoticeDTO {
 

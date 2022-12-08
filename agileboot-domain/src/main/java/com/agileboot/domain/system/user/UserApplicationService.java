@@ -3,12 +3,10 @@ package com.agileboot.domain.system.user;
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
-import com.agileboot.domain.system.role.model.RoleModel;
-import com.agileboot.domain.system.role.model.RoleModelFactory;
-import com.agileboot.domain.system.user.model.UserModelFactory;
-import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
+import com.agileboot.domain.system.role.model.RoleModel;
+import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.ChangeStatusCommand;
 import com.agileboot.domain.system.user.command.ResetPasswordCommand;
@@ -21,6 +19,8 @@ import com.agileboot.domain.system.user.dto.UserDetailDTO;
 import com.agileboot.domain.system.user.dto.UserInfoDTO;
 import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
+import com.agileboot.domain.system.user.model.UserModelFactory;
+import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.service.TokenService;
@@ -68,9 +68,9 @@ public class UserApplicationService {
 
 
     public PageDTO getUserList(SearchUserQuery query) {
-        Page<SearchUserDO> searchUserDOPage = userService.getUserList(query);
-        List<UserDTO> userDTOList = searchUserDOPage.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
-        return new PageDTO(userDTOList, searchUserDOPage.getTotal());
+        Page<SearchUserDO> userPage = userService.getUserList(query);
+        List<UserDTO> userDTOList = userPage.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
+        return new PageDTO(userDTOList, userPage.getTotal());
     }
 
     public UserProfileDTO getUserProfile(Long userId) {
@@ -101,10 +101,10 @@ public class UserApplicationService {
 
         QueryWrapper<SysRoleEntity> roleQuery = new QueryWrapper<>();
         roleQuery.orderByAsc("role_sort");
-        List<RoleDTO> roleDTOs = roleService.list(roleQuery).stream().map(RoleDTO::new).collect(Collectors.toList());
-        List<PostDTO> postDTOs = postService.list().stream().map(PostDTO::new).collect(Collectors.toList());
-        detailDTO.setRoles(roleDTOs);
-        detailDTO.setPosts(postDTOs);
+        List<RoleDTO> roleDtoList = roleService.list(roleQuery).stream().map(RoleDTO::new).collect(Collectors.toList());
+        List<PostDTO> postDtoList = postService.list().stream().map(PostDTO::new).collect(Collectors.toList());
+        detailDTO.setRoles(roleDtoList);
+        detailDTO.setPosts(postDtoList);
 
         if (userEntity != null) {
             detailDTO.setUser(new UserDTO(userEntity));

@@ -6,6 +6,9 @@ import com.agileboot.common.exception.error.ErrorCode;
 import java.util.List;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class BulkOperationCommand<T> {
 

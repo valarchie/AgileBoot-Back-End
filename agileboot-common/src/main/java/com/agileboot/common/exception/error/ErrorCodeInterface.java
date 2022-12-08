@@ -1,9 +1,13 @@
 package com.agileboot.common.exception.error;
 
+/**
+ * @author valarchie
+ */
 public interface ErrorCodeInterface {
 
     /**
-     * @return 返回枚举名称
+     * 返回错误码名称
+     * @return 枚举名称
      */
     String name();
 
@@ -14,7 +18,7 @@ public interface ErrorCodeInterface {
     int code();
 
     /**
-     *
+     * 返回具体的详细错误描述
      * @return 错误描述
      */
     String message();

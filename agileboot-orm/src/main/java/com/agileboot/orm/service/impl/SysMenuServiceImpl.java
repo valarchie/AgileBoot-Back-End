@@ -1,11 +1,8 @@
 package com.agileboot.orm.service.impl;
 
-import cn.hutool.core.collection.ListUtil;
 import com.agileboot.orm.entity.SysMenuEntity;
 import com.agileboot.orm.entity.SysRoleMenuEntity;
-import com.agileboot.orm.enums.MenuTypeEnum;
 import com.agileboot.orm.mapper.SysMenuMapper;
-import com.agileboot.orm.mapper.SysRoleMapper;
 import com.agileboot.orm.mapper.SysRoleMenuMapper;
 import com.agileboot.orm.service.ISysMenuService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

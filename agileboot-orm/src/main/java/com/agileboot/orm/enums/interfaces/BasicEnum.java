@@ -9,13 +9,14 @@ public interface BasicEnum<T>{
 
 
     /**
-     * @return 获取枚举的值
+     * 获取枚举的值
+     * @return 枚举值
      */
     T getValue();
 
     /**
-     *
-     * @return 获取枚举的描述
+     * 获取枚举的描述
+     * @return 描述
      */
     String description();
 

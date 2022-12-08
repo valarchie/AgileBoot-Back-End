@@ -5,18 +5,16 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.orm.entity.SysRoleEntity;
-import com.agileboot.orm.entity.SysRoleMenuEntity;
 import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 角色模型工厂
+ * @author valarchie
  */
 public class RoleModelFactory {
 
+    // TODO roleMenuService 看看重构完要不要删掉
     public static RoleModel loadFromDb(Long roleId, ISysRoleService roleService, ISysRoleMenuService roleMenuService) {
 
         SysRoleEntity byId = roleService.getById(roleId);

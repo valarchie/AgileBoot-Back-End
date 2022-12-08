@@ -1,12 +1,12 @@
 package com.agileboot.domain.system.dept.command;
 
-import cn.hutool.core.convert.Convert;
-import com.agileboot.domain.system.dept.command.AddDeptCommand;
-import com.agileboot.domain.system.dept.model.DeptModel;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class UpdateDeptCommand extends AddDeptCommand {
 
@@ -17,12 +17,5 @@ public class UpdateDeptCommand extends AddDeptCommand {
     @PositiveOrZero
     private String status;
 
-    @Override
-    public DeptModel toModel() {
-        DeptModel deptModel = super.toModel();
-        deptModel.setDeptId(this.deptId);
-        deptModel.setStatus(Convert.toInt(status, 0));
-        return deptModel;
-    }
 
 }

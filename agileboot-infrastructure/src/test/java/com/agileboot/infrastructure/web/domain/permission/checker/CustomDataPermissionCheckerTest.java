@@ -1,6 +1,6 @@
 package com.agileboot.infrastructure.web.domain.permission.checker;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -8,13 +8,11 @@ import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
 import com.agileboot.orm.service.ISysDeptService;
 import org.apache.commons.collections4.SetUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 class CustomDataPermissionCheckerTest {
 
-    private ISysDeptService deptService = mock(ISysDeptService.class);
+    private final ISysDeptService deptService = mock(ISysDeptService.class);
 
     @Test
     void testCheckWhenParameterNull() {

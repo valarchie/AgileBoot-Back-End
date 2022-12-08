@@ -1,6 +1,7 @@
 package com.agileboot.infrastructure.web.domain.permission.checker;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class SingleDeptDataPermissionCheckerTest {
 
-    private ISysDeptService deptService = mock(ISysDeptService.class);
+    private final ISysDeptService deptService = mock(ISysDeptService.class);
 
     @Test
     void testCheckWhenParameterNull() {

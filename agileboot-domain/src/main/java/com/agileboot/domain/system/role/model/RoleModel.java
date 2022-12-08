@@ -19,6 +19,9 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @Data
 @NoArgsConstructor
 public class RoleModel extends SysRoleEntity {

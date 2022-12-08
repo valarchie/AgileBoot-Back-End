@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author valarchie
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

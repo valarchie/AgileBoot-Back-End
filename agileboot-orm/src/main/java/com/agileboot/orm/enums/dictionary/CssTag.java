@@ -2,6 +2,7 @@ package com.agileboot.orm.enums.dictionary;
 
 /**
  * Css 样式
+ * @author valarchie
  */
 public class CssTag {
 

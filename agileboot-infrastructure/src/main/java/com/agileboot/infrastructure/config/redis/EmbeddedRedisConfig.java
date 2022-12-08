@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
 
+/**
+ * @author valarchie
+ */
 @Configuration
 @ConditionalOnExpression("'${agileboot.embedded.redis}' == 'true'")
 public class EmbeddedRedisConfig {

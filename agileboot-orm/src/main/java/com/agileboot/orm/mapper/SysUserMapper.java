@@ -82,7 +82,8 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 
     /**
      * 根据条件分页查询用户列表
-     *
+     * @param page 页码对象
+     * @param queryWrapper 查询对象
      * @return 用户信息集合信息
      */
     @Select("SELECT u.*, d.dept_name, d.leader_name "

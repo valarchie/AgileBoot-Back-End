@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Set;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class UserPermissionDTO {
 

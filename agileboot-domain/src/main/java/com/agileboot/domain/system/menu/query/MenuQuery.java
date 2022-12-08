@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
 import lombok.Data;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class MenuQuery extends AbstractQuery {
 

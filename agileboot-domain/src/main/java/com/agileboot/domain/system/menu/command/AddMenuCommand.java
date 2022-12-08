@@ -1,13 +1,13 @@
 package com.agileboot.domain.system.menu.command;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.agileboot.domain.system.menu.model.MenuModel;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class AddMenuCommand {
 

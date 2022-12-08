@@ -11,8 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
+/**
+ * @author valarchie
+ */
 @Data
 public class ConfigModel extends SysConfigEntity {
 

@@ -1,6 +1,6 @@
 package com.agileboot.domain.system.user.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.service.ISysUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

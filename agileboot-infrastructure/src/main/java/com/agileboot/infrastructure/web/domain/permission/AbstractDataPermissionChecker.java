@@ -9,7 +9,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public abstract class DataPermissionChecker {
+public abstract class AbstractDataPermissionChecker {
 
     private ISysDeptService deptService;
 
