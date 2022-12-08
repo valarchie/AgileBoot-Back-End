@@ -3,7 +3,8 @@ package com.agileboot.infrastructure.cache.aop;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.infrastructure.cache.RedisUtil;
 import java.util.concurrent.Callable;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
 
@@ -11,12 +12,13 @@ import org.springframework.cache.support.SimpleValueWrapper;
  * @author valarchie
  */
 //@Component
+@RequiredArgsConstructor
 public class RedisCacheBean implements Cache {
 
     /**
      * 缓存仓库
      */
-    @Autowired
+    @NonNull
     private RedisUtil redisUtil;
 
     @Override

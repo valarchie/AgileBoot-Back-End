@@ -11,9 +11,8 @@ import com.agileboot.orm.service.ISysMenuService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,9 +24,10 @@ import org.springframework.stereotype.Service;
  * @since 2022-06-16
  */
 @Service
+@RequiredArgsConstructor
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity> implements ISysMenuService {
 
-    @Autowired
+    @NonNull
     private SysRoleMenuMapper roleMenuMapper;
 
 

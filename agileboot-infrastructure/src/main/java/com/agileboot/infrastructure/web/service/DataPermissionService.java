@@ -9,7 +9,8 @@ import com.agileboot.infrastructure.web.domain.permission.DataPermissionCheckerF
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.service.ISysUserService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,9 +18,10 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service("dataScope")
+@RequiredArgsConstructor
 public class DataPermissionService {
 
-    @Autowired
+    @NonNull
     private ISysUserService userService;
 
     /**

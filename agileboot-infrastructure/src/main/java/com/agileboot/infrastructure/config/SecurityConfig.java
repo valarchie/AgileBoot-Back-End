@@ -3,7 +3,8 @@ package com.agileboot.infrastructure.config;
 import com.agileboot.infrastructure.security.filter.JwtAuthenticationTokenFilter;
 import com.agileboot.infrastructure.security.handle.AuthenticationEntryPointImpl;
 import com.agileboot.infrastructure.security.handle.LogoutSuccessHandlerImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,30 +25,31 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     /**
      * 认证失败处理类
      */
-    @Autowired
+    @NonNull
     private AuthenticationEntryPointImpl unauthorizedHandler;
 
     /**
      * 退出处理类
      */
-    @Autowired
+    @NonNull
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     /**
      * token认证过滤器
      */
-    @Autowired
+    @NonNull
     private JwtAuthenticationTokenFilter authenticationTokenFilter;
 
     /**
      * 跨域过滤器
      */
-    @Autowired
+    @NonNull
     private CorsFilter corsFilter;
 
 

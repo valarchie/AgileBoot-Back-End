@@ -7,7 +7,8 @@ import com.agileboot.orm.mapper.SysUserMapper;
 import com.agileboot.orm.service.ISysDeptService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,9 +20,10 @@ import org.springframework.stereotype.Service;
  * @since 2022-06-16
  */
 @Service
+@RequiredArgsConstructor
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptEntity> implements ISysDeptService {
 
-    @Autowired
+    @NonNull
     private SysUserMapper userMapper;
 
 

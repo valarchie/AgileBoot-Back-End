@@ -1,5 +1,6 @@
 package com.agileboot.infrastructure.cache;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheTemplate;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
@@ -9,7 +10,6 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.entity.SysUserEntity;
 import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,10 +17,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CacheCenter {
-
-    private static GuavaCacheService guavaCache;
-
-    private static RedisCacheService redisCache;
 
     public static GuavaCacheTemplate<String> configCache;
 
@@ -36,6 +32,8 @@ public class CacheCenter {
 
     @PostConstruct
     public void init() {
+        GuavaCacheService guavaCache = SpringUtil.getBean(GuavaCacheService.class);
+        RedisCacheService redisCache = SpringUtil.getBean(RedisCacheService.class);
 
         configCache = guavaCache.configCache;
         deptCache = guavaCache.deptCache;
@@ -44,17 +42,6 @@ public class CacheCenter {
         loginUserCache = redisCache.loginUserCache;
         repeatSubmitCache = redisCache.repeatSubmitCache;
         userCache = redisCache.userCache;
-
-    }
-
-    @Autowired
-    public void setGuavaCache(GuavaCacheService guavaCache) {
-        CacheCenter.guavaCache = guavaCache;
-    }
-
-    @Autowired
-    public void setRedisCache(RedisCacheService redisCache) {
-        CacheCenter.redisCache = redisCache;
     }
 
 }

@@ -27,7 +27,10 @@ import org.springframework.context.annotation.Primary;
 
 /**
  * druid 配置多数据源
- *
+ * 数据事务相关的bean 在spring启动时会报这个错
+ *  is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+ *  不用管，因为dateSource相关的bean 本身就不需要被AOP  这个warning可以不用管
+ *  如果service之类的bean  报这种错的话  就需要排查
  * @author ruoyi
  */
 @Configuration

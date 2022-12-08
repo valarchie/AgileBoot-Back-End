@@ -21,16 +21,18 @@ import com.agileboot.orm.service.ISysMenuService;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * @author valarchie
  */
 @Service
+@RequiredArgsConstructor
 public class MenuApplicationService {
 
-    @Autowired
+    @NonNull
     private ISysMenuService menuService;
 
 

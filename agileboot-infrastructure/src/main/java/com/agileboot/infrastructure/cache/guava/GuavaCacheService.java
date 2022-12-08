@@ -4,9 +4,9 @@ package com.agileboot.infrastructure.cache.guava;
 import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.service.ISysConfigService;
 import com.agileboot.orm.service.ISysDeptService;
-import com.agileboot.orm.service.ISysRoleService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class GuavaCacheService {
 
-    @Autowired
+    @NonNull
     private ISysConfigService configService;
 
-    @Autowired
+    @NonNull
     private ISysDeptService deptService;
 
     public GuavaCacheTemplate<String> configCache = new GuavaCacheTemplate<String>() {

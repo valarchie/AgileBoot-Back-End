@@ -13,7 +13,8 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/operationLog")
+@RequiredArgsConstructor
 public class SysOperationLogController extends BaseController {
 
-    @Autowired
+    @NonNull
     private OperationLogApplicationService operationLogApplicationService;
 
     @PreAuthorize("@permission.has('monitor:operlog:list')")

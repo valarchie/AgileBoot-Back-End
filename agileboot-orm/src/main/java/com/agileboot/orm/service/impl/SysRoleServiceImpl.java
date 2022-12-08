@@ -3,14 +3,12 @@ package com.agileboot.orm.service.impl;
 import com.agileboot.orm.entity.SysRoleEntity;
 import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.mapper.SysRoleMapper;
-import com.agileboot.orm.mapper.SysRoleMenuMapper;
 import com.agileboot.orm.mapper.SysUserMapper;
-import com.agileboot.orm.service.ISysRoleMenuService;
 import com.agileboot.orm.service.ISysRoleService;
-import com.agileboot.orm.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,13 +20,11 @@ import org.springframework.stereotype.Service;
  * @since 2022-06-16
  */
 @Service
+@RequiredArgsConstructor
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> implements ISysRoleService {
 
-    @Autowired
+    @NonNull
     private SysUserMapper userMapper;
-
-    @Autowired
-    private SysRoleMenuMapper roleMenuMapper;
 
     @Override
     public boolean isRoleNameDuplicated(Long roleId, String roleName) {

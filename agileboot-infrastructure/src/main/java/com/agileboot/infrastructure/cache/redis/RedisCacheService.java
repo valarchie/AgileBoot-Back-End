@@ -8,16 +8,18 @@ import com.agileboot.orm.entity.SysUserEntity;
 import com.agileboot.orm.service.ISysUserService;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
  * @author valarchie
  */
 @Component
+@RequiredArgsConstructor
 public class RedisCacheService {
 
-    @Autowired
+    @NonNull
     private RedisUtil redisUtil;
 
     public RedisCacheTemplate<String> captchaCache;

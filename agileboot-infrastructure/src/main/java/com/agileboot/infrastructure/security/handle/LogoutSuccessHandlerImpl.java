@@ -10,7 +10,8 @@ import com.agileboot.infrastructure.web.service.TokenService;
 import com.agileboot.orm.enums.LoginStatusEnum;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -22,9 +23,10 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  * @author ruoyi
  */
 @Configuration
+@RequiredArgsConstructor
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
-    @Autowired
+    @NonNull
     private TokenService tokenService;
 
     /**

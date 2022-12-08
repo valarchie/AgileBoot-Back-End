@@ -16,7 +16,8 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,9 +34,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/system/user/profile")
+@RequiredArgsConstructor
 public class SysProfileController extends BaseController {
 
-    @Autowired
+    @NonNull
     private UserApplicationService userApplicationService;
 
     /**

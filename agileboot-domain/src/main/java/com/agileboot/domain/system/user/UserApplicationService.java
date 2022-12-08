@@ -36,31 +36,33 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * @author valarchie
  */
 @Service
+@RequiredArgsConstructor
 public class UserApplicationService {
 
-    @Autowired
+    @NonNull
     private ISysUserService userService;
 
-    @Autowired
+    @NonNull
     private ISysRoleService roleService;
 
-    @Autowired
+    @NonNull
     private ISysPostService postService;
 
-    @Autowired
+    @NonNull
     private ISysRoleMenuService roleMenuService;
 
-    @Autowired
+    @NonNull
     private TokenService tokenService;
 
-    @Autowired
+    @NonNull
     private RedisCacheService redisCacheService;
 
 

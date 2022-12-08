@@ -14,7 +14,8 @@ import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,9 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/system/dept")
 @Validated
+@RequiredArgsConstructor
 public class SysDeptController extends BaseController {
 
-    @Autowired
+    @NonNull
     private DeptApplicationService deptApplicationService;
 
     /**

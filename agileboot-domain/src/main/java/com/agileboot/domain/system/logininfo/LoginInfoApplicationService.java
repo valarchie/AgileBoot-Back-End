@@ -10,16 +10,18 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * @author valarchie
  */
 @Service
+@RequiredArgsConstructor
 public class LoginInfoApplicationService {
 
-    @Autowired
+    @NonNull
     private ISysLoginInfoService loginInfoService;
 
     public PageDTO getLoginInfoList(LoginInfoQuery query) {

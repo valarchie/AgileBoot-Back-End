@@ -7,7 +7,8 @@ import com.agileboot.infrastructure.annotations.RepeatSubmit;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.filter.RepeatedlyRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +18,14 @@ import org.springframework.stereotype.Component;
  * @author valarchie
  */
 @Component
+@RequiredArgsConstructor
 public class SameUrlDataInterceptorAbstract extends AbstractRepeatSubmitInterceptor {
 
     // 令牌自定义标识
     @Value("${token.header}")
     private String header;
 
-    @Autowired
+    @NonNull
     private RedisCacheService redisCacheService;
 
     @SuppressWarnings("unchecked")

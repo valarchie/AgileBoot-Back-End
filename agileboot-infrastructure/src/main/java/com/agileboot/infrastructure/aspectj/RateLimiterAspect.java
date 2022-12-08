@@ -11,12 +11,13 @@ import com.agileboot.infrastructure.security.AuthenticationUtils;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -31,21 +32,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @ConditionalOnExpression("'${agileboot.embedded.redis}' != 'true'")
+@RequiredArgsConstructor
 public class RateLimiterAspect {
 
+    @NonNull
     private RedisTemplate<Object, Object> redisTemplate;
 
+    @NonNull
     private RedisScript<Long> limitScript;
-
-    @Autowired
-    public void setRedisTemplate1(RedisTemplate<Object, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
-
-    @Autowired
-    public void setLimitScript(RedisScript<Long> limitScript) {
-        this.limitScript = limitScript;
-    }
 
     @Before("@annotation(rateLimiter)")
     public void doBefore(JoinPoint point, RateLimiter rateLimiter) {

@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.connection.RedisServerCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,15 +30,16 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
+@RequiredArgsConstructor
 public class MonitorApplicationService {
 
-    @Autowired
+    @NonNull
     private RedisTemplate redisTemplate;
 
-    @Autowired
+    @NonNull
     private RedisUtil redisUtil;
 
-    @Autowired
+    @NonNull
     private RedisCacheService redisCacheService;
 
 

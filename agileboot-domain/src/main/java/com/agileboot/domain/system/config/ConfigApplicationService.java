@@ -12,16 +12,18 @@ import com.agileboot.orm.service.ISysConfigService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * @author valarchie
  */
 @Service
+@RequiredArgsConstructor
 public class ConfigApplicationService {
 
-    @Autowired
+    @NonNull
     private ISysConfigService configService;
 
     public PageDTO getConfigList(ConfigQuery query) {

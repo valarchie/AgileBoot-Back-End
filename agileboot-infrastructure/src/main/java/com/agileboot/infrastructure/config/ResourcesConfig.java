@@ -3,7 +3,8 @@ package com.agileboot.infrastructure.config;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants;
 import com.agileboot.infrastructure.interceptor.repeatsubmit.AbstractRepeatSubmitInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -19,9 +20,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author ruoyi
  */
 @Configuration
+@RequiredArgsConstructor
 public class ResourcesConfig implements WebMvcConfigurer {
 
-    @Autowired
+    @NonNull
     private AbstractRepeatSubmitInterceptor repeatSubmitInterceptor;
 
     @Override

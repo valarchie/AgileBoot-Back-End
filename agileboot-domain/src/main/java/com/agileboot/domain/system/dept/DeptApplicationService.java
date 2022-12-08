@@ -18,7 +18,8 @@ import com.agileboot.orm.service.ISysRoleService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,12 +27,13 @@ import org.springframework.stereotype.Service;
  * @author valarchie
  */
 @Service
+@RequiredArgsConstructor
 public class DeptApplicationService {
 
-    @Autowired
+    @NonNull
     private ISysDeptService deptService;
 
-    @Autowired
+    @NonNull
     private ISysRoleService roleService;
 
 

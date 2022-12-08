@@ -11,7 +11,8 @@ import com.agileboot.domain.system.monitor.dto.OnlineUser;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 缓存监控
  *
- * @author ruoyi
+ * @author valarchie
  */
 @RestController
 @RequestMapping("/monitor")
+@RequiredArgsConstructor
 public class MonitorController extends BaseController {
 
-    @Autowired
+    @NonNull
     private MonitorApplicationService monitorApplicationService;
-
-    @Autowired
+    @NonNull
     private RedisCacheService redisCacheService;
+
 
     @PreAuthorize("@permission.has('monitor:cache:list')")
     @GetMapping("/cacheInfo")

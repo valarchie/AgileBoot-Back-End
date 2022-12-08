@@ -20,8 +20,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class TokenService {
 
     /**
@@ -58,7 +60,7 @@ public class TokenService {
     @Value("${token.autoRefreshTime}")
     private long autoRefreshTime;
 
-    @Autowired
+    @NonNull
     private RedisCacheService redisCacheService;
 
     /**

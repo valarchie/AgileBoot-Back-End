@@ -2,10 +2,11 @@ package com.agileboot.infrastructure.config;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.TransactionDefinition;
@@ -20,6 +21,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  * @author valarchie
  */
 @Configuration
+@RequiredArgsConstructor
 public class GlobalTransactionConfig {
 
     /**
@@ -33,7 +35,7 @@ public class GlobalTransactionConfig {
     /**
      * 注入事务管理器
      */
-    @Autowired
+    @NonNull
     private TransactionManager transactionManager;
 
     /**

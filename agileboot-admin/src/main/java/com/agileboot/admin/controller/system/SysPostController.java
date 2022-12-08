@@ -14,7 +14,8 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,9 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/system/post")
 @Validated
+@RequiredArgsConstructor
 public class SysPostController extends BaseController {
 
-    @Autowired
+    @NonNull
     private PostApplicationService postApplicationService;
 
     /**
