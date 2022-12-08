@@ -31,13 +31,13 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 * 后端采用Spring Boot、Spring Security、Redis & Jwt、Mybatis Plus、MySql。
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持加载动态权限菜单，多方式轻松权限控制。
-* 🙌 有大量的单元测试，集成测试覆盖确保业务逻辑正确。🙌
+* ***有大量的单元测试，集成测试覆盖确保业务逻辑正确***。
 
 > 有任何问题或者建议，可以在 _Issues_ 中提给作者。  
 > 
-> 您的Issue比Star更重要 😆
+> 您的Issue比Star更重要
 >
-> 😜 如果觉得项目对您有帮助，可以来个 ⭐ Star ⭐
+> 如果觉得项目对您有帮助，可以来个Star ⭐
 
 
 ## 💥 在线体验 💥
@@ -326,6 +326,7 @@ agileboot
 - 请导入统一的代码格式化模板（Google）: Settings > Editor > Code Style > Java > 设置按钮 > import schema > 选择项目根目录下的GoogleStyle.xml文件
 - 如需要生成新的表，请使用CodeGenerator类进行生成。
   - 填入数据库地址，账号密码，库名。然后填入所需的表名执行代码即可。（大概看一下代码就知道怎么填啦）
+  - 生成的类在orm模块下的target/classes目录下
 - 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：
   - [AgileBoot - 手把手一步一步带你Run起全栈项目(SpringBoot+Vue3)](https://juejin.cn/post/7153812187834744845)
 - 注意：管理后台的后端启动类是AgileBoot**Admin**Application
