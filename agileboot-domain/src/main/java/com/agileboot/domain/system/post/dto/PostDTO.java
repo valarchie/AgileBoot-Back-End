@@ -2,9 +2,9 @@ package com.agileboot.domain.system.post.dto;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
-import com.agileboot.orm.entity.SysPostEntity;
-import com.agileboot.orm.enums.dictionary.StatusEnum;
-import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
+import com.agileboot.orm.system.entity.SysPostEntity;
+import com.agileboot.orm.common.enums.StatusEnum;
+import com.agileboot.orm.common.util.BasicEnumUtil;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;

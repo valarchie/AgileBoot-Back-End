@@ -1,8 +1,8 @@
 package com.agileboot.domain.system.user.query;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.query.AbstractPageQuery;
-import com.agileboot.orm.result.SearchUserDO;
+import com.agileboot.orm.common.query.AbstractPageQuery;
+import com.agileboot.orm.system.result.SearchUserDO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 

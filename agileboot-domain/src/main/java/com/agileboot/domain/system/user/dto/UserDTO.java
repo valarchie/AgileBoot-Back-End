@@ -6,9 +6,9 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
-import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.entity.SysUserEntity;
-import com.agileboot.orm.result.SearchUserDO;
+import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.orm.system.result.SearchUserDO;
 import java.util.Date;
 import lombok.Data;
 

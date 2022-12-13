@@ -1,9 +1,9 @@
 package com.agileboot.infrastructure.cache.guava;
 
 
-import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.service.ISysConfigService;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.service.ISysConfigService;
+import com.agileboot.orm.system.service.ISysDeptService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

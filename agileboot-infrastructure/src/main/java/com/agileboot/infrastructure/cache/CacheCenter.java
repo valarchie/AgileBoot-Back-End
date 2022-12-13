@@ -7,8 +7,8 @@ import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.interceptor.repeatsubmit.RepeatRequest;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.entity.SysUserEntity;
+import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.entity.SysUserEntity;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 

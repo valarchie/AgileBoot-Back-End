@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.web.domain.login;
 
 import com.agileboot.common.core.base.BaseUser;
-import com.agileboot.orm.entity.SysUserEntity;
+import com.agileboot.orm.system.entity.SysUserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import lombok.Data;

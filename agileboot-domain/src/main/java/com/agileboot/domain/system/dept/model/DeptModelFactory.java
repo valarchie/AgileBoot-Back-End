@@ -3,8 +3,8 @@ package com.agileboot.domain.system.dept.model;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
-import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.service.ISysDeptService;
 
 /**
  * 部门模型工厂

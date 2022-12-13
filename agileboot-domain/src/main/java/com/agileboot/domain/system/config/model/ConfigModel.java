@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.orm.entity.SysConfigEntity;
+import com.agileboot.orm.system.entity.SysConfigEntity;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

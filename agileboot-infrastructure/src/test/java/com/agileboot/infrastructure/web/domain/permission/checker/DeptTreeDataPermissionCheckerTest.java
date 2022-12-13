@@ -7,7 +7,7 @@ import static org.mockito.Mockito.mock;
 
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.service.ISysDeptService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

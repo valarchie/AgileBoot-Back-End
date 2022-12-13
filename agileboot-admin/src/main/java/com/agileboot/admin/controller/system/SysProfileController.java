@@ -15,7 +15,7 @@ import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
+import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

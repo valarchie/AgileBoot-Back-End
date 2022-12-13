@@ -9,7 +9,7 @@ import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
-import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
+import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

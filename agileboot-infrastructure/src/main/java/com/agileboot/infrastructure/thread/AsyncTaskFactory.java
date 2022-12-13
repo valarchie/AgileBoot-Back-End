@@ -5,11 +5,11 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
-import com.agileboot.orm.entity.SysLoginInfoEntity;
-import com.agileboot.orm.entity.SysOperationLogEntity;
-import com.agileboot.orm.enums.LoginStatusEnum;
-import com.agileboot.orm.service.ISysLoginInfoService;
-import com.agileboot.orm.service.ISysOperationLogService;
+import com.agileboot.orm.system.entity.SysLoginInfoEntity;
+import com.agileboot.orm.system.entity.SysOperationLogEntity;
+import com.agileboot.orm.common.enums.LoginStatusEnum;
+import com.agileboot.orm.system.service.ISysLoginInfoService;
+import com.agileboot.orm.system.service.ISysOperationLogService;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
 

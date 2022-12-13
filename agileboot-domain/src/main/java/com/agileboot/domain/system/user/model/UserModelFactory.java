@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.user.command.AddUserCommand;
-import com.agileboot.orm.entity.SysUserEntity;
-import com.agileboot.orm.service.ISysUserService;
+import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.orm.system.service.ISysUserService;
 
 /**
  * 用户模型工厂

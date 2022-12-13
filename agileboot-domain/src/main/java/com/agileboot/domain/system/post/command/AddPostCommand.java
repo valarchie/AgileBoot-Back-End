@@ -1,7 +1,5 @@
 package com.agileboot.domain.system.post.command;
 
-import cn.hutool.core.convert.Convert;
-import com.agileboot.domain.system.post.model.PostModel;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;

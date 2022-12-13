@@ -11,7 +11,7 @@ import com.agileboot.domain.system.logininfo.LoginInfoApplicationService;
 import com.agileboot.domain.system.logininfo.dto.LoginInfoDTO;
 import com.agileboot.domain.system.logininfo.query.LoginInfoQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
+import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;

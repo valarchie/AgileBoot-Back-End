@@ -5,10 +5,10 @@ import cn.hutool.core.convert.Convert;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
-import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.enums.dictionary.StatusEnum;
-import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.common.enums.StatusEnum;
+import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.system.service.ISysDeptService;
 import java.util.Objects;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +20,7 @@ public class DeptModel extends SysDeptEntity {
 
     public DeptModel(SysDeptEntity entity) {
         if (entity != null) {
+            // 如果大数据量的话  可以用MapStruct优化
             BeanUtil.copyProperties(entity, this);
         }
     }

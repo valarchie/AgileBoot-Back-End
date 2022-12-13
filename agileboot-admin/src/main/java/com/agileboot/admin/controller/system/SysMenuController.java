@@ -12,7 +12,7 @@ import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
+import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;

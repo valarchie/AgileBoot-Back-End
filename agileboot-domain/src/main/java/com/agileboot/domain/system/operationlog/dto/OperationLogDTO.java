@@ -3,12 +3,12 @@ package com.agileboot.domain.system.operationlog.dto;
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
-import com.agileboot.orm.entity.SysOperationLogEntity;
-import com.agileboot.orm.enums.OperatorTypeEnum;
-import com.agileboot.orm.enums.RequestMethodEnum;
-import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
-import com.agileboot.orm.enums.dictionary.OperationStatusEnum;
-import com.agileboot.orm.enums.interfaces.BasicEnumUtil;
+import com.agileboot.orm.system.entity.SysOperationLogEntity;
+import com.agileboot.orm.common.enums.OperatorTypeEnum;
+import com.agileboot.orm.common.enums.RequestMethodEnum;
+import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.orm.common.enums.OperationStatusEnum;
+import com.agileboot.orm.common.util.BasicEnumUtil;
 import java.util.Date;
 import lombok.Data;
 

@@ -1,7 +1,8 @@
 package com.agileboot.orm.enums.interfaces;
 
 
-import com.agileboot.orm.enums.dictionary.YesOrNoEnum;
+import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.common.enums.YesOrNoEnum;
 import org.junit.Assert;
 import org.junit.Test;
 

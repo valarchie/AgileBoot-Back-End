@@ -10,7 +10,7 @@ import com.agileboot.domain.system.operationlog.OperationLogApplicationService;
 import com.agileboot.domain.system.operationlog.dto.OperationLogDTO;
 import com.agileboot.domain.system.operationlog.query.OperationLogQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
+import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import lombok.NonNull;

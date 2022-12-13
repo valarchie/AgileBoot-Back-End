@@ -7,8 +7,8 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.entity.SysDeptEntity;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.service.ISysDeptService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;

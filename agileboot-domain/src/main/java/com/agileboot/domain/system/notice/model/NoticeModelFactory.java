@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.notice.command.NoticeAddCommand;
-import com.agileboot.orm.entity.SysNoticeEntity;
-import com.agileboot.orm.service.ISysNoticeService;
+import com.agileboot.orm.system.entity.SysNoticeEntity;
+import com.agileboot.orm.system.service.ISysNoticeService;
 
 /**
  * 公告模型工厂

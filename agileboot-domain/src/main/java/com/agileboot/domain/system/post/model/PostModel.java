@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
-import com.agileboot.orm.entity.SysPostEntity;
-import com.agileboot.orm.service.ISysPostService;
+import com.agileboot.orm.system.entity.SysPostEntity;
+import com.agileboot.orm.system.service.ISysPostService;
 import lombok.NoArgsConstructor;
 
 /**

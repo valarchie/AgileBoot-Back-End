@@ -1,8 +1,8 @@
 package com.agileboot.domain.system.config.query;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.entity.SysConfigEntity;
-import com.agileboot.orm.query.AbstractPageQuery;
+import com.agileboot.orm.system.entity.SysConfigEntity;
+import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;

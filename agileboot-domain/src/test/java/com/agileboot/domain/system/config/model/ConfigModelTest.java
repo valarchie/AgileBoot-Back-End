@@ -3,7 +3,7 @@ package com.agileboot.domain.system.config.model;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.entity.SysConfigEntity;
+import com.agileboot.orm.system.entity.SysConfigEntity;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

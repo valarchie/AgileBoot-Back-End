@@ -4,9 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
-import com.agileboot.orm.entity.SysRoleEntity;
-import com.agileboot.orm.service.ISysRoleMenuService;
-import com.agileboot.orm.service.ISysRoleService;
+import com.agileboot.orm.system.entity.SysRoleEntity;
+import com.agileboot.orm.system.service.ISysRoleMenuService;
+import com.agileboot.orm.system.service.ISysRoleService;
 
 /**
  * 角色模型工厂

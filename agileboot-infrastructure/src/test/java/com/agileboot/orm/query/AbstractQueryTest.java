@@ -1,6 +1,7 @@
 package com.agileboot.orm.query;
 
 
+import com.agileboot.orm.common.query.AbstractQuery;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;

@@ -1,7 +1,7 @@
 package com.agileboot.integrationtest.db;
 
 import com.agileboot.integrationtest.IntegrationTestApplication;
-import com.agileboot.orm.service.ISysRoleService;
+import com.agileboot.orm.system.service.ISysRoleService;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

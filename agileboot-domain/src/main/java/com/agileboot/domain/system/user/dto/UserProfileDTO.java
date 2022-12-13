@@ -1,8 +1,8 @@
 package com.agileboot.domain.system.user.dto;
 
-import com.agileboot.orm.entity.SysPostEntity;
-import com.agileboot.orm.entity.SysRoleEntity;
-import com.agileboot.orm.entity.SysUserEntity;
+import com.agileboot.orm.system.entity.SysPostEntity;
+import com.agileboot.orm.system.entity.SysRoleEntity;
+import com.agileboot.orm.system.entity.SysUserEntity;
 import lombok.Data;
 
 /**

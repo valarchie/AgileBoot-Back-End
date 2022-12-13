@@ -1,7 +1,7 @@
 package com.agileboot.admin.response;
 
 import com.agileboot.domain.system.user.dto.UserDTO;
-import com.agileboot.orm.result.DictionaryData;
+import com.agileboot.orm.common.result.DictionaryData;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

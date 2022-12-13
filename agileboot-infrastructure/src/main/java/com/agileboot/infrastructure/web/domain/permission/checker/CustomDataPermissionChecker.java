@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.permission.AbstractDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.DataCondition;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.service.ISysDeptService;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;

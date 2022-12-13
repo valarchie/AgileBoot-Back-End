@@ -2,7 +2,7 @@ package com.agileboot.domain.system.role.dto;
 
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
-import com.agileboot.orm.entity.SysRoleEntity;
+import com.agileboot.orm.system.entity.SysRoleEntity;
 import java.util.Date;
 import lombok.Data;
 

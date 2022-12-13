@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
-import com.agileboot.orm.entity.SysMenuEntity;
-import com.agileboot.orm.service.ISysMenuService;
+import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.orm.system.service.ISysMenuService;
 
 /**
  * 菜单模型工厂

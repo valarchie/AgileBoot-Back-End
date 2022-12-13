@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import cn.hutool.core.collection.ListUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.service.ISysRoleService;
+import com.agileboot.orm.system.service.ISysRoleService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

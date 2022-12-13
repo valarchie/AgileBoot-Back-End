@@ -3,8 +3,8 @@ package com.agileboot.domain.system.config.model;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
-import com.agileboot.orm.entity.SysConfigEntity;
-import com.agileboot.orm.service.ISysConfigService;
+import com.agileboot.orm.system.entity.SysConfigEntity;
+import com.agileboot.orm.system.service.ISysConfigService;
 
 /**
  * 配置模型工厂

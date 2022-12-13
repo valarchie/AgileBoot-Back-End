@@ -8,8 +8,8 @@ import com.agileboot.infrastructure.web.domain.permission.checker.DefaultDataPer
 import com.agileboot.infrastructure.web.domain.permission.checker.DeptTreeDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.checker.OnlySelfDataPermissionChecker;
 import com.agileboot.infrastructure.web.domain.permission.checker.SingleDeptDataPermissionChecker;
-import com.agileboot.orm.enums.DataScopeEnum;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.common.enums.DataScopeEnum;
+import com.agileboot.orm.system.service.ISysDeptService;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 

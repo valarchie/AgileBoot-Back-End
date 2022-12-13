@@ -11,7 +11,7 @@ import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.entity.SysDeptEntity;
+import com.agileboot.orm.system.entity.SysDeptEntity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

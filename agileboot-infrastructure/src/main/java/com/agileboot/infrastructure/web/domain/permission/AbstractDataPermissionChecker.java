@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.web.domain.permission;
 
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.service.ISysDeptService;
+import com.agileboot.orm.system.service.ISysDeptService;
 import lombok.Data;
 
 /**

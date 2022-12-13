@@ -2,8 +2,8 @@ package com.agileboot.integrationtest.db;
 
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.integrationtest.IntegrationTestApplication;
-import com.agileboot.orm.entity.SysMenuEntity;
-import com.agileboot.orm.service.ISysMenuService;
+import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.orm.system.service.ISysMenuService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
