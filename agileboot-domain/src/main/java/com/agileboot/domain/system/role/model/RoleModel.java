@@ -67,7 +67,7 @@ public class RoleModel extends SysRoleEntity {
     }
 
     /**
-     *   用户可能在请求参数中，传输比自身更大的权限，导致越权
+     *  TODO  用户可能在请求参数中，传输比自身更大的权限，导致越权
      */
     public void checkAssignedPermissionsExceedLoginUser(LoginUser loginUser) {
     }

@@ -165,10 +165,6 @@ public class ServerInfo {
             return String.format("%.1f MB", castedSize / Constants.MB);
         }
 
-        if (size >= Constants.KB) {
-            return String.format("%.1f KB", castedSize / Constants.KB);
-        }
-
         return String.format("%.1f KB", castedSize / Constants.KB);
     }
 }

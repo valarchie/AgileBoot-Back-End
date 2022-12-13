@@ -41,5 +41,4 @@ public enum OperationStatusEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-
 }

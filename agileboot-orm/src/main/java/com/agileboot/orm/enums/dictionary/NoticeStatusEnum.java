@@ -41,8 +41,4 @@ public enum NoticeStatusEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static NoticeStatusEnum getDefault() {
-        return OPEN;
-    }
-
 }

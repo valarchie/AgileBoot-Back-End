@@ -40,8 +40,4 @@ public enum StatusEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static StatusEnum getDefault() {
-        return ENABLE;
-    }
-
 }

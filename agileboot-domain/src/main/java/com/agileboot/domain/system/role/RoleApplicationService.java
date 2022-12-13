@@ -65,7 +65,7 @@ public class RoleApplicationService {
     }
 
 
-    public void addRole(AddRoleCommand addCommand, LoginUser loginUser) {
+    public void addRole(AddRoleCommand addCommand) {
         RoleModel roleModel = RoleModelFactory.loadFromAddCommand(addCommand, new RoleModel());
 
         roleModel.checkRoleNameUnique(roleService);
@@ -74,15 +74,15 @@ public class RoleApplicationService {
         roleModel.insert(roleMenuService);
     }
 
-    public void deleteRoleByBulk(List<Long> roleIds, LoginUser loginUser) {
+    public void deleteRoleByBulk(List<Long> roleIds) {
         if (roleIds != null) {
             for (Long roleId : roleIds) {
-                deleteRole(roleId, loginUser);
+                deleteRole(roleId);
             }
         }
     }
 
-    public void deleteRole(Long roleId, LoginUser loginUser) {
+    public void deleteRole(Long roleId) {
         RoleModel roleModel = RoleModelFactory.loadFromDb(roleId, roleService, roleMenuService);
 
         roleModel.checkRoleCanBeDelete(roleService);
@@ -106,7 +106,7 @@ public class RoleApplicationService {
         }
     }
 
-    public void updateStatus(UpdateStatusCommand command, LoginUser loginUser) {
+    public void updateStatus(UpdateStatusCommand command) {
         RoleModel roleModel = RoleModelFactory.loadFromDb(command.getRoleId(), roleService, roleMenuService);
         roleModel.setStatus(command.getStatus());
         roleModel.updateById();

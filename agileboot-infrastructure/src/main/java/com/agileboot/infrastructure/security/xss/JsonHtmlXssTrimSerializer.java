@@ -7,16 +7,17 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 
 /**
+ * 直接将html标签去掉
  * @author valarchie
  */
-public class JsonHtmlXssSerializer extends JsonDeserializer<String> {
+public class JsonHtmlXssTrimSerializer extends JsonDeserializer<String> {
 
-    public JsonHtmlXssSerializer() {
+    public JsonHtmlXssTrimSerializer() {
         super();
     }
 
     @Override
-    public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public String deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String value = p.getValueAsString();
         if( value != null) {
             // 去除掉html标签    如果想要转义的话  可使用 HtmlUtil.escape()
@@ -30,11 +31,4 @@ public class JsonHtmlXssSerializer extends JsonDeserializer<String> {
         return String.class;
     }
 
-//    @Override
-//    public void deserialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-//        if (value != null) {
-//            String escapeStr = HtmlUtil.escape(value);
-//            gen.writeString(escapeStr);
-//        }
-//    }
 }

@@ -41,9 +41,4 @@ public enum VisibleStatusEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static VisibleStatusEnum getDefault() {
-        return SHOW;
-    }
-
-
 }

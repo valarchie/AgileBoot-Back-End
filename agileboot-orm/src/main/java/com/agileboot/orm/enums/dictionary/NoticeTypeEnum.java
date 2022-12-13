@@ -41,8 +41,4 @@ public enum NoticeTypeEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static NoticeTypeEnum getDefault() {
-        return NOTIFICATION;
-    }
-
 }

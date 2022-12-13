@@ -137,9 +137,8 @@ public class CodeGenerator {
         //  customization code template. disable if you don't have specific requirement.
         generator.injectionConfig(builder -> {
             // Customization
-            builder.beforeOutputFile((tableInfo, objectMap) -> {
-                    System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
-                })
+            builder.beforeOutputFile((tableInfo, objectMap) -> System.out.println("tableInfo: " +
+                    tableInfo.getEntityName() + " objectMap: " + objectMap.size()))
 //                .customMap(Collections.singletonMap("test", "baomidou"))
 //                .customFile(Collections.singletonMap("test.txt", "/templates/test.vm"))
                 .build();

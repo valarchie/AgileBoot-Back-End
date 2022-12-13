@@ -3,7 +3,6 @@ package com.agileboot.infrastructure.cache.map;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.ClassUtil;
 import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import com.agileboot.orm.enums.dictionary.GenderEnum;

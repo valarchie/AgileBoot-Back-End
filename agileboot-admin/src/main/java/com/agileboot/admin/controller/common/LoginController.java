@@ -73,7 +73,7 @@ public class LoginController {
      * @return 结果
      */
     @PostMapping("/login")
-    public ResponseDTO<Map> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseDTO<?> login(@RequestBody LoginDTO loginDTO) {
         // 生成令牌
         String token = loginService.login(loginDTO.getUsername(), loginDTO.getPassword(), loginDTO.getCode(),
             loginDTO.getUuid());

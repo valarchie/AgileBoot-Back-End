@@ -79,7 +79,7 @@ public class SysDeptController extends BaseController {
      * 获取部门下拉树列表
      */
     @GetMapping("/dropdownList")
-    public ResponseDTO<List> dropdownList() {
+    public ResponseDTO<?> dropdownList() {
         List<Tree<Long>> deptTree = deptApplicationService.getDeptTree();
         return ResponseDTO.ok(deptTree);
     }
@@ -100,7 +100,7 @@ public class SysDeptController extends BaseController {
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody AddDeptCommand addCommand) {
-        deptApplicationService.addDept(addCommand, AuthenticationUtils.getLoginUser());
+        deptApplicationService.addDept(addCommand);
         return ResponseDTO.ok();
     }
 
@@ -111,7 +111,7 @@ public class SysDeptController extends BaseController {
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody UpdateDeptCommand updateCommand) {
-        deptApplicationService.updateDept(updateCommand, AuthenticationUtils.getLoginUser());
+        deptApplicationService.updateDept(updateCommand);
         return ResponseDTO.ok();
     }
 

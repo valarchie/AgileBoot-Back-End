@@ -36,16 +36,4 @@ public class AddPostCommand {
     @PositiveOrZero
     protected String status;
 
-    public PostModel toModel() {
-        PostModel model = new PostModel();
-
-        model.setPostCode(postCode);
-        model.setPostName(postName);
-        model.setPostSort(postSort);
-        model.setRemark(remark);
-        model.setStatus(Convert.toInt(status));
-
-        return model;
-    }
-
 }

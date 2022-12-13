@@ -48,7 +48,7 @@ public class SysMenuController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:menu:list')")
     @GetMapping("/list")
-    public ResponseDTO<List> list(MenuQuery query) {
+    public ResponseDTO<?> list(MenuQuery query) {
         List<MenuDTO> menuList = menuApplicationService.getMenuList(query);
         return ResponseDTO.ok(menuList);
     }

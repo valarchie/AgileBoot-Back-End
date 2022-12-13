@@ -16,7 +16,7 @@ public class OfflineIpRegionUtilTest {
     }
 
     @Test
-    public void testGetIpRegionWithIpv6() {
+    void testGetIpRegionWithIpv6() {
         IpRegion region = Assertions.assertDoesNotThrow(() ->
             OfflineIpRegionUtil.getIpRegion("2001:0DB8:0000:0023:0008:0800:200C:417A")
         );

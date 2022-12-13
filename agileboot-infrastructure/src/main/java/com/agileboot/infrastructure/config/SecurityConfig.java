@@ -55,14 +55,6 @@ public class SecurityConfig {
     @NonNull
     private CorsFilter corsFilter;
 
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(
-//        AuthenticationConfiguration authConfig) throws Exception {
-//        return authConfig.getAuthenticationManager();
-//    }
-
-
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder,
         UserDetailsService userDetailService)

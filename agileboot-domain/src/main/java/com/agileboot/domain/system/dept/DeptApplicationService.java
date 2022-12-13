@@ -73,7 +73,7 @@ public class DeptApplicationService {
     }
 
 
-    public void addDept(AddDeptCommand addCommand, LoginUser loginUser) {
+    public void addDept(AddDeptCommand addCommand) {
         DeptModel deptModel = DeptModelFactory.loadFromAddCommand(addCommand, new DeptModel());
 
         deptModel.checkDeptNameUnique(deptService);
@@ -82,7 +82,7 @@ public class DeptApplicationService {
         deptModel.insert();
     }
 
-    public void updateDept(UpdateDeptCommand updateCommand, LoginUser loginUser) {
+    public void updateDept(UpdateDeptCommand updateCommand) {
         DeptModel deptModel = DeptModelFactory.loadFromDb(updateCommand.getDeptId(), deptService);
         deptModel.loadUpdateCommand(updateCommand);
 

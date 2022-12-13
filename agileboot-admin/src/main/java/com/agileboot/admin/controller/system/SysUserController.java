@@ -123,7 +123,7 @@ public class SysUserController extends BaseController {
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{userIds}")
     public ResponseDTO<?> remove(@PathVariable List<Long> userIds) {
-        BulkOperationCommand<Long> bulkDeleteCommand = new BulkOperationCommand(userIds);
+        BulkOperationCommand<Long> bulkDeleteCommand = new BulkOperationCommand<>(userIds);
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         userApplicationService.deleteUsers(loginUser, bulkDeleteCommand);
         return ResponseDTO.ok();

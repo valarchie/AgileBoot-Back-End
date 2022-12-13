@@ -79,8 +79,7 @@ public class SysRoleController extends BaseController {
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
     public ResponseDTO<?> add(@RequestBody AddRoleCommand addCommand) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        roleApplicationService.addRole(addCommand, loginUser);
+        roleApplicationService.addRole(addCommand);
         return ResponseDTO.ok();
     }
 
@@ -91,8 +90,7 @@ public class SysRoleController extends BaseController {
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
     @DeleteMapping(value = "/{roleId}")
     public ResponseDTO<?> remove(@PathVariable("roleId")List<Long> roleIds) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        roleApplicationService.deleteRoleByBulk(roleIds, loginUser);
+        roleApplicationService.deleteRoleByBulk(roleIds);
         return ResponseDTO.ok();
     }
 
@@ -128,10 +126,9 @@ public class SysRoleController extends BaseController {
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{roleId}/status")
     public ResponseDTO<?> changeStatus(@PathVariable("roleId")Long roleId, @RequestBody UpdateStatusCommand command) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setRoleId(roleId);
 
-        roleApplicationService.updateStatus(command, loginUser);
+        roleApplicationService.updateStatus(command);
         return ResponseDTO.ok();
     }
 

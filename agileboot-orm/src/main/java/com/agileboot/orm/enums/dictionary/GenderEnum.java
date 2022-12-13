@@ -43,8 +43,4 @@ public enum GenderEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static GenderEnum getDefault() {
-        return MALE;
-    }
-
 }

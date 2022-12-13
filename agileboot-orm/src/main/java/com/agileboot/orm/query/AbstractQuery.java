@@ -71,7 +71,7 @@ public abstract class AbstractQuery {
     public boolean convertSortDirection() {
         boolean orderDirection = true;
         if (StrUtil.isNotEmpty(isAsc)) {
-            // 兼容前端排序类型
+            // 兼容前端排序类型 TODO 看看如何优化
             if (ASC.equals(isAsc)) {
                 orderDirection = true;
             } else if (DESC.equals(isAsc)) {

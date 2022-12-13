@@ -20,12 +20,12 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 @Slf4j
 public class ThreadPoolManager {
 
-    private final static ThreadPoolExecutor THREAD_EXECUTOR = new ThreadPoolExecutor(
+    private static final ThreadPoolExecutor THREAD_EXECUTOR = new ThreadPoolExecutor(
         ThreadConfig.CORE_POOL_SIZE, ThreadConfig.MAX_POOL_SIZE,
         ThreadConfig.KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
         new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
 
-    private final static ScheduledExecutorService SCHEDULED_EXECUTOR = new ScheduledThreadPoolExecutor(
+    private static final ScheduledExecutorService SCHEDULED_EXECUTOR = new ScheduledThreadPoolExecutor(
         ThreadConfig.CORE_POOL_SIZE,
         new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
         new ThreadPoolExecutor.CallerRunsPolicy()) {

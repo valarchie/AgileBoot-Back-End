@@ -13,7 +13,7 @@ public class JsonXssConfiguration {
     @Bean
     Jackson2ObjectMapperBuilder objectMapperBuilder() {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-        builder.deserializers(new JsonHtmlXssSerializer());
+        builder.deserializers(new JsonHtmlXssTrimSerializer());
         return builder;
     }
 

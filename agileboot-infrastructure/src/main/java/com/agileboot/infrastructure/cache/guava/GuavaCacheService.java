@@ -23,14 +23,14 @@ public class GuavaCacheService {
     @NonNull
     private ISysDeptService deptService;
 
-    public AbstractGuavaCacheTemplate<String> configCache = new AbstractGuavaCacheTemplate<String>() {
+    public final AbstractGuavaCacheTemplate<String> configCache = new AbstractGuavaCacheTemplate<String>() {
         @Override
         public String getObjectFromDb(Object id) {
             return configService.getConfigValueByKey(id.toString());
         }
     };
 
-    public AbstractGuavaCacheTemplate<SysDeptEntity> deptCache = new AbstractGuavaCacheTemplate<SysDeptEntity>() {
+    public final AbstractGuavaCacheTemplate<SysDeptEntity> deptCache = new AbstractGuavaCacheTemplate<SysDeptEntity>() {
         @Override
         public SysDeptEntity getObjectFromDb(Object id) {
             return deptService.getById(id.toString());
