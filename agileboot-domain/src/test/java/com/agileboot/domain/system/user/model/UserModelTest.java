@@ -48,8 +48,8 @@ class UserModelTest {
         userWithNewNumber.setUserId(USER_ID);
         userWithNewNumber.setPhoneNumber("222222");
 
-        when(userService.isPhoneDuplicated(eq("111111"), eq(USER_ID))).thenReturn(true);
-        when(userService.isPhoneDuplicated(eq("222222"), eq(USER_ID))).thenReturn(false);
+        when(userService.isPhoneDuplicated("111111", USER_ID)).thenReturn(true);
+        when(userService.isPhoneDuplicated("222222", USER_ID)).thenReturn(false);
 
         ApiException exception = assertThrows(ApiException.class,
             () -> userWithSameNumber.checkPhoneNumberIsUnique(userService));

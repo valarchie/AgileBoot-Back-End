@@ -1,5 +1,6 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
@@ -7,6 +8,7 @@ import com.agileboot.orm.enums.interfaces.DictionaryEnum;
  *
  * @author valarchie
  */
+@Dictionary(name = "sys_user_sex")
 public enum GenderEnum implements DictionaryEnum<Integer> {
 
     /**
@@ -43,10 +45,6 @@ public enum GenderEnum implements DictionaryEnum<Integer> {
 
     public static GenderEnum getDefault() {
         return MALE;
-    }
-
-    public static String getDictName() {
-        return "sys_user_sex";
     }
 
 }

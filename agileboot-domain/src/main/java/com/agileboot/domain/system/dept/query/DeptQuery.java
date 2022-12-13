@@ -5,11 +5,13 @@ import com.agileboot.orm.entity.SysDeptEntity;
 import com.agileboot.orm.query.AbstractQuery;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class DeptQuery extends AbstractQuery {

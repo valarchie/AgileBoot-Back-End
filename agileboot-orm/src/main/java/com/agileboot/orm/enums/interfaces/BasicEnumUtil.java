@@ -10,13 +10,13 @@ import java.util.Objects;
  */
 public class BasicEnumUtil {
 
-    public static String UNKNOWN = "未知";
+    public static final String UNKNOWN = "未知";
 
     public static <E extends Enum<E>> E fromValueSafely(Class<E> enumClass, Object value) {
         E target = null;
 
-        for (Object enumConstant : enumClass.getEnumConstants()) {
-            BasicEnum basicEnum = (BasicEnum) enumConstant;
+        for (E enumConstant : enumClass.getEnumConstants()) {
+            BasicEnum<?> basicEnum = (BasicEnum<?>) enumConstant;
             if (Objects.equals(basicEnum.getValue(), value)) {
                 target = (E) basicEnum;
             }
@@ -28,7 +28,7 @@ public class BasicEnumUtil {
     public static <E extends Enum<E>> E fromValue(Class<E> enumClass, Object value) {
         E target = null;
 
-        for (Object enumConstant : enumClass.getEnumConstants()) {
+        for (E enumConstant : enumClass.getEnumConstants()) {
             BasicEnum basicEnum = (BasicEnum) enumConstant;
             if (Objects.equals(basicEnum.getValue(), value)) {
                 target = (E) basicEnum;
@@ -50,7 +50,7 @@ public class BasicEnumUtil {
     public static <E extends Enum<E>> String getDescriptionByValue(Class<E> enumClass, Object value) {
         E basicEnum = fromValueSafely(enumClass, value);
         if (basicEnum != null) {
-            return ((BasicEnum) basicEnum).description();
+            return ((BasicEnum<?>) basicEnum).description();
         }
         return UNKNOWN;
     }

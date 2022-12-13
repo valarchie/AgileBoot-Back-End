@@ -1,11 +1,13 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_menu表的is_visible字段
  * @author valarchie
  */
+@Dictionary(name = "sys_visible")
 public enum VisibleStatusEnum implements DictionaryEnum<Integer> {
 
     /**
@@ -43,8 +45,5 @@ public enum VisibleStatusEnum implements DictionaryEnum<Integer> {
         return SHOW;
     }
 
-    public static String getDictName() {
-        return "sys_visible";
-    }
 
 }

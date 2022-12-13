@@ -1,11 +1,14 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_operation_log的business_type
+ *
  * @author valarchie
  */
+@Dictionary(name = "sys_operation_type")
 public enum BusinessTypeEnum implements DictionaryEnum<Integer> {
 
     /**
@@ -19,7 +22,8 @@ public enum BusinessTypeEnum implements DictionaryEnum<Integer> {
     EXPORT(5, "导出", CssTag.WARNING),
     IMPORT(6, "导入", CssTag.WARNING),
     FORCE_LOGOUT(7, "强退", CssTag.DANGER),
-    CLEAN(8, "清空", CssTag.DANGER);
+    CLEAN(8, "清空", CssTag.DANGER),
+    ;
 
     private final int value;
     private final String description;
@@ -44,10 +48,6 @@ public enum BusinessTypeEnum implements DictionaryEnum<Integer> {
     @Override
     public String cssTag() {
         return cssTag;
-    }
-
-    public static String getDictName() {
-        return "sys_operation_type";
     }
 
 }

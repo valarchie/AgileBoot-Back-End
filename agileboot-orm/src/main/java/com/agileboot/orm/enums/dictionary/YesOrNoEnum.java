@@ -1,11 +1,13 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 系统内代表是与否的枚举
  * @author valarchie
  */
+@Dictionary(name = "sys_yes_no")
 public enum YesOrNoEnum implements DictionaryEnum<Integer> {
     /**
      * 是与否
@@ -39,10 +41,5 @@ public enum YesOrNoEnum implements DictionaryEnum<Integer> {
     public String cssTag() {
         return cssTag;
     }
-
-    public static String getDictName() {
-        return "sys_yes_no";
-    }
-
 
 }

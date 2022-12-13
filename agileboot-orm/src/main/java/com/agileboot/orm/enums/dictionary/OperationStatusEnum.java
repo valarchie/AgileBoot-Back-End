@@ -1,11 +1,13 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_operation_log的status字段
  * @author valarchie
  */
+@Dictionary(name = "sys_operation_status")
 public enum OperationStatusEnum implements DictionaryEnum<Integer> {
 
     /**
@@ -39,8 +41,5 @@ public enum OperationStatusEnum implements DictionaryEnum<Integer> {
         return cssTag;
     }
 
-    public static String getDictName() {
-        return "sys_operation_status";
-    }
 
 }

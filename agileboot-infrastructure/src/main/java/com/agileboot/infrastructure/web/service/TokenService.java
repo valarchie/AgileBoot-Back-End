@@ -121,12 +121,11 @@ public class TokenService {
 
     /**
      * 验证令牌有效期，相差不足20分钟，自动刷新token
-     * @param loginUser
+     * @param loginUser 登录用户
      */
     public void verifyToken(LoginUser loginUser) {
-        long expireTime = loginUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
-        if (expireTime - currentTime <= TimeUnit.MINUTES.toMillis(autoRefreshTime)) {
+        if (loginUser.getExpireTime() - currentTime <= TimeUnit.MINUTES.toMillis(autoRefreshTime)) {
             refreshToken(loginUser);
         }
     }

@@ -3,6 +3,8 @@ package com.agileboot.infrastructure.cache.map;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.ClassUtil;
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.dictionary.BusinessTypeEnum;
 import com.agileboot.orm.enums.dictionary.GenderEnum;
 import com.agileboot.orm.enums.dictionary.NoticeStatusEnum;
@@ -16,6 +18,7 @@ import com.agileboot.orm.result.DictionaryData;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +28,7 @@ import java.util.stream.Collectors;
  */
 public class MapCache {
 
-    private final static Map<String, List<DictionaryData>> DICTIONARY_CACHE = MapUtil.newHashMap(128);
+    private static final Map<String, List<DictionaryData>> DICTIONARY_CACHE = MapUtil.newHashMap(128);
 
     static {
         initDictionaryCache();
@@ -33,19 +36,33 @@ public class MapCache {
 
     private static void initDictionaryCache() {
 
-        DICTIONARY_CACHE.put(BusinessTypeEnum.getDictName(), arrayToList(BusinessTypeEnum.values()));
-        DICTIONARY_CACHE.put(YesOrNoEnum.getDictName(), arrayToList(YesOrNoEnum.values()));
-        DICTIONARY_CACHE.put(StatusEnum.getDictName(), arrayToList(StatusEnum.values()));
-        DICTIONARY_CACHE.put(GenderEnum.getDictName(), arrayToList(GenderEnum.values()));
-        DICTIONARY_CACHE.put(NoticeStatusEnum.getDictName(), arrayToList(NoticeStatusEnum.values()));
-        DICTIONARY_CACHE.put(NoticeTypeEnum.getDictName(), arrayToList(NoticeTypeEnum.values()));
-        DICTIONARY_CACHE.put(OperationStatusEnum.getDictName(), arrayToList(OperationStatusEnum.values()));
-        DICTIONARY_CACHE.put(VisibleStatusEnum.getDictName(), arrayToList(VisibleStatusEnum.values()));
+        loadInCache(BusinessTypeEnum.values());
+        loadInCache(YesOrNoEnum.values());
+        loadInCache(StatusEnum.values());
+        loadInCache(GenderEnum.values());
+        loadInCache(NoticeStatusEnum.values());
+        loadInCache(NoticeTypeEnum.values());
+        loadInCache(OperationStatusEnum.values());
+        loadInCache(VisibleStatusEnum.values());
 
     }
 
+
     public static Map<String, List<DictionaryData>> dictionaryCache() {
         return DICTIONARY_CACHE;
+    }
+
+    private static void loadInCache(DictionaryEnum[] dictionaryEnums) {
+        DICTIONARY_CACHE.put(getDictionaryName(dictionaryEnums[0].getClass()), arrayToList(dictionaryEnums));
+    }
+
+
+    private static String getDictionaryName(Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+        Dictionary annotation = clazz.getAnnotation(Dictionary.class);
+
+        Objects.requireNonNull(annotation);
+        return annotation.name();
     }
 
     @SuppressWarnings("rawtypes")

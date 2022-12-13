@@ -1,11 +1,13 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 除非表有特殊指明的话，一般用这个枚举代表 status字段
  * @author valarchie
  */
+@Dictionary(name = "sys_status")
 public enum StatusEnum implements DictionaryEnum<Integer> {
     /**
      * 开关状态
@@ -42,7 +44,4 @@ public enum StatusEnum implements DictionaryEnum<Integer> {
         return ENABLE;
     }
 
-    public static String getDictName() {
-        return "sys_status";
-    }
 }

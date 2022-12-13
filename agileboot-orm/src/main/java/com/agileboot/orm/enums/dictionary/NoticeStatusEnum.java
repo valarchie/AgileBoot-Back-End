@@ -1,11 +1,13 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_notice的 status字段
  * @author valarchie
  */
+@Dictionary(name = "sys_notice_status")
 public enum NoticeStatusEnum implements DictionaryEnum<Integer> {
 
     /**
@@ -43,7 +45,4 @@ public enum NoticeStatusEnum implements DictionaryEnum<Integer> {
         return OPEN;
     }
 
-    public static String getDictName() {
-        return "sys_notice_status";
-    }
 }

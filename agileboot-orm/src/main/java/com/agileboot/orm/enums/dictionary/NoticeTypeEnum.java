@@ -1,11 +1,13 @@
 package com.agileboot.orm.enums.dictionary;
 
+import com.agileboot.orm.enums.annotations.Dictionary;
 import com.agileboot.orm.enums.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_notice的 notice_type字段
  * @author valarchie
  */
+@Dictionary(name = "sys_notice_type")
 public enum NoticeTypeEnum implements DictionaryEnum<Integer> {
 
     /**
@@ -43,7 +45,4 @@ public enum NoticeTypeEnum implements DictionaryEnum<Integer> {
         return NOTIFICATION;
     }
 
-    public static String getDictName() {
-        return "sys_notice_type";
-    }
 }
