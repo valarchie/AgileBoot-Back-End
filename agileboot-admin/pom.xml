@@ -18,28 +18,11 @@
 
     <dependencies>
 
-        <!-- spring-boot-devtools -->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            &lt;!&ndash; 表示依赖不会传递 &ndash;&gt;
-            <optional>true</optional>
-        </dependency>-->
-
-
-
-         <!-- Mysql驱动包 -->
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--        </dependency>-->
-
         <!-- 核心模块-->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-infrastructure</artifactId>
         </dependency>
-
 
         <!-- 业务领域 -->
         <dependency>
@@ -58,7 +41,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
 
     </dependencies>
 

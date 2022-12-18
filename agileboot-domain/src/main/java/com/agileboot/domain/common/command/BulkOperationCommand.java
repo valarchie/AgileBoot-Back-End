@@ -3,6 +3,8 @@ package com.agileboot.domain.common.command;
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import lombok.Data;
 
@@ -16,10 +18,10 @@ public class BulkOperationCommand<T> {
         if (CollUtil.isEmpty(idList)) {
             throw new ApiException(ErrorCode.Business.BULK_DELETE_IDS_IS_INVALID);
         }
-
-        this.ids = idList;
+        // 移除重复元素
+        this.ids = new HashSet<>(idList);
     }
 
-    private List<T> ids;
+    private Collection<T> ids;
 
 }

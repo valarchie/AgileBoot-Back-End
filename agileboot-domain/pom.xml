@@ -46,12 +46,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!--
-        &lt;!&ndash; 核心模块&ndash;&gt;
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-infrastructure</artifactId>
-        </dependency>-->
 
 
     </dependencies>

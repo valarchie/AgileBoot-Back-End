@@ -49,12 +49,6 @@ public class TokenService {
     private String secret;
 
     /**
-     * 令牌有效期
-     */
-    @Value("${token.expireTime}")
-    private int expireTime;
-
-    /**
      * 自动刷新token的时间
      */
     @Value("${token.autoRefreshTime}")

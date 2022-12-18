@@ -35,7 +35,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- pagehelper 分页插件 -->
+        <!-- page helper 分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -151,14 +151,12 @@
         <dependency>
             <groupId>org.lionsoul</groupId>
             <artifactId>ip2region</artifactId>
-            <version>2.6.5</version>
         </dependency>
 
         <!-- 防止进入swagger页面报类型转换错误，排除3.0.0中的引用，手动增加1.6.2版本 -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
-            <version>1.6.2</version>
         </dependency>
 
         <dependency>
@@ -171,11 +169,9 @@
             <artifactId>commons-validator</artifactId>
         </dependency>
 
-        <!--   TODO 正式环境请注释掉  version需要统一管理   -->
         <dependency>
             <groupId>it.ozimov</groupId>
             <artifactId>embedded-redis</artifactId>
-            <version>0.7.3</version>
             <!-- 不排除掉slf4j的话 会冲突-->
             <exclusions>
                 <exclusion>

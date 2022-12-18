@@ -32,12 +32,15 @@
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <hutool.version>5.7.22</hutool.version>
-<!--     TODO 确定不用可删除 找个时间 整理pom文件   <junit.version>4.13.1</junit.version>-->
         <lombok.version>1.18.24</lombok.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <mockito.version>1.10.19</mockito.version>
         <common-validator.version>1.7</common-validator.version>
+        <it.ozimov.version>0.7.3</it.ozimov.version>
+        <io.swagger.version>1.6.2</io.swagger.version>
+        <org.lionsoul.version>2.6.5</org.lionsoul.version>
+        <com.google.guava.version>31.0.1-jre</com.google.guava.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -240,6 +243,33 @@
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- 获取系统信息 -->
+            <dependency>
+                <groupId>it.ozimov</groupId>
+                <artifactId>embedded-redis</artifactId>
+                <version>${it.ozimov.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${io.swagger.version}</version>
+            </dependency>
+
+            <!-- 本地ip库 -->
+            <dependency>
+                <groupId>org.lionsoul</groupId>
+                <artifactId>ip2region</artifactId>
+                <version>${org.lionsoul.version}</version>
+            </dependency>
+
+            <!-- 引入guava包 -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${com.google.guava.version}</version>
             </dependency>
 
         </dependencies>

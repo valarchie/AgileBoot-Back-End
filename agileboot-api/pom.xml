@@ -18,30 +18,18 @@
 
     <dependencies>
 
-        <!-- 定时任务 暂时不用 -->
-        <!--<dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.mchange</groupId>
-                    <artifactId>c3p0</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
-
         <!-- 核心模块-->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-infrastructure</artifactId>
         </dependency>
 
-
         <!-- 业务领域 -->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-domain</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>
