@@ -88,7 +88,7 @@ public class SysNoticeController extends BaseController {
     @PreAuthorize("@permission.has('system:notice:remove')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{noticeIds}")
-    public ResponseDTO<?> remove(@PathVariable List<Long> noticeIds) {
+    public ResponseDTO<?> remove(@PathVariable List<Integer> noticeIds) {
         noticeApplicationService.deleteNotice(new BulkOperationCommand<>(noticeIds));
         return ResponseDTO.ok();
     }

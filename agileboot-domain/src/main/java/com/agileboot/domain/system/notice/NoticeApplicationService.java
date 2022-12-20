@@ -58,7 +58,7 @@ public class NoticeApplicationService {
         noticeModel.updateById();
     }
 
-    public void deleteNotice(BulkOperationCommand<Long> deleteCommand) {
+    public void deleteNotice(BulkOperationCommand<Integer> deleteCommand) {
         noticeService.removeBatchByIds(deleteCommand.getIds());
     }
 
