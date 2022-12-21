@@ -243,7 +243,7 @@ public enum ErrorCode implements ErrorCodeInterface {
          */
         COMMON_FORBIDDEN_TO_CALL(Module.COMMON, 1, "禁止调用"),
 
-        COMMON_REQUEST_TO_OFTEN(Module.COMMON, 2, "调用太过频繁"),
+        COMMON_REQUEST_TOO_OFTEN(Module.COMMON, 2, "调用太过频繁"),
 
         COMMON_REQUEST_PARAMETERS_INVALID(Module.COMMON, 3, "请求参数异常，{}"),
 

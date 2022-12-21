@@ -12,10 +12,14 @@ import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.dto.UserDTO;
+import com.agileboot.infrastructure.annotations.RateLimit;
+import com.agileboot.infrastructure.annotations.RateLimit.CacheType;
+import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +55,8 @@ public class LoginController {
      * 访问首页，提示语
      */
     @RequestMapping("/")
+    @RateLimit(key = RateLimitKey.TEST_KEY, time = 10, maxCount = 5, cacheType = CacheType.Map,
+        limitType = LimitType.GLOBAL)
     public String index() {
         return StrUtil.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。",
             agileBootConfig.getName(), agileBootConfig.getVersion());
@@ -59,6 +65,8 @@ public class LoginController {
     /**
      * 生成验证码
      */
+    @RateLimit(key = RateLimitKey.LOGIN_CAPTCHA_KEY, time = 10, maxCount = 10, cacheType = CacheType.REDIS,
+        limitType = LimitType.IP)
     @GetMapping("/captchaImage")
     public ResponseDTO<CaptchaDTO> getCaptchaImg() {
         CaptchaDTO captchaImg = loginService.getCaptchaImg();

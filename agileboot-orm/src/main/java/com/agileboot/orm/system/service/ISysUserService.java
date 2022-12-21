@@ -1,9 +1,9 @@
 package com.agileboot.orm.system.service;
 
+import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.system.result.SearchUserDO;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;

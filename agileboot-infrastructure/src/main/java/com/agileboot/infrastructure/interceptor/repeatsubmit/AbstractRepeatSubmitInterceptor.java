@@ -28,7 +28,7 @@ public abstract class AbstractRepeatSubmitInterceptor implements HandlerIntercep
             RepeatSubmit annotation = method.getAnnotation(RepeatSubmit.class);
             if (annotation != null) {
                 if (this.isRepeatSubmit(request, annotation)) {
-                    ResponseDTO<Object> responseDTO = ResponseDTO.fail(Client.COMMON_REQUEST_TO_OFTEN);
+                    ResponseDTO<Object> responseDTO = ResponseDTO.fail(Client.COMMON_REQUEST_TOO_OFTEN);
                     ServletHolderUtil.renderString(response, JSONUtil.toJsonStr(responseDTO));
                     return false;
                 }

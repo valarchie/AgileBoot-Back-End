@@ -1,10 +1,10 @@
 package com.agileboot.orm.system.service.impl;
 
+import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.mapper.SysUserMapper;
-import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.system.result.SearchUserDO;
 import com.agileboot.orm.system.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

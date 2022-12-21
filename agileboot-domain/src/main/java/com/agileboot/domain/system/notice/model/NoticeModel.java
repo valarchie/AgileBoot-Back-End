@@ -2,10 +2,10 @@ package com.agileboot.domain.system.notice.model;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
-import com.agileboot.orm.system.entity.SysNoticeEntity;
 import com.agileboot.orm.common.enums.NoticeTypeEnum;
 import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.system.entity.SysNoticeEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

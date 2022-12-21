@@ -48,7 +48,7 @@ public abstract class AbstractGuavaCacheTemplate<T> {
         // 开启缓存统计。比如命中次数、未命中次数等
         .recordStats()
         // 所有segment的初始总容量大小
-        .initialCapacity(512)
+        .initialCapacity(128)
         // 用于测试，可任意改变当前时间。参考：https://www.geek-share.com/detail/2689756248.html
         .ticker(new Ticker() {
             @Override

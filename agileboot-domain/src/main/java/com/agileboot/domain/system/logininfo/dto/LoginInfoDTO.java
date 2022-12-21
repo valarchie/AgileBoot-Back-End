@@ -2,9 +2,9 @@ package com.agileboot.domain.system.logininfo.dto;
 
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
-import com.agileboot.orm.system.entity.SysLoginInfoEntity;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.system.entity.SysLoginInfoEntity;
 import java.util.Date;
 import lombok.Data;
 

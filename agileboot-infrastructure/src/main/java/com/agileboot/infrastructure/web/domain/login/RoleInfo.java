@@ -2,9 +2,9 @@ package com.agileboot.infrastructure.web.domain.login;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.common.enums.DataScopeEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.system.entity.SysRoleEntity;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;

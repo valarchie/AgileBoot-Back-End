@@ -1,8 +1,8 @@
 package com.agileboot.domain.system.dept.query;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.common.query.AbstractQuery;
+import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
