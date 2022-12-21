@@ -1,7 +1,7 @@
 package com.agileboot.admin.config;
 
 
-import com.agileboot.admin.AgileBooAdminApplication;
+import com.agileboot.admin.AgileBootAdminApplication;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants.UploadSubDir;
 import java.io.File;
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest(classes = AgileBooAdminApplication.class)
+@SpringBootTest(classes = AgileBootAdminApplication.class)
 @RunWith(SpringRunner.class)
 public class AgileBootConfigTest {
 
