@@ -16,10 +16,10 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan(basePackages = "com.agileboot.*")
-public class AgileBooAdminApplication {
+public class AgileBootAdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AgileBooAdminApplication.class, args);
+        SpringApplication.run(AgileBootAdminApplication.class, args);
         String successMsg = "  ____   _                _                                                           __         _  _ \n"
                           + " / ___| | |_  __ _  _ __ | |_   _   _  _ __    ___  _   _   ___  ___  ___  ___  ___  / _| _   _ | || |\n"
                           + " \\___ \\ | __|/ _` || '__|| __| | | | || '_ \\  / __|| | | | / __|/ __|/ _ \\/ __|/ __|| |_ | | | || || |\n"
