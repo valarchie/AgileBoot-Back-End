@@ -20,10 +20,9 @@ public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper {
 
     private final byte[] body;
 
-    public RepeatedlyRequestWrapper(HttpServletRequest request, ServletResponse response) throws IOException {
+    public RepeatedlyRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         body = ServletUtil.getBodyBytes(request);
     }
 

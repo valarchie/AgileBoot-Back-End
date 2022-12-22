@@ -5,7 +5,6 @@ import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
-import com.agileboot.infrastructure.interceptor.repeatsubmit.RepeatRequest;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -27,8 +26,6 @@ public class CacheCenter {
 
     public static RedisCacheTemplate<LoginUser> loginUserCache;
 
-    public static RedisCacheTemplate<RepeatRequest> repeatSubmitCache;
-
     public static RedisCacheTemplate<SysUserEntity> userCache;
 
     @PostConstruct
@@ -41,7 +38,6 @@ public class CacheCenter {
 
         captchaCache = redisCache.captchaCache;
         loginUserCache = redisCache.loginUserCache;
-        repeatSubmitCache = redisCache.repeatSubmitCache;
         userCache = redisCache.userCache;
     }
 

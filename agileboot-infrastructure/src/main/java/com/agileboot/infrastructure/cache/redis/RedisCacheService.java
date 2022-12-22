@@ -2,7 +2,6 @@ package com.agileboot.infrastructure.cache.redis;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.RedisUtil;
-import com.agileboot.infrastructure.interceptor.repeatsubmit.RepeatRequest;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysUserService;
@@ -24,7 +23,6 @@ public class RedisCacheService {
 
     public RedisCacheTemplate<String> captchaCache;
     public RedisCacheTemplate<LoginUser> loginUserCache;
-    public RedisCacheTemplate<RepeatRequest> repeatSubmitCache;
     public RedisCacheTemplate<SysUserEntity> userCache;
 
     @PostConstruct
@@ -33,8 +31,6 @@ public class RedisCacheService {
         captchaCache = new RedisCacheTemplate<>(redisUtil, CacheKeyEnum.CAPTCHAT);
 
         loginUserCache = new RedisCacheTemplate<>(redisUtil, CacheKeyEnum.LOGIN_USER_KEY);
-
-        repeatSubmitCache = new RedisCacheTemplate<>(redisUtil, CacheKeyEnum.REPEAT_SUBMIT_KEY);
 
         userCache = new RedisCacheTemplate(redisUtil, CacheKeyEnum.USER_ENTITY_KEY) {
             @Override

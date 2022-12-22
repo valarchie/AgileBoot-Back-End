@@ -7,12 +7,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 过滤器模板代码
  * @author valarchie
  */
-public class TestFilter implements Filter {
+public class RepeatReadRequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -22,8 +23,9 @@ public class TestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
-        // 实现你的逻辑
-        chain.doFilter(request, response);
+        HttpServletRequest currentRequest = (HttpServletRequest) request;
+        RepeatedlyRequestWrapper wrappedRequest = new RepeatedlyRequestWrapper(currentRequest);
+        chain.doFilter(wrappedRequest, response);
     }
 
     @Override

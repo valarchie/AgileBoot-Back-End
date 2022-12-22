@@ -10,6 +10,7 @@ import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.domain.system.notice.dto.NoticeDTO;
 import com.agileboot.domain.system.notice.query.NoticeQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
+import com.agileboot.infrastructure.annotations.Resubmit;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -63,6 +64,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 新增通知公告
      */
+    @Resubmit(interval = 60)
     @PreAuthorize("@permission.has('system:notice:add')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
     @PostMapping

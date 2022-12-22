@@ -12,7 +12,6 @@ public enum CacheKeyEnum {
      */
     CAPTCHAT("captcha_codes:", 2, TimeUnit.MINUTES),
     LOGIN_USER_KEY("login_tokens:", 30, TimeUnit.MINUTES),
-    REPEAT_SUBMIT_KEY("repeat_submit:", 5, TimeUnit.SECONDS),
     RATE_LIMIT_KEY("rate_limit:", 60, TimeUnit.SECONDS),
     USER_ENTITY_KEY("user_entity:", 60, TimeUnit.MINUTES),
 

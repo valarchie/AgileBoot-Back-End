@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class GlobalExceptionInterceptor {
 
     /**
      * 权限校验异常

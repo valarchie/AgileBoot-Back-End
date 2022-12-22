@@ -249,6 +249,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         COMMON_REQUEST_METHOD_INVALID(Module.COMMON, 4, "请求方式: {} 不支持"),
 
+        COMMON_REQUEST_RESUBMIT(Module.COMMON, 5, "请求重复提交"),
+
         COMMON_NO_AUTHORIZATION(Module.PERMISSION, 1, "请求接口：{} 失败，用户未授权"),
 
         ;
