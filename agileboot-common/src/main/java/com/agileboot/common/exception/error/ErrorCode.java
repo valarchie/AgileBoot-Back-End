@@ -291,6 +291,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         GET_CACHE_FAILED(Module.COMMON, 4, "获取缓存失败"),
 
+        INTERNAL_ERROR(Module.COMMON, 5, "系统内部错误：{}"),
+
         LOGIN_CAPTCHA_GENERATE_FAIL(Module.LOGIN, 1, "验证码生成失败"),
 
         INVALID_TOKEN(Module.PERMISSION, 1, "token异常"),
