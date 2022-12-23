@@ -10,12 +10,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * 通用配置
  *
- * @author ruoyi
+ * @author valarchie
  */
 @Configuration
 @RequiredArgsConstructor
 public class ResourcesConfig implements WebMvcConfigurer {
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -27,7 +26,5 @@ public class ResourcesConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/swagger-ui/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }
-
-
 
 }

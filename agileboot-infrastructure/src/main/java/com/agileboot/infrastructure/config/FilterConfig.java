@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.config;
 
 import com.agileboot.infrastructure.filter.GlobalExceptionFilter;
-import com.agileboot.infrastructure.filter.RepeatReadRequestFilter;
+import com.agileboot.infrastructure.filter.TestFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +17,9 @@ import org.springframework.web.filter.CorsFilter;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<RepeatReadRequestFilter> testFilterRegistrationBean() {
-        FilterRegistrationBean<RepeatReadRequestFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new RepeatReadRequestFilter());
+    public FilterRegistrationBean<TestFilter> testFilterRegistrationBean() {
+        FilterRegistrationBean<TestFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new TestFilter());
         registration.addUrlPatterns("/*");
         registration.setName("testFilter");
         registration.setOrder(2);
