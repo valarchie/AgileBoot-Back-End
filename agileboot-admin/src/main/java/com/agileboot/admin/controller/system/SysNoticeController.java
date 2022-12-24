@@ -12,6 +12,7 @@ import com.agileboot.domain.system.notice.query.NoticeQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.annotations.Resubmit;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -48,6 +49,18 @@ public class SysNoticeController extends BaseController {
     @PreAuthorize("@permission.has('system:notice:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO> list(NoticeQuery query) {
+        PageDTO pageDTO = noticeApplicationService.getNoticeList(query);
+        return ResponseDTO.ok(pageDTO);
+    }
+
+    /**
+     * 获取通知公告列表
+     * 从从库获取数据 例子 仅供参考
+     */
+    @DS("slave")
+    @PreAuthorize("@permission.has('system:notice:list')")
+    @GetMapping("/listFromSlave")
+    public ResponseDTO<PageDTO> listFromSlave(NoticeQuery query) {
         PageDTO pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
     }

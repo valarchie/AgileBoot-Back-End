@@ -55,6 +55,9 @@ public class SecurityConfig {
     @NonNull
     private CorsFilter corsFilter;
 
+    /**
+     * @see com.agileboot.infrastructure.web.service.UserDetailsServiceImpl#loadUserByUsername
+     */
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder,
         UserDetailsService userDetailService)
@@ -116,7 +119,6 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
-
 
 
 }

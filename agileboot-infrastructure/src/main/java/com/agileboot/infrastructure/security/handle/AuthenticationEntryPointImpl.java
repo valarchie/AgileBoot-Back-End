@@ -26,4 +26,5 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
         ResponseDTO<Object> responseDTO = ResponseDTO.fail(Client.COMMON_NO_AUTHORIZATION, request.getRequestURI());
         ServletHolderUtil.renderString(response, JSONUtil.toJsonStr(responseDTO));
     }
+
 }

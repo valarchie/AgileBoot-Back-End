@@ -194,6 +194,13 @@
             </exclusions>
         </dependency>
 
+        <!-- 多数据源 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 </project>
