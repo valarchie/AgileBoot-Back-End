@@ -2,7 +2,6 @@ package com.agileboot.infrastructure.web.service;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.config.SecurityConfig;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.orm.common.enums.UserStatusEnum;
