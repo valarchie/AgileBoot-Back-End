@@ -1,8 +1,19 @@
 package com.agileboot.infrastructure.config;
 
-import com.agileboot.infrastructure.security.filter.JwtAuthenticationTokenFilter;
-import com.agileboot.infrastructure.security.handle.AuthenticationEntryPointImpl;
-import com.agileboot.infrastructure.security.handle.LogoutSuccessHandlerImpl;
+import cn.hutool.json.JSONUtil;
+import com.agileboot.common.core.dto.ResponseDTO;
+import com.agileboot.common.exception.error.ErrorCode.Client;
+import com.agileboot.common.utils.ServletHolderUtil;
+import com.agileboot.infrastructure.filter.JwtAuthenticationTokenFilter;
+import com.agileboot.infrastructure.thread.AsyncTaskFactory;
+import com.agileboot.infrastructure.thread.ThreadPoolManager;
+import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.service.TokenService;
+import com.agileboot.infrastructure.web.service.UserDetailsServiceImpl;
+import com.agileboot.orm.common.enums.LoginStatusEnum;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,13 +27,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
 /**
+ * 主要配置登录流程逻辑涉及以下几个类
+ * @see UserDetailsServiceImpl#loadUserByUsername  用于登录流程通过用户名加载用户
+ * @see this#loginExceptionHandler 用于登录异常 登录失败处理
+ * @see this#loginOutSuccessHandler 用于退出登录成功后的逻辑
+ * @see JwtAuthenticationTokenFilter#doFilter token的校验和刷新
+ * @see com.agileboot.infrastructure.web.service.LoginService#login 登录逻辑
  * @author valarchie
  */
 @Configuration
@@ -31,23 +49,14 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    /**
-     * 认证失败处理类
-     */
     @NonNull
-    private AuthenticationEntryPointImpl unauthorizedHandler;
-
-    /**
-     * 退出处理类
-     */
-    @NonNull
-    private LogoutSuccessHandlerImpl logoutSuccessHandler;
+    private TokenService tokenService;
 
     /**
      * token认证过滤器
      */
     @NonNull
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
+    private JwtAuthenticationTokenFilter jwtTokenFilter;
 
     /**
      * 跨域过滤器
@@ -55,18 +64,37 @@ public class SecurityConfig {
     @NonNull
     private CorsFilter corsFilter;
 
+
     /**
-     * @see com.agileboot.infrastructure.web.service.UserDetailsServiceImpl#loadUserByUsername
+     * 登录异常处理类
      */
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder,
-        UserDetailsService userDetailService)
-        throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-            .userDetailsService(userDetailService)
-            .passwordEncoder(passwordEncoder)
-            .and()
-            .build();
+    public AuthenticationEntryPoint loginExceptionHandler() {
+        return (request, response, exception) -> {
+            ResponseDTO<Object> responseDTO = ResponseDTO.fail(Client.COMMON_NO_AUTHORIZATION, request.getRequestURI());
+            ServletHolderUtil.renderString(response, JSONUtil.toJsonStr(responseDTO));
+        };
+    }
+
+
+    /**
+     *  退出成功处理类 返回成功
+     *  在SecurityConfig类当中 定义了/logout 路径对应处理逻辑
+     */
+    @Bean
+    public LogoutSuccessHandler loginOutSuccessHandler() {
+        return (request, response, authentication) -> {
+            LoginUser loginUser = tokenService.getLoginUser(request);
+            if (loginUser != null) {
+                String userName = loginUser.getUsername();
+                // 删除用户缓存记录
+                tokenService.deleteLoginUser(loginUser.getToken());
+                // 记录用户退出日志
+                ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(
+                    userName, LoginStatusEnum.LOGOUT, LoginStatusEnum.LOGOUT.description()));
+            }
+            ServletHolderUtil.renderString(response, JSONUtil.toJsonStr(ResponseDTO.ok()));
+        };
     }
 
     /**
@@ -78,13 +106,27 @@ public class SecurityConfig {
     }
 
 
+    /**
+     * 鉴权管理类
+     * @see UserDetailsServiceImpl#loadUserByUsername
+     */
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http, UserDetailsService loadUserService) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+            .userDetailsService(loadUserService)
+            .passwordEncoder(bCryptPasswordEncoder())
+            .and()
+            .build();
+    }
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             // CSRF禁用，因为不使用session
             .csrf().disable()
             // 认证失败处理类
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+            .exceptionHandling().authenticationEntryPoint(loginExceptionHandler()).and()
             // 基于token，所以不需要session
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             // 过滤请求
@@ -110,9 +152,9 @@ public class SecurityConfig {
             .anyRequest().authenticated()
             .and()
             .headers().frameOptions().disable();
-        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(loginOutSuccessHandler());
         // 添加JWT filter
-        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter
         httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
         httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);

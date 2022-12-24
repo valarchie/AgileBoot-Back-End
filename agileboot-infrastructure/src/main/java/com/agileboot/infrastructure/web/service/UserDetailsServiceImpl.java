@@ -2,6 +2,7 @@ package com.agileboot.infrastructure.web.service;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.infrastructure.config.SecurityConfig;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.orm.common.enums.UserStatusEnum;
@@ -22,14 +23,16 @@ import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * 用户验证处理
- *
+ * 自定义加载用户信息通过用户名
+ * 用于SpringSecurity 登录流程
+ * @see com.agileboot.infrastructure.config.SecurityConfig#filterChain(HttpSecurity)
  * @author valarchie
  */
 @Service

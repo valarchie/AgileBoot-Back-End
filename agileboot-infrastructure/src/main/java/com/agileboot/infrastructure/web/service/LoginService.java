@@ -22,17 +22,36 @@ import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
+import com.agileboot.orm.common.enums.UserStatusEnum;
+import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.orm.system.entity.SysRoleEntity;
+import com.agileboot.orm.system.entity.SysRoleMenuEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.orm.system.service.ISysRoleMenuService;
+import com.agileboot.orm.system.service.ISysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.code.kaptcha.Producer;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FastByteArrayOutputStream;
 
@@ -43,15 +62,19 @@ import org.springframework.util.FastByteArrayOutputStream;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class LoginService {
 
-    private final TokenService tokenService;
+    @NonNull
+    private TokenService tokenService;
 
-    private final RedisCacheService redisCacheService;
+    @NonNull
+    private RedisCacheService redisCacheService;
 
-    private final GuavaCacheService guavaCacheService;
+    @NonNull
+    private GuavaCacheService guavaCacheService;
 
-    @Resource
+    @NonNull
     private AuthenticationManager authenticationManager;
 
     @Resource(name = "captchaProducer")
@@ -59,13 +82,6 @@ public class LoginService {
 
     @Resource(name = "captchaProducerMath")
     private Producer captchaProducerMath;
-
-    public LoginService(TokenService tokenService,
-        RedisCacheService redisCacheService, GuavaCacheService guavaCacheService) {
-        this.tokenService = tokenService;
-        this.redisCacheService = redisCacheService;
-        this.guavaCacheService = guavaCacheService;
-    }
 
     /**
      * 登录验证

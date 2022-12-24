@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.security.filter;
+package com.agileboot.infrastructure.filter;
 
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
