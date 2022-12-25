@@ -83,4 +83,5 @@ spring:
                 max-wait: -1ms
 
 logging:
-    config: classpath:logback-dev.xml
+    file:
+        path: D:/logs/agileboot-dev

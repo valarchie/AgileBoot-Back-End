@@ -44,6 +44,9 @@ logging:
     # 记得配置到包名
     com.agileboot: debug
     org.springframework: info
+  pattern:
+    console: "%date %thread %green(%level) [%cyan(%logger{10}):%magenta(%line)] %red(%method) | %msg%n"
+
 
 # Spring配置
 spring:

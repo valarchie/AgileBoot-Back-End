@@ -16,9 +16,9 @@ spring:
                         console:
                             enabled: true
                             settings:
-                                #      开启h2 console 跟踪 方便调试  默认 false
+                                #  开启h2 console 跟踪 方便调试  默认 false
                                 trace: true
-                                #      允许console 远程访问 默认false
+                                #  允许console 远程访问 默认false
                                 web-allow-others: true
                             #  h2 访问路径上下文
                             path: /h2-console

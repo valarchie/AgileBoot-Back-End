@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 角色信息
  *
- * @author ruoyi
+ * @author valarchie
  */
 @RestController
 @RequestMapping("/system/role")
