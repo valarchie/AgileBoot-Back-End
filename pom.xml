@@ -38,9 +38,10 @@
         <mockito.version>1.10.19</mockito.version>
         <common-validator.version>1.7</common-validator.version>
         <it.ozimov.version>0.7.3</it.ozimov.version>
-        <io.swagger.version>1.6.2</io.swagger.version>
+        <io.swagger.version>1.6.8</io.swagger.version>
         <org.lionsoul.version>2.6.5</org.lionsoul.version>
         <com.google.guava.version>31.0.1-jre</com.google.guava.version>
+        <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -103,19 +104,6 @@
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core</artifactId>
                 <version>${oshi.version}</version>
-            </dependency>
-
-            <!-- Swagger3依赖 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- io常用工具类 -->
@@ -244,12 +232,6 @@
                 <version>${it.ozimov.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-models</artifactId>
-                <version>${io.swagger.version}</version>
-            </dependency>
-
             <!-- 本地ip库 -->
             <dependency>
                 <groupId>org.lionsoul</groupId>
@@ -271,6 +253,18 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+
+            <!--  swagger注解  -->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${io.swagger.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

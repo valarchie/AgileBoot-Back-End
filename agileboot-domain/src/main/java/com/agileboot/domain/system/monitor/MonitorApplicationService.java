@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.connection.RedisServerCommands;
@@ -76,12 +77,11 @@ public class MonitorApplicationService {
     public List<OnlineUser> getOnlineUserList(String userName, String ipaddr) {
         Collection<String> keys = redisUtil.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
 
-        List<OnlineUser> allOnlineUsers = keys.stream().map(
+        Stream<OnlineUser> onlineUserStream = keys.stream().map(
                 o -> mapLoginUserToUserOnline(redisCacheService.loginUserCache.getObjectOnlyInCacheByKey(o)))
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList());
+            .filter(Objects::nonNull);
 
-        List<OnlineUser> filteredOnlineUsers = allOnlineUsers.stream()
+        List<OnlineUser> filteredOnlineUsers = onlineUserStream
             .filter(o ->
                 StrUtil.isEmpty(userName) || userName.equals(o.getUserName())
             ).filter( o ->

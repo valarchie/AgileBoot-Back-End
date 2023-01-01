@@ -45,7 +45,7 @@ public class CodeGenerator {
     public static void main(String[] args) {
 
         CodeGenerator generator = CodeGenerator.builder()
-            .databaseUrl("jdbc:mysql://localhost:33067/agileboot4")
+            .databaseUrl("jdbc:mysql://localhost:33067/agileboot")
             .username("root")
             .password("12345")
             .author("valarchie")

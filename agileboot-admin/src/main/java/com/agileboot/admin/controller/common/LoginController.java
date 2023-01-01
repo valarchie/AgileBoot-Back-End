@@ -54,7 +54,7 @@ public class LoginController {
     /**
      * 访问首页，提示语
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     @RateLimit(key = RateLimitKey.TEST_KEY, time = 10, maxCount = 5, cacheType = CacheType.Map,
         limitType = LimitType.GLOBAL)
     public String index() {

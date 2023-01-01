@@ -12,6 +12,9 @@ import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.agileboot.orm.common.result.DictionaryData;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -35,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/config")
 @Validated
 @RequiredArgsConstructor
+@Tag(name = "配置API", description = "配置相关的增删查改")
 public class SysConfigController extends BaseController {
 
     @NonNull
@@ -46,10 +50,11 @@ public class SysConfigController extends BaseController {
     /**
      * 获取参数配置列表
      */
+    @Operation(summary = "参数列表", description = "分页获取配置参数列表")
     @PreAuthorize("@permission.has('system:config:list')")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO> list(ConfigQuery query) {
-        PageDTO page = configApplicationService.getConfigList(query);
+    public ResponseDTO<PageDTO<ConfigDTO>> list(ConfigQuery query) {
+        PageDTO<ConfigDTO> page = configApplicationService.getConfigList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -58,6 +63,8 @@ public class SysConfigController extends BaseController {
      * 换成用Enum
      */
     @GetMapping(value = "/dict/{dictType}")
+    @Operation(summary = "字典数据", description = "获取字典列表")
+    @Parameter(name = "dictType", description = "字典对应类别")
     public ResponseDTO<List<DictionaryData>> dictType(@PathVariable String dictType) {
         List<DictionaryData> dictionaryData = MapCache.dictionaryCache().get(dictType);
         return ResponseDTO.ok(dictionaryData);
@@ -69,6 +76,7 @@ public class SysConfigController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:config:query')")
     @GetMapping(value = "/{configId}")
+    @Operation(summary = "配置信息", description = "配置的详细信息")
     public ResponseDTO<ConfigDTO> getInfo(@NotNull @Positive @PathVariable Long configId) {
         ConfigDTO config = configApplicationService.getConfigInfo(configId);
         return ResponseDTO.ok(config);
@@ -80,6 +88,7 @@ public class SysConfigController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:config:edit')")
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.MODIFY)
+    @Operation(summary = "配置修改", description = "配置修改")
     @PutMapping
     public ResponseDTO<?> edit(@RequestBody ConfigUpdateCommand config) {
         configApplicationService.updateConfig(config);
@@ -89,6 +98,7 @@ public class SysConfigController extends BaseController {
     /**
      * 刷新参数缓存
      */
+    @Operation(summary = "刷新配置缓存")
     @PreAuthorize("@permission.has('system:config:remove')")
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/refreshCache")

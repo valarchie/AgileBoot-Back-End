@@ -113,12 +113,26 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-# Swagger配置
-swagger:
-  # 是否开启swagger
-  enabled: true
-  # 请求前缀
-  pathMapping: /dev-api
+springdoc:
+  swagger-ui:
+    # 修改Swagger UI路径
+    path: /swagger-ui.html
+    # 开启Swagger UI界面
+    enabled: true
+    url: /dev-api/v3/api-docs
+    config-url: /dev-api/v3/api-docs/swagger-config
+#    disable-swagger-default-url: true
+  api-docs:
+    # 修改api-docs路径
+    path: /v3/api-docs
+    # 开启api-docs
+    enabled: true
+    groups:
+      enabled: true
+  # 配置需要生成接口文档的扫描包
+  packages-to-scan: com.agileboot
+  # 配置需要生成接口文档的接口路径
+
 
 
 

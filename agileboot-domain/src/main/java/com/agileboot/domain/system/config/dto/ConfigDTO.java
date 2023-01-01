@@ -6,6 +6,7 @@ import cn.hutool.json.JSONUtil;
 import com.agileboot.orm.common.enums.YesOrNoEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysConfigEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
+@Schema(name = "ConfigDTO", description = "配置信息")
 public class ConfigDTO {
 
     public ConfigDTO(SysConfigEntity entity) {

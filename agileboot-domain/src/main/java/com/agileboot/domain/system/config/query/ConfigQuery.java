@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.system.entity.SysConfigEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,12 +13,16 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@Schema(name = "配置查询参数")
 public class ConfigQuery extends AbstractPageQuery {
 
+    @Schema(name = "配置名称")
     private String configName;
 
+    @Schema(name = "配置key")
     private String configKey;
 
+    @Schema(name = "是否允许更改配置")
     private Boolean isAllowChange;
 
 

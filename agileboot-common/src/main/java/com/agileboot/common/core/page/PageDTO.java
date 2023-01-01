@@ -9,7 +9,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public class PageDTO {
+public class PageDTO<T> {
     /**
      * 总记录数
      */
@@ -18,20 +18,19 @@ public class PageDTO {
     /**
      * 列表数据
      */
-    private List<?> rows;
+    private List<T> rows;
 
-    public PageDTO(List<?> list) {
+    public PageDTO(List<T> list) {
         this.rows = list;
         this.total = (long) list.size();
     }
 
-    @SuppressWarnings("rawtypes")
-    public PageDTO(Page page) {
+    public PageDTO(Page<T> page) {
         this.rows = page.getRecords();
         this.total = page.getTotal();
     }
 
-    public PageDTO(List<?> list, Long count) {
+    public PageDTO(List<T> list, Long count) {
         this.rows = list;
         this.total = count;
     }
