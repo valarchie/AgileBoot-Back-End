@@ -18,6 +18,7 @@ server:
 
 
 # Spring配置 如果需要无Mysql  无Redis直接启动的话  dev改为test
+# 生产环境把dev改为prod
 spring:
   profiles:
     active: basic,dev

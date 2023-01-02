@@ -3,13 +3,11 @@ agileboot:
   # 名称
   name: AgileBoot
   # 版本
-  version: 1.6.0
+  version: 1.7.0
   # 版权年份
   copyright-year: 2022
   # 实例演示开关
   demo-enabled: true
-  # 文件基路径 示例（ Windows配置D:\agileboot，Linux配置 /home/agileboot）
-  file-base-dir: D:\agileboot
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
@@ -114,14 +112,6 @@ pagehelper:
   params: count=countSql
 
 springdoc:
-  swagger-ui:
-    # 修改Swagger UI路径
-    path: /swagger-ui.html
-    # 开启Swagger UI界面
-    enabled: true
-    url: /dev-api/v3/api-docs
-    config-url: /dev-api/v3/api-docs/swagger-config
-#    disable-swagger-default-url: true
   api-docs:
     # 修改api-docs路径
     path: /v3/api-docs
@@ -131,7 +121,6 @@ springdoc:
       enabled: true
   # 配置需要生成接口文档的扫描包
   packages-to-scan: com.agileboot
-  # 配置需要生成接口文档的接口路径
 
 
 

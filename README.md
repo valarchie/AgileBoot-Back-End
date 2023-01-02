@@ -1,6 +1,6 @@
 
 <p align="center">
-      <img src="https://img.shields.io/badge/Release-V1.5.0-green.svg" alt="Downloads">
+      <img src="https://img.shields.io/badge/Release-V1.7.0-green.svg" alt="Downloads">
       <img src="https://img.shields.io/badge/JDK-1.8+-green.svg" alt="Build Status">
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Build Status">
    <img src="https://img.shields.io/badge/Spring%20Boot-2.7.1-blue.svg" alt="Downloads">
@@ -15,7 +15,7 @@
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.6.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.7.0</h1>
 
 <h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发脚手架</h4>
 <p align="center">
@@ -27,9 +27,10 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 适合个人开发者的小型项目或者公司内部项目使用。也可作为供初学者学习使用的案例。
 
 
-* 前端采用Vue3、Element UI。对应前端仓库 [AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Front-End) ，保持同步更新。
-* 后端采用Spring Boot、Spring Security、Redis & Jwt、Mybatis Plus、MySql。
+* 前端采用Vue3、Element Plus。对应前端仓库 [AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Front-End) ，保持同步更新。
+* 后端采用Spring Boot、Spring Security & Jwt、Redis & MySql、Mybatis Plus、Hutool工具包。
 * 权限认证使用Jwt，支持多终端认证系统。
+* 支持注解主从数据库，注解请求限流，注解重复请求拦截。
 * 支持加载动态权限菜单，多方式轻松权限控制。
 * ***有大量的单元测试，集成测试覆盖确保业务逻辑正确***。
 
@@ -118,7 +119,7 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 |----------------|-----------------|-------------------|
 | `springboot`   | Java项目必备框架      | 2.7               |
 | `druid`        | alibaba数据库连接池   | 1.2.8             |
-| `swagger`      | 文档生成            | 3.0.0             |
+| `springdoc`    | 文档生成            | 3.0.0             |
 | `mybatis-plus` | 数据库框架           | 3.5.2             |
 | `hutool`       | 国产工具包（简单易用）     | 3.5.2             |
 | `mockito`      | 单元测试模拟          | 1.10.19           |
@@ -225,7 +226,7 @@ agileboot.embedded.redis: true
 |     | 连接池监视 | 监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈 |
 
 
-目前版本是V1.5，将在2.0版本后陆续新增新功能。
+目前版本是V1.7，将在2.0版本后陆续新增新功能。
 
 ## 🐯 工程结构 🐯
 
@@ -265,6 +266,30 @@ agileboot
 **查询**：Controller > xxxQuery > xxxApplicationService > xxxService(Db) > xxxMapper  
 **操作**：Controller > xxxCommand > xxxApplicationService > xxxModel(处理逻辑) > save 或者 update (本项目直接采用JPA的方式进行插入已经更新数据)
 
+这是借鉴CQRS的开发理念，将查询和操作分开处理。操作类的业务实现借鉴了DDD战术设计的理念，使用领域类，工厂类更面向对象的实现逻辑。 
+如果你不太适应这样的开发模式的话。可以在domain模块中按照你之前从Controller->Service->DAO的模式进行开发。it is up to you.
+
+
+
+### 二次开发指南
+
+假设你要新增一个会员member业务，可以在以下三个模块新增对应的包来实现你的业务
+``` 
+agileboot
+├── agileboot-admin -- 
+│                ├── member -- 会员模块
+│
+├── agileboot-domain -- 
+├                ├── member -- 会员模块
+│
+├── agileboot-orm -- 
+│              ├── member -- 会员模块
+│    
+└─
+```
+
+
+
 --- 
 
 ## 🎅 技术文档 🎅
@@ -291,8 +316,8 @@ agileboot
 QQ群：  [![加入QQ群](https://img.shields.io/badge/1398880-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TR5guoXS0HssErVWefmdFRirJvfpEvp1&jump_from=webapi&authKey=VkWMmVhp/pNdWuRD8sqgM+Sv2+Vy2qCJQSeLmeXlLtfER2RJBi6zL56PdcRlCmTs) 点击按钮入群。
 
 
-如果该项目对您有帮助，可以请作者喝个咖啡~  
+如果觉得该项目对您有帮忙，可以小额捐赠支持本项目演示网站服务器等费用~
 
 
-<img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-261828407c9089ad1cc0ce3f41a0ef3fbc0.png">
+<img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-28b63fdd7b3ce003bd30c25883f2276212b.png">
 
