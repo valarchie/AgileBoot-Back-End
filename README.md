@@ -30,7 +30,8 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 * 前端采用Vue3、Element Plus。对应前端仓库 [AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Front-End) ，保持同步更新。
 * 后端采用Spring Boot、Spring Security & Jwt、Redis & MySql、Mybatis Plus、Hutool工具包。
 * 权限认证使用Jwt，支持多终端认证系统。
-* 支持注解主从数据库，注解请求限流，注解重复请求拦截。
+* 支持注解式主从数据库切换，注解式请求限流，注解式重复请求拦截。
+* 支持注解式菜单权限拦截，注解式数据权限拦截。
 * 支持加载动态权限菜单，多方式轻松权限控制。
 * ***有大量的单元测试，集成测试覆盖确保业务逻辑正确***。
 
