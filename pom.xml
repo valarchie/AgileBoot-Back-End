@@ -6,7 +6,7 @@
 
     <groupId>com.agileboot</groupId>
     <artifactId>agileboot</artifactId>
-    <version>1.0.0</version>
+    <version>${agileboot.version}</version>
 
     <name>agileboot</name>
     <url>http://www.agileboot.vip</url>
@@ -42,6 +42,10 @@
         <org.lionsoul.version>2.6.5</org.lionsoul.version>
         <com.google.guava.version>31.0.1-jre</com.google.guava.version>
         <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
+        <spring.boot.version>2.7.0</spring.boot.version>
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>2.5</maven.surefire.plugin.version>
+        <maven.war.plugin.version>3.1.0</maven.war.plugin.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -52,7 +56,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.7.0</version>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -307,25 +311,49 @@
     </dependencies>
 
     <build>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <!-- 想跑test的话  设置成false  -->
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven.war.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.5</version>
-                <!-- 想跑test的话  设置成false  -->
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
             </plugin>
         </plugins>
     </build>
