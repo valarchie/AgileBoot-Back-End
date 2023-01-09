@@ -4,33 +4,49 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.service.ISysDeptService;
 import java.util.Objects;
-import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
-@NoArgsConstructor
 public class DeptModel extends SysDeptEntity {
 
-    public DeptModel(SysDeptEntity entity) {
+    private ISysDeptService deptService;
+
+    public DeptModel(ISysDeptService deptService) {
+        this.deptService = deptService;
+    }
+
+    public DeptModel(SysDeptEntity entity, ISysDeptService deptService) {
         if (entity != null) {
             // 如果大数据量的话  可以用MapStruct优化
             BeanUtil.copyProperties(entity, this);
         }
+        this.deptService = deptService;
+    }
+
+    public void loadAddCommand(AddDeptCommand addCommand) {
+        this.setParentId(addCommand.getParentId());
+        this.setAncestors(addCommand.getAncestors());
+        this.setDeptName(addCommand.getDeptName());
+        this.setOrderNum(addCommand.getOrderNum());
+        this.setLeaderName(addCommand.getLeaderName());
+        this.setPhone(addCommand.getPhone());
+        this.setEmail(addCommand.getEmail());
     }
 
     public void loadUpdateCommand(UpdateDeptCommand updateCommand) {
-        DeptModelFactory.loadFromAddCommand(updateCommand, this);
+        loadAddCommand(updateCommand);
         setStatus(Convert.toInt(updateCommand.getStatus(), 0));
     }
 
-    public void checkDeptNameUnique(ISysDeptService deptService) {
+    public void checkDeptNameUnique() {
         if (deptService.isDeptNameDuplicated(getDeptName(), getDeptId(), getParentId())) {
             throw new ApiException(ErrorCode.Business.DEPT_NAME_IS_NOT_UNIQUE, getDeptName());
         }
@@ -42,19 +58,19 @@ public class DeptModel extends SysDeptEntity {
         }
     }
 
-    public void checkHasChildDept(ISysDeptService deptService) {
+    public void checkHasChildDept() {
         if (deptService.hasChildrenDept(getDeptId(), null)) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_CHILD_DEPT_NOT_ALLOW_DELETE);
         }
     }
 
-    public void checkDeptAssignedToUsers(ISysDeptService deptService) {
+    public void checkDeptAssignedToUsers() {
         if (deptService.isDeptAssignedToUsers(getDeptId())) {
             throw new ApiException(ErrorCode.Business.DEPT_EXIST_LINK_USER_NOT_ALLOW_DELETE);
         }
     }
 
-    public void generateAncestors(ISysDeptService deptService) {
+    public void generateAncestors() {
         if (getParentId() == 0) {
             setAncestors(getParentId().toString());
             return;
@@ -75,7 +91,7 @@ public class DeptModel extends SysDeptEntity {
      * DDD 有些阻抗  如果为了追求性能的话  还是得通过 数据库的方式来判断
      * @param deptService
      */
-    public void checkStatusAllowChange(ISysDeptService deptService) {
+    public void checkStatusAllowChange() {
         if (StatusEnum.DISABLE.getValue().equals(getStatus()) &&
             deptService.hasChildrenDept(getDeptId(), true)) {
             throw new ApiException(ErrorCode.Business.DEPT_STATUS_ID_IS_NOT_ALLOWED_CHANGE);

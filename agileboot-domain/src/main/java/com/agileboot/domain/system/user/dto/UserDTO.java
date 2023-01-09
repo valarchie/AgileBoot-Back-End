@@ -22,8 +22,8 @@ public class UserDTO {
     public UserDTO(SysUserEntity entity) {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
-            SysDeptEntity dept = SpringUtil.getBean(GuavaCacheService.class).deptCache
-                .get(entity.getDeptId() + "");
+
+            SysDeptEntity dept = CacheCenter.deptCache.get(entity.getDeptId() + "");
             if (dept != null) {
                 this.deptName = dept.getDeptName();
             }

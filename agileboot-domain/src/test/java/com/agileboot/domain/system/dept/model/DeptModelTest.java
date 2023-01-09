@@ -20,22 +20,24 @@ class DeptModelTest {
 
     private final ISysDeptService deptService = mock(ISysDeptService.class);
 
+    private final DeptModelFactory deptModelFactory = new DeptModelFactory(deptService);
+
     @Test
     void testCheckDeptNameUnique() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setDeptName("dept 1");
         when(
             deptService.isDeptNameDuplicated(ArgumentMatchers.any(), ArgumentMatchers.any(),
                 ArgumentMatchers.any())).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> deptModel.checkDeptNameUnique(deptService));
+        ApiException exception = assertThrows(ApiException.class, deptModel::checkDeptNameUnique);
         Assertions.assertEquals(Business.DEPT_NAME_IS_NOT_UNIQUE, exception.getErrorCode());
     }
 
 
     @Test
     void testCheckParentIdConflict() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         Long sameId = 1L;
         deptModel.setDeptId(sameId);
         deptModel.setParentId(sameId);
@@ -48,11 +50,11 @@ class DeptModelTest {
 
     @Test
     void testCheckHasChildDept() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setDeptId(DEPT_ID);
         when(deptService.hasChildrenDept(eq(DEPT_ID), eq(null))).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> deptModel.checkHasChildDept(deptService));
+        ApiException exception = assertThrows(ApiException.class, deptModel::checkHasChildDept);
 
         Assertions.assertEquals(Business.DEPT_EXIST_CHILD_DEPT_NOT_ALLOW_DELETE, exception.getErrorCode());
     }
@@ -60,46 +62,46 @@ class DeptModelTest {
 
     @Test
     void testCheckDeptAssignedToUsers() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setDeptId(DEPT_ID);
         when(deptService.isDeptAssignedToUsers(eq(DEPT_ID))).thenReturn(true);
 
         ApiException exception = assertThrows(ApiException.class,
-            () -> deptModel.checkDeptAssignedToUsers(deptService));
+            deptModel::checkDeptAssignedToUsers);
 
         Assertions.assertEquals(Business.DEPT_EXIST_LINK_USER_NOT_ALLOW_DELETE, exception.getErrorCode());
     }
 
     @Test
     void testGenerateAncestorsWhenParentIdZero() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setParentId(0L);
 
-        deptModel.generateAncestors(deptService);
+        deptModel.generateAncestors();
 
         Assertions.assertEquals(deptModel.getAncestors(), deptModel.getParentId().toString());
     }
 
     @Test
     void testGenerateAncestorsWhenParentDeptNotExist() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setParentId(PARENT_ID);
         when(deptService.getById(eq(PARENT_ID))).thenReturn(null);
 
-        ApiException exception = assertThrows(ApiException.class, () -> deptModel.generateAncestors(deptService));
+        ApiException exception = assertThrows(ApiException.class, deptModel::generateAncestors);
 
         Assertions.assertEquals(Business.DEPT_PARENT_DEPT_NO_EXIST_OR_DISABLED, exception.getErrorCode());
     }
 
     @Test
     void testGenerateAncestorsWhenParentDeptDisabled() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setParentId(PARENT_ID);
         SysDeptEntity parentDept = new SysDeptEntity();
         parentDept.setStatus(0);
         when(deptService.getById(eq(PARENT_ID))).thenReturn(parentDept);
 
-        ApiException exception = assertThrows(ApiException.class, () -> deptModel.generateAncestors(deptService));
+        ApiException exception = assertThrows(ApiException.class, deptModel::generateAncestors);
 
         Assertions.assertEquals(Business.DEPT_PARENT_DEPT_NO_EXIST_OR_DISABLED, exception.getErrorCode());
     }
@@ -107,14 +109,14 @@ class DeptModelTest {
 
     @Test
     void testGenerateAncestorsSuccessful() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setParentId(PARENT_ID);
         SysDeptEntity parentDept = new SysDeptEntity();
         parentDept.setStatus(1);
         parentDept.setAncestors("1,100");
         when(deptService.getById(eq(PARENT_ID))).thenReturn(parentDept);
 
-        deptModel.generateAncestors(deptService);
+        deptModel.generateAncestors();
 
         Assertions.assertEquals("1,100,2", deptModel.getAncestors());
     }
@@ -122,12 +124,12 @@ class DeptModelTest {
 
     @Test
     void testCheckStatusAllowChangeWhenDisableButHasChildDept() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setDeptId(DEPT_ID);
         deptModel.setStatus(0);
         when(deptService.hasChildrenDept(eq(DEPT_ID), eq(true))).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> deptModel.checkStatusAllowChange(deptService));
+        ApiException exception = assertThrows(ApiException.class, deptModel::checkStatusAllowChange);
 
         Assertions.assertEquals(Business.DEPT_STATUS_ID_IS_NOT_ALLOWED_CHANGE, exception.getErrorCode());
     }
@@ -135,23 +137,23 @@ class DeptModelTest {
 
     @Test
     void testCheckStatusAllowChangeWhenDisableButNoChildDept() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setDeptId(DEPT_ID);
         deptModel.setStatus(0);
         when(deptService.hasChildrenDept(eq(DEPT_ID), eq(true))).thenReturn(false);
 
-        Assertions.assertDoesNotThrow(()->deptModel.checkStatusAllowChange(deptService));
+        Assertions.assertDoesNotThrow(deptModel::checkStatusAllowChange);
     }
 
 
     @Test
     void testCheckStatusAllowChangeWhenEnableAndHasChildDept() {
-        DeptModel deptModel = new DeptModel();
+        DeptModel deptModel = deptModelFactory.create();
         deptModel.setDeptId(DEPT_ID);
         deptModel.setStatus(1);
         when(deptService.hasChildrenDept(eq(DEPT_ID), eq(true))).thenReturn(true);
 
-        Assertions.assertDoesNotThrow(()->deptModel.checkStatusAllowChange(deptService));
+        Assertions.assertDoesNotThrow(deptModel::checkStatusAllowChange);
     }
 
 }

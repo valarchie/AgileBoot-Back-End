@@ -35,6 +35,9 @@ public class DeptApplicationService {
     @NonNull
     private ISysRoleService roleService;
 
+    @NonNull
+    private DeptModelFactory deptModelFactory;
+
 
     public List<DeptDTO> getDeptList(DeptQuery query) {
         List<SysDeptEntity> list = deptService.list(query.toQueryWrapper());
@@ -73,33 +76,34 @@ public class DeptApplicationService {
 
 
     public void addDept(AddDeptCommand addCommand) {
-        DeptModel deptModel = DeptModelFactory.loadFromAddCommand(addCommand, new DeptModel());
+        DeptModel deptModel = deptModelFactory.create();
+        deptModel.loadAddCommand(addCommand);
 
-        deptModel.checkDeptNameUnique(deptService);
-        deptModel.generateAncestors(deptService);
+        deptModel.checkDeptNameUnique();
+        deptModel.generateAncestors();
 
         deptModel.insert();
     }
 
     public void updateDept(UpdateDeptCommand updateCommand) {
-        DeptModel deptModel = DeptModelFactory.loadFromDb(updateCommand.getDeptId(), deptService);
+        DeptModel deptModel = deptModelFactory.loadById(updateCommand.getDeptId());
         deptModel.loadUpdateCommand(updateCommand);
 
-        deptModel.checkDeptNameUnique(deptService);
+        deptModel.checkDeptNameUnique();
         deptModel.checkParentIdConflict();
-        deptModel.checkStatusAllowChange(deptService);
-        deptModel.generateAncestors(deptService);
+        deptModel.checkStatusAllowChange();
+        deptModel.generateAncestors();
 
         deptModel.updateById();
     }
 
     public void removeDept(Long deptId) {
-        DeptModel deptModel = DeptModelFactory.loadFromDb(deptId, deptService);
+        DeptModel deptModel = deptModelFactory.loadById(deptId);
 
-        deptModel.checkHasChildDept(deptService);
-        deptModel.checkDeptAssignedToUsers(deptService);
+        deptModel.checkHasChildDept();
+        deptModel.checkDeptAssignedToUsers();
 
-        deptService.removeById(deptId);
+        deptModel.deleteById();
     }
 
 

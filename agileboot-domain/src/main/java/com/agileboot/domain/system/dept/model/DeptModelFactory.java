@@ -5,22 +5,34 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.service.ISysDeptService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * 部门模型工厂
  * @author valarchie
  */
+@Component
+@RequiredArgsConstructor
 public class DeptModelFactory {
 
-    public static DeptModel loadFromDb(Long deptId, ISysDeptService deptService) {
+    @NonNull
+    private ISysDeptService deptService;
+
+    public DeptModel loadById(Long deptId) {
         SysDeptEntity byId = deptService.getById(deptId);
         if (byId == null) {
             throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, deptId, "部门");
         }
-        return new DeptModel(byId);
+        return new DeptModel(byId, deptService);
     }
 
-    public static DeptModel loadFromAddCommand(AddDeptCommand addCommand, DeptModel model) {
+    public DeptModel create() {
+        return new DeptModel(deptService);
+    }
+
+    public DeptModel loadFromAddCommand(AddDeptCommand addCommand, DeptModel model) {
         model.setParentId(addCommand.getParentId());
         model.setAncestors(addCommand.getAncestors());
         model.setDeptName(addCommand.getDeptName());
