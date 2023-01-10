@@ -17,19 +17,34 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CustomMetaObjectHandler implements MetaObjectHandler {
 
+    public static final String CREATE_TIME_FIELD = "createTime";
+    public static final String CREATOR_ID_FIELD = "creatorId";
+
+    public static final String UPDATE_TIME_FIELD = "updateTime";
+    public static final String UPDATER_ID_FIELD = "updaterId";
+
+
+
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("createTime", new Date(), metaObject);
+        if (metaObject.hasSetter(CREATE_TIME_FIELD)) {
+            this.setFieldValByName(CREATE_TIME_FIELD, new Date(), metaObject);
+        }
 
-        this.strictInsertFill(metaObject, "creatorId", this::getUserIdSafely, Long.class);
+        if (metaObject.hasSetter(CREATOR_ID_FIELD)) {
+            this.strictInsertFill(metaObject, CREATOR_ID_FIELD, Long.class, getUserIdSafely());
+        }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("updateTime", new Date(), metaObject);
-        Long newUpdaterId = getUserIdSafely();
+        if (metaObject.hasSetter(UPDATE_TIME_FIELD)) {
+            this.setFieldValByName(UPDATE_TIME_FIELD, new Date(), metaObject);
+        }
 
-        this.strictUpdateFill(metaObject, "updaterId", Long.class, newUpdaterId);
+        if (metaObject.hasSetter(UPDATER_ID_FIELD)) {
+            this.strictUpdateFill(metaObject, UPDATER_ID_FIELD, Long.class, getUserIdSafely());
+        }
     }
 
     public Long getUserIdSafely() {
