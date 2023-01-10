@@ -22,6 +22,8 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
 import java.util.List;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,22 +36,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @author valarchie
  */
 @RestController
+@RequiredArgsConstructor
 public class LoginController {
 
-    private final LoginService loginService;
+    @NonNull
+    private LoginService loginService;
 
-    private final MenuApplicationService menuApplicationService;
-    /**
-     * 系统基础配置
-     */
-    private final AgileBootConfig agileBootConfig;
+    @NonNull
+    private MenuApplicationService menuApplicationService;
 
-    public LoginController(LoginService loginService,
-        MenuApplicationService menuApplicationService, AgileBootConfig agileBootConfig) {
-        this.loginService = loginService;
-        this.menuApplicationService = menuApplicationService;
-        this.agileBootConfig = agileBootConfig;
-    }
+    @NonNull
+    private AgileBootConfig agileBootConfig;
 
     /**
      * 访问首页，提示语
