@@ -4,7 +4,7 @@ import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.system.monitor.MonitorApplicationService;
-import com.agileboot.domain.system.monitor.dto.OnlineUser;
+import com.agileboot.domain.system.monitor.dto.OnlineUserInfo;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -60,8 +60,8 @@ public class MonitorController extends BaseController {
     @PreAuthorize("@permission.has('monitor:online:list')")
     @GetMapping("/onlineUser/list")
     public ResponseDTO<PageDTO> list(String ipaddr, String userName) {
-        List<OnlineUser> onlineUserList = monitorApplicationService.getOnlineUserList(userName, ipaddr);
-        return ResponseDTO.ok(new PageDTO(onlineUserList));
+        List<OnlineUserInfo> onlineUserList = monitorApplicationService.getOnlineUserList(userName, ipaddr);
+        return ResponseDTO.ok(new PageDTO<>(onlineUserList));
     }
 
     /**

@@ -1,8 +1,7 @@
 package com.agileboot.domain.system.monitor;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.spring.SpringUtil;
-import com.agileboot.domain.system.monitor.dto.OnlineUser;
+import com.agileboot.domain.system.monitor.dto.OnlineUserInfo;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO.CommonStatusDTO;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
@@ -74,14 +73,14 @@ public class MonitorApplicationService {
         return cacheInfo;
     }
 
-    public List<OnlineUser> getOnlineUserList(String userName, String ipaddr) {
+    public List<OnlineUserInfo> getOnlineUserList(String userName, String ipaddr) {
         Collection<String> keys = redisUtil.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
 
-        Stream<OnlineUser> onlineUserStream = keys.stream().map(
-                o -> mapLoginUserToUserOnline(redisCacheService.loginUserCache.getObjectOnlyInCacheByKey(o)))
-            .filter(Objects::nonNull);
+        Stream<OnlineUserInfo> onlineUserStream = keys.stream().map(o ->
+                    redisCacheService.loginUserCache.getObjectOnlyInCacheByKey(o))
+            .filter(Objects::nonNull).map(OnlineUserInfo::new);
 
-        List<OnlineUser> filteredOnlineUsers = onlineUserStream
+        List<OnlineUserInfo> filteredOnlineUsers = onlineUserStream
             .filter(o ->
                 StrUtil.isEmpty(userName) || userName.equals(o.getUserName())
             ).filter( o ->
@@ -97,33 +96,4 @@ public class MonitorApplicationService {
     }
 
 
-    /**
-     * 设置在线用户信息
-     *
-     * @param user 用户信息
-     * @return 在线用户
-     */
-    public OnlineUser mapLoginUserToUserOnline(LoginUser user) {
-        if (user == null) {
-            return null;
-        }
-        OnlineUser onlineUser = new OnlineUser();
-        onlineUser.setTokenId(user.getToken());
-        onlineUser.setUserName(user.getUsername());
-        onlineUser.setIpaddr(user.getLoginInfo().getIpAddress());
-        onlineUser.setLoginLocation(user.getLoginInfo().getLocation());
-        onlineUser.setBrowser(user.getLoginInfo().getBrowser());
-        onlineUser.setOs(user.getLoginInfo().getOperationSystem());
-        onlineUser.setLoginTime(user.getLoginTime());
-
-        GuavaCacheService cacheService = SpringUtil.getBean(GuavaCacheService.class);
-
-        SysDeptEntity deptEntity = cacheService.deptCache.get(user.getDeptId() + "");
-
-        if (deptEntity != null) {
-            onlineUser.setDeptName(deptEntity.getDeptName());
-        }
-
-        return onlineUser;
-    }
 }
