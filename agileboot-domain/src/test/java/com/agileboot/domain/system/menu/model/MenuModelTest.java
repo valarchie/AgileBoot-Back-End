@@ -18,15 +18,17 @@ class MenuModelTest {
 
     private final ISysMenuService menuService = mock(ISysMenuService.class);
 
+    private final MenuModelFactory menuModelFactory = new MenuModelFactory(menuService);
+
     @Test
     void testCheckMenuNameUnique() {
-        MenuModel menuModel = new MenuModel();
+        MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuName("menu 1");
         when(
             menuService.isMenuNameDuplicated(ArgumentMatchers.any(), ArgumentMatchers.any(),
                 ArgumentMatchers.any())).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> menuModel.checkMenuNameUnique(menuService));
+        ApiException exception = assertThrows(ApiException.class, menuModel::checkMenuNameUnique);
         Assertions.assertEquals(Business.MENU_NAME_IS_NOT_UNIQUE, exception.getErrorCode());
     }
 
@@ -61,7 +63,7 @@ class MenuModelTest {
 
     @Test
     void testCheckParentIdConflict() {
-        MenuModel menuModel = new MenuModel();
+        MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
         menuModel.setParentId(MENU_ID);
 
@@ -72,11 +74,11 @@ class MenuModelTest {
 
     @Test
     void testCheckHasChildMenus() {
-        MenuModel menuModel = new MenuModel();
+        MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
         when(menuService.hasChildrenMenu(eq(MENU_ID))).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> menuModel.checkHasChildMenus(menuService));
+        ApiException exception = assertThrows(ApiException.class, menuModel::checkHasChildMenus);
 
         Assertions.assertEquals(Business.MENU_EXIST_CHILD_MENU_NOT_ALLOW_DELETE, exception.getErrorCode());
 
@@ -84,12 +86,11 @@ class MenuModelTest {
 
     @Test
     void testCheckMenuAlreadyAssignToRole() {
-        MenuModel menuModel = new MenuModel();
+        MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
         when(menuService.isMenuAssignToRoles(eq(MENU_ID))).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class,
-            () -> menuModel.checkMenuAlreadyAssignToRole(menuService));
+        ApiException exception = assertThrows(ApiException.class, menuModel::checkMenuAlreadyAssignToRole);
 
         Assertions.assertEquals(Business.MENU_ALREADY_ASSIGN_TO_ROLE_NOT_ALLOW_DELETE, exception.getErrorCode());
     }

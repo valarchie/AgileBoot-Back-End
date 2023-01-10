@@ -26,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
+ * 菜单应用服务
  * @author valarchie
  */
 @Service
@@ -34,6 +35,9 @@ public class MenuApplicationService {
 
     @NonNull
     private ISysMenuService menuService;
+
+    @NonNull
+    private MenuModelFactory menuModelFactory;
 
 
     public List<MenuDTO> getMenuList(MenuQuery query) {
@@ -67,19 +71,20 @@ public class MenuApplicationService {
 
 
     public void addMenu(AddMenuCommand addCommand) {
-        MenuModel model = MenuModelFactory.loadFromAddCommand(addCommand, new MenuModel());
+        MenuModel model = menuModelFactory.create();
+        model.loadAddCommand(addCommand);
 
-        model.checkMenuNameUnique(menuService);
+        model.checkMenuNameUnique();
         model.checkExternalLink();
 
         model.insert();
     }
 
     public void updateMenu(UpdateMenuCommand updateCommand) {
-        MenuModel model = MenuModelFactory.loadFromDb(updateCommand.getMenuId(), menuService);
+        MenuModel model = menuModelFactory.loadById(updateCommand.getMenuId());
         model.loadUpdateCommand(updateCommand);
 
-        model.checkMenuNameUnique(menuService);
+        model.checkMenuNameUnique();
         model.checkExternalLink();
         model.checkParentIdConflict();
 
@@ -88,10 +93,10 @@ public class MenuApplicationService {
 
 
     public void remove(Long menuId) {
-        MenuModel menuModel = MenuModelFactory.loadFromDb(menuId, menuService);
+        MenuModel menuModel = menuModelFactory.loadById(menuId);
 
-        menuModel.checkHasChildMenus(menuService);
-        menuModel.checkMenuAlreadyAssignToRole(menuService);
+        menuModel.checkHasChildMenus();
+        menuModel.checkMenuAlreadyAssignToRole();
 
         menuModel.deleteById();
     }

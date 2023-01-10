@@ -19,7 +19,6 @@ import java.util.Objects;
  */
 public class RouterModel extends SysMenuEntity {
 
-
     public RouterDTO produceDirectoryRouterVO(List<RouterDTO> children) {
         RouterDTO router = produceDefaultRouterVO();
 

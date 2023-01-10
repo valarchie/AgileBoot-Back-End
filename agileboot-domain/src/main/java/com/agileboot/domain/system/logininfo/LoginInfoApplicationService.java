@@ -24,10 +24,10 @@ public class LoginInfoApplicationService {
     @NonNull
     private ISysLoginInfoService loginInfoService;
 
-    public PageDTO getLoginInfoList(LoginInfoQuery query) {
+    public PageDTO<LoginInfoDTO> getLoginInfoList(LoginInfoQuery query) {
         Page<SysLoginInfoEntity> page = loginInfoService.page(query.toPage(), query.toQueryWrapper());
         List<LoginInfoDTO> records = page.getRecords().stream().map(LoginInfoDTO::new).collect(Collectors.toList());
-        return new PageDTO(records, page.getTotal());
+        return new PageDTO<>(records, page.getTotal());
     }
 
     public void deleteLoginInfo(BulkOperationCommand<Long> deleteCommand) {
