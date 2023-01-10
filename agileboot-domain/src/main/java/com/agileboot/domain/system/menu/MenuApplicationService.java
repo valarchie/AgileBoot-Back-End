@@ -136,6 +136,7 @@ public class MenuApplicationService {
             // 也可以使用 tree.setId(dept.getId());等一些默认值
             tree.setId(menu.getMenuId());
             tree.setParentId(menu.getParentId());
+            tree.setWeight(menu.getOrderNum());
             tree.putExtra("entity", menu);
         });
 
