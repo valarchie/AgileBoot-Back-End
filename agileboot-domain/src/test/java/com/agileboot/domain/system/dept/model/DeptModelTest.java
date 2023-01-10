@@ -99,10 +99,10 @@ class DeptModelTest {
         deptModel.setParentId(PARENT_ID);
         SysDeptEntity parentDept = new SysDeptEntity();
         parentDept.setStatus(0);
+
         when(deptService.getById(eq(PARENT_ID))).thenReturn(parentDept);
 
         ApiException exception = assertThrows(ApiException.class, deptModel::generateAncestors);
-
         Assertions.assertEquals(Business.DEPT_PARENT_DEPT_NO_EXIST_OR_DISABLED, exception.getErrorCode());
     }
 
@@ -115,7 +115,6 @@ class DeptModelTest {
         parentDept.setStatus(1);
         parentDept.setAncestors("1,100");
         when(deptService.getById(eq(PARENT_ID))).thenReturn(parentDept);
-
         deptModel.generateAncestors();
 
         Assertions.assertEquals("1,100,2", deptModel.getAncestors());

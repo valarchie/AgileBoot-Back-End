@@ -146,7 +146,8 @@ public class ServerInfo {
             if (total != 0){
                 diskInfo.setUsage(NumberUtil.div(used * 100, total, 4));
             } else {
-                diskInfo.setUsage(0);//Windows下如果有光驱（可能是虚拟光驱），total为0，不能做除数
+                //Windows下如果有光驱（可能是虚拟光驱），total为0，不能做除数
+                diskInfo.setUsage(0);
             }
             diskInfos.add(diskInfo);
         }
