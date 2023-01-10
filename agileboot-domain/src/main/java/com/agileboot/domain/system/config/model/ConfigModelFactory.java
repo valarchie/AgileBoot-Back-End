@@ -2,28 +2,33 @@ package com.agileboot.domain.system.config.model;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.orm.system.entity.SysConfigEntity;
 import com.agileboot.orm.system.service.ISysConfigService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * 配置模型工厂
  * @author valarchie
  */
+@Component
+@RequiredArgsConstructor
 public class ConfigModelFactory {
 
-    public static ConfigModel loadFromDb(Long configId, ISysConfigService configService) {
+    @NonNull
+    private ISysConfigService configService;
+
+    public ConfigModel loadById(Long configId) {
         SysConfigEntity byId = configService.getById(configId);
         if (byId == null) {
             throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, configId, "参数配置");
         }
-        return new ConfigModel(byId);
+        return new ConfigModel(byId, configService);
     }
 
-    public static ConfigModel loadFromUpdateCommand(ConfigUpdateCommand updateCommand, ISysConfigService configService) {
-        ConfigModel configModel = loadFromDb(updateCommand.getConfigId(), configService);
-        configModel.setConfigValue(updateCommand.getConfigValue());
-        return configModel;
+    public ConfigModel create() {
+        return new ConfigModel(configService);
     }
 
 

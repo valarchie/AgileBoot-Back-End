@@ -1,19 +1,32 @@
 package com.agileboot.domain.system.config.model;
 
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.orm.system.entity.SysConfigEntity;
+import com.agileboot.orm.system.service.ISysConfigService;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ConfigModelTest {
 
+    private final ISysConfigService configService = mock(ISysConfigService.class);
+
+    private final ConfigModelFactory configModelFactory = new ConfigModelFactory(configService);
+
+    private final Long CONFIG_ID = 1L;
+
     @Test
     void testBeanUtilsCopyFunction() {
         SysConfigEntity entity = getConfigEntity();
-        ConfigModel configModel = new ConfigModel(entity);
+        when(configService.getById(any())).thenReturn(entity);
+
+        ConfigModel configModel = configModelFactory.loadById(CONFIG_ID);
 
         Assertions.assertEquals(entity.getConfigId(), configModel.getConfigId());
         Assertions.assertEquals(entity.getConfigKey(), configModel.getConfigKey());
@@ -30,7 +43,10 @@ class ConfigModelTest {
     @Test
     void testConfigModelConstructor() {
         SysConfigEntity entity = getConfigEntity();
-        ConfigModel configModel = new ConfigModel(entity);
+        when(configService.getById(any())).thenReturn(entity);
+
+        ConfigModel configModel = configModelFactory.loadById(CONFIG_ID);
+
         Assertions.assertTrue(configModel.getConfigOptionSet().contains("true"));
     }
 
@@ -38,11 +54,11 @@ class ConfigModelTest {
     void testConfigModelConstructorWhenInvalidJSon() {
         SysConfigEntity entity = getConfigEntity();
         entity.setConfigOptions("{\"true\",\"false\"}");
-        ConfigModel invalid1 = new ConfigModel(entity);
+        ConfigModel invalid1 = new ConfigModel(entity, configService);
         entity.setConfigOptions("\"[]\"");
-        ConfigModel invalid2 = new ConfigModel(entity);
+        ConfigModel invalid2 = new ConfigModel(entity, configService);
         entity.setConfigOptions("\"xxxx\"");
-        ConfigModel invalid3 = new ConfigModel(entity);
+        ConfigModel invalid3 = new ConfigModel(entity, configService);
 
         Assertions.assertEquals(0, invalid1.getConfigOptionSet().size());
         Assertions.assertEquals(0, invalid2.getConfigOptionSet().size());
@@ -52,7 +68,7 @@ class ConfigModelTest {
 
     @Test
     void checkCanBeModifyWhenValueEmpty() {
-        ConfigModel configModel = new ConfigModel(getConfigEntity());
+        ConfigModel configModel = configModelFactory.create();
 
         configModel.setConfigValue(null);
         ApiException exception1 = Assertions.assertThrows(ApiException.class, configModel::checkCanBeModify);

@@ -16,6 +16,7 @@ public class ConfigUpdateCommand {
     @NotNull
     @Positive
     private Long configId;
+
     @NotNull
     @NotEmpty
     private String configValue;

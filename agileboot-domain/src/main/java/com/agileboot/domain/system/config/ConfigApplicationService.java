@@ -24,6 +24,9 @@ import org.springframework.stereotype.Service;
 public class ConfigApplicationService {
 
     @NonNull
+    private ConfigModelFactory configModelFactory;
+
+    @NonNull
     private ISysConfigService configService;
 
     public PageDTO getConfigList(ConfigQuery query) {
@@ -38,12 +41,13 @@ public class ConfigApplicationService {
     }
 
     public void updateConfig(ConfigUpdateCommand updateCommand) {
-        ConfigModel configModel = ConfigModelFactory.loadFromUpdateCommand(updateCommand, configService);
+        ConfigModel configModel = configModelFactory.loadById(updateCommand.getConfigId());
+        configModel.loadUpdateCommand(updateCommand);
 
         configModel.checkCanBeModify();
+
         configModel.updateById();
 
-        CacheCenter.configCache.get(configModel.getConfigKey());
         CacheCenter.configCache.invalidate(configModel.getConfigKey());
     }
 
