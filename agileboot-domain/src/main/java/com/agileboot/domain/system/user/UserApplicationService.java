@@ -65,6 +65,9 @@ public class UserApplicationService {
     @NonNull
     private RedisCacheService redisCacheService;
 
+    @NonNull
+    private RoleModelFactory roleModelFactory;
+
 
 
     public PageDTO getUserList(SearchUserQuery query) {
@@ -183,7 +186,7 @@ public class UserApplicationService {
 
     public UserInfoDTO getUserWithRole(Long userId) {
         UserModel userModel = UserModelFactory.loadFromDb(userId, userService);
-        RoleModel roleModel = RoleModelFactory.loadFromDb(userModel.getRoleId(), roleService, roleMenuService);
+        RoleModel roleModel = roleModelFactory.loadById(userModel.getRoleId());
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setUser(new UserDTO(userModel));
