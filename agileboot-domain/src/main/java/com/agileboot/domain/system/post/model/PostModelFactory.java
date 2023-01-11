@@ -6,26 +6,30 @@ import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.service.ISysPostService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * @author valarchie
  */
+@Component
+@RequiredArgsConstructor
 public class PostModelFactory {
 
-    public static PostModel loadFromDb(Long postId, ISysPostService postService) {
+    @NonNull
+    private ISysPostService postService;
+
+    public PostModel loadById(Long postId) {
         SysPostEntity byId = postService.getById(postId);
         if (byId == null) {
             throw new ApiException(Business.OBJECT_NOT_FOUND, postId, "职位");
         }
-        return new PostModel(byId);
+        return new PostModel(byId, postService);
     }
 
-    public static PostModel loadFromAddCommand(AddPostCommand addCommand, PostModel model) {
-        if (addCommand != null && model != null) {
-            BeanUtil.copyProperties(addCommand, model);
-        }
-        return model;
+    public PostModel create() {
+        return new PostModel(postService);
     }
-
 
 }

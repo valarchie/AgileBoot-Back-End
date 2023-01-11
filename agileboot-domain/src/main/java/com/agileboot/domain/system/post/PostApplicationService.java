@@ -25,34 +25,38 @@ import org.springframework.stereotype.Service;
 public class PostApplicationService {
 
     @NonNull
+    private PostModelFactory postModelFactory;
+
+    @NonNull
     private ISysPostService postService;
 
-    public PageDTO getPostList(PostQuery query) {
+    public PageDTO<PostDTO> getPostList(PostQuery query) {
         Page<SysPostEntity> page = postService.page(query.toPage(), query.toQueryWrapper());
         List<PostDTO> records = page.getRecords().stream().map(PostDTO::new).collect(Collectors.toList());
-        return new PageDTO(records, page.getTotal());
+        return new PageDTO<>(records, page.getTotal());
     }
 
     public PostDTO getPostInfo(Long postId) {
-        SysPostEntity byId = PostModelFactory.loadFromDb(postId, postService);
+        SysPostEntity byId = postService.getById(postId);
         return new PostDTO(byId);
     }
 
     public void addPost(AddPostCommand addCommand) {
-        PostModel postModel = PostModelFactory.loadFromAddCommand(addCommand, new PostModel());
+        PostModel postModel = postModelFactory.create();
+        postModel.loadFromAddCommand(addCommand);
 
-        postModel.checkPostNameUnique(postService);
-        postModel.checkPostCodeUnique(postService);
+        postModel.checkPostNameUnique();
+        postModel.checkPostCodeUnique();
 
         postModel.insert();
     }
 
     public void updatePost(UpdatePostCommand updateCommand) {
-        PostModel postModel = PostModelFactory.loadFromDb(updateCommand.getPostId(), postService);
+        PostModel postModel = postModelFactory.loadById(updateCommand.getPostId());
         postModel.loadFromUpdateCommand(updateCommand);
 
-        postModel.checkPostNameUnique(postService);
-        postModel.checkPostCodeUnique(postService);
+        postModel.checkPostNameUnique();
+        postModel.checkPostCodeUnique();
 
         postModel.updateById();
     }
@@ -60,13 +64,11 @@ public class PostApplicationService {
 
     public void deletePost(BulkOperationCommand<Long> deleteCommand) {
         for (Long id : deleteCommand.getIds()) {
-            PostModel postModel = PostModelFactory.loadFromDb(id, postService);
-            postModel.checkCanBeDelete(postService);
+            PostModel postModel = postModelFactory.loadById(id);
+            postModel.checkCanBeDelete();
         }
 
         postService.removeBatchByIds(deleteCommand.getIds());
     }
-
-
 
 }

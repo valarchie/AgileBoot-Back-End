@@ -16,6 +16,9 @@ import org.mockito.Mockito;
 class PostModelTest {
 
     private final ISysPostService postService = mock(ISysPostService.class);
+
+    private final PostModelFactory postModelFactory = new PostModelFactory(postService);
+
     private static final long POST_ID = 1L;
 
     @AfterEach
@@ -23,64 +26,61 @@ class PostModelTest {
         Mockito.reset(postService);
     }
 
-
     @Test
     void testCheckCanBeDeleteWhenFailed() {
-        PostModel postModel = new PostModel();
+        PostModel postModel = postModelFactory.create();
         postModel.setPostId(POST_ID);
 
         when(postService.isAssignedToUsers(eq(POST_ID))).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> postModel.checkCanBeDelete(postService));
+        ApiException exception = assertThrows(ApiException.class, postModel::checkCanBeDelete);
         Assertions.assertEquals(Business.POST_ALREADY_ASSIGNED_TO_USER_CAN_NOT_BE_DELETED, exception.getErrorCode());
     }
 
     @Test
     void testCheckCanBeDeleteWhenSuccessful() {
-        PostModel postModel = new PostModel();
+        PostModel postModel = postModelFactory.create();
         postModel.setPostId(POST_ID);
 
         when(postService.isAssignedToUsers(eq(POST_ID))).thenReturn(true);
 
-        ApiException exception = assertThrows(ApiException.class, () -> postModel.checkCanBeDelete(postService));
+        ApiException exception = assertThrows(ApiException.class, postModel::checkCanBeDelete);
         Assertions.assertEquals(Business.POST_ALREADY_ASSIGNED_TO_USER_CAN_NOT_BE_DELETED, exception.getErrorCode());
     }
 
 
     @Test
     void testCheckPostNameUnique() {
-        PostModel postWithSameName = new PostModel();
+        PostModel postWithSameName = postModelFactory.create();
         postWithSameName.setPostId(POST_ID);
         postWithSameName.setPostName("post 1");
-        PostModel postWithNewName = new PostModel();
+        PostModel postWithNewName = postModelFactory.create();
         postWithNewName.setPostName("post 2");
         postWithNewName.setPostId(POST_ID);
 
         when(postService.isPostNameDuplicated(eq(POST_ID), eq("post 1"))).thenReturn(true);
         when(postService.isPostNameDuplicated(eq(POST_ID), eq("post 2"))).thenReturn(false);
 
-        ApiException exception = assertThrows(ApiException.class,
-            () -> postWithSameName.checkPostNameUnique(postService));
+        ApiException exception = assertThrows(ApiException.class, postWithSameName::checkPostNameUnique);
         Assertions.assertEquals(Business.POST_NAME_IS_NOT_UNIQUE, exception.getErrorCode());
-        Assertions.assertDoesNotThrow(() -> postWithNewName.checkPostNameUnique(postService));
+        Assertions.assertDoesNotThrow(postWithNewName::checkPostNameUnique);
     }
 
     @Test
     void testCheckPostCodeUnique() {
-        PostModel postWithSameCode = new PostModel();
+        PostModel postWithSameCode = postModelFactory.create();
         postWithSameCode.setPostId(POST_ID);
         postWithSameCode.setPostCode("code 1");
-        PostModel postWithNewCode = new PostModel();
+        PostModel postWithNewCode = postModelFactory.create();
         postWithNewCode.setPostId(POST_ID);
         postWithNewCode.setPostCode("code 2");
 
         when(postService.isPostCodeDuplicated(eq(POST_ID), eq("code 1"))).thenReturn(true);
         when(postService.isPostCodeDuplicated(eq(POST_ID), eq("code 2"))).thenReturn(false);
 
-        ApiException exception = assertThrows(ApiException.class,
-            () -> postWithSameCode.checkPostCodeUnique(postService));
+        ApiException exception = assertThrows(ApiException.class, postWithSameCode::checkPostCodeUnique);
         Assertions.assertEquals(Business.POST_CODE_IS_NOT_UNIQUE, exception.getErrorCode());
-        Assertions.assertDoesNotThrow(() -> postWithNewCode.checkPostCodeUnique(postService));
+        Assertions.assertDoesNotThrow(postWithNewCode::checkPostCodeUnique);
     }
 
 }

@@ -18,7 +18,6 @@ public class PostQuery extends AbstractPageQuery {
     private String postName;
     private Integer status;
 
-
     @Override
     public QueryWrapper toQueryWrapper() {
         QueryWrapper<SysPostEntity> queryWrapper = new QueryWrapper<>();
