@@ -20,7 +20,6 @@ import com.agileboot.infrastructure.web.service.TokenService;
 import com.agileboot.infrastructure.web.service.UserDetailsServiceImpl;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysRoleMenuService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -40,6 +39,9 @@ public class RoleApplicationService {
 
     @NonNull
     private RoleModelFactory roleModelFactory;
+
+    @NonNull
+    private UserModelFactory userModelFactory;
 
     @NonNull
     private ISysRoleService roleService;
@@ -156,7 +158,7 @@ public class RoleApplicationService {
         roleModel.checkRoleAvailable();
 
         for (Long userId : userIds) {
-            UserModel user = UserModelFactory.loadFromDb(userId, userService);
+            UserModel user = userModelFactory.loadById(userId);
             user.setRoleId(roleId);
             user.updateById();
         }

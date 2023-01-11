@@ -21,7 +21,7 @@ import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.service.TokenService;
 import com.agileboot.orm.system.entity.SysPostEntity;
@@ -57,23 +57,20 @@ public class UserApplicationService {
     private ISysPostService postService;
 
     @NonNull
-    private ISysRoleMenuService roleMenuService;
+    private UserModelFactory userModelFactory;
 
     @NonNull
     private TokenService tokenService;
-
-    @NonNull
-    private RedisCacheService redisCacheService;
 
     @NonNull
     private RoleModelFactory roleModelFactory;
 
 
 
-    public PageDTO getUserList(SearchUserQuery query) {
+    public PageDTO<UserDTO> getUserList(SearchUserQuery query) {
         Page<SearchUserDO> userPage = userService.getUserList(query);
         List<UserDTO> userDTOList = userPage.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
-        return new PageDTO(userDTOList, userPage.getTotal());
+        return new PageDTO<>(userDTOList, userPage.getTotal());
     }
 
     public UserProfileDTO getUserProfile(Long userId) {
@@ -87,15 +84,15 @@ public class UserApplicationService {
 
 
     public void updateUserProfile(UpdateProfileCommand command) {
-        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        UserModel userModel = userModelFactory.loadById(command.getUserId());
         userModel.loadUpdateProfileCommand(command);
 
-        userModel.checkPhoneNumberIsUnique(userService);
-        userModel.checkEmailIsUnique(userService);
+        userModel.checkPhoneNumberIsUnique();
+        userModel.checkEmailIsUnique();
 
         userModel.updateById();
 
-        redisCacheService.userCache.delete(userModel.getUserId());
+        CacheCenter.userCache.delete(userModel.getUserId());
     }
 
     public UserDetailDTO getUserDetailInfo(Long userId) {
@@ -118,74 +115,77 @@ public class UserApplicationService {
     }
 
     public void addUser(AddUserCommand command) {
-        UserModel model = UserModelFactory.loadFromAddCommand(command, new UserModel());
+        UserModel model = userModelFactory.create();
+        model.loadAddUserCommand(command);
 
-        model.checkUsernameIsUnique(userService);
-        model.checkPhoneNumberIsUnique(userService);
-        model.checkEmailIsUnique(userService);
+        model.checkUsernameIsUnique();
+        model.checkPhoneNumberIsUnique();
+        model.checkEmailIsUnique();
 
         model.insert();
     }
 
     public void updateUser(UpdateUserCommand command) {
-        UserModel model = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        UserModel model = userModelFactory.loadById(command.getUserId());
         model.loadUpdateUserCommand(command);
 
-        model.checkPhoneNumberIsUnique(userService);
-        model.checkEmailIsUnique(userService);
+        model.checkPhoneNumberIsUnique();
+        model.checkEmailIsUnique();
         model.updateById();
 
-        redisCacheService.userCache.delete(model.getUserId());
+        CacheCenter.userCache.delete(model.getUserId());
     }
 
     public void deleteUsers(LoginUser loginUser, BulkOperationCommand<Long> command) {
         for (Long id : command.getIds()) {
-            UserModel userModel = UserModelFactory.loadFromDb(id, userService);
+            UserModel userModel = userModelFactory.loadById(id);
             userModel.checkCanBeDelete(loginUser);
             userModel.deleteById();
         }
     }
 
     public void updatePasswordBySelf(LoginUser loginUser, UpdateUserPasswordCommand command) {
-        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        UserModel userModel = userModelFactory.loadById(command.getUserId());
         userModel.modifyPassword(command);
         userModel.updateById();
 
         loginUser.setEntity(userModel);
 
         tokenService.setLoginUser(loginUser);
-        redisCacheService.userCache.delete(userModel.getUserId());
+        CacheCenter.userCache.delete(userModel.getUserId());
     }
 
     public void resetUserPassword(ResetPasswordCommand command) {
-        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        UserModel userModel = userModelFactory.loadById(command.getUserId());
 
         userModel.resetPassword(command.getPassword());
         userModel.updateById();
 
-        redisCacheService.userCache.delete(userModel.getUserId());
+        CacheCenter.userCache.delete(userModel.getUserId());
     }
 
     public void changeUserStatus(ChangeStatusCommand command) {
-        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        UserModel userModel = userModelFactory.loadById(command.getUserId());
 
         userModel.setStatus(Convert.toInt(command.getStatus()));
         userModel.updateById();
 
-        redisCacheService.userCache.delete(userModel.getUserId());
+        CacheCenter.userCache.delete(userModel.getUserId());
     }
 
     public void updateUserAvatar(LoginUser loginUser, UpdateUserAvatarCommand command) {
-        UserModel userModel = UserModelFactory.loadFromDb(command.getUserId(), userService);
+        UserModel userModel = userModelFactory.loadById(command.getUserId());
+
         userModel.setAvatar(command.getAvatar());
         userModel.updateById();
 
         tokenService.setLoginUser(loginUser);
-        redisCacheService.userCache.delete(userModel.getUserId());
+
+        CacheCenter.userCache.delete(userModel.getUserId());
     }
 
     public UserInfoDTO getUserWithRole(Long userId) {
-        UserModel userModel = UserModelFactory.loadFromDb(userId, userService);
+        UserModel userModel = userModelFactory.loadById(userId);
         RoleModel roleModel = roleModelFactory.loadById(userModel.getRoleId());
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();

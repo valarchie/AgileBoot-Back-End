@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
@@ -23,39 +24,56 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserModel extends SysUserEntity {
 
-    public UserModel(SysUserEntity entity) {
+    private ISysUserService userService;
+
+    public UserModel(SysUserEntity entity, ISysUserService userService) {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
         }
+        this.userService = userService;
     }
+
+    public UserModel(ISysUserService userService) {
+        this.userService = userService;
+    }
+
+    public void loadAddUserCommand(AddUserCommand command) {
+        if (command != null) {
+            BeanUtil.copyProperties(command, this, "userId");
+        }
+    }
+
 
     public void loadUpdateUserCommand(UpdateUserCommand command) {
         if (command != null) {
-            BeanUtil.copyProperties(command, this, "userId");
+            loadAddUserCommand(command);
         }
     }
 
     public void loadUpdateProfileCommand(UpdateProfileCommand command) {
         if (command != null) {
-            BeanUtil.copyProperties(command, this, "userId");
+            this.setSex(command.getSex());
+            this.setNickName(command.getNickName());
+            this.setPhoneNumber(command.getPhoneNumber());
+            this.setEmail(command.getEmail());
         }
     }
 
 
-    public void checkUsernameIsUnique(ISysUserService userService) {
+    public void checkUsernameIsUnique() {
         if (userService.isUserNameDuplicated(getUsername())) {
             throw new ApiException(ErrorCode.Business.USER_NAME_IS_NOT_UNIQUE);
         }
     }
 
-    public void checkPhoneNumberIsUnique(ISysUserService userService) {
+    public void checkPhoneNumberIsUnique() {
         if (StrUtil.isNotEmpty(getPhoneNumber()) && userService.isPhoneDuplicated(getPhoneNumber(),
             getUserId())) {
             throw new ApiException(ErrorCode.Business.USER_PHONE_NUMBER_IS_NOT_UNIQUE);
         }
     }
 
-    public void checkEmailIsUnique(ISysUserService userService) {
+    public void checkEmailIsUnique() {
         if (StrUtil.isNotEmpty(getEmail()) && userService.isEmailDuplicated(getEmail(), getUserId())) {
             throw new ApiException(ErrorCode.Business.USER_EMAIL_IS_NOT_UNIQUE);
         }

@@ -28,6 +28,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoleModel extends SysRoleEntity {
 
+    private List<Long> menuIds;
+
+    private List<Long> deptIds;
+
     private ISysRoleService roleService;
     private ISysRoleMenuService roleMenuService;
 
@@ -55,10 +59,6 @@ public class RoleModel extends SysRoleEntity {
             loadAddCommand(command);
         }
     }
-
-    private List<Long> menuIds;
-
-    private List<Long> deptIds;
 
     public void checkRoleNameUnique() {
         if (roleService.isRoleNameDuplicated(getRoleId(), getRoleName())) {
