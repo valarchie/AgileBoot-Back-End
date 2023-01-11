@@ -27,10 +27,13 @@ public class NoticeApplicationService {
     @NonNull
     private ISysNoticeService noticeService;
 
-    public PageDTO getNoticeList(NoticeQuery query) {
+    @NonNull
+    private NoticeModelFactory noticeModelFactory;
+
+    public PageDTO<NoticeDTO> getNoticeList(NoticeQuery query) {
         Page<SysNoticeEntity> page = noticeService.getNoticeList(query.toPage(), query.toQueryWrapper());
         List<NoticeDTO> records = page.getRecords().stream().map(NoticeDTO::new).collect(Collectors.toList());
-        return new PageDTO(records, page.getTotal());
+        return new PageDTO<>(records, page.getTotal());
     }
 
 
@@ -41,7 +44,8 @@ public class NoticeApplicationService {
 
 
     public void addNotice(NoticeAddCommand addCommand) {
-        NoticeModel noticeModel = NoticeModelFactory.loadFromAddCommand(addCommand, new NoticeModel());
+        NoticeModel noticeModel = noticeModelFactory.create();
+        noticeModel.loadAddCommand(addCommand);
 
         noticeModel.checkFields();
 
@@ -50,7 +54,7 @@ public class NoticeApplicationService {
 
 
     public void updateNotice(NoticeUpdateCommand updateCommand) {
-        NoticeModel noticeModel = NoticeModelFactory.loadFromDb(updateCommand.getNoticeId(), noticeService);
+        NoticeModel noticeModel = noticeModelFactory.loadById(updateCommand.getNoticeId());
         noticeModel.loadUpdateCommand(updateCommand);
 
         noticeModel.checkFields();

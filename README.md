@@ -317,7 +317,7 @@ agileboot
 QQ群：  [![加入QQ群](https://img.shields.io/badge/1398880-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TR5guoXS0HssErVWefmdFRirJvfpEvp1&jump_from=webapi&authKey=VkWMmVhp/pNdWuRD8sqgM+Sv2+Vy2qCJQSeLmeXlLtfER2RJBi6zL56PdcRlCmTs) 点击按钮入群。
 
 
-如果觉得该项目对您有帮忙，可以小额捐赠支持本项目演示网站服务器等费用~
+如果觉得该项目对您有帮助，可以小额捐赠支持本项目演示网站服务器等费用~
 
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-28b63fdd7b3ce003bd30c25883f2276212b.png">

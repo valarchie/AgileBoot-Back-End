@@ -1,6 +1,7 @@
 package com.agileboot.domain.system.notice.model;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.orm.common.enums.NoticeTypeEnum;
 import com.agileboot.orm.common.enums.StatusEnum;
@@ -22,9 +23,15 @@ public class NoticeModel extends SysNoticeEntity {
         }
     }
 
+    public void loadAddCommand(NoticeAddCommand command) {
+        if (command != null) {
+            BeanUtil.copyProperties(command, this, "noticeId");
+        }
+    }
+
     public void loadUpdateCommand(NoticeUpdateCommand command) {
         if (command != null) {
-            BeanUtil.copyProperties(command, this);
+            loadAddCommand(command);
         }
     }
 
