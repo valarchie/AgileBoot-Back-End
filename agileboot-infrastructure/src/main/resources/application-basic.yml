@@ -119,8 +119,11 @@ springdoc:
     enabled: true
     groups:
       enabled: true
-  # 配置需要生成接口文档的扫描包
-  packages-to-scan: com.agileboot
+  group-configs:
+    -   group: 'default'
+        paths-to-match: '/**'
+      # 配置需要生成接口文档的扫描包
+        packages-to-scan: com.agileboot
 
 
 

@@ -1,17 +1,13 @@
 package com.agileboot.orm.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
-import java.util.Date;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -24,48 +20,48 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("sys_login_info")
-@ApiModel(value = "SysLoginInfoEntity对象", description = "系统访问记录")
+@Schema(description = "系统访问记录")
 public class SysLoginInfoEntity extends Model<SysLoginInfoEntity> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("访问ID")
+    @Schema(description = "访问ID")
     @TableId(value = "info_id", type = IdType.AUTO)
     private Long infoId;
 
-    @ApiModelProperty("用户账号")
+    @Schema(description = "用户账号")
     @TableField("username")
     private String username;
 
-    @ApiModelProperty("登录IP地址")
+    @Schema(description = "登录IP地址")
     @TableField("ip_address")
     private String ipAddress;
 
-    @ApiModelProperty("登录地点")
+    @Schema(description = "登录地点")
     @TableField("login_location")
     private String loginLocation;
 
-    @ApiModelProperty("浏览器类型")
+    @Schema(description = "浏览器类型")
     @TableField("browser")
     private String browser;
 
-    @ApiModelProperty("操作系统")
+    @Schema(description = "操作系统")
     @TableField("operation_system")
     private String operationSystem;
 
-    @ApiModelProperty("登录状态（1成功 0失败）")
+    @Schema(description = "登录状态（1成功 0失败）")
     @TableField("`status`")
     private Integer status;
 
-    @ApiModelProperty("提示消息")
+    @Schema(description = "提示消息")
     @TableField("msg")
     private String msg;
 
-    @ApiModelProperty("访问时间")
+    @Schema(description = "访问时间")
     @TableField("login_time")
     private Date loginTime;
 
-    @ApiModelProperty("逻辑删除")
+    @Schema(description = "逻辑删除")
     @TableField("deleted")
     @TableLogic
     private Boolean deleted;

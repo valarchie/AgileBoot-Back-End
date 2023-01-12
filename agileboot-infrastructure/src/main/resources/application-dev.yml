@@ -87,14 +87,15 @@ logging:
         path: D:/logs/agileboot-dev
 
 
-springdoc:
-    swagger-ui:
-        # 修改Swagger UI路径
-        path: /swagger-ui.html
-        # 开启Swagger UI界面
-        enabled: true
-        url: /dev-api/v3/api-docs
-        config-url: /dev-api/v3/api-docs/swagger-config
+# 删除 SWAGGER 配置，会导致项目内部无法访问 API 文档，但是可以通过后台地址访问
+#springdoc:
+#    swagger-ui:
+#        # 修改Swagger UI路径
+#        path: /swagger-ui.html
+#        # 开启Swagger UI界面
+#        enabled: true
+#        url: /dev-api/v3/api-docs
+#        config-url: /dev-api/v3/api-docs/swagger-config
 
 
 # 项目相关配置

@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -22,16 +22,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("sys_role_menu")
-@ApiModel(value = "SysRoleMenuXEntity对象", description = "角色和菜单关联表")
+@Schema(description = "角色和菜单关联表")
 public class SysRoleMenuEntity extends Model<SysRoleMenuEntity> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("角色ID")
+    @Schema(description = "角色ID")
     @TableId(value = "role_id", type = IdType.AUTO)
     private Long roleId;
 
-    @ApiModelProperty("菜单ID")
+    @Schema(description = "菜单ID")
     @TableField("menu_id")
     private Long menuId;
 

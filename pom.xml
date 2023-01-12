@@ -20,7 +20,6 @@
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <druid.version>1.2.8</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
-        <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <mybatis-spring-boot.version>2.2.2</mybatis-spring-boot.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
@@ -38,10 +37,10 @@
         <mockito.version>1.10.19</mockito.version>
         <common-validator.version>1.7</common-validator.version>
         <it.ozimov.version>0.7.3</it.ozimov.version>
-        <io.swagger.version>1.6.8</io.swagger.version>
         <org.lionsoul.version>2.6.5</org.lionsoul.version>
         <com.google.guava.version>31.0.1-jre</com.google.guava.version>
-        <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
+        <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
+        <knife4j-openapi3-spring-boot-starter.version>4.0.0</knife4j-openapi3-spring-boot-starter.version>
         <spring.boot.version>2.7.0</spring.boot.version>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.5</maven.surefire.plugin.version>
@@ -263,11 +262,10 @@
                 <version>${springdoc-openapi-ui.version}</version>
             </dependency>
 
-            <!--  swagger注解  -->
             <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${io.swagger.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>${knife4j-openapi3-spring-boot-starter.version}</version>
             </dependency>
 
         </dependencies>
