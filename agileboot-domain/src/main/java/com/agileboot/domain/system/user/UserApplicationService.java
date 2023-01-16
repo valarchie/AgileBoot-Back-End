@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -65,6 +66,8 @@ public class UserApplicationService {
     @NonNull
     private RoleModelFactory roleModelFactory;
 
+    @NonNull
+    private BCryptPasswordEncoder encoder;
 
 
     public PageDTO<UserDTO> getUserList(SearchUserQuery query) {
@@ -115,6 +118,7 @@ public class UserApplicationService {
     }
 
     public void addUser(AddUserCommand command) {
+        command.setPassword(encoder.encode(command.getPassword()));
         UserModel model = userModelFactory.create();
         model.loadAddUserCommand(command);
 
