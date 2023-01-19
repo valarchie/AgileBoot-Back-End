@@ -1,6 +1,6 @@
 package com.agileboot.common.utils.ip;
 
-import org.apache.commons.validator.routines.InetAddressValidator;
+import cn.hutool.core.lang.Validator;
 
 /**
  * ip校验器
@@ -8,14 +8,12 @@ import org.apache.commons.validator.routines.InetAddressValidator;
  */
 public class IpUtil {
 
-    private static final InetAddressValidator VALIDATOR = InetAddressValidator.getInstance();
-
     public static boolean isValidIpv4(String inetAddress) {
-        return VALIDATOR.isValidInet4Address(inetAddress);
+        return Validator.isIpv4(inetAddress);
     }
 
     public static boolean isValidIpv6(String inetAddress) {
-        return VALIDATOR.isValidInet6Address(inetAddress);
+        return Validator.isIpv6(inetAddress);
     }
 
 }

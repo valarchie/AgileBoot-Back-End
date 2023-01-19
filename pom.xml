@@ -36,7 +36,6 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <mockito.version>1.10.19</mockito.version>
-        <common-validator.version>1.7</common-validator.version>
         <it.ozimov.version>0.7.3</it.ozimov.version>
         <io.swagger.version>1.6.8</io.swagger.version>
         <org.lionsoul.version>2.6.5</org.lionsoul.version>
@@ -214,12 +213,6 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>${common-validator.version}</version>
             </dependency>
 
             <dependency>

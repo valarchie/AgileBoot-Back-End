@@ -153,11 +153,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>it.ozimov</groupId>
             <artifactId>embedded-redis</artifactId>
             <!-- 不排除掉slf4j的话 会冲突-->
