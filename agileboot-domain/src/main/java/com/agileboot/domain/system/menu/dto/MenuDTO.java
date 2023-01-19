@@ -20,7 +20,7 @@ public class MenuDTO {
             this.menuName = entity.getMenuName();
             this.menuType = entity.getMenuType() + "";
             this.icon = entity.getIcon();
-            this.orderNum = entity.getOrderNum() + "";
+            this.orderNum = entity.getOrderNum();
             this.component = entity.getComponent();
             this.perms = entity.getPerms();
             this.path = entity.getPath();
@@ -39,7 +39,7 @@ public class MenuDTO {
     private String menuType;
     private String menuName;
     private String icon;
-    private String orderNum;
+    private Integer orderNum;
     private String component;
     private String path;
     private String perms;

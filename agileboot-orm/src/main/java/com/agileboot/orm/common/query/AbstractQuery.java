@@ -50,11 +50,15 @@ public abstract class AbstractQuery {
         return columnName;
     }
 
+    public void addColumnNameAlias(String alias, String columnName) {
+        filedOverride.put(columnName, alias + "." + columnName);
+    }
+
+
     public void addSortCondition(QueryWrapper<?> queryWrapper) {
         if(queryWrapper != null) {
             queryWrapper.orderBy(StrUtil.isNotBlank(orderByColumn), convertSortDirection(),
                 StrUtil.toUnderlineCase(orderByColumn));
-
         }
     }
 
