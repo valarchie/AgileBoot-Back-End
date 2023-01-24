@@ -100,6 +100,7 @@ public class RoleApplicationService {
         roleModel.updateById();
 
         if (loginUser.isAdmin()) {
+            // TODO 如何实时刷新所有改动到的user的权限
             loginUser.getRoleInfo().setMenuPermissions(userDetailsService.getMenuPermissions(loginUser.getUserId()));
             tokenService.setLoginUser(loginUser);
         }
