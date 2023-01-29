@@ -73,7 +73,7 @@ public class CodeGenerator {
 //        templateConfig(generator);
         injectionConfig(generator);
         strategyConfig(generator);
-        // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+        // 默认的是Velocity引擎模板
         generator.templateEngine(new VelocityTemplateEngine());
         generator.execute();
     }
