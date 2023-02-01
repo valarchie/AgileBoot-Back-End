@@ -55,8 +55,8 @@ public abstract class AbstractQuery {
 
     public void addSortCondition(QueryWrapper<?> queryWrapper) {
         if(queryWrapper != null) {
-            Boolean sortDirection = convertSortDirection();
-            queryWrapper.orderBy(StrUtil.isNotBlank(orderByColumn) && sortDirection != null, sortDirection,
+            boolean sortDirection = convertSortDirection();
+            queryWrapper.orderBy(StrUtil.isNotBlank(orderByColumn), sortDirection,
                 StrUtil.toUnderlineCase(orderByColumn));
         }
     }
@@ -71,8 +71,8 @@ public abstract class AbstractQuery {
     }
 
 
-    public Boolean convertSortDirection() {
-        Boolean orderDirection = null;
+    public boolean convertSortDirection() {
+        boolean orderDirection = true;
         if (StrUtil.isNotEmpty(isAsc)) {
             if (ASC.equals(isAsc)) {
                 orderDirection = true;
