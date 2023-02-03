@@ -49,10 +49,10 @@ public class GlobalExceptionInterceptor {
      */
     @ExceptionHandler(ApiException.class)
     public ResponseDTO<?> handleServiceException(ApiException e) {
+        log.error(e.getMessage(), e);
         if (e.getErrorCode() == ErrorCode.Internal.DB_INTERNAL_ERROR) {
             return ResponseDTO.fail(e.getErrorCode(), "请联系管理员查看错误日志");
         }
-        log.error(e.getMessage(), e);
         return ResponseDTO.fail(e);
     }
 
