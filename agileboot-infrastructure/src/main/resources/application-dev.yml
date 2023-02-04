@@ -88,16 +88,12 @@ logging:
 
 
 springdoc:
-    swagger-ui:
-        # 修改Swagger UI路径
-        path: /swagger-ui.html
-        # 开启Swagger UI界面
-        enabled: true
-        url: /dev-api/v3/api-docs
-        config-url: /dev-api/v3/api-docs/swagger-config
-
+    api-docs:
+        path: ${agileboot.api-docs-path-prefix}/v3/api-docs
 
 # 项目相关配置
 agileboot:
     # 文件基路径 示例（ Windows配置D:\agileboot，Linux配置 /home/agileboot）
     file-base-dir: D:\agileboot
+    # 因为knife4j不能给configUrl 配置前缀， 所以只能自己配置一个，然后通过转发来实现
+    api-docs-path-prefix: /dev-api

@@ -4,15 +4,14 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author valarchie
  * SpringDoc API文档相关配置
  */
-@AutoConfiguration
+@Configuration
 public class SpringDocConfig {
 
     @Bean
@@ -26,23 +25,5 @@ public class SpringDocConfig {
                 .description("Agileboot后台管理系统接口文档")
                 .url("https://juejin.cn/column/7159946528827080734"));
     }
-
-//    @Bean
-//    public GroupedOpenApi siteApi() {
-//        return GroupedOpenApi.builder()
-//            .group("site接口")
-//            .displayName("dsdsd")
-//            .pathsToMatch("/system/**")
-//            .build();
-//    }
-//    @Bean
-//    public GroupedOpenApi adminApi() {
-//        return GroupedOpenApi.builder()
-//            .group("admin接口")
-//            .displayName("dsssdsd")
-//            .pathsToMatch("/test/**")
-//            .build();
-//    }
-
 
 }

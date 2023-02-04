@@ -56,12 +56,22 @@ public class AgileBootConfig {
      */
     private static String rsaPrivateKey;
 
+    private static String apiDocsPathPrefix;
+
     public static String getFileBaseDir() {
         return fileBaseDir;
     }
 
     public void setFileBaseDir(String fileBaseDir) {
         AgileBootConfig.fileBaseDir = fileBaseDir  + File.separator + Constants.RESOURCE_PREFIX;
+    }
+
+    public static String getApiDocsPathPrefix() {
+        return apiDocsPathPrefix;
+    }
+
+    public void setApiDocsPathPrefix(String apiDocsPathPrefix) {
+        AgileBootConfig.apiDocsPathPrefix = apiDocsPathPrefix;
     }
 
     public static boolean isAddressEnabled() {
