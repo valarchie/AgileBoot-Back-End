@@ -4,6 +4,8 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.utils.time.DatePickUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import java.util.Date;
 import java.util.Map;
 import lombok.Data;
@@ -18,8 +20,10 @@ public abstract class AbstractQuery<T> {
 
     protected String isAsc;
 
+    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
     private Date beginTime;
 
+    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
     private Date endTime;
 
     private static final String ASC = "ascending";
