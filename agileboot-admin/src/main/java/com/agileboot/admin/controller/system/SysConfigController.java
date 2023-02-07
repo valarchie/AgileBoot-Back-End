@@ -90,7 +90,7 @@ public class SysConfigController extends BaseController {
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.MODIFY)
     @Operation(summary = "配置修改", description = "配置修改")
     @PutMapping
-    public ResponseDTO<?> edit(@RequestBody ConfigUpdateCommand config) {
+    public ResponseDTO<Void> edit(@RequestBody ConfigUpdateCommand config) {
         configApplicationService.updateConfig(config);
         return ResponseDTO.ok();
     }
@@ -102,7 +102,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@permission.has('system:config:remove')")
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/refreshCache")
-    public ResponseDTO<?> refreshCache() {
+    public ResponseDTO<Void> refreshCache() {
         guavaCacheService.configCache.invalidateAll();
         return ResponseDTO.ok();
     }

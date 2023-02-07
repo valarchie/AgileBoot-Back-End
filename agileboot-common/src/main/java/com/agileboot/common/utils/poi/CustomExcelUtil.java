@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CustomExcelUtil {
 
 
-    public static void writeToResponse(List<?> list, Class<?> clazz, HttpServletResponse response) {
+    public static <T> void writeToResponse(List<T> list, Class<T> clazz, HttpServletResponse response) {
         try {
             writeToOutputStream(list, clazz, response.getOutputStream());
         } catch (IOException e) {
@@ -31,7 +31,7 @@ public class CustomExcelUtil {
         }
     }
 
-    public static List<?> readFromRequest(Class<?> clazz,  MultipartFile file) {
+    public static <T> List<T> readFromRequest(Class<T> clazz, MultipartFile file) {
         try {
             return readFromInputStream(clazz, file.getInputStream());
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class CustomExcelUtil {
         }
     }
 
-    public static void writeToOutputStream(List<?> list, Class<?> clazz, OutputStream outputStream) {
+    public static <T> void writeToOutputStream(List<T> list, Class<T> clazz, OutputStream outputStream) {
 
         // 通过工具类创建writer
         ExcelWriter writer = ExcelUtil.getWriter();
@@ -73,7 +73,7 @@ public class CustomExcelUtil {
 
 
 
-    public static List<?> readFromInputStream(Class<?> clazz,  InputStream inputStream) {
+    public static <T> List<T> readFromInputStream(Class<T> clazz, InputStream inputStream) {
         ExcelReader reader = ExcelUtil.getReader(inputStream);
         // 去除掉excel中的html标签语言  避免xss攻击
         reader.setCellEditor(new TrimXssEditor());

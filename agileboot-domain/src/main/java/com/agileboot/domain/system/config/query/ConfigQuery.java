@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Schema(name = "配置查询参数")
-public class ConfigQuery extends AbstractPageQuery {
+public class ConfigQuery extends AbstractPageQuery<SysConfigEntity> {
 
     @Schema(name = "配置名称")
     private String configName;
@@ -26,9 +26,8 @@ public class ConfigQuery extends AbstractPageQuery {
     private Boolean isAllowChange;
 
 
-    @SuppressWarnings("rawtypes")
     @Override
-    public QueryWrapper toQueryWrapper() {
+    public QueryWrapper<SysConfigEntity> toQueryWrapper() {
         QueryWrapper<SysConfigEntity> sysNoticeWrapper = new QueryWrapper<>();
         sysNoticeWrapper.like(StrUtil.isNotEmpty(configName), "config_name", configName);
         sysNoticeWrapper.eq(StrUtil.isNotEmpty(configKey), "config_key", configKey);

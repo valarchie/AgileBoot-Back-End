@@ -48,8 +48,8 @@ public class SysNoticeController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:notice:list')")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO> list(NoticeQuery query) {
-        PageDTO pageDTO = noticeApplicationService.getNoticeList(query);
+    public ResponseDTO<PageDTO<NoticeDTO>> list(NoticeQuery query) {
+        PageDTO<NoticeDTO> pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -60,8 +60,8 @@ public class SysNoticeController extends BaseController {
     @DS("slave")
     @PreAuthorize("@permission.has('system:notice:list')")
     @GetMapping("/listFromSlave")
-    public ResponseDTO<PageDTO> listFromSlave(NoticeQuery query) {
-        PageDTO pageDTO = noticeApplicationService.getNoticeList(query);
+    public ResponseDTO<PageDTO<NoticeDTO>> listFromSlave(NoticeQuery query) {
+        PageDTO<NoticeDTO> pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -81,7 +81,7 @@ public class SysNoticeController extends BaseController {
     @PreAuthorize("@permission.has('system:notice:add')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO<?> add(@RequestBody NoticeAddCommand addCommand) {
+    public ResponseDTO<Void> add(@RequestBody NoticeAddCommand addCommand) {
         noticeApplicationService.addNotice(addCommand);
         return ResponseDTO.ok();
     }
@@ -92,7 +92,7 @@ public class SysNoticeController extends BaseController {
     @PreAuthorize("@permission.has('system:notice:edit')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO<?> edit(@RequestBody NoticeUpdateCommand updateCommand) {
+    public ResponseDTO<Void> edit(@RequestBody NoticeUpdateCommand updateCommand) {
         noticeApplicationService.updateNotice(updateCommand);
         return ResponseDTO.ok();
     }
@@ -103,11 +103,10 @@ public class SysNoticeController extends BaseController {
     @PreAuthorize("@permission.has('system:notice:remove')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{noticeIds}")
-    public ResponseDTO<?> remove(@PathVariable List<Integer> noticeIds) {
+    public ResponseDTO<Void> remove(@PathVariable List<Integer> noticeIds) {
         noticeApplicationService.deleteNotice(new BulkOperationCommand<>(noticeIds));
         return ResponseDTO.ok();
     }
-
 
 
 }

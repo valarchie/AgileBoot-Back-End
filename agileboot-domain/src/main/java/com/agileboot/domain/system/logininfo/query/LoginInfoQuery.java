@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class LoginInfoQuery extends AbstractPageQuery {
+public class LoginInfoQuery extends AbstractPageQuery<SysLoginInfoEntity> {
 
     private String ipaddr;
     private String status;
@@ -20,7 +20,7 @@ public class LoginInfoQuery extends AbstractPageQuery {
 
 
     @Override
-    public QueryWrapper toQueryWrapper() {
+    public QueryWrapper<SysLoginInfoEntity> toQueryWrapper() {
         QueryWrapper<SysLoginInfoEntity> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.like(StrUtil.isNotEmpty(ipaddr), "ip_address", ipaddr)

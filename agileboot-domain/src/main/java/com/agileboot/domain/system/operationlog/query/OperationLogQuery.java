@@ -2,7 +2,7 @@ package com.agileboot.domain.system.operationlog.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.common.query.AbstractPageQuery;
-import com.agileboot.orm.system.entity.SysLoginInfoEntity;
+import com.agileboot.orm.system.entity.SysOperationLogEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class OperationLogQuery extends AbstractPageQuery {
+public class OperationLogQuery extends AbstractPageQuery<SysOperationLogEntity> {
 
     private String businessType;
     private String status;
@@ -21,8 +21,8 @@ public class OperationLogQuery extends AbstractPageQuery {
 
 
     @Override
-    public QueryWrapper toQueryWrapper() {
-        QueryWrapper<SysLoginInfoEntity> queryWrapper = new QueryWrapper<>();
+    public QueryWrapper<SysOperationLogEntity> toQueryWrapper() {
+        QueryWrapper<SysOperationLogEntity> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.like(businessType!=null, "business_type", businessType)
             .eq(status != null, "status", status)

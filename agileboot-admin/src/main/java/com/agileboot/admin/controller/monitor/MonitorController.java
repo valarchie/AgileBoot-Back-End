@@ -59,7 +59,7 @@ public class MonitorController extends BaseController {
      */
     @PreAuthorize("@permission.has('monitor:online:list')")
     @GetMapping("/onlineUser/list")
-    public ResponseDTO<PageDTO> list(String ipaddr, String userName) {
+    public ResponseDTO<PageDTO<OnlineUserInfo>> list(String ipaddr, String userName) {
         List<OnlineUserInfo> onlineUserList = monitorApplicationService.getOnlineUserList(userName, ipaddr);
         return ResponseDTO.ok(new PageDTO<>(onlineUserList));
     }

@@ -48,7 +48,7 @@ public class SysMenuController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:menu:list')")
     @GetMapping("/list")
-    public ResponseDTO<?> list(MenuQuery query) {
+    public ResponseDTO<List<MenuDTO>> list(MenuQuery query) {
         List<MenuDTO> menuList = menuApplicationService.getMenuList(query);
         return ResponseDTO.ok(menuList);
     }
@@ -67,7 +67,7 @@ public class SysMenuController extends BaseController {
      * 获取菜单下拉树列表
      */
     @GetMapping("/dropdownList")
-    public ResponseDTO<?> dropdownList() {
+    public ResponseDTO<List<Tree<Long>>> dropdownList() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         List<Tree<Long>> dropdownList = menuApplicationService.getDropdownList(loginUser);
         return ResponseDTO.ok(dropdownList);
@@ -77,7 +77,7 @@ public class SysMenuController extends BaseController {
      * 加载对应角色菜单列表树
      */
     @GetMapping(value = "/roleMenuTreeSelect/{roleId}")
-    public ResponseDTO<?> roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
+    public ResponseDTO<TreeSelectedDTO> roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         TreeSelectedDTO roleDropdownList = menuApplicationService.getRoleDropdownList(loginUser, roleId);
         return ResponseDTO.ok(roleDropdownList);
@@ -89,7 +89,7 @@ public class SysMenuController extends BaseController {
     @PreAuthorize("@permission.has('system:menu:add')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO<?> add(@RequestBody AddMenuCommand addCommand) {
+    public ResponseDTO<Void> add(@RequestBody AddMenuCommand addCommand) {
         menuApplicationService.addMenu(addCommand);
         return ResponseDTO.ok();
     }
@@ -100,7 +100,7 @@ public class SysMenuController extends BaseController {
     @PreAuthorize("@permission.has('system:menu:edit')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO<?> edit(@RequestBody UpdateMenuCommand updateCommand) {
+    public ResponseDTO<Void> edit(@RequestBody UpdateMenuCommand updateCommand) {
         menuApplicationService.updateMenu(updateCommand);
         return ResponseDTO.ok();
     }
@@ -111,7 +111,7 @@ public class SysMenuController extends BaseController {
     @PreAuthorize("@permission.has('system:menu:remove')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{menuId}")
-    public ResponseDTO<?> remove(@PathVariable("menuId") Long menuId) {
+    public ResponseDTO<Void> remove(@PathVariable("menuId") Long menuId) {
         menuApplicationService.remove(menuId);
         return ResponseDTO.ok();
     }

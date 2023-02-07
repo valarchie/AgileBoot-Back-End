@@ -13,6 +13,7 @@ import com.agileboot.domain.system.role.dto.RoleDTO;
 import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.query.RoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
+import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -49,8 +50,8 @@ public class SysRoleController extends BaseController {
 
     @PreAuthorize("@permission.has('system:role:list')")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO> list(RoleQuery query) {
-        PageDTO pageDTO = roleApplicationService.getRoleList(query);
+    public ResponseDTO<PageDTO<RoleDTO>> list(RoleQuery query) {
+        PageDTO<RoleDTO> pageDTO = roleApplicationService.getRoleList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -58,7 +59,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, RoleQuery query) {
-        PageDTO pageDTO = roleApplicationService.getRoleList(query);
+        PageDTO<RoleDTO> pageDTO = roleApplicationService.getRoleList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), RoleDTO.class, response);
     }
 
@@ -67,7 +68,7 @@ public class SysRoleController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:role:query')")
     @GetMapping(value = "/{roleId}")
-    public ResponseDTO<?> getInfo(@PathVariable @NotNull Long roleId) {
+    public ResponseDTO<RoleDTO> getInfo(@PathVariable @NotNull Long roleId) {
         RoleDTO roleInfo = roleApplicationService.getRoleInfo(roleId);
         return ResponseDTO.ok(roleInfo);
     }
@@ -78,7 +79,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:add')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO<?> add(@RequestBody AddRoleCommand addCommand) {
+    public ResponseDTO<Void> add(@RequestBody AddRoleCommand addCommand) {
         roleApplicationService.addRole(addCommand);
         return ResponseDTO.ok();
     }
@@ -89,7 +90,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:remove')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
     @DeleteMapping(value = "/{roleId}")
-    public ResponseDTO<?> remove(@PathVariable("roleId")List<Long> roleIds) {
+    public ResponseDTO<Void> remove(@PathVariable("roleId") List<Long> roleIds) {
         roleApplicationService.deleteRoleByBulk(roleIds);
         return ResponseDTO.ok();
     }
@@ -100,7 +101,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO<?> edit(@Validated @RequestBody UpdateRoleCommand updateCommand) {
+    public ResponseDTO<Void> edit(@Validated @RequestBody UpdateRoleCommand updateCommand) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         roleApplicationService.updateRole(updateCommand, loginUser);
         return ResponseDTO.ok();
@@ -112,7 +113,8 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{roleId}/dataScope")
-    public ResponseDTO<?> dataScope(@PathVariable("roleId")Long roleId, @RequestBody UpdateDataScopeCommand command) {
+    public ResponseDTO<Void> dataScope(@PathVariable("roleId") Long roleId,
+        @RequestBody UpdateDataScopeCommand command) {
         command.setRoleId(roleId);
 
         roleApplicationService.updateDataScope(command);
@@ -125,7 +127,8 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{roleId}/status")
-    public ResponseDTO<?> changeStatus(@PathVariable("roleId")Long roleId, @RequestBody UpdateStatusCommand command) {
+    public ResponseDTO<Void> changeStatus(@PathVariable("roleId") Long roleId,
+        @RequestBody UpdateStatusCommand command) {
         command.setRoleId(roleId);
 
         roleApplicationService.updateStatus(command);
@@ -138,9 +141,10 @@ public class SysRoleController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:role:list')")
     @GetMapping("/{roleId}/allocated/list")
-    public ResponseDTO<PageDTO> allocatedUserList(@PathVariable("roleId")Long roleId, AllocatedRoleQuery query) {
+    public ResponseDTO<PageDTO<UserDTO>> allocatedUserList(@PathVariable("roleId") Long roleId,
+        AllocatedRoleQuery query) {
         query.setRoleId(roleId);
-        PageDTO page = roleApplicationService.getAllocatedUserList(query);
+        PageDTO<UserDTO> page = roleApplicationService.getAllocatedUserList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -149,9 +153,10 @@ public class SysRoleController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:role:list')")
     @GetMapping("/{roleId}/unallocated/list")
-    public ResponseDTO<PageDTO> unallocatedUserList(@PathVariable("roleId")Long roleId, UnallocatedRoleQuery query) {
+    public ResponseDTO<PageDTO<UserDTO>> unallocatedUserList(@PathVariable("roleId") Long roleId,
+        UnallocatedRoleQuery query) {
         query.setRoleId(roleId);
-        PageDTO page = roleApplicationService.getUnallocatedUserList(query);
+        PageDTO<UserDTO> page = roleApplicationService.getUnallocatedUserList(query);
         return ResponseDTO.ok(page);
     }
 
@@ -162,7 +167,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.GRANT)
     @DeleteMapping("/users/{userIds}/grant/bulk")
-    public ResponseDTO<?> deleteRoleOfUserByBulk(@PathVariable("userIds") List<Long> userIds) {
+    public ResponseDTO<Void> deleteRoleOfUserByBulk(@PathVariable("userIds") List<Long> userIds) {
         roleApplicationService.deleteRoleOfUserByBulk(userIds);
         return ResponseDTO.ok();
     }
@@ -173,7 +178,7 @@ public class SysRoleController extends BaseController {
     @PreAuthorize("@permission.has('system:role:edit')")
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.GRANT)
     @PostMapping("/{roleId}/users/{userIds}/grant/bulk")
-    public ResponseDTO<?> addRoleForUserByBulk(@PathVariable("roleId") Long roleId,
+    public ResponseDTO<Void> addRoleForUserByBulk(@PathVariable("roleId") Long roleId,
         @PathVariable("userIds") List<Long> userIds) {
         roleApplicationService.addRoleOfUserByBulk(roleId, userIds);
         return ResponseDTO.ok();

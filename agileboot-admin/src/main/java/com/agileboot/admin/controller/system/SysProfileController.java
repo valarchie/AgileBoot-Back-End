@@ -44,7 +44,7 @@ public class SysProfileController extends BaseController {
      * 个人信息
      */
     @GetMapping
-    public ResponseDTO<?> profile() {
+    public ResponseDTO<UserProfileDTO> profile() {
         LoginUser user = AuthenticationUtils.getLoginUser();
         UserProfileDTO userProfile = userApplicationService.getUserProfile(user.getUserId());
         return ResponseDTO.ok(userProfile);
@@ -55,7 +55,7 @@ public class SysProfileController extends BaseController {
      */
     @AccessLog(title = "个人信息", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO<?> updateProfile(@RequestBody UpdateProfileCommand command) {
+    public ResponseDTO<Void> updateProfile(@RequestBody UpdateProfileCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
         userApplicationService.updateUserProfile(command);
@@ -67,7 +67,7 @@ public class SysProfileController extends BaseController {
      */
     @AccessLog(title = "个人信息", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/password")
-    public ResponseDTO<?> updatePassword(@RequestBody UpdateUserPasswordCommand command) {
+    public ResponseDTO<Void> updatePassword(@RequestBody UpdateUserPasswordCommand command) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         command.setUserId(loginUser.getUserId());
         userApplicationService.updatePasswordBySelf(loginUser, command);
@@ -79,7 +79,7 @@ public class SysProfileController extends BaseController {
      */
     @AccessLog(title = "用户头像", businessType = BusinessTypeEnum.MODIFY)
     @PostMapping("/avatar")
-    public ResponseDTO<?> avatar(@RequestParam("avatarfile") MultipartFile file) {
+    public ResponseDTO<UploadFileDTO> avatar(@RequestParam("avatarfile") MultipartFile file) {
         if (file.isEmpty()) {
             throw new ApiException(ErrorCode.Business.USER_UPLOAD_FILE_FAILED);
         }

@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RoleQuery extends AbstractPageQuery {
+public class RoleQuery extends AbstractPageQuery<SysRoleEntity> {
 
 
     private String roleName;
@@ -23,7 +23,7 @@ public class RoleQuery extends AbstractPageQuery {
 
 
     @Override
-    public QueryWrapper toQueryWrapper() {
+    public QueryWrapper<SysRoleEntity> toQueryWrapper() {
         QueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.eq(status != null, "status", status)
