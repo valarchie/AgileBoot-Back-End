@@ -12,7 +12,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public abstract class AbstractQuery {
+public abstract class AbstractQuery<T> {
 
     protected String orderByColumn;
 
@@ -34,7 +34,7 @@ public abstract class AbstractQuery {
      * 生成query conditions
      * @return
      */
-    public abstract QueryWrapper toQueryWrapper();
+    public abstract QueryWrapper<T> toQueryWrapper();
 
     /**
      * 如果有特殊的表名.前缀  就使用特殊的表名前缀
@@ -53,7 +53,7 @@ public abstract class AbstractQuery {
     }
 
 
-    public void addSortCondition(QueryWrapper<?> queryWrapper) {
+    public void addSortCondition(QueryWrapper<T> queryWrapper) {
         if(queryWrapper != null) {
             boolean sortDirection = convertSortDirection();
             queryWrapper.orderBy(StrUtil.isNotBlank(orderByColumn), sortDirection,
@@ -61,8 +61,7 @@ public abstract class AbstractQuery {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public void addTimeCondition(QueryWrapper queryWrapper, String fieldName) {
+    public void addTimeCondition(QueryWrapper<T> queryWrapper, String fieldName) {
         if (queryWrapper != null) {
             queryWrapper
                 .ge(beginTime != null, fieldName, DatePickUtil.getBeginOfTheDay(beginTime))

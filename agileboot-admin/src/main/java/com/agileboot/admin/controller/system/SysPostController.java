@@ -46,8 +46,8 @@ public class SysPostController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:post:list')")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO> list(PostQuery query) {
-        PageDTO pageDTO = postApplicationService.getPostList(query);
+    public ResponseDTO<PageDTO<PostDTO>> list(PostQuery query) {
+        PageDTO<PostDTO> pageDTO = postApplicationService.getPostList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -55,7 +55,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@permission.has('system:post:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, PostQuery query) {
-        PageDTO pageDTO = postApplicationService.getPostList(query);
+        PageDTO<PostDTO> pageDTO = postApplicationService.getPostList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), PostDTO.class, response);
     }
 
@@ -64,7 +64,7 @@ public class SysPostController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:post:query')")
     @GetMapping(value = "/{postId}")
-    public ResponseDTO<?> getInfo(@PathVariable Long postId) {
+    public ResponseDTO<PostDTO> getInfo(@PathVariable Long postId) {
         PostDTO post = postApplicationService.getPostInfo(postId);
         return ResponseDTO.ok(post);
     }
@@ -75,7 +75,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@permission.has('system:post:add')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO<?> add(@RequestBody AddPostCommand addCommand) {
+    public ResponseDTO<Void> add(@RequestBody AddPostCommand addCommand) {
         postApplicationService.addPost(addCommand);
         return ResponseDTO.ok();
     }
@@ -86,7 +86,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@permission.has('system:post:edit')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO<?> edit(@RequestBody UpdatePostCommand updateCommand) {
+    public ResponseDTO<Void> edit(@RequestBody UpdatePostCommand updateCommand) {
         postApplicationService.updatePost(updateCommand);
         return ResponseDTO.ok();
     }
@@ -97,7 +97,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@permission.has('system:post:remove')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{postIds}")
-    public ResponseDTO<?> remove(@PathVariable List<Long> postIds) {
+    public ResponseDTO<Void> remove(@PathVariable List<Long> postIds) {
         postApplicationService.deletePost(new BulkOperationCommand<>(postIds));
         return ResponseDTO.ok();
     }

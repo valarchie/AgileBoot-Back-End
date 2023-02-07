@@ -10,7 +10,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public class SearchUserQuery extends AbstractPageQuery {
+public class SearchUserQuery extends AbstractPageQuery<SearchUserDO> {
 
     private Long userId;
     private String username;

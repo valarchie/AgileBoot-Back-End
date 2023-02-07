@@ -23,10 +23,10 @@ public class OperationLogApplicationService {
     @NonNull
     private ISysOperationLogService operationLogService;
 
-    public PageDTO getOperationLogList(OperationLogQuery query) {
+    public PageDTO<OperationLogDTO> getOperationLogList(OperationLogQuery query) {
         Page<SysOperationLogEntity> page = operationLogService.page(query.toPage(), query.toQueryWrapper());
         List<OperationLogDTO> records = page.getRecords().stream().map(OperationLogDTO::new).collect(Collectors.toList());
-        return new PageDTO(records, page.getTotal());
+        return new PageDTO<>(records, page.getTotal());
     }
 
     public void deleteOperationLog(BulkOperationCommand<Long> deleteCommand) {

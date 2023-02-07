@@ -45,7 +45,7 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:dept:list')")
     @GetMapping("/list")
-    public ResponseDTO<?> list(DeptQuery query) {
+    public ResponseDTO<List<DeptDTO>> list(DeptQuery query) {
         List<DeptDTO> deptList = deptApplicationService.getDeptList(query);
         return ResponseDTO.ok(deptList);
     }
@@ -55,7 +55,7 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
-    public ResponseDTO<?> excludeCurrentDeptItself(@PathVariable(value = "deptId", required = false) Long deptId) {
+    public ResponseDTO<List<DeptDTO>> excludeCurrentDeptItself(@PathVariable(value = "deptId", required = false) Long deptId) {
         DeptQuery query = new DeptQuery();
         query.setDeptId(deptId);
         query.setExcludeCurrentDept(true);
@@ -78,7 +78,7 @@ public class SysDeptController extends BaseController {
      * 获取部门下拉树列表
      */
     @GetMapping("/dropdownList")
-    public ResponseDTO<?> dropdownList() {
+    public ResponseDTO<List<Tree<Long>>> dropdownList() {
         List<Tree<Long>> deptTree = deptApplicationService.getDeptTree();
         return ResponseDTO.ok(deptTree);
     }
@@ -87,7 +87,7 @@ public class SysDeptController extends BaseController {
      * 加载对应角色部门列表树
      */
     @GetMapping(value = "/dropdownList/role/{roleId}")
-    public ResponseDTO<?> dropdownListForRole(@PathVariable("roleId") Long roleId) {
+    public ResponseDTO<TreeSelectedDTO> dropdownListForRole(@PathVariable("roleId") Long roleId) {
         TreeSelectedDTO deptTreeForRole = deptApplicationService.getDeptTreeForRole(roleId);
         return ResponseDTO.ok(deptTreeForRole);
     }
@@ -98,7 +98,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@permission.has('system:dept:add')")
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
-    public ResponseDTO<?> add(@RequestBody AddDeptCommand addCommand) {
+    public ResponseDTO<Void> add(@RequestBody AddDeptCommand addCommand) {
         deptApplicationService.addDept(addCommand);
         return ResponseDTO.ok();
     }
@@ -109,7 +109,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@permission.has('system:dept:edit') AND @dataScope.checkDeptId(#updateCommand.deptId)")
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
-    public ResponseDTO<?> edit(@RequestBody UpdateDeptCommand updateCommand) {
+    public ResponseDTO<Void> edit(@RequestBody UpdateDeptCommand updateCommand) {
         deptApplicationService.updateDept(updateCommand);
         return ResponseDTO.ok();
     }
@@ -120,7 +120,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@permission.has('system:dept:remove') AND @dataScope.checkDeptId(#deptId)")
     @AccessLog(title = "部门管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{deptId}")
-    public ResponseDTO<?> remove(@PathVariable @NotNull Long deptId) {
+    public ResponseDTO<Void> remove(@PathVariable @NotNull Long deptId) {
         deptApplicationService.removeDept(deptId);
         return ResponseDTO.ok();
     }

@@ -21,13 +21,13 @@ import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
+import java.util.HashMap;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -77,7 +77,7 @@ public class LoginController {
      * @return 结果
      */
     @PostMapping("/login")
-    public ResponseDTO<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseDTO<HashMap<String, String>> login(@RequestBody LoginDTO loginDTO) {
         // 生成令牌
         String token = loginService.login(loginDTO.getUsername(), loginDTO.getPassword(), loginDTO.getCode(),
             loginDTO.getUuid());
@@ -91,7 +91,7 @@ public class LoginController {
      * @return 用户信息
      */
     @GetMapping("/getLoginUserInfo")
-    public ResponseDTO<?> getLoginUserInfo() {
+    public ResponseDTO<UserPermissionDTO> getLoginUserInfo() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
 
         UserPermissionDTO permissionDTO = new UserPermissionDTO();
@@ -117,7 +117,7 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public ResponseDTO<?> register(@RequestBody AddUserCommand command) {
+    public ResponseDTO<Void> register(@RequestBody AddUserCommand command) {
         return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
     }
 

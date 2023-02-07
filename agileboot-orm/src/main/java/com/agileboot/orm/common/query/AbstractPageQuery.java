@@ -8,7 +8,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public abstract class AbstractPageQuery extends AbstractQuery {
+public abstract class AbstractPageQuery<T> extends AbstractQuery<T> {
 
     public static final int MAX_PAGE_NUM = 200;
     public static final int MAX_PAGE_SIZE = 500;
@@ -18,7 +18,7 @@ public abstract class AbstractPageQuery extends AbstractQuery {
     @Max(MAX_PAGE_SIZE)
     protected Integer pageSize = 10;
 
-    public Page toPage() {
+    public Page<T> toPage() {
         return new Page<>(pageNum, pageSize);
     }
 

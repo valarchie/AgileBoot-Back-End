@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class DeptQuery extends AbstractQuery {
+public class DeptQuery extends AbstractQuery<SysDeptEntity> {
 
     private Long deptId;
 
@@ -27,7 +27,7 @@ public class DeptQuery extends AbstractQuery {
     private boolean isExcludeCurrentDept;
 
     @Override
-    public QueryWrapper toQueryWrapper() {
+    public QueryWrapper<SysDeptEntity> toQueryWrapper() {
         QueryWrapper<SysDeptEntity> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.eq(status != null, "status", status)

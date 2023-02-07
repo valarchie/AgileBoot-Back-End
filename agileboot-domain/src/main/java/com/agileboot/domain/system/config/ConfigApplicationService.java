@@ -29,10 +29,10 @@ public class ConfigApplicationService {
     @NonNull
     private ISysConfigService configService;
 
-    public PageDTO getConfigList(ConfigQuery query) {
+    public PageDTO<ConfigDTO> getConfigList(ConfigQuery query) {
         Page<SysConfigEntity> page = configService.page(query.toPage(), query.toQueryWrapper());
         List<ConfigDTO> records = page.getRecords().stream().map(ConfigDTO::new).collect(Collectors.toList());
-        return new PageDTO(records, page.getTotal());
+        return new PageDTO<>(records, page.getTotal());
     }
 
     public ConfigDTO getConfigInfo(Long id) {

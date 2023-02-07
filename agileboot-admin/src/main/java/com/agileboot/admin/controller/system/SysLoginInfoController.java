@@ -43,8 +43,8 @@ public class SysLoginInfoController extends BaseController {
 
     @PreAuthorize("@permission.has('monitor:logininfor:list')")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO> list(LoginInfoQuery query) {
-        PageDTO pageDTO = loginInfoApplicationService.getLoginInfoList(query);
+    public ResponseDTO<PageDTO<LoginInfoDTO>> list(LoginInfoQuery query) {
+        PageDTO<LoginInfoDTO> pageDTO = loginInfoApplicationService.getLoginInfoList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
@@ -52,14 +52,14 @@ public class SysLoginInfoController extends BaseController {
     @PreAuthorize("@permission.has('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, LoginInfoQuery query) {
-        PageDTO pageDTO = loginInfoApplicationService.getLoginInfoList(query);
+        PageDTO<LoginInfoDTO> pageDTO = loginInfoApplicationService.getLoginInfoList(query);
         CustomExcelUtil.writeToResponse(pageDTO.getRows(), LoginInfoDTO.class, response);
     }
 
     @PreAuthorize("@permission.has('monitor:logininfor:remove')")
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{infoIds}")
-    public ResponseDTO<?> remove(@PathVariable @NotNull @NotEmpty List<Long> infoIds) {
+    public ResponseDTO<Void> remove(@PathVariable @NotNull @NotEmpty List<Long> infoIds) {
         loginInfoApplicationService.deleteLoginInfo(new BulkOperationCommand<>(infoIds));
         return ResponseDTO.ok();
     }
@@ -67,7 +67,7 @@ public class SysLoginInfoController extends BaseController {
     @PreAuthorize("@permission.has('monitor:logininfor:remove')")
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/clean")
-    public ResponseDTO<?> clean() {
+    public ResponseDTO<Void> clean() {
         return ResponseDTO.fail(ErrorCode.Business.UNSUPPORTED_OPERATION);
     }
 }
