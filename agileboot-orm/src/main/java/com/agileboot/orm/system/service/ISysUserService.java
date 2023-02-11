@@ -78,7 +78,7 @@ public interface ISysUserService extends IService<SysUserEntity> {
      * @param query 查询参数
      * @return 用户信息集合信息
      */
-    Page<SysUserEntity> getUserListByRole(AbstractPageQuery query);
+    Page<SysUserEntity> getUserListByRole(AbstractPageQuery<SysUserEntity> query);
 
     /**
      * 根据条件分页查询用户列表
@@ -86,7 +86,7 @@ public interface ISysUserService extends IService<SysUserEntity> {
      * @param query 查询参数
      * @return 用户信息集合信息
      */
-    Page<SearchUserDO> getUserList(AbstractPageQuery query);
+    Page<SearchUserDO> getUserList(AbstractPageQuery<SearchUserDO> query);
 
 
 }
