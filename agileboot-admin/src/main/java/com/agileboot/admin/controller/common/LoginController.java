@@ -1,11 +1,9 @@
 package com.agileboot.admin.controller.common;
 
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.admin.request.LoginDTO;
 import com.agileboot.admin.response.UserPermissionDTO;
 import com.agileboot.common.config.AgileBootConfig;
-import com.agileboot.common.constant.Constants.Token;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.menu.MenuApplicationService;
@@ -22,7 +20,6 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.TokenDTO;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
-import java.util.HashMap;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

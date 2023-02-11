@@ -11,7 +11,6 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysRoleMenuEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysRoleMenuService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

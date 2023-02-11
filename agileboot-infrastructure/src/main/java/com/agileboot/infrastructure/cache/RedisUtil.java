@@ -1,7 +1,6 @@
 package com.agileboot.infrastructure.cache;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,7 +67,7 @@ public class RedisUtil {
      * @param unit 时间单位
      * @return true=设置成功；false=设置失败
      */
-    public boolean expire(final String key, final long timeout, final TimeUnit unit) {
+    public Boolean expire(final String key, final long timeout, final TimeUnit unit) {
         return redisTemplate.expire(key, timeout, unit);
     }
 
@@ -86,8 +85,8 @@ public class RedisUtil {
     /**
      * 删除单个对象
      */
-    public boolean deleteObject(final String key) {
-        return redisTemplate.delete(key);
+    public void deleteObject(final String key) {
+        redisTemplate.delete(key);
     }
 
     /**
@@ -95,7 +94,7 @@ public class RedisUtil {
      *
      * @param collection 多个对象
      */
-    public long deleteObject(final Collection collection) {
+    public Long deleteObject(final Collection collection) {
         return redisTemplate.delete(collection);
     }
 
@@ -130,9 +129,8 @@ public class RedisUtil {
      */
     public <T> BoundSetOperations<String, T> setCacheSet(final String key, final Set<T> dataSet) {
         BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);
-        Iterator<T> it = dataSet.iterator();
-        while (it.hasNext()) {
-            setOperation.add(it.next());
+        for (T t : dataSet) {
+            setOperation.add(t);
         }
         return setOperation;
     }

@@ -31,7 +31,7 @@ public class DbExceptionAspect {
      */
     @Around("dbException()")
     public Object aroundDbException(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object proceed = null;
+        Object proceed;
         try {
             proceed = joinPoint.proceed();
         } catch (Exception e) {

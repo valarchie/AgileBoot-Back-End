@@ -1,9 +1,7 @@
 package com.agileboot.domain.system.role.model;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.service.ISysRoleMenuService;
 import com.agileboot.orm.system.service.ISysRoleService;

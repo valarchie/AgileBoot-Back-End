@@ -32,9 +32,9 @@ public class RedisCacheService {
 
         loginUserCache = new RedisCacheTemplate<>(redisUtil, CacheKeyEnum.LOGIN_USER_KEY);
 
-        userCache = new RedisCacheTemplate(redisUtil, CacheKeyEnum.USER_ENTITY_KEY) {
+        userCache = new RedisCacheTemplate<SysUserEntity>(redisUtil, CacheKeyEnum.USER_ENTITY_KEY) {
             @Override
-            public Object getObjectFromDb(Object id) {
+            public SysUserEntity getObjectFromDb(Object id) {
                 ISysUserService userService = SpringUtil.getBean(ISysUserService.class);
                 return userService.getById((Serializable) id);
             }

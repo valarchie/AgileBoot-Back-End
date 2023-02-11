@@ -12,6 +12,9 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author valarchie
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j

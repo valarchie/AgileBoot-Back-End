@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MethodLogAspect {
 
-    @Pointcut("execution(public * com.agileboot.orm.service.*.*(..))")
+    @Pointcut("execution(public * com.agileboot.orm.*.service.*.*(..))")
     public void dbService() {
     }
 

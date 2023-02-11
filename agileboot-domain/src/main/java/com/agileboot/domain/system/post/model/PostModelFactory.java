@@ -1,9 +1,7 @@
 package com.agileboot.domain.system.post.model;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.service.ISysPostService;
 import lombok.NonNull;

@@ -23,7 +23,7 @@ class CustomExcelUtilTest {
 
         CustomExcelUtil.writeToOutputStream(postDTOList, PostDTO.class, FileUtil.getOutputStream(file));
 
-        List<PostDTO> postListFromExcel = (List<PostDTO>) CustomExcelUtil.readFromInputStream(PostDTO.class, FileUtil.getInputStream(file));
+        List<PostDTO> postListFromExcel = CustomExcelUtil.readFromInputStream(PostDTO.class, FileUtil.getInputStream(file));
 
         PostDTO post1fromExcel = postListFromExcel.get(0);
         PostDTO post2fromExcel = postListFromExcel.get(1);

@@ -26,9 +26,9 @@ public class AgileBootConfigTest {
         Assertions.assertEquals("AgileBoot", config.getName());
         Assertions.assertEquals("1.0.0", config.getVersion());
         Assertions.assertEquals("2022", config.getCopyrightYear());
-        Assertions.assertEquals(true, config.isDemoEnabled());
+        Assertions.assertTrue(config.isDemoEnabled());
         Assertions.assertEquals(fileBaseDir, AgileBootConfig.getFileBaseDir());
-        Assertions.assertEquals(false, AgileBootConfig.isAddressEnabled());
+        Assertions.assertFalse(AgileBootConfig.isAddressEnabled());
         Assertions.assertEquals("math", AgileBootConfig.getCaptchaType());
         Assertions.assertEquals("math", AgileBootConfig.getCaptchaType());
         Assertions.assertEquals(fileBaseDir + "\\import",

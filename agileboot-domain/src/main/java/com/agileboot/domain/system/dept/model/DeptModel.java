@@ -89,7 +89,6 @@ public class DeptModel extends SysDeptEntity {
 
     /**
      * DDD 有些阻抗  如果为了追求性能的话  还是得通过 数据库的方式来判断
-     * @param deptService
      */
     public void checkStatusAllowChange() {
         if (StatusEnum.DISABLE.getValue().equals(getStatus()) &&
