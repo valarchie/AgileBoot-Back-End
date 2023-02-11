@@ -16,8 +16,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.i18n.MessageUtils;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
@@ -51,12 +50,6 @@ public class LoginService {
 
     @NonNull
     private TokenService tokenService;
-
-    @NonNull
-    private RedisCacheService redisCacheService;
-
-    @NonNull
-    private GuavaCacheService guavaCacheService;
 
     @NonNull
     private AuthenticationManager authenticationManager;
@@ -148,7 +141,7 @@ public class LoginService {
             // 保存验证码信息
             String uuid = IdUtil.simpleUUID();
 
-            redisCacheService.captchaCache.set(uuid, answer);
+            CacheCenter.captchaCache.set(uuid, answer);
             // 转换流信息写出
             FastByteArrayOutputStream os = new FastByteArrayOutputStream();
             ImgUtil.writeJpg(image, os);
@@ -170,8 +163,8 @@ public class LoginService {
      * @param uuid 唯一标识
      */
     public void validateCaptcha(String username, String code, String uuid) {
-        String captcha = redisCacheService.captchaCache.getObjectById(uuid);
-        redisCacheService.captchaCache.delete(uuid);
+        String captcha = CacheCenter.captchaCache.getObjectById(uuid);
+        CacheCenter.captchaCache.delete(uuid);
         if (captcha == null) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_FAIL,
                 ErrorCode.Business.LOGIN_CAPTCHA_CODE_EXPIRE.message()));
@@ -195,7 +188,7 @@ public class LoginService {
     }
 
     private boolean isCaptchaOn() {
-        return Convert.toBool(guavaCacheService.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
+        return Convert.toBool(CacheCenter.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
     }
 
 }

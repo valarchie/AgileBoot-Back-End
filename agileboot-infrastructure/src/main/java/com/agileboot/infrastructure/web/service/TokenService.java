@@ -9,8 +9,8 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.web.domain.login.LoginInfo;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -20,7 +20,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,9 +53,6 @@ public class TokenService {
     @Value("${token.autoRefreshTime}")
     private long autoRefreshTime;
 
-    @NonNull
-    private RedisCacheService redisCacheService;
-
     /**
      * 获取用户身份信息
      *
@@ -71,7 +67,7 @@ public class TokenService {
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Token.LOGIN_USER_KEY);
 
-                return redisCacheService.loginUserCache.getObjectOnlyInCacheById(uuid);
+                return CacheCenter.loginUserCache.getObjectOnlyInCacheById(uuid);
             } catch (Exception e) {
                 log.error("fail to get cached user from redis", e);
                 throw new ApiException(e, ErrorCode.UNKNOWN_ERROR);
@@ -94,7 +90,7 @@ public class TokenService {
      */
     public void deleteLoginUser(String token) {
         if (StrUtil.isNotEmpty(token)) {
-            redisCacheService.loginUserCache.delete(token);
+            CacheCenter.loginUserCache.delete(token);
         }
     }
 
@@ -134,7 +130,7 @@ public class TokenService {
         loginUser.setExpireTime(loginUser.getLoginTime() + CacheKeyEnum.LOGIN_USER_KEY.timeUnit()
             .toMillis(CacheKeyEnum.LOGIN_USER_KEY.expiration()));
         // 根据uuid将loginUser缓存
-        redisCacheService.loginUserCache.set(loginUser.getToken(), loginUser);
+        CacheCenter.loginUserCache.set(loginUser.getToken(), loginUser);
 
     }
 

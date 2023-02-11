@@ -8,7 +8,7 @@ import com.agileboot.domain.system.monitor.dto.OnlineUserInfo;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import lombok.NonNull;
@@ -32,9 +32,6 @@ public class MonitorController extends BaseController {
 
     @NonNull
     private MonitorApplicationService monitorApplicationService;
-    @NonNull
-    private RedisCacheService redisCacheService;
-
 
     @PreAuthorize("@permission.has('monitor:cache:list')")
     @GetMapping("/cacheInfo")
@@ -71,7 +68,7 @@ public class MonitorController extends BaseController {
     @AccessLog(title = "在线用户", businessType = BusinessTypeEnum.FORCE_LOGOUT)
     @DeleteMapping("/onlineUser/{tokenId}")
     public ResponseDTO<Void> forceLogout(@PathVariable String tokenId) {
-        redisCacheService.loginUserCache.delete(tokenId);
+        CacheCenter.loginUserCache.delete(tokenId);
         return ResponseDTO.ok();
     }
 

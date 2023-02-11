@@ -5,9 +5,9 @@ import com.agileboot.domain.system.monitor.dto.OnlineUserInfo;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO.CommonStatusDTO;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.cache.RedisUtil;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,9 +35,6 @@ public class MonitorApplicationService {
 
     @NonNull
     private RedisUtil redisUtil;
-
-    @NonNull
-    private RedisCacheService redisCacheService;
 
 
     public RedisCacheInfoDTO getRedisCacheInfo() {
@@ -74,7 +71,7 @@ public class MonitorApplicationService {
         Collection<String> keys = redisUtil.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
 
         Stream<OnlineUserInfo> onlineUserStream = keys.stream().map(o ->
-                    redisCacheService.loginUserCache.getObjectOnlyInCacheByKey(o))
+                    CacheCenter.loginUserCache.getObjectOnlyInCacheByKey(o))
             .filter(Objects::nonNull).map(OnlineUserInfo::new);
 
         List<OnlineUserInfo> filteredOnlineUsers = onlineUserStream
