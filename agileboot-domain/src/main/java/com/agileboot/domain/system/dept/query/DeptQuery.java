@@ -28,9 +28,9 @@ public class DeptQuery extends AbstractQuery<SysDeptEntity> {
 
     @Override
     public QueryWrapper<SysDeptEntity> toQueryWrapper() {
-        QueryWrapper<SysDeptEntity> queryWrapper = new QueryWrapper<>();
 
-        queryWrapper.eq(status != null, "status", status)
+        return new QueryWrapper<SysDeptEntity>()
+            .eq(status != null, "status", status)
             .eq(parentId != null, "parent_id", parentId)
             .like(StrUtil.isNotEmpty(deptName), "dept_name", deptName)
             .and(deptId != null && isExcludeCurrentDept, o ->
@@ -38,7 +38,5 @@ public class DeptQuery extends AbstractQuery<SysDeptEntity> {
                     .or()
                     .apply("FIND_IN_SET (dept_id , ancestors)")
             );
-
-        return queryWrapper;
     }
 }

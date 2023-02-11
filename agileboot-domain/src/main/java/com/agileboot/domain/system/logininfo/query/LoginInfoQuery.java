@@ -21,9 +21,8 @@ public class LoginInfoQuery extends AbstractPageQuery<SysLoginInfoEntity> {
 
     @Override
     public QueryWrapper<SysLoginInfoEntity> toQueryWrapper() {
-        QueryWrapper<SysLoginInfoEntity> queryWrapper = new QueryWrapper<>();
-
-        queryWrapper.like(StrUtil.isNotEmpty(ipaddr), "ip_address", ipaddr)
+        QueryWrapper<SysLoginInfoEntity> queryWrapper = new QueryWrapper<SysLoginInfoEntity>()
+            .like(StrUtil.isNotEmpty(ipaddr), "ip_address", ipaddr)
             .eq(StrUtil.isNotEmpty(status), "status", status)
             .like(StrUtil.isNotEmpty(username), "username", username);
 

@@ -14,7 +14,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class RoleQuery extends AbstractPageQuery<SysRoleEntity> {
 
-
     private String roleName;
 
     private String roleKey;
@@ -24,13 +23,11 @@ public class RoleQuery extends AbstractPageQuery<SysRoleEntity> {
 
     @Override
     public QueryWrapper<SysRoleEntity> toQueryWrapper() {
-        QueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<>();
-
-        queryWrapper.eq(status != null, "status", status)
+        QueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<SysRoleEntity>()
+            .eq(status != null, "status", status)
             .eq(StrUtil.isNotEmpty(roleKey), "role_key", roleKey)
             .like(StrUtil.isNotEmpty(roleName), "role_name", roleName);
 
-        // TODO 这一段可以进行优化
         this.addTimeCondition(queryWrapper, "create_time");
 
         this.setOrderByColumn("role_sort");

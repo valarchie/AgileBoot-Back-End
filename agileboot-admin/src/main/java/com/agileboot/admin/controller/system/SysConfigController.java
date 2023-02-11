@@ -8,7 +8,7 @@ import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.domain.system.config.dto.ConfigDTO;
 import com.agileboot.domain.system.config.query.ConfigQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.agileboot.orm.common.result.DictionaryData;
@@ -25,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,9 +44,6 @@ public class SysConfigController extends BaseController {
 
     @NonNull
     private ConfigApplicationService configApplicationService;
-
-    @NonNull
-    private GuavaCacheService guavaCacheService;
 
     /**
      * 获取参数配置列表
@@ -103,7 +101,7 @@ public class SysConfigController extends BaseController {
     @AccessLog(title = "参数管理", businessType = BusinessTypeEnum.CLEAN)
     @DeleteMapping("/refreshCache")
     public ResponseDTO<Void> refreshCache() {
-        guavaCacheService.configCache.invalidateAll();
+        CacheCenter.configCache.invalidateAll();
         return ResponseDTO.ok();
     }
 }

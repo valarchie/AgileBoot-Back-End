@@ -135,7 +135,7 @@ class SysUserServiceImplTest {
     @Test
     @Rollback
     void testGetUserList() {
-        SearchUserQuery searchUserQuery = new SearchUserQuery();
+        SearchUserQuery<SearchUserDO> searchUserQuery = new SearchUserQuery<>();
         searchUserQuery.setUsername("a");
 
         Page<SearchUserDO> userList = userService.getUserList(searchUserQuery);

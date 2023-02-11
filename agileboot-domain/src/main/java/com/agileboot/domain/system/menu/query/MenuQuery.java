@@ -11,7 +11,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public class MenuQuery extends AbstractQuery {
+public class MenuQuery extends AbstractQuery<SysMenuEntity> {
 
     private String menuName;
     private Boolean isVisible;
@@ -20,9 +20,8 @@ public class MenuQuery extends AbstractQuery {
 
     @Override
     public QueryWrapper<SysMenuEntity> toQueryWrapper() {
-
-        QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like(StrUtil.isNotEmpty(menuName), columnName("menu_name"), menuName)
+        QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<SysMenuEntity>()
+            .like(StrUtil.isNotEmpty(menuName), columnName("menu_name"), menuName)
             .eq(isVisible != null, "is_visible", isVisible)
             .eq(status != null, "status", status);
 

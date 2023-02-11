@@ -22,9 +22,8 @@ public class OperationLogQuery extends AbstractPageQuery<SysOperationLogEntity> 
 
     @Override
     public QueryWrapper<SysOperationLogEntity> toQueryWrapper() {
-        QueryWrapper<SysOperationLogEntity> queryWrapper = new QueryWrapper<>();
-
-        queryWrapper.like(businessType!=null, "business_type", businessType)
+        QueryWrapper<SysOperationLogEntity> queryWrapper = new QueryWrapper<SysOperationLogEntity>()
+            .like(businessType!=null, "business_type", businessType)
             .eq(status != null, "status", status)
             .like(StrUtil.isNotEmpty(username), "username", username)
             .like(StrUtil.isNotEmpty(requestModule), "request_module", requestModule);

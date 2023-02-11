@@ -6,11 +6,13 @@ import com.agileboot.orm.system.entity.SysConfigEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @Schema(name = "配置查询参数")
@@ -28,14 +30,14 @@ public class ConfigQuery extends AbstractPageQuery<SysConfigEntity> {
 
     @Override
     public QueryWrapper<SysConfigEntity> toQueryWrapper() {
-        QueryWrapper<SysConfigEntity> sysNoticeWrapper = new QueryWrapper<>();
-        sysNoticeWrapper.like(StrUtil.isNotEmpty(configName), "config_name", configName);
-        sysNoticeWrapper.eq(StrUtil.isNotEmpty(configKey), "config_key", configKey);
-        sysNoticeWrapper.eq(isAllowChange != null, "is_allow_change", isAllowChange);
+        QueryWrapper<SysConfigEntity> queryWrapper = new QueryWrapper<SysConfigEntity>()
+        .like(StrUtil.isNotEmpty(configName), "config_name", configName)
+        .eq(StrUtil.isNotEmpty(configKey), "config_key", configKey)
+        .eq(isAllowChange != null, "is_allow_change", isAllowChange);
 
-        addSortCondition(sysNoticeWrapper);
-        addTimeCondition(sysNoticeWrapper, "create_time");
+        addSortCondition(queryWrapper);
+        addTimeCondition(queryWrapper, "create_time");
 
-        return sysNoticeWrapper;
+        return queryWrapper;
     }
 }

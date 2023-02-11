@@ -80,14 +80,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     }
 
 
-    @SuppressWarnings("unchecked")
     @Override
     public Page<SysUserEntity> getUserListByRole(AbstractPageQuery query) {
         return baseMapper.getUserListByRole(query.toPage(), query.toQueryWrapper());
     }
 
 
-    @SuppressWarnings("unchecked")
     @Override
     public Page<SearchUserDO> getUserList(AbstractPageQuery query) {
         return baseMapper.getUserList(query.toPage(), query.toQueryWrapper());

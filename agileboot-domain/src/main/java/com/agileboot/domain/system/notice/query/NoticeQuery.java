@@ -25,12 +25,12 @@ public class NoticeQuery extends AbstractPageQuery<SysNoticeEntity> {
 
     @Override
     public QueryWrapper<SysNoticeEntity> toQueryWrapper() {
-        QueryWrapper<SysNoticeEntity> sysNoticeWrapper = new QueryWrapper<>();
-        sysNoticeWrapper.like(StrUtil.isNotEmpty(noticeTitle), "notice_title", noticeTitle)
+        QueryWrapper<SysNoticeEntity> queryWrapper = new QueryWrapper<SysNoticeEntity>()
+            .like(StrUtil.isNotEmpty(noticeTitle), "notice_title", noticeTitle)
             .eq(noticeType != null, "notice_type", noticeType)
             .eq("n.deleted", 0)
             .like(StrUtil.isNotEmpty(creatorName), "u.username", creatorName);
 
-        return sysNoticeWrapper;
+        return queryWrapper;
     }
 }

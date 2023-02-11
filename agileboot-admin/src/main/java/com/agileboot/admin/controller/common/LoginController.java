@@ -19,6 +19,7 @@ import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.TokenDTO;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
 import java.util.HashMap;
@@ -77,12 +78,12 @@ public class LoginController {
      * @return 结果
      */
     @PostMapping("/login")
-    public ResponseDTO<HashMap<String, String>> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseDTO<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         // 生成令牌
         String token = loginService.login(loginDTO.getUsername(), loginDTO.getPassword(), loginDTO.getCode(),
             loginDTO.getUuid());
 
-        return ResponseDTO.ok(MapUtil.of(Token.TOKEN_FIELD, token));
+        return ResponseDTO.ok(new TokenDTO(token));
     }
 
     /**

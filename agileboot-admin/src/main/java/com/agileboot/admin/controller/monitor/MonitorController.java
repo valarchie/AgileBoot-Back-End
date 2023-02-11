@@ -70,7 +70,7 @@ public class MonitorController extends BaseController {
     @PreAuthorize("@permission.has('monitor:online:forceLogout')")
     @AccessLog(title = "在线用户", businessType = BusinessTypeEnum.FORCE_LOGOUT)
     @DeleteMapping("/onlineUser/{tokenId}")
-    public ResponseDTO<Object> forceLogout(@PathVariable String tokenId) {
+    public ResponseDTO<Void> forceLogout(@PathVariable String tokenId) {
         redisCacheService.loginUserCache.delete(tokenId);
         return ResponseDTO.ok();
     }

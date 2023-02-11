@@ -19,6 +19,7 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.orm.system.result.SearchUserDO;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import lombok.NonNull;
@@ -53,7 +54,7 @@ public class SysUserController extends BaseController {
      */
     @PreAuthorize("@permission.has('system:user:list') AND @dataScope.checkDeptId(#query.deptId)")
     @GetMapping("/list")
-    public ResponseDTO<PageDTO<UserDTO>> list(SearchUserQuery query) {
+    public ResponseDTO<PageDTO<UserDTO>> list(SearchUserQuery<SearchUserDO> query) {
         PageDTO<UserDTO> page = userApplicationService.getUserList(query);
         return ResponseDTO.ok(page);
     }
@@ -61,7 +62,7 @@ public class SysUserController extends BaseController {
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@permission.has('system:user:export')")
     @PostMapping("/export")
-    public void export(HttpServletResponse response, SearchUserQuery query) {
+    public void export(HttpServletResponse response, SearchUserQuery<SearchUserDO> query) {
         PageDTO<UserDTO> userList = userApplicationService.getUserList(query);
         CustomExcelUtil.writeToResponse(userList.getRows(), UserDTO.class, response);
     }

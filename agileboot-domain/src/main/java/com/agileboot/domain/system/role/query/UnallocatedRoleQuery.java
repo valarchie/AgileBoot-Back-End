@@ -10,14 +10,14 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public class UnallocatedRoleQuery extends AbstractPageQuery {
+public class UnallocatedRoleQuery extends AbstractPageQuery<SysUserEntity> {
 
     private Long roleId;
     private String username;
     private String phoneNumber;
 
     @Override
-    public QueryWrapper toQueryWrapper() {
+    public QueryWrapper<SysUserEntity> toQueryWrapper() {
         QueryWrapper<SysUserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(StrUtil.isNotEmpty(username),"u.username", username)
             .like(StrUtil.isNotEmpty(phoneNumber), "u.phone_number", phoneNumber)

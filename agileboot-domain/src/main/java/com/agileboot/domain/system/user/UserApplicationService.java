@@ -31,7 +31,7 @@ import com.agileboot.orm.system.result.SearchUserDO;
 import com.agileboot.orm.system.service.ISysPostService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,8 +65,7 @@ public class UserApplicationService {
     private RoleModelFactory roleModelFactory;
 
 
-
-    public PageDTO<UserDTO> getUserList(SearchUserQuery query) {
+    public PageDTO<UserDTO> getUserList(SearchUserQuery<SearchUserDO> query) {
         Page<SearchUserDO> userPage = userService.getUserList(query);
         List<UserDTO> userDTOList = userPage.getRecords().stream().map(UserDTO::new).collect(Collectors.toList());
         return new PageDTO<>(userDTOList, userPage.getTotal());
@@ -98,8 +97,8 @@ public class UserApplicationService {
         SysUserEntity userEntity = userService.getById(userId);
         UserDetailDTO detailDTO = new UserDetailDTO();
 
-        QueryWrapper<SysRoleEntity> roleQuery = new QueryWrapper<>();
-        roleQuery.orderByAsc("role_sort");
+        LambdaQueryWrapper<SysRoleEntity> roleQuery = new LambdaQueryWrapper<>();
+        roleQuery.orderByAsc(SysRoleEntity::getRoleSort);
         List<RoleDTO> roleDtoList = roleService.list(roleQuery).stream().map(RoleDTO::new).collect(Collectors.toList());
         List<PostDTO> postDtoList = postService.list().stream().map(PostDTO::new).collect(Collectors.toList());
         detailDTO.setRoles(roleDtoList);

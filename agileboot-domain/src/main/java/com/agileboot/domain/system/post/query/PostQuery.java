@@ -20,9 +20,8 @@ public class PostQuery extends AbstractPageQuery<SysPostEntity> {
 
     @Override
     public QueryWrapper<SysPostEntity> toQueryWrapper() {
-        QueryWrapper<SysPostEntity> queryWrapper = new QueryWrapper<>();
-
-        queryWrapper.eq(status != null, "status", status)
+        QueryWrapper<SysPostEntity> queryWrapper = new QueryWrapper<SysPostEntity>()
+            .eq(status != null, "status", status)
             .eq(postCode != null, "post_code", postCode)
             .like(StrUtil.isNotEmpty(postName), "post_name", postName);
 

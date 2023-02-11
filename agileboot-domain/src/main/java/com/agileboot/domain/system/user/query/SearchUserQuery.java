@@ -2,25 +2,25 @@ package com.agileboot.domain.system.user.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.common.query.AbstractPageQuery;
-import com.agileboot.orm.system.result.SearchUserDO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 
 /**
+ * 当出现复用Query的情况，我们需要把泛型加到类本身，通过传入类型 来进行复用
  * @author valarchie
  */
 @Data
-public class SearchUserQuery extends AbstractPageQuery<SearchUserDO> {
+public class SearchUserQuery<T> extends AbstractPageQuery<T> {
 
-    private Long userId;
-    private String username;
-    private Integer status;
-    private String phoneNumber;
-    private Long deptId;
+    protected Long userId;
+    protected String username;
+    protected Integer status;
+    protected String phoneNumber;
+    protected Long deptId;
 
     @Override
-    public QueryWrapper<SearchUserDO> toQueryWrapper() {
-        QueryWrapper<SearchUserDO> queryWrapper = new QueryWrapper<>();
+    public QueryWrapper<T> toQueryWrapper() {
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.like(StrUtil.isNotEmpty(username), "username", username)
             .like(StrUtil.isNotEmpty(phoneNumber), "u.phone_number", phoneNumber)

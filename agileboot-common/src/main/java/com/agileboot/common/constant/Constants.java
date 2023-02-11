@@ -29,6 +29,7 @@ public class Constants {
         /**
          * 令牌
          */
+        @Deprecated
         public static final String TOKEN_FIELD = "token";
 
         /**
