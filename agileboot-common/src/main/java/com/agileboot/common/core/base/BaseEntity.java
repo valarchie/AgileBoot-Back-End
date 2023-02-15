@@ -35,6 +35,9 @@ public class BaseEntity<T extends Model<?>> extends Model<T> {
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
+    /**
+     * deleted字段请在数据库中 设置为tinyInt   并且非null   默认值为0
+     */
     @ApiModelProperty("删除标志（0代表存在 1代表删除）")
     @TableField("deleted")
     @TableLogic
