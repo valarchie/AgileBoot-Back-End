@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class RouterModel extends SysMenuEntity {
 
-    public RouterDTO produceDirectoryRouterVO(List<RouterDTO> children) {
+    public RouterDTO produceMultipleLevelMenuRouterVO(List<RouterDTO> children) {
         RouterDTO router = produceDefaultRouterVO();
 
         if (CollUtil.isNotEmpty(children) && Objects.equals(MenuTypeEnum.DIRECTORY.getValue(), getMenuType())) {
@@ -32,8 +32,8 @@ public class RouterModel extends SysMenuEntity {
     }
 
 
-    public RouterDTO produceMenuFrameRouterVO() {
-        RouterDTO router = new RouterDTO();
+    public RouterDTO produceSingleLevelMenuRouterVO() {
+        RouterDTO router = produceDefaultRouterVO();
 
         router.setMeta(null);
         List<RouterDTO> childrenList = new ArrayList<>();
@@ -52,13 +52,13 @@ public class RouterModel extends SysMenuEntity {
 
     public RouterDTO produceInnerLinkRouterVO() {
 
-        RouterDTO router = new RouterDTO();
+        RouterDTO router = produceDefaultRouterVO();
 
         router.setMeta(new MetaDTO(getMenuName(), getIcon()));
         router.setPath("/");
         List<RouterDTO> childrenList = new ArrayList<>();
         RouterDTO children = new RouterDTO();
-        String routerPath = trimHttpPrefixForInnerLink(getPath());
+        String routerPath = trimHttpPrefixForPath(getPath());
         children.setPath(routerPath);
         children.setComponent(MenuComponentEnum.INNER_LINK.description());
         children.setName(StrUtil.upperFirst(routerPath));
@@ -72,9 +72,9 @@ public class RouterModel extends SysMenuEntity {
     public RouterDTO produceDefaultRouterVO() {
         RouterDTO router = new RouterDTO();
         router.setHidden(!getIsVisible());
-        router.setName(getRouteName());
-        router.setPath(getRouterPath());
-        router.setComponent(getComponentTypeForFrontEnd());
+        router.setName(calculateRouteName());
+        router.setPath(calculateRouterPath());
+        router.setComponent(calculateComponentType());
         router.setQuery(getQuery());
         router.setMeta(new MetaDTO(getMenuName(), getIcon(), !getIsCache(), getPath()));
         return router;
@@ -85,7 +85,7 @@ public class RouterModel extends SysMenuEntity {
      * 获取路由名称
      * @return 路由名称
      */
-    public String getRouteName() {
+    public String calculateRouteName() {
         String routerName = StrUtil.upperFirst(getPath());
         // 非外链并且是一级目录（类型为目录）
         if (isSingleLevelMenu()) {
@@ -101,14 +101,21 @@ public class RouterModel extends SysMenuEntity {
      * @return 结果
      */
     public boolean isSingleLevelMenu() {
-        return getParentId().intValue() == 0
-            && MenuTypeEnum.MENU.getValue().equals(getMenuType())
-            && !getIsExternal();
+        return isTopLevel() && MenuTypeEnum.MENU.getValue().equals(getMenuType()) && !getIsExternal();
+    }
+
+    /**
+     * 是否为顶级内部链接菜单
+     *
+     * @return 结果
+     */
+    public boolean isTopInnerLink() {
+        return isTopLevel() && isInnerLink();
     }
 
 
     /**
-     * 是否为菜单内部跳转
+     * 是否为多级菜单
      *
      * @return 结果
      */
@@ -121,14 +128,14 @@ public class RouterModel extends SysMenuEntity {
      * 获取路由地址
      * @return 路由地址
      */
-    public String getRouterPath() {
+    public String calculateRouterPath() {
         String routerPath = getPath();
         // 内链打开外网方式
-        if (getParentId().intValue() != 0 && isInnerLink()) {
-            routerPath = trimHttpPrefixForInnerLink(routerPath);
+        if (!isTopLevel() && isInnerLink()) {
+            routerPath = trimHttpPrefixForPath(routerPath);
         }
         // 非外链并且是一级目录（类型为目录）
-        if (0L == getParentId() && Objects.equals(MenuTypeEnum.DIRECTORY.getValue(), getMenuType()) && !getIsExternal()) {
+        if (isTopLevel() && Objects.equals(MenuTypeEnum.DIRECTORY.getValue(), getMenuType()) && !getIsExternal()) {
             routerPath = "/" + getPath();
         // 非外链并且是一级目录（类型为菜单）
         } else if (isSingleLevelMenu()) {
@@ -146,11 +153,20 @@ public class RouterModel extends SysMenuEntity {
         return !getIsExternal() && (HttpUtil.isHttp(getPath()) || HttpUtil.isHttps(getPath()));
     }
 
+    /**
+     * 是否顶层目录或者菜单
+     *
+     * @return 结果
+     */
+    public boolean isTopLevel() {
+        return Objects.equals(getParentId(), 0L);
+    }
+
 
     /**
      * 内链域名特殊字符替换
      */
-    public String trimHttpPrefixForInnerLink(String path) {
+    public String trimHttpPrefixForPath(String path) {
         if (HttpUtil.isHttp(path)) {
             return StrUtil.stripIgnoreCase(path, Constants.HTTP, "");
         }
@@ -165,7 +181,7 @@ public class RouterModel extends SysMenuEntity {
      *
      * @return 组件信息
      */
-    public String getComponentTypeForFrontEnd() {
+    public String calculateComponentType() {
         String component = MenuComponentEnum.LAYOUT.description();
         if (StrUtil.isNotEmpty(getComponent()) && !isSingleLevelMenu()) {
             component = getComponent();
@@ -183,7 +199,7 @@ public class RouterModel extends SysMenuEntity {
      * @return 结果
      */
     public boolean isInnerLinkView() {
-        return StrUtil.isEmpty(getComponent()) && getParentId().intValue() != 0 && isInnerLink();
+        return StrUtil.isEmpty(getComponent()) && !isTopLevel() && isInnerLink();
     }
 
 
@@ -193,9 +209,8 @@ public class RouterModel extends SysMenuEntity {
      * @return 结果
      */
     public boolean isParentView() {
-        return StrUtil.isEmpty(getComponent())
-            && getParentId().intValue() != 0
-            && MenuTypeEnum.DIRECTORY.getValue().equals(getMenuType());
+        return StrUtil.isEmpty(getComponent()) && !isTopLevel() &&
+            MenuTypeEnum.DIRECTORY.getValue().equals(getMenuType());
     }
 
 

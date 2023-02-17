@@ -163,14 +163,14 @@ public class MenuApplicationService {
                     routerDTO = model.produceDefaultRouterVO();
 
                     if(model.isMultipleLevelMenu(tree)) {
-                        routerDTO = model.produceDirectoryRouterVO(buildRouterTree(tree.getChildren()));
+                        routerDTO = model.produceMultipleLevelMenuRouterVO(buildRouterTree(tree.getChildren()));
                     }
 
                     if(model.isSingleLevelMenu()) {
-                        routerDTO = model.produceMenuFrameRouterVO();
+                        routerDTO = model.produceSingleLevelMenuRouterVO();
                     }
 
-                    if(model.getParentId() == 0L && model.isInnerLink()) {
+                    if(model.isTopInnerLink()) {
                         routerDTO = model.produceInnerLinkRouterVO();
                     }
 
