@@ -72,13 +72,13 @@ public class UserDTO {
     private String phoneNumber;
 
     @ExcelColumn(name = "性别")
-    private String sex;
+    private Integer sex;
 
     @ExcelColumn(name = "用户头像")
     private String avatar;
 
     @ExcelColumn(name = "状态")
-    private String status;
+    private Integer status;
 
     @ExcelColumn(name = "IP")
     private String loginIp;

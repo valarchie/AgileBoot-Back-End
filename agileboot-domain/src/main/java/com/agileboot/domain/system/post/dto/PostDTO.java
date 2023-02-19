@@ -37,12 +37,12 @@ public class PostDTO {
 
 
     @ExcelColumn(name = "岗位排序")
-    private String postSort;
+    private Integer postSort;
 
     @ExcelColumn(name = "备注")
     private String remark;
 
-    private String status;
+    private Integer status;
 
     @ExcelColumn(name = "状态")
     private String statusStr;

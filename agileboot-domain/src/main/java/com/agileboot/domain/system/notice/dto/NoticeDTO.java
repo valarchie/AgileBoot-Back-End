@@ -15,10 +15,10 @@ public class NoticeDTO {
     public NoticeDTO(SysNoticeEntity entity) {
         if (entity != null) {
             this.noticeId = entity.getNoticeId() + "";
-            this.noticeTitle = entity.getNoticeTitle() + "";
-            this.noticeType = entity.getNoticeType() + "";
+            this.noticeTitle = entity.getNoticeTitle();
+            this.noticeType = entity.getNoticeType();
             this.noticeContent = entity.getNoticeContent();
-            this.status = entity.getStatus() + "";
+            this.status = entity.getStatus();
             this.createTime = entity.getCreateTime();
 
             SysUserEntity cacheUser = CacheCenter.userCache.getObjectById(entity.getCreatorId());
@@ -32,11 +32,11 @@ public class NoticeDTO {
 
     private String noticeTitle;
 
-    private String noticeType;
+    private Integer noticeType;
 
     private String noticeContent;
 
-    private String status;
+    private Integer status;
 
     private Date createTime;
 

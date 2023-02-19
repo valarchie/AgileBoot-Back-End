@@ -21,7 +21,7 @@ public class DeptDTO {
             this.leaderName = entity.getLeaderName();
             this.email = entity.getEmail();
             this.phone = entity.getPhone();
-            this.status = entity.getStatus() + "";
+            this.status = entity.getStatus();
             this.createTime = entity.getCreateTime();
             this.statusStr = BasicEnumUtil.getDescriptionByValue(StatusEnum.class, entity.getStatus());
         }
@@ -42,7 +42,7 @@ public class DeptDTO {
 
     private String email;
 
-    private String status;
+    private Integer status;
 
     private String statusStr;
 

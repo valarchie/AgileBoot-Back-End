@@ -1,6 +1,5 @@
 package com.agileboot.orm.common.result;
 
-import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.common.interfaces.DictionaryEnum;
 import lombok.Data;
 
@@ -12,14 +11,14 @@ import lombok.Data;
 public class DictionaryData {
 
     private String label;
-    private String value;
+    private Integer value;
     private String cssTag;
 
     @SuppressWarnings("rawtypes")
     public DictionaryData(DictionaryEnum enumType) {
         if (enumType != null) {
             this.label = enumType.description();
-            this.value = StrUtil.toString(enumType.getValue());
+            this.value = (Integer) enumType.getValue();
             this.cssTag = enumType.cssTag();
         }
     }
