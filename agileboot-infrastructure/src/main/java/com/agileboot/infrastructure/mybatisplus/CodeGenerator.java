@@ -1,5 +1,8 @@
 package com.agileboot.infrastructure.mybatisplus;
 
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -20,6 +23,7 @@ import com.baomidou.mybatisplus.generator.fill.Property;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import java.util.Collections;
 import lombok.Data;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * @author valarchie
@@ -27,6 +31,11 @@ import lombok.Data;
 @Data
 @lombok.Builder
 public class CodeGenerator {
+
+    public static final String DATA_SOURCE_FULL_PATH = "spring.datasource.dynamic.datasource.master.";
+    public static final String URL_PATH = DATA_SOURCE_FULL_PATH + "url";
+    public static final String USERNAME_PATH = DATA_SOURCE_FULL_PATH + "username";
+    public static final String PASSWORD_PATH = DATA_SOURCE_FULL_PATH + "password";
 
     private String author;
     private String module;
@@ -43,12 +52,15 @@ public class CodeGenerator {
      * @param args
      */
     public static void main(String[] args) {
+        // 默认读取application-dev yml中的master数据库配置
+        JSON ymlJson = JSONUtil.parse(new Yaml().load(ResourceUtil.getStream("application-dev.yml")));
 
         CodeGenerator generator = CodeGenerator.builder()
-            .databaseUrl("jdbc:mysql://localhost:33067/agileboot")
-            .username("root")
-            .password("12345")
+            .databaseUrl(JSONUtil.getByPath(ymlJson, URL_PATH).toString())
+            .username(JSONUtil.getByPath(ymlJson, USERNAME_PATH).toString())
+            .password(JSONUtil.getByPath(ymlJson, PASSWORD_PATH).toString())
             .author("valarchie")
+            //生成的类 放在orm子模块下的/target/generated-code目录底下
             .module("/agileboot-orm/target/generated-code")
             .parentPackage("com.agileboot")
             .tableName("sys_config")
