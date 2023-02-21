@@ -1,13 +1,11 @@
 package com.agileboot.orm.common.query;
 
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.utils.time.DatePickUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import java.util.Date;
-import java.util.Map;
 import lombok.Data;
 
 /**
@@ -30,32 +28,10 @@ public abstract class AbstractQuery<T> {
     private static final String DESC = "descending";
 
     /**
-     * 比如原本的字段是  user_id 可以改成  u.user_id  以适应不同表的查询
-     */
-    protected Map<String, String> filedOverride = MapUtil.empty();
-
-    /**
      * 生成query conditions
      * @return
      */
     public abstract QueryWrapper<T> toQueryWrapper();
-
-    /**
-     * 如果有特殊的表名.前缀  就使用特殊的表名前缀
-     * @param columnName
-     * @return
-     */
-    public String columnName(String columnName) {
-        if (filedOverride.get(columnName) != null) {
-            return filedOverride.get(columnName);
-        }
-        return columnName;
-    }
-
-    public void addColumnNameAlias(String alias, String columnName) {
-        filedOverride.put(columnName, alias + "." + columnName);
-    }
-
 
     public void addSortCondition(QueryWrapper<T> queryWrapper) {
         if(queryWrapper != null) {
@@ -73,7 +49,6 @@ public abstract class AbstractQuery<T> {
         }
     }
 
-
     public boolean convertSortDirection() {
         boolean orderDirection = true;
         if (StrUtil.isNotEmpty(isAsc)) {
@@ -85,6 +60,5 @@ public abstract class AbstractQuery<T> {
         }
         return orderDirection;
     }
-
 
 }

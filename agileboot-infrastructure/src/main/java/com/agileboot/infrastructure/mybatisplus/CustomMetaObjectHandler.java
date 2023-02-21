@@ -24,7 +24,6 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public static final String UPDATER_ID_FIELD = "updaterId";
 
 
-
     @Override
     public void insertFill(MetaObject metaObject) {
         if (metaObject.hasSetter(CREATE_TIME_FIELD)) {
@@ -57,7 +56,5 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
         }
         return userId;
     }
-
-
 
 }

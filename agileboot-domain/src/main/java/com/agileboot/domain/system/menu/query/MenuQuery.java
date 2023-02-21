@@ -21,7 +21,7 @@ public class MenuQuery extends AbstractQuery<SysMenuEntity> {
     @Override
     public QueryWrapper<SysMenuEntity> toQueryWrapper() {
         QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<SysMenuEntity>()
-            .like(StrUtil.isNotEmpty(menuName), columnName("menu_name"), menuName)
+            .like(StrUtil.isNotEmpty(menuName), "menu_name", menuName)
             .eq(isVisible != null, "is_visible", isVisible)
             .eq(status != null, "status", status);
 
