@@ -38,8 +38,8 @@ public class NoticeApplicationService {
 
 
     public NoticeDTO getNoticeInfo(Long id) {
-        SysNoticeEntity byId = noticeService.getById(id);
-        return new NoticeDTO(byId);
+        NoticeModel noticeModel = noticeModelFactory.loadById(id);
+        return new NoticeDTO(noticeModel);
     }
 
 

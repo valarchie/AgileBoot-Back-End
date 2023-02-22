@@ -5,7 +5,6 @@ import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
-import com.agileboot.domain.system.role.model.RoleModel;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.ChangeStatusCommand;
@@ -185,11 +184,13 @@ public class UserApplicationService {
 
     public UserInfoDTO getUserWithRole(Long userId) {
         UserModel userModel = userModelFactory.loadById(userId);
-        RoleModel roleModel = roleModelFactory.loadById(userModel.getRoleId());
+        SysRoleEntity roleEntity = roleService.getById(userModel.getRoleId());
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setUser(new UserDTO(userModel));
-        userInfoDTO.setRole(new RoleDTO(roleModel));
+        if (roleEntity != null) {
+            userInfoDTO.setRole(new RoleDTO(roleEntity));
+        }
         return userInfoDTO;
     }
 
