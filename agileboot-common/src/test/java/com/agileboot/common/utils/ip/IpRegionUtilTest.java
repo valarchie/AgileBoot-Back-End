@@ -15,6 +15,12 @@ class IpRegionUtilTest {
     }
 
     @Test
+    void testGetIpRegionWhenLocalHost() {
+        IpRegion ipRegion = IpRegionUtil.getIpRegion("127.0.0.1");
+        Assertions.assertEquals("内网IP", ipRegion.briefLocation());
+    }
+
+    @Test
     public void testGetIpRegionWithIpv6() {
         IpRegion ipRegion = IpRegionUtil.getIpRegion("2001:0DB8:0000:0023:0008:0800:200C:417A");
 

@@ -1,5 +1,7 @@
 package com.agileboot.common.utils.ip;
 
+import cn.hutool.core.util.StrUtil;
+
 /**
  * IP地理位置工具类
  * @author valarchie
@@ -7,6 +9,14 @@ package com.agileboot.common.utils.ip;
 public class IpRegionUtil {
 
     public static IpRegion getIpRegion(String ip) {
+        if (StrUtil.isEmpty(ip)) {
+            return new IpRegion();
+        }
+
+        if (IpUtil.isInnerIp(ip)) {
+            return new IpRegion("", "内网IP");
+        }
+
         IpRegion ipRegionOffline = OfflineIpRegionUtil.getIpRegion(ip);
         if (ipRegionOffline != null) {
             return ipRegionOffline;

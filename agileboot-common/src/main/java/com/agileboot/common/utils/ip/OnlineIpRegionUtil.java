@@ -1,6 +1,5 @@
 package com.agileboot.common.utils.ip;
 
-import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
@@ -27,10 +26,6 @@ public class OnlineIpRegionUtil {
             return null;
         }
 
-        // no need to query address for inner ip
-        if (NetUtil.isInnerIP(ip)) {
-            return new IpRegion("internal", "IP");
-        }
         if (AgileBootConfig.isAddressEnabled()) {
             try {
                 String rspStr = HttpUtil.get(ADDRESS_QUERY_SITE + "?ip=" + ip + "&json=true",

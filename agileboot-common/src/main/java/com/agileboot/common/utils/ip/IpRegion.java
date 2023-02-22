@@ -29,7 +29,7 @@ public class IpRegion {
     public String briefLocation() {
        return String.format("%s %s",
            CharSequenceUtil.nullToDefault(province, UNKNOWN),
-           CharSequenceUtil.nullToDefault(city, UNKNOWN));
+           CharSequenceUtil.nullToDefault(city, UNKNOWN)).trim();
     }
 
 }
