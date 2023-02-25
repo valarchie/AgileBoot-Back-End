@@ -13,7 +13,6 @@ import com.agileboot.domain.system.user.command.ResetPasswordCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
-import com.agileboot.domain.system.user.dto.UserInfoDTO;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
@@ -152,17 +151,6 @@ public class SysUserController extends BaseController {
         userApplicationService.changeUserStatus(command);
         return ResponseDTO.ok();
     }
-
-    /**
-     * 根据用户编号获取授权角色
-     */
-    @PreAuthorize("@permission.has('system:user:query')")
-    @GetMapping("/{userId}/role")
-    public ResponseDTO<UserInfoDTO> getRoleOfUser(@PathVariable("userId") Long userId) {
-        UserInfoDTO userWithRole = userApplicationService.getUserWithRole(userId);
-        return ResponseDTO.ok(userWithRole);
-    }
-
 
 
 }

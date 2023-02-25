@@ -15,7 +15,6 @@ import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
-import com.agileboot.domain.system.user.dto.UserInfoDTO;
 import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
@@ -180,18 +179,6 @@ public class UserApplicationService {
         tokenService.setLoginUser(loginUser);
 
         CacheCenter.userCache.delete(userModel.getUserId());
-    }
-
-    public UserInfoDTO getUserWithRole(Long userId) {
-        UserModel userModel = userModelFactory.loadById(userId);
-        SysRoleEntity roleEntity = roleService.getById(userModel.getRoleId());
-
-        UserInfoDTO userInfoDTO = new UserInfoDTO();
-        userInfoDTO.setUser(new UserDTO(userModel));
-        if (roleEntity != null) {
-            userInfoDTO.setRole(new RoleDTO(roleEntity));
-        }
-        return userInfoDTO;
     }
 
 
