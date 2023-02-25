@@ -20,6 +20,7 @@ import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
+import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
@@ -63,41 +64,38 @@ public class LoginService {
     /**
      * 登录验证
      *
-     * @param username 用户名
-     * @param password 密码
-     * @param code 验证码
-     * @param uuid 唯一标识
+     * @param loginDTO 登录参数
      * @return 结果
      */
-    public String login(String username, String password, String code, String uuid) {
+    public String login(LoginDTO loginDTO) {
         // 验证码开关
         if (isCaptchaOn()) {
-            validateCaptcha(username, code, uuid);
+            validateCaptcha(loginDTO.getUsername(), loginDTO.getCode(), loginDTO.getUuid());
         }
         // 用户验证
         Authentication authentication;
         try {
 
             byte[] decryptBytes = SecureUtil.rsa(AgileBootConfig.getRsaPrivateKey(), null)
-                .decrypt(Base64.decode(password), KeyType.PrivateKey);
+                .decrypt(Base64.decode(loginDTO.getPassword()), KeyType.PrivateKey);
 
             String decryptPassword = StrUtil.str(decryptBytes, CharsetUtil.CHARSET_UTF_8);
 
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, decryptPassword));
+                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), decryptPassword));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
-                ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_FAIL,
+                ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL,
                     MessageUtils.message("user.password.not.match")));
                 throw new ApiException(ErrorCode.Business.LOGIN_WRONG_USER_PASSWORD);
             } else {
-                ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
+                ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
                 throw new ApiException(e.getCause(), ErrorCode.Business.LOGIN_ERROR, e.getMessage());
             }
         }
-        ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_SUCCESS,
+        ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_SUCCESS,
             LoginStatusEnum.LOGIN_SUCCESS.description()));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         recordLoginInfo(loginUser.getEntity());

@@ -1,4 +1,4 @@
-package com.agileboot.admin.response;
+package com.agileboot.domain.common.dto;
 
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.orm.common.result.DictionaryData;

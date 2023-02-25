@@ -1,11 +1,10 @@
 package com.agileboot.admin.controller.common;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.admin.request.LoginDTO;
-import com.agileboot.admin.response.UserPermissionDTO;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.common.dto.UserPermissionDTO;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;
@@ -16,6 +15,7 @@ import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
+import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.TokenDTO;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
@@ -77,8 +77,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseDTO<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         // 生成令牌
-        String token = loginService.login(loginDTO.getUsername(), loginDTO.getPassword(), loginDTO.getCode(),
-            loginDTO.getUuid());
+        String token = loginService.login(loginDTO);
 
         return ResponseDTO.ok(new TokenDTO(token));
     }

@@ -1,4 +1,4 @@
-package com.agileboot.admin.request;
+package com.agileboot.infrastructure.web.domain.login;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.agileboot.admin.response;
+package com.agileboot.domain.common.dto;
 
 import lombok.Builder;
 import lombok.Data;
