@@ -7,6 +7,9 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.system.dept.model.DeptModelFactory;
+import com.agileboot.domain.system.post.model.PostModelFactory;
+import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -17,8 +20,12 @@ import org.junit.jupiter.api.Test;
 class UserModelTest {
 
     private final ISysUserService userService = mock(ISysUserService.class);
+    private final PostModelFactory postModelFactory = mock(PostModelFactory.class);
+    private final DeptModelFactory deptModelFactory = mock(DeptModelFactory.class);
+    private final RoleModelFactory roleModelFactory = mock(RoleModelFactory.class);
 
-    private final UserModelFactory userModelFactory = new UserModelFactory(userService);
+    private final UserModelFactory userModelFactory = new UserModelFactory(userService, postModelFactory,
+        deptModelFactory, roleModelFactory);
 
     private static final long USER_ID = 1L;
     private static final long ADMIN_USER_ID = 1L;

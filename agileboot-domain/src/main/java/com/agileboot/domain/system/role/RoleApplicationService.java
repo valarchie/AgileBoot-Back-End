@@ -15,9 +15,7 @@ import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.service.TokenService;
-import com.agileboot.infrastructure.web.service.UserDetailsServiceImpl;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysRoleService;
@@ -49,11 +47,6 @@ public class RoleApplicationService {
     @NonNull
     private ISysUserService userService;
 
-    @NonNull
-    private TokenService tokenService;
-
-    @NonNull
-    private UserDetailsServiceImpl userDetailsService;
 
     public PageDTO<RoleDTO> getRoleList(RoleQuery query) {
         Page<SysRoleEntity> page = roleService.page(query.toPage(), query.toQueryWrapper());
@@ -85,12 +78,14 @@ public class RoleApplicationService {
                 roleModel.checkRoleCanBeDelete();
 
                 roleModel.deleteById();
+
+                CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
             }
         }
     }
 
 
-    public void updateRole(UpdateRoleCommand updateCommand, LoginUser loginUser) {
+    public void updateRole(UpdateRoleCommand updateCommand) {
         RoleModel roleModel = roleModelFactory.loadById(updateCommand.getRoleId());
         roleModel.loadUpdateCommand(updateCommand);
 
@@ -99,11 +94,7 @@ public class RoleApplicationService {
 
         roleModel.updateById();
 
-        if (loginUser.isAdmin()) {
-            // TODO 如何实时刷新所有改动到的user的权限
-            loginUser.getRoleInfo().setMenuPermissions(userDetailsService.getMenuPermissions(loginUser.getUserId()));
-            tokenService.setLoginUser(loginUser);
-        }
+        CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
     }
 
     public void updateStatus(UpdateStatusCommand command) {
@@ -112,6 +103,8 @@ public class RoleApplicationService {
         roleModel.setStatus(command.getStatus());
 
         roleModel.updateById();
+
+        CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
     }
 
     public void updateDataScope(UpdateDataScopeCommand command) {
@@ -122,6 +115,8 @@ public class RoleApplicationService {
         roleModel.generateDeptIdSet();
 
         roleModel.updateById();
+
+        CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
     }
 
 
@@ -147,6 +142,8 @@ public class RoleApplicationService {
             updateWrapper.set(SysUserEntity::getRoleId, null).eq(SysUserEntity::getUserId, userId);
 
             userService.update(updateWrapper);
+
+            CacheCenter.userCache.delete(userId);
         }
     }
 
@@ -162,6 +159,8 @@ public class RoleApplicationService {
             UserModel user = userModelFactory.loadById(userId);
             user.setRoleId(roleId);
             user.updateById();
+
+            CacheCenter.userCache.delete(userId);
         }
     }
 

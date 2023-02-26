@@ -1,5 +1,6 @@
 package com.agileboot.orm.system.service.impl;
 
+import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.mapper.SysRoleMapper;
@@ -7,6 +8,7 @@ import com.agileboot.orm.system.mapper.SysUserMapper;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
         QueryWrapper<SysUserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("role_id", roleId);
         return userMapper.exists(queryWrapper);
+    }
+
+    @Override
+    public List<SysMenuEntity> getMenuListByRoleId(Long roleId) {
+        return baseMapper.getMenuListByRoleId(roleId);
     }
 
 

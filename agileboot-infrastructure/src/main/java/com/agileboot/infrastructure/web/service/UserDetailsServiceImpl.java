@@ -1,16 +1,21 @@
 package com.agileboot.infrastructure.web.service;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.orm.common.enums.DataScopeEnum;
 import com.agileboot.orm.common.enums.UserStatusEnum;
+import com.agileboot.orm.common.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysRoleMenuEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
 import com.agileboot.orm.system.service.ISysRoleMenuService;
+import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -22,6 +27,7 @@ import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.SetUtils;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,6 +54,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @NonNull
     private ISysMenuService menuService;
 
+    @NonNull
+    private ISysRoleService roleService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -61,16 +70,48 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new ApiException(ErrorCode.Business.USER_IS_DISABLE, username);
         }
 
-        SysRoleEntity roleEntity = userService.getRoleOfUser(userEntity.getUserId());
-        RoleInfo roleInfo = new RoleInfo(
-            roleEntity,
-            getRoleKey(userEntity.getUserId()),
-            getMenuPermissions(userEntity.getUserId()),
-            getMenuIds(userEntity.getUserId(), userEntity.getRoleId())
-        );
-
-        return new LoginUser(userEntity, roleInfo);
+        return new LoginUser(userEntity.getUserId());
     }
+
+    public RoleInfo getRoleInfo(Long roleId) {
+        if (roleId == null) {
+            return RoleInfo.EMPTY_ROLE;
+        }
+
+        if (roleId == RoleInfo.ADMIN_ROLE_ID) {
+            LambdaQueryWrapper<SysMenuEntity> menuQuery = Wrappers.lambdaQuery();
+            menuQuery.select(SysMenuEntity::getMenuId);
+            List<SysMenuEntity> allMenus = menuService.list(menuQuery);
+
+            Set<Long> allMenuIds = allMenus.stream().map(SysMenuEntity::getMenuId).collect(Collectors.toSet());
+
+            return new RoleInfo(RoleInfo.ADMIN_ROLE_ID, RoleInfo.ADMIN_ROLE_KEY, DataScopeEnum.ALL, SetUtils.emptySet(),
+                RoleInfo.ADMIN_PERMISSIONS, allMenuIds);
+
+        }
+
+        SysRoleEntity roleEntity = roleService.getById(roleId);
+
+        if (roleEntity == null) {
+            return RoleInfo.EMPTY_ROLE;
+        }
+
+        List<SysMenuEntity> menuList = roleService.getMenuListByRoleId(roleId);
+
+        Set<Long> menuIds = menuList.stream().map(SysMenuEntity::getMenuId).collect(Collectors.toSet());
+        Set<String> permissions = menuList.stream().map(SysMenuEntity::getPerms).collect(Collectors.toSet());
+
+        DataScopeEnum dataScopeEnum = BasicEnumUtil.fromValue(DataScopeEnum.class, roleEntity.getDataScope());
+
+        Set<Long> deptIdSet = SetUtils.emptySet();
+        if (StrUtil.isNotEmpty(roleEntity.getDeptIdSet())) {
+            deptIdSet = StrUtil.split(roleEntity.getDeptIdSet(), ",").stream()
+                .map(Convert::toLong).collect(Collectors.toSet());
+        }
+
+        return new RoleInfo(roleId, roleEntity.getRoleKey(), dataScopeEnum, deptIdSet, permissions, menuIds);
+    }
+
 
     /**
      * 获取角色数据权限

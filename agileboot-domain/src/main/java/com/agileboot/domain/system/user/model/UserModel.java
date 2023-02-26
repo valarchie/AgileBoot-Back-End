@@ -6,6 +6,9 @@ import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
+import com.agileboot.domain.system.dept.model.DeptModelFactory;
+import com.agileboot.domain.system.post.model.PostModelFactory;
+import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
@@ -27,15 +30,27 @@ public class UserModel extends SysUserEntity {
 
     private ISysUserService userService;
 
-    public UserModel(SysUserEntity entity, ISysUserService userService) {
+    private PostModelFactory postModelFactory;
+
+    private DeptModelFactory deptModelFactory;
+
+    private RoleModelFactory roleModelFactory;
+
+    public UserModel(SysUserEntity entity, ISysUserService userService, PostModelFactory postModelFactory,
+        DeptModelFactory deptModelFactory, RoleModelFactory roleModelFactory) {
+        this(userService, postModelFactory, deptModelFactory, roleModelFactory);
+
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
         }
-        this.userService = userService;
     }
 
-    public UserModel(ISysUserService userService) {
+    public UserModel(ISysUserService userService, PostModelFactory postModelFactory,
+        DeptModelFactory deptModelFactory, RoleModelFactory roleModelFactory) {
         this.userService = userService;
+        this.postModelFactory = postModelFactory;
+        this.deptModelFactory = deptModelFactory;
+        this.roleModelFactory = roleModelFactory;
     }
 
     public void loadAddUserCommand(AddUserCommand command) {
@@ -73,6 +88,23 @@ public class UserModel extends SysUserEntity {
             throw new ApiException(ErrorCode.Business.USER_PHONE_NUMBER_IS_NOT_UNIQUE);
         }
     }
+
+    public void checkFieldRelatedEntityExist() {
+
+        if (getPostId() != null) {
+            postModelFactory.loadById(getPostId());
+        }
+
+        if (getDeptId() != null) {
+            deptModelFactory.loadById(getDeptId());
+        }
+
+        if (getRoleId() != null) {
+            roleModelFactory.loadById(getRoleId());
+        }
+
+    }
+
 
     public void checkEmailIsUnique() {
         if (StrUtil.isNotEmpty(getEmail()) && userService.isEmailDuplicated(getEmail(), getUserId())) {

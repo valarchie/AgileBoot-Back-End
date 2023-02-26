@@ -1,7 +1,9 @@
 package com.agileboot.orm.system.service;
 
+import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +39,13 @@ public interface ISysRoleService extends IService<SysRoleEntity> {
      * @return
      */
     boolean isAssignedToUsers(Long roleId);
+
+    /**
+     * 获取用户的权限列表
+     * @param roleId
+     * @return
+     */
+    List<SysMenuEntity> getMenuListByRoleId(Long roleId);
 
 
 }

@@ -1,7 +1,6 @@
 package com.agileboot.infrastructure.web.domain.login;
 
-import com.agileboot.common.core.base.BaseUser;
-import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import lombok.Data;
@@ -15,9 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Data
 @NoArgsConstructor
-public class LoginUser extends BaseUser implements UserDetails {
+public class LoginUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
+
+    private Long userId;
     /**
      * 用户唯一标识
      */
@@ -38,29 +39,37 @@ public class LoginUser extends BaseUser implements UserDetails {
      */
     private LoginInfo loginInfo = new LoginInfo();
 
-    /**
-     * 角色信息
-     */
-    private RoleInfo roleInfo = new RoleInfo();
 
-    private SysUserEntity entity;
-
-
-    public LoginUser(SysUserEntity entity, RoleInfo roleInfo) {
-        setUsername(entity.getUsername());
-        setUserId(entity.getUserId());
-        setDeptId(entity.getDeptId());
-        setRoleId(entity.getRoleId());
-        if (roleInfo != null) {
-            this.roleInfo = roleInfo;
-        }
-        this.entity = entity;
+    public LoginUser(Long userId) {
+        this.userId = userId;
     }
+
+    public RoleInfo getRoleInfo() {
+        return CacheCenter.roleInfoCache.getObjectById(getRoleId());
+    }
+
+    public Long getRoleId() {
+        if (isAdmin()) {
+            return RoleInfo.ADMIN_ROLE_ID;
+        } else {
+            return CacheCenter.userCache.getObjectById(userId).getRoleId();
+        }
+    }
+
+    public Long getDeptId() {
+        return CacheCenter.userCache.getObjectById(userId).getDeptId();
+    }
+
+    @Override
+    public String getUsername() {
+        return CacheCenter.userCache.getObjectById(userId).getUsername();
+    }
+
 
     @JsonIgnore
     @Override
     public String getPassword() {
-        return entity.getPassword();
+        return CacheCenter.userCache.getObjectById(userId).getPassword();
     }
 
 

@@ -5,6 +5,7 @@ import lombok.Data;
 /**
  * @author valarchie
  */
+@Deprecated
 @Data
 public class BaseUser {
 

@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,6 @@ import org.springframework.stereotype.Service;
  */
 @Service("permission")
 public class MenuPermissionService {
-
-    /**
-     * 所有权限标识
-     */
-    private static final String ALL_PERMISSION = "*:*:*";
 
 
     /**
@@ -46,7 +42,7 @@ public class MenuPermissionService {
      * @return 用户是否具备某权限
      */
     private boolean has(Set<String> permissions, String permission) {
-        return permissions.contains(ALL_PERMISSION) || permissions.contains(StrUtil.trim(permission));
+        return permissions.contains(RoleInfo.ALL_PERMISSIONS) || permissions.contains(StrUtil.trim(permission));
     }
 
 }

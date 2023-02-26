@@ -54,7 +54,7 @@ public class RedisCacheTemplate<T> {
         String cachedKey = generateKey(id);
         try {
             Optional<T> optional = guavaCache.get(cachedKey);
-            log.debug("find the guava cache of key: {}", cachedKey);
+//            log.debug("find the guava cache of key: {}", cachedKey);
 
             if (!optional.isPresent()) {
                 T objectFromDb = getObjectFromDb(id);

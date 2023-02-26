@@ -98,7 +98,8 @@ public class LoginService {
         ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_SUCCESS,
             LoginStatusEnum.LOGIN_SUCCESS.description()));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        recordLoginInfo(loginUser.getEntity());
+        SysUserEntity userEntity = CacheCenter.userCache.getObjectById(loginUser.getUserId());
+        recordLoginInfo(userEntity);
         // 生成token
         return tokenService.createToken(loginUser);
     }

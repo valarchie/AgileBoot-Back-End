@@ -12,6 +12,7 @@ import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.annotations.RateLimit;
 import com.agileboot.infrastructure.annotations.RateLimit.CacheType;
 import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
+import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
@@ -92,7 +93,8 @@ public class LoginController {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
 
         UserPermissionDTO permissionDTO = new UserPermissionDTO();
-        permissionDTO.setUser(new UserDTO(loginUser.getEntity()));
+
+        permissionDTO.setUser(new UserDTO(CacheCenter.userCache.getObjectById(loginUser.getUserId())));
         permissionDTO.setRoleKey(loginUser.getRoleInfo().getRoleKey());
         permissionDTO.setPermissions(loginUser.getRoleInfo().getMenuPermissions());
         permissionDTO.setDictTypes(MapCache.dictionaryCache());

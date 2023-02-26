@@ -15,8 +15,6 @@ import com.agileboot.domain.system.role.query.RoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -102,8 +100,7 @@ public class SysRoleController extends BaseController {
     @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<Void> edit(@Validated @RequestBody UpdateRoleCommand updateCommand) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        roleApplicationService.updateRole(updateCommand, loginUser);
+        roleApplicationService.updateRole(updateCommand);
         return ResponseDTO.ok();
     }
 

@@ -5,7 +5,6 @@ import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
-import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.ChangeStatusCommand;
 import com.agileboot.domain.system.user.command.ResetPasswordCommand;
@@ -58,9 +57,6 @@ public class UserApplicationService {
 
     @NonNull
     private TokenService tokenService;
-
-    @NonNull
-    private RoleModelFactory roleModelFactory;
 
 
     public PageDTO<UserDTO> getUserList(SearchUserQuery<SearchUserDO> query) {
@@ -117,6 +113,7 @@ public class UserApplicationService {
         model.checkUsernameIsUnique();
         model.checkPhoneNumberIsUnique();
         model.checkEmailIsUnique();
+        model.checkFieldRelatedEntityExist();
         model.resetPassword(command.getPassword());
 
         model.insert();
@@ -128,6 +125,7 @@ public class UserApplicationService {
 
         model.checkPhoneNumberIsUnique();
         model.checkEmailIsUnique();
+        model.checkFieldRelatedEntityExist();
         model.updateById();
 
         CacheCenter.userCache.delete(model.getUserId());
@@ -146,9 +144,6 @@ public class UserApplicationService {
         userModel.modifyPassword(command);
         userModel.updateById();
 
-        loginUser.setEntity(userModel);
-
-        tokenService.setLoginUser(loginUser);
         CacheCenter.userCache.delete(userModel.getUserId());
     }
 
