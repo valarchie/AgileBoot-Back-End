@@ -17,12 +17,12 @@ public class UserDetailDTO {
     /**
      * 返回所有role
      */
-    private List<RoleDTO> roles;
+    private List<RoleDTO> roleOptions;
 
     /**
      * 返回所有posts
      */
-    private List<PostDTO> posts;
+    private List<PostDTO> postOptions;
 
     private Long postId;
 

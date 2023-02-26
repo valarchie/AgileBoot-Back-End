@@ -95,12 +95,12 @@ public class UserApplicationService {
         SysUserEntity userEntity = userService.getById(userId);
         UserDetailDTO detailDTO = new UserDetailDTO();
 
-        LambdaQueryWrapper<SysRoleEntity> roleQuery = new LambdaQueryWrapper<>();
-        roleQuery.orderByAsc(SysRoleEntity::getRoleSort);
+        LambdaQueryWrapper<SysRoleEntity> roleQuery = new LambdaQueryWrapper<SysRoleEntity>()
+            .orderByAsc(SysRoleEntity::getRoleSort);
         List<RoleDTO> roleDtoList = roleService.list(roleQuery).stream().map(RoleDTO::new).collect(Collectors.toList());
         List<PostDTO> postDtoList = postService.list().stream().map(PostDTO::new).collect(Collectors.toList());
-        detailDTO.setRoles(roleDtoList);
-        detailDTO.setPosts(postDtoList);
+        detailDTO.setRoleOptions(roleDtoList);
+        detailDTO.setPostOptions(postDtoList);
 
         if (userEntity != null) {
             detailDTO.setUser(new UserDTO(userEntity));
