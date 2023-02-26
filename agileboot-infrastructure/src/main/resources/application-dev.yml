@@ -97,3 +97,4 @@ agileboot:
     file-base-dir: D:\agileboot
     # 因为knife4j不能给configUrl 配置前缀， 所以只能自己配置一个，然后通过转发来实现
     api-docs-path-prefix: /dev-api
+    demo-enabled: false

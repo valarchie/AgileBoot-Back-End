@@ -2,6 +2,7 @@ package com.agileboot.domain.system.user.model;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
@@ -104,7 +105,7 @@ public class UserModel extends SysUserEntity {
 
     @Override
     public boolean updateById() {
-        if (LoginUser.isAdmin(this.getUserId())) {
+        if (LoginUser.isAdmin(this.getUserId()) && AgileBootConfig.isDemoEnabled()) {
             throw new ApiException(Business.USER_ADMIN_CAN_NOT_BE_MODIFY);
         }
 
