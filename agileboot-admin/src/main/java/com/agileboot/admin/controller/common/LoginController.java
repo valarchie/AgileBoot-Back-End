@@ -109,8 +109,8 @@ public class LoginController {
      */
     @GetMapping("/getRouters")
     public ResponseDTO<List<RouterDTO>> getRouters() {
-        Long userId = AuthenticationUtils.getUserId();
-        List<RouterDTO> routerTree = menuApplicationService.getRouterTree(userId);
+        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        List<RouterDTO> routerTree = menuApplicationService.getRouterTree(loginUser);
         return ResponseDTO.ok(routerTree);
     }
 

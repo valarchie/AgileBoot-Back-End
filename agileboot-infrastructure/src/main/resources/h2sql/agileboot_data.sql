@@ -217,6 +217,6 @@ INSERT INTO `sys_role_menu` VALUES ('3', '1');
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '1', '1', '4', 'admin', 'valarchie1', '0', 'agileboot@163.com', '15888888889', '0', '', '$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy', '1', '127.0.0.1', '2022-10-06 17:00:06', null,  '2022-05-21 08:30:54', '1',  '2022-10-06 17:00:06', '管理员', '0');
-INSERT INTO `sys_user` VALUES ('2', '2', '2', '5', 'ag1', 'valarchie2', '0', 'agileboot1@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '1', '127.0.0.1', '2022-05-21 08:30:54', null,  '2022-05-21 08:30:54', null,  null, '测试员1', '0');
-INSERT INTO `sys_user` VALUES ('3', '2', '0', '5', 'ag2', 'valarchie3', '0', 'agileboot2@qq.com', '15666666667', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '1', '127.0.0.1', '2022-05-21 08:30:54', null,  '2022-05-21 08:30:54', null,  null, '测试员2', '0');
+INSERT INTO `sys_user` VALUES ('1', '1', '1', '4', 'admin', 'valarchie1', '0', 'agileboot@163.com', '15888888889', '0', '', '$2a$10$rb1wRoEIkLbIknREEN1LH.FGs4g0oOS5t6l5LQ793nRaFO.SPHDHy', '1', '127.0.0.1', '2022-10-06 17:00:06', 1, null,  '2022-05-21 08:30:54', '1',  '2022-10-06 17:00:06', '管理员', '0');
+INSERT INTO `sys_user` VALUES ('2', '2', '2', '5', 'ag1', 'valarchie2', '0', 'agileboot1@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '1', '127.0.0.1', '2022-05-21 08:30:54', 0, null,  '2022-05-21 08:30:54', null,  null, '测试员1', '0');
+INSERT INTO `sys_user` VALUES ('3', '2', '0', '5', 'ag2', 'valarchie3', '0', 'agileboot2@qq.com', '15666666667', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '1', '127.0.0.1', '2022-05-21 08:30:54', 0, null,  '2022-05-21 08:30:54', null,  null, '测试员2', '0');

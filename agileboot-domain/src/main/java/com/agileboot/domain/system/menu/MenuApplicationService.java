@@ -121,12 +121,12 @@ public class MenuApplicationService {
     }
 
 
-    public List<Tree<Long>> buildMenuEntityTree(Long userId) {
+    public List<Tree<Long>> buildMenuEntityTree(LoginUser loginUser) {
         List<SysMenuEntity> allMenus;
-        if (LoginUser.isAdmin(userId)) {
+        if (loginUser.isAdmin()) {
             allMenus = menuService.list();
         } else {
-            allMenus = menuService.getMenuListByUserId(userId);
+            allMenus = menuService.getMenuListByUserId(loginUser.getUserId());
         }
 
         List<SysMenuEntity> noButtonMenus = allMenus.stream()
@@ -184,8 +184,8 @@ public class MenuApplicationService {
     }
 
 
-    public List<RouterDTO> getRouterTree(Long userId) {
-        List<Tree<Long>> trees = buildMenuEntityTree(userId);
+    public List<RouterDTO> getRouterTree(LoginUser loginUser) {
+        List<Tree<Long>> trees = buildMenuEntityTree(loginUser);
         return buildRouterTree(trees);
     }
 

@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author valarchie
- * @since 2022-10-02
+ * @since 2023-02-27
  */
 @Getter
 @Setter
@@ -87,6 +87,10 @@ public class SysUserEntity extends BaseEntity<SysUserEntity> {
     @ApiModelProperty("最后登录时间")
     @TableField("login_date")
     private Date loginDate;
+
+    @ApiModelProperty("超级管理员标志（1是，0否）")
+    @TableField("is_admin")
+    private Boolean isAdmin;
 
     @ApiModelProperty("备注")
     @TableField("remark")

@@ -34,14 +34,17 @@ public class LoginUser implements UserDetails {
      */
     private Long expireTime;
 
+    private boolean isAdmin;
+
     /**
      * 登录信息
      */
     private LoginInfo loginInfo = new LoginInfo();
 
 
-    public LoginUser(Long userId) {
+    public LoginUser(Long userId, Boolean isAdmin) {
         this.userId = userId;
+        this.isAdmin = isAdmin;
     }
 
     public RoleInfo getRoleInfo() {
@@ -118,17 +121,5 @@ public class LoginUser implements UserDetails {
         return null;
     }
 
-    /**
-     * 是否为管理员
-     * @return 结果
-     */
-    public boolean isAdmin() {
-        return isAdmin(getUserId());
-    }
-
-    // TODO 多租户需要做改动
-    public static boolean isAdmin(Long userId) {
-        return userId != null && 1L == userId;
-    }
 
 }

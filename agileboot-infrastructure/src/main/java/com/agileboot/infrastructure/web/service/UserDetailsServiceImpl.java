@@ -11,15 +11,12 @@ import com.agileboot.orm.common.enums.UserStatusEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysRoleMenuEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
-import com.agileboot.orm.system.service.ISysRoleMenuService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -49,9 +46,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private ISysUserService userService;
 
     @NonNull
-    private ISysRoleMenuService roleMenuService;
-
-    @NonNull
     private ISysMenuService menuService;
 
     @NonNull
@@ -70,7 +64,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new ApiException(ErrorCode.Business.USER_IS_DISABLE, username);
         }
 
-        return new LoginUser(userEntity.getUserId());
+        return new LoginUser(userEntity.getUserId(), userEntity.getIsAdmin());
     }
 
     public RoleInfo getRoleInfo(Long roleId) {
@@ -112,61 +106,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new RoleInfo(roleId, roleEntity.getRoleKey(), dataScopeEnum, deptIdSet, permissions, menuIds);
     }
 
-
-    /**
-     * 获取角色数据权限
-     * @param userId 用户信息
-     * @return 角色权限信息
-     */
-    public String getRoleKey(Long userId) {
-        // 管理员拥有所有权限
-        if (LoginUser.isAdmin(userId)) {
-            return "admin";
-        }
-
-        SysRoleEntity roleEntity = userService.getRoleOfUser(userId);
-        return roleEntity == null ? "" : roleEntity.getRoleKey();
-    }
-
-    /**
-     * 获取菜单数据权限
-     *
-     * @param userId 用户信息
-     * @return 菜单权限信息
-     */
-    public Set<String> getMenuPermissions(Long userId) {
-        Set<String> perms = new HashSet<>();
-        // 管理员拥有所有权限
-        if (LoginUser.isAdmin(userId)) {
-            perms.add("*:*:*");
-        } else {
-            perms.addAll(userService.getMenuPermissionsForUser(userId));
-        }
-        return perms;
-    }
-
-    /**
-     * 获取菜单数据权限
-     *
-     * @param userId 用户信息
-     * @return 菜单权限信息
-     */
-    public Set<Long> getMenuIds(Long userId, Long roleId) {
-        // 管理员拥有所有菜单
-        if (LoginUser.isAdmin(userId)) {
-            LambdaQueryWrapper<SysMenuEntity> menuQuery = Wrappers.lambdaQuery();
-            menuQuery.select(SysMenuEntity::getMenuId);
-            List<SysMenuEntity> menuList = menuService.list(menuQuery);
-
-            return menuList.stream().map(SysMenuEntity::getMenuId).collect(Collectors.toSet());
-        } else {
-            LambdaQueryWrapper<SysRoleMenuEntity> menuQuery = Wrappers.lambdaQuery();
-            menuQuery.select(SysRoleMenuEntity::getMenuId).eq(SysRoleMenuEntity::getRoleId, roleId);
-            List<SysRoleMenuEntity> menuList = roleMenuService.list(menuQuery);
-
-            return menuList.stream().map(SysRoleMenuEntity::getMenuId).collect(Collectors.toSet());
-        }
-    }
 
 
 }
