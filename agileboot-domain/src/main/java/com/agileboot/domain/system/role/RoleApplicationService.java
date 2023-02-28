@@ -79,7 +79,7 @@ public class RoleApplicationService {
 
                 roleModel.deleteById();
 
-                CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
+                CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
             }
         }
     }
@@ -94,7 +94,7 @@ public class RoleApplicationService {
 
         roleModel.updateById();
 
-        CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
+        CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
     }
 
     public void updateStatus(UpdateStatusCommand command) {
@@ -104,7 +104,7 @@ public class RoleApplicationService {
 
         roleModel.updateById();
 
-        CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
+        CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
     }
 
     public void updateDataScope(UpdateDataScopeCommand command) {
@@ -116,7 +116,7 @@ public class RoleApplicationService {
 
         roleModel.updateById();
 
-        CacheCenter.roleInfoCache.delete(roleModel.getRoleId());
+        CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
     }
 
 

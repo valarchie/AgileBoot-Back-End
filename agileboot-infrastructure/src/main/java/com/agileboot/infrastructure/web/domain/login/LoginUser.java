@@ -48,7 +48,7 @@ public class LoginUser implements UserDetails {
     }
 
     public RoleInfo getRoleInfo() {
-        return CacheCenter.roleInfoCache.getObjectById(getRoleId());
+        return CacheCenter.roleModelInfoCache.getObjectById(getRoleId());
     }
 
     public Long getRoleId() {
