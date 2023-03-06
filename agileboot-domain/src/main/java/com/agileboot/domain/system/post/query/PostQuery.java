@@ -22,7 +22,7 @@ public class PostQuery extends AbstractPageQuery<SysPostEntity> {
     public QueryWrapper<SysPostEntity> toQueryWrapper() {
         QueryWrapper<SysPostEntity> queryWrapper = new QueryWrapper<SysPostEntity>()
             .eq(status != null, "status", status)
-            .eq(postCode != null, "post_code", postCode)
+            .eq(StrUtil.isNotEmpty(postCode), "post_code", postCode)
             .like(StrUtil.isNotEmpty(postName), "post_name", postName);
 
         addSortCondition(queryWrapper);
