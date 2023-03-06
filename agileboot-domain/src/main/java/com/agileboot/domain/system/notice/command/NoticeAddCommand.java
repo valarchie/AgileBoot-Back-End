@@ -1,5 +1,7 @@
 package com.agileboot.domain.system.notice.command;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.Data;
@@ -16,7 +18,11 @@ public class NoticeAddCommand {
 
     protected String noticeType;
 
+    /**
+     * 想要支持富文本的话  请加上@JsonDeserialize(using = StringDeserializer.class) 注解
+     */
     @NotBlank
+    @JsonDeserialize(using = StringDeserializer.class)
     protected String noticeContent;
 
     protected String status;
