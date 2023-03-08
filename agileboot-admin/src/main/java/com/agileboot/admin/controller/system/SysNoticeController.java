@@ -13,6 +13,8 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.annotations.Resubmit;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author valarchie
  */
+@Tag(name = "公告API", description = "公告相关的增删查改")
 @RestController
 @RequestMapping("/system/notice")
 @Validated
@@ -46,6 +49,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 获取通知公告列表
      */
+    @Operation(summary = "公告列表")
     @PreAuthorize("@permission.has('system:notice:list')")
     @GetMapping("/list")
     public ResponseDTO<PageDTO<NoticeDTO>> list(NoticeQuery query) {
@@ -57,6 +61,7 @@ public class SysNoticeController extends BaseController {
      * 获取通知公告列表
      * 从从库获取数据 例子 仅供参考
      */
+    @Operation(summary = "公告列表（从数据库从库获取）", description = "演示主从库的例子")
     @DS("slave")
     @PreAuthorize("@permission.has('system:notice:list')")
     @GetMapping("/listFromSlave")
@@ -68,6 +73,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 根据通知公告编号获取详细信息
      */
+    @Operation(summary = "公告详情")
     @PreAuthorize("@permission.has('system:notice:query')")
     @GetMapping(value = "/{noticeId}")
     public ResponseDTO<NoticeDTO> getInfo(@PathVariable @NotNull @Positive Long noticeId) {
@@ -77,6 +83,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 新增通知公告
      */
+    @Operation(summary = "添加公告")
     @Resubmit(interval = 60)
     @PreAuthorize("@permission.has('system:notice:add')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
@@ -89,6 +96,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 修改通知公告
      */
+    @Operation(summary = "修改公告")
     @PreAuthorize("@permission.has('system:notice:edit')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
@@ -100,6 +108,7 @@ public class SysNoticeController extends BaseController {
     /**
      * 删除通知公告
      */
+    @Operation(summary = "删除公告")
     @PreAuthorize("@permission.has('system:notice:remove')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{noticeIds}")

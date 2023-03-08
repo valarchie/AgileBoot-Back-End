@@ -13,6 +13,8 @@ import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -32,8 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 菜单信息
  *
- * @author ruoyi
+ * @author valarchie
  */
+@Tag(name = "菜单API", description = "菜单相关的增删查改")
 @RestController
 @RequestMapping("/system/menu")
 @Validated
@@ -46,6 +49,7 @@ public class SysMenuController extends BaseController {
     /**
      * 获取菜单列表
      */
+    @Operation(summary = "菜单列表")
     @PreAuthorize("@permission.has('system:menu:list')")
     @GetMapping("/list")
     public ResponseDTO<List<MenuDTO>> list(MenuQuery query) {
@@ -56,6 +60,7 @@ public class SysMenuController extends BaseController {
     /**
      * 根据菜单编号获取详细信息
      */
+    @Operation(summary = "菜单详情")
     @PreAuthorize("@permission.has('system:menu:query')")
     @GetMapping(value = "/{menuId}")
     public ResponseDTO<MenuDTO> getInfo(@PathVariable @NotNull @PositiveOrZero Long menuId) {
@@ -66,6 +71,7 @@ public class SysMenuController extends BaseController {
     /**
      * 获取菜单下拉树列表
      */
+    @Operation(summary = "菜单列表（树级）", description = "菜单树级下拉框")
     @GetMapping("/dropdownList")
     public ResponseDTO<List<Tree<Long>>> dropdownList() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
@@ -75,7 +81,9 @@ public class SysMenuController extends BaseController {
 
     /**
      * 加载对应角色菜单列表树
+     * TODO 这个接口也可以去除
      */
+    @Operation(summary = "角色对应的菜单数据以及下拉框")
     @GetMapping(value = "/roleMenuTreeSelect/{roleId}")
     public ResponseDTO<TreeSelectedDTO> roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
@@ -86,6 +94,7 @@ public class SysMenuController extends BaseController {
     /**
      * 新增菜单
      */
+    @Operation(summary = "添加菜单")
     @PreAuthorize("@permission.has('system:menu:add')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
@@ -97,6 +106,7 @@ public class SysMenuController extends BaseController {
     /**
      * 修改菜单
      */
+    @Operation(summary = "编辑菜单")
     @PreAuthorize("@permission.has('system:menu:edit')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
@@ -108,6 +118,7 @@ public class SysMenuController extends BaseController {
     /**
      * 删除菜单
      */
+    @Operation(summary = "删除菜单")
     @PreAuthorize("@permission.has('system:menu:remove')")
     @AccessLog(title = "菜单管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{menuId}")

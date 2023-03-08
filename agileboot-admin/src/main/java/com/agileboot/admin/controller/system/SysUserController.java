@@ -19,6 +19,8 @@ import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.agileboot.orm.system.result.SearchUserDO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import lombok.NonNull;
@@ -40,6 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author ruoyi
  */
+@Tag(name = "用户API", description = "用户相关的增删查改")
 @RestController
 @RequestMapping("/system/user")
 @RequiredArgsConstructor
@@ -51,6 +54,7 @@ public class SysUserController extends BaseController {
     /**
      * 获取用户列表
      */
+    @Operation(summary = "用户列表")
     @PreAuthorize("@permission.has('system:user:list') AND @dataScope.checkDeptId(#query.deptId)")
     @GetMapping("/list")
     public ResponseDTO<PageDTO<UserDTO>> list(SearchUserQuery<SearchUserDO> query) {
@@ -58,6 +62,7 @@ public class SysUserController extends BaseController {
         return ResponseDTO.ok(page);
     }
 
+    @Operation(summary = "用户列表导出")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@permission.has('system:user:export')")
     @PostMapping("/export")
@@ -66,6 +71,7 @@ public class SysUserController extends BaseController {
         CustomExcelUtil.writeToResponse(userList.getRows(), UserDTO.class, response);
     }
 
+    @Operation(summary = "用户列表导入")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.IMPORT)
     @PreAuthorize("@permission.has('system:user:import')")
     @PostMapping("/importData")
@@ -78,6 +84,10 @@ public class SysUserController extends BaseController {
         return ResponseDTO.ok();
     }
 
+    /**
+     * TODO 接口名需要改一下
+     */
+    @Operation(summary = "用户导入excel下载")
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
         CustomExcelUtil.writeToResponse(ListUtil.toList(new AddUserCommand()), AddUserCommand.class, response);
@@ -86,6 +96,7 @@ public class SysUserController extends BaseController {
     /**
      * 根据用户编号获取详细信息
      */
+    @Operation(summary = "用户详情")
     @PreAuthorize("@permission.has('system:user:query')")
     @GetMapping(value = {"/", "/{userId}"})
     public ResponseDTO<UserDetailDTO> getUserDetailInfo(@PathVariable(value = "userId", required = false) Long userId) {
@@ -96,6 +107,7 @@ public class SysUserController extends BaseController {
     /**
      * 新增用户
      */
+    @Operation(summary = "新增用户")
     @PreAuthorize("@permission.has('system:user:add') AND @dataScope.checkDeptId(#command.deptId)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.ADD)
     @PostMapping
@@ -107,6 +119,7 @@ public class SysUserController extends BaseController {
     /**
      * 修改用户
      */
+    @Operation(summary = "修改用户")
     @PreAuthorize("@permission.has('system:user:edit') AND @dataScope.checkUserId(#command.userId)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
@@ -118,6 +131,7 @@ public class SysUserController extends BaseController {
     /**
      * 删除用户
      */
+    @Operation(summary = "删除用户")
     @PreAuthorize("@permission.has('system:user:remove') AND @dataScope.checkUserIds(#userIds)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping("/{userIds}")
@@ -131,6 +145,7 @@ public class SysUserController extends BaseController {
     /**
      * 重置密码
      */
+    @Operation(summary = "重置用户密码")
     @PreAuthorize("@permission.has('system:user:resetPwd') AND @dataScope.checkUserId(#userId)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{userId}/password/reset")
@@ -143,6 +158,7 @@ public class SysUserController extends BaseController {
     /**
      * 状态修改
      */
+    @Operation(summary = "修改用户状态")
     @PreAuthorize("@permission.has('system:user:edit') AND @dataScope.checkUserId(#command.userId)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/{userId}/status")

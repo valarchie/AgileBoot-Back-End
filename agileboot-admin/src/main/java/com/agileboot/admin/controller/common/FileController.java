@@ -12,6 +12,8 @@ import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.file.FileUploadUtils;
 import com.agileboot.common.utils.jackson.JacksonUtil;
 import com.agileboot.domain.common.dto.UploadDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author valarchie
  */
+@Tag(name = "上传API", description = "上传相关接口")
 @RestController
 @RequestMapping("/file")
 @Slf4j
@@ -42,6 +45,7 @@ public class FileController {
      * download接口  其实不是很有必要
      * @param fileName 文件名称
      */
+    @Operation(summary = "下载文件")
     @GetMapping("/download")
     public ResponseEntity<byte[]> fileDownload(String fileName, HttpServletResponse response) {
         try {
@@ -67,6 +71,7 @@ public class FileController {
     /**
      * 通用上传请求（单个）
      */
+    @Operation(summary = "单个上传文件")
     @PostMapping("/upload")
     public ResponseDTO<UploadDTO> uploadFile(MultipartFile file) {
         if (file == null) {
@@ -94,6 +99,7 @@ public class FileController {
     /**
      * 通用上传请求（多个）
      */
+    @Operation(summary = "多个上传文件")
     @PostMapping("/uploads")
     public ResponseDTO<List<UploadDTO>> uploadFiles(List<MultipartFile> files) {
         if (CollUtil.isEmpty(files)) {

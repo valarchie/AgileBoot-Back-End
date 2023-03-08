@@ -21,6 +21,8 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.TokenDTO;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author valarchie
  */
+@Tag(name = "登录API", description = "登录相关接口")
 @RestController
 @RequiredArgsConstructor
 public class LoginController {
@@ -50,6 +53,7 @@ public class LoginController {
     /**
      * 访问首页，提示语
      */
+    @Operation(summary = "首页")
     @GetMapping("/")
     @RateLimit(key = RateLimitKey.TEST_KEY, time = 10, maxCount = 5, cacheType = CacheType.Map,
         limitType = LimitType.GLOBAL)
@@ -61,6 +65,7 @@ public class LoginController {
     /**
      * 生成验证码
      */
+    @Operation(summary = "验证码")
     @RateLimit(key = RateLimitKey.LOGIN_CAPTCHA_KEY, time = 10, maxCount = 10, cacheType = CacheType.REDIS,
         limitType = LimitType.IP)
     @GetMapping("/captchaImage")
@@ -75,6 +80,7 @@ public class LoginController {
      * @param loginDTO 登录信息
      * @return 结果
      */
+    @Operation(summary = "登录")
     @PostMapping("/login")
     public ResponseDTO<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         // 生成令牌
@@ -88,6 +94,7 @@ public class LoginController {
      *
      * @return 用户信息
      */
+    @Operation(summary = "获取当前登录用户信息")
     @GetMapping("/getLoginUserInfo")
     public ResponseDTO<UserPermissionDTO> getLoginUserInfo() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
@@ -107,6 +114,7 @@ public class LoginController {
      *
      * @return 路由信息
      */
+    @Operation(summary = "获取用户对应的菜单路由", description = "用于动态生成路由")
     @GetMapping("/getRouters")
     public ResponseDTO<List<RouterDTO>> getRouters() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
@@ -115,6 +123,7 @@ public class LoginController {
     }
 
 
+    @Operation(summary = "注册接口", description = "暂未实现")
     @PostMapping("/register")
     public ResponseDTO<Void> register(@RequestBody AddUserCommand command) {
         return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
