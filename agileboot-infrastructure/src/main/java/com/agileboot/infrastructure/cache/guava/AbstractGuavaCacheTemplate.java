@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 缓存接口实现类
+ * 缓存接口实现类  二级缓存
  * @author valarchie
  */
 @Slf4j
