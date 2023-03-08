@@ -35,11 +35,11 @@ public class RedisRateLimitChecker extends AbstractRateLimitChecker{
             currentCount = redisTemplate.execute(limitScript, ListUtil.of(combineKey), maxCount, rateLimiter.time());
             log.info("限制请求:{}, 当前请求次数:{}, 缓存key:{}", combineKey, currentCount, rateLimiter.key());
         } catch (Exception e) {
-            throw new RuntimeException("服务器限流异常，请稍候再试");
+            throw new RuntimeException("redis限流器异常，请确保redis启动正常");
         }
 
         if (currentCount == null) {
-            throw new RuntimeException("服务器限流异常，请稍候再试");
+            throw new RuntimeException("redis限流器异常，请稍后再试");
         }
 
         if (currentCount.intValue() > maxCount) {
