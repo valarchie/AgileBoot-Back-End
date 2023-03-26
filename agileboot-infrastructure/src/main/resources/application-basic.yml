@@ -3,7 +3,7 @@ agileboot:
   # 名称
   name: AgileBoot
   # 版本
-  version: 1.7.0
+  version: 1.8.0
   # 版权年份
   copyright-year: 2022
   # 实例演示开关

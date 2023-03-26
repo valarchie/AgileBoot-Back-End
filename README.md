@@ -1,6 +1,6 @@
 
 <p align="center">
-      <img src="https://img.shields.io/badge/Release-V1.7.0-green.svg" alt="Downloads">
+      <img src="https://img.shields.io/badge/Release-V1.8.0-green.svg" alt="Downloads">
       <img src="https://img.shields.io/badge/JDK-1.8+-green.svg" alt="Build Status">
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Build Status">
    <img src="https://img.shields.io/badge/Spring%20Boot-2.7.1-blue.svg" alt="Downloads">
@@ -15,7 +15,7 @@
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.7.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.8.0</h1>
 
 <h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发脚手架</h4>
 <p align="center">
@@ -32,7 +32,7 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持注解式主从数据库切换，注解式请求限流，注解式重复请求拦截。
 * 支持注解式菜单权限拦截，注解式数据权限拦截。
-* 支持加载动态权限菜单，多方式轻松权限控制。
+* 支持加载动态权限菜单，实时权限控制。
 * ***有大量的单元测试，集成测试覆盖确保业务逻辑正确***。
 
 > 有任何问题或者建议，可以在 _Issues_ 中提给作者。  
@@ -129,6 +129,8 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 | `junit`        | 单元测试            | 1.10.19           |
 | `h2`           | 内存数据库           | 1.10.19           |
 | `jackson`      | 比较安全的Json框架     | follow springboot |
+| `knife4j`      | 接口文档框架          | 3.0.3             |
+| `Spring Task`  | 定时任务框架（适合小型项目）  | follow springboot |
 
 
 ### 启动说明
@@ -228,7 +230,7 @@ agileboot.embedded.redis: true
 |     | 连接池监视 | 监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈 |
 
 
-目前版本是V1.7，将在2.0版本后陆续新增新功能。
+目前版本是V1.8.0，将在2.0版本后陆续新增新功能。
 
 ## 🐯 工程结构 🐯
 
@@ -299,6 +301,9 @@ agileboot
 * [AgileBoot - 手把手一步一步带你Run起全栈项目(SpringBoot+Vue3)](https://juejin.cn/post/7153812187834744845)
 * [AgileBoot - 项目内统一的错误码设计](https://juejin.cn/post/7156062116712022023)
 * [AgileBoot - 如何集成内置数据库H2和内置Redis](https://juejin.cn/post/7158793441198112781)
+* [AgileBoot - Mybatis Plus 框架项目落地实践总结](https://juejin.cn/post/7202573260659195963)
+* [AgileBoot - SpringBoot项目多层级多环境yml设计](https://juejin.cn/post/7205171975647215676)
+* [AgileBoot - 项目中多级缓存设计实践总结](https://juejin.cn/post/7208112485764857914)
 * 持续输出中
 
 
