@@ -55,23 +55,6 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 查询部门列表（排除当前部门，比如在修改部门的上级部门的时候，需要排除自身当前的部门，因为上级部门不能选自己）
-     * TODO 感觉这个接口不太需要
-     */
-    @Operation(summary = "部门列表（排除当前部门）",
-        description = "排除当前部门，比如在修改部门的上级部门的时候，需要排除自身当前的部门，因为上级部门不能选自己")
-    @PreAuthorize("@permission.has('system:dept:list')")
-    @GetMapping("/list/exclude/{deptId}")
-    public ResponseDTO<List<DeptDTO>> excludeCurrentDeptItself(@PathVariable(value = "deptId", required = false) Long deptId) {
-        DeptQuery query = new DeptQuery();
-        query.setDeptId(deptId);
-        query.setExcludeCurrentDept(true);
-
-        List<DeptDTO> deptList = deptApplicationService.getDeptList(query);
-        return ResponseDTO.ok(deptList);
-    }
-
-    /**
      * 根据部门编号获取详细信息
      */
     @Operation(summary = "部门详情")

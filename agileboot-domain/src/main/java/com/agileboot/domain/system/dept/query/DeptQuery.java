@@ -24,19 +24,17 @@ public class DeptQuery extends AbstractQuery<SysDeptEntity> {
 
     private String deptName;
 
-    private boolean isExcludeCurrentDept;
-
     @Override
     public QueryWrapper<SysDeptEntity> toQueryWrapper() {
 
         return new QueryWrapper<SysDeptEntity>()
             .eq(status != null, "status", status)
             .eq(parentId != null, "parent_id", parentId)
-            .like(StrUtil.isNotEmpty(deptName), "dept_name", deptName)
-            .and(deptId != null && isExcludeCurrentDept, o ->
-                o.ne("dept_id", deptId)
-                    .or()
-                    .apply("FIND_IN_SET (dept_id , ancestors)")
-            );
+            .like(StrUtil.isNotEmpty(deptName), "dept_name", deptName);
+//            .and(deptId != null && isExcludeCurrentDept, o ->
+//                o.ne("dept_id", deptId)
+//                    .or()
+//                    .apply("FIND_IN_SET (dept_id , ancestors)")
+//            );
     }
 }
