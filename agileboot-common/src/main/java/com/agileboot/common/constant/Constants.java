@@ -27,12 +27,6 @@ public class Constants {
 
     public static class Token {
         /**
-         * 令牌
-         */
-        @Deprecated
-        public static final String TOKEN_FIELD = "token";
-
-        /**
          * 令牌前缀
          */
         public static final String TOKEN_PREFIX = "Bearer ";

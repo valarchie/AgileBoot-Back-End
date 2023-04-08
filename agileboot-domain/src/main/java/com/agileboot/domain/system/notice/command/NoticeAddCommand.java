@@ -19,7 +19,7 @@ public class NoticeAddCommand {
     protected String noticeType;
 
     /**
-     * 想要支持富文本的话  请加上@JsonDeserialize(using = StringDeserializer.class) 注解
+     * 想要支持富文本的话, 避免Xss过滤的话， 请加上@JsonDeserialize(using = StringDeserializer.class) 注解
      */
     @NotBlank
     @JsonDeserialize(using = StringDeserializer.class)
