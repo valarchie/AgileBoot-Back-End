@@ -3,7 +3,6 @@ package com.agileboot.admin.controller.system;
 import cn.hutool.core.lang.tree.Tree;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
-import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.dept.DeptApplicationService;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
@@ -73,17 +72,6 @@ public class SysDeptController extends BaseController {
     public ResponseDTO<List<Tree<Long>>> dropdownList() {
         List<Tree<Long>> deptTree = deptApplicationService.getDeptTree();
         return ResponseDTO.ok(deptTree);
-    }
-
-    /**
-     * 加载对应角色部门列表树
-     * TODO 感觉这个接口也可以去除
-     */
-    @Operation(summary = "获取部门树级结构（根据角色）")
-    @GetMapping(value = "/dropdownList/role/{roleId}")
-    public ResponseDTO<TreeSelectedDTO> dropdownListForRole(@PathVariable("roleId") Long roleId) {
-        TreeSelectedDTO deptTreeForRole = deptApplicationService.getDeptTreeForRole(roleId);
-        return ResponseDTO.ok(deptTreeForRole);
     }
 
     /**

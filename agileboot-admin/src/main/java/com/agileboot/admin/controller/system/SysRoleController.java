@@ -146,7 +146,6 @@ public class SysRoleController extends BaseController {
 
     /**
      * 查询已分配用户角色列表
-     * TODO 可以和以下两个接口合并
      */
     @Operation(summary = "已关联该角色的用户列表")
     @PreAuthorize("@permission.has('system:role:list')")

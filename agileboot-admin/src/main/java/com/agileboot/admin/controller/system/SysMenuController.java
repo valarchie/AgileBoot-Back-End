@@ -3,7 +3,6 @@ package com.agileboot.admin.controller.system;
 import cn.hutool.core.lang.tree.Tree;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
-import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
@@ -77,18 +76,6 @@ public class SysMenuController extends BaseController {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         List<Tree<Long>> dropdownList = menuApplicationService.getDropdownList(loginUser);
         return ResponseDTO.ok(dropdownList);
-    }
-
-    /**
-     * 加载对应角色菜单列表树
-     * TODO 这个接口也可以去除
-     */
-    @Operation(summary = "角色对应的菜单数据以及下拉框")
-    @GetMapping(value = "/roleMenuTreeSelect/{roleId}")
-    public ResponseDTO<TreeSelectedDTO> roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
-        TreeSelectedDTO roleDropdownList = menuApplicationService.getRoleDropdownList(loginUser, roleId);
-        return ResponseDTO.ok(roleDropdownList);
     }
 
     /**

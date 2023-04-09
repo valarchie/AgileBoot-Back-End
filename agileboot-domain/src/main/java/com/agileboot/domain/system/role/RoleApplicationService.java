@@ -1,6 +1,7 @@
 package com.agileboot.domain.system.role;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
@@ -18,6 +19,7 @@ import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.orm.system.service.ISysMenuService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -47,6 +49,9 @@ public class RoleApplicationService {
     @NonNull
     private ISysUserService userService;
 
+    @NonNull
+    private ISysMenuService menuService;
+
 
     public PageDTO<RoleDTO> getRoleList(RoleQuery query) {
         Page<SysRoleEntity> page = roleService.page(query.toPage(), query.toQueryWrapper());
@@ -56,7 +61,12 @@ public class RoleApplicationService {
 
     public RoleDTO getRoleInfo(Long roleId) {
         SysRoleEntity byId = roleService.getById(roleId);
-        return new RoleDTO(byId);
+        RoleDTO roleDTO = new RoleDTO(byId);
+        List<Long> selectedDeptList = StrUtil.split(byId.getDeptIdSet(), ",")
+            .stream().filter(StrUtil::isNotEmpty).map(Long::new).collect(Collectors.toList());
+        roleDTO.setSelectedDeptList(selectedDeptList);
+        roleDTO.setSelectedMenuList(menuService.getMenuIdsByRoleId(roleId));
+        return roleDTO;
     }
 
 

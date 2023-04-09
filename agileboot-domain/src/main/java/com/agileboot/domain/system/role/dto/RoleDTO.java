@@ -4,6 +4,7 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -42,4 +43,8 @@ public class RoleDTO {
     private Date createTime;
     @ExcelColumn(name = "数据范围")
     private Integer dataScope;
+
+    private List<Long> selectedMenuList;
+
+    private List<Long> selectedDeptList;
 }

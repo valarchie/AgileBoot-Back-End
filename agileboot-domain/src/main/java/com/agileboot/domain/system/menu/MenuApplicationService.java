@@ -5,7 +5,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
-import com.agileboot.domain.common.dto.TreeSelectedDTO;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.domain.system.menu.dto.MenuDTO;
@@ -55,18 +54,6 @@ public class MenuApplicationService {
             loginUser.isAdmin() ? menuService.list() : menuService.getMenuListByUserId(loginUser.getUserId());
 
         return buildMenuTreeSelect(menuEntityList);
-    }
-
-
-    public TreeSelectedDTO getRoleDropdownList(LoginUser loginUser, Long roleId) {
-        List<SysMenuEntity> menus = loginUser.isAdmin() ?
-            menuService.list() : menuService.getMenuListByUserId(loginUser.getUserId());
-
-        TreeSelectedDTO tree = new TreeSelectedDTO();
-        tree.setMenus(buildMenuTreeSelect(menus));
-        tree.setCheckedKeys(menuService.getMenuIdsByRoleId(roleId));
-
-        return tree;
     }
 
 
