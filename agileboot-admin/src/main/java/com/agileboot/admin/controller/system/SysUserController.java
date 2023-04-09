@@ -85,11 +85,11 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * TODO 接口名需要改一下
+     * 下载批量导入模板
      */
     @Operation(summary = "用户导入excel下载")
-    @PostMapping("/importTemplate")
-    public void importTemplate(HttpServletResponse response) {
+    @PostMapping("/downloadTemplate")
+    public void downloadTemplate(HttpServletResponse response) {
         CustomExcelUtil.writeToResponse(ListUtil.toList(new AddUserCommand()), AddUserCommand.class, response);
     }
 
