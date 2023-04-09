@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Client;
 import com.agileboot.common.utils.ServletHolderUtil;
+import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.filter.JwtAuthenticationTokenFilter;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
@@ -49,6 +50,9 @@ public class SecurityConfig {
     @NonNull
     private TokenService tokenService;
 
+    @NonNull
+    private RedisCacheService redisCache;
+
     /**
      * token认证过滤器
      */
@@ -85,7 +89,7 @@ public class SecurityConfig {
             if (loginUser != null) {
                 String userName = loginUser.getUsername();
                 // 删除用户缓存记录
-                tokenService.deleteLoginUser(loginUser.getToken());
+                redisCache.loginUserCache.delete(loginUser.getToken());
                 // 记录用户退出日志
                 ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(
                     userName, LoginStatusEnum.LOGOUT, LoginStatusEnum.LOGOUT.description()));

@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * token过滤器 验证token有效性
  * 继承OncePerRequestFilter类的话  可以确保只执行filter一次， 避免执行多次
- * @author ruoyi
+ * @author valarchie
  */
 @Component
 @Slf4j
@@ -35,14 +35,21 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         throws ServletException, IOException {
         LoginUser loginUser = tokenService.getLoginUser(request);
         if (loginUser != null && AuthenticationUtils.getAuthentication() == null) {
-            tokenService.verifyToken(loginUser);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,
-                null, loginUser.getAuthorities());
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            tokenService.refreshToken(loginUser);
+
+            putCurrentLoginUserIntoContext(request, loginUser);
+
             log.debug("request process in jwt token filter. get login user id: {}", loginUser.getUserId());
         }
         chain.doFilter(request, response);
+    }
+
+
+    private void putCurrentLoginUserIntoContext(HttpServletRequest request, LoginUser loginUser) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,
+            null, loginUser.getAuthorities());
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
 }

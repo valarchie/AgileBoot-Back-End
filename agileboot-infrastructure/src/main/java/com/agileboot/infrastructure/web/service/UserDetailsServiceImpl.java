@@ -63,8 +63,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("登录用户：{} 已被停用.", username);
             throw new ApiException(ErrorCode.Business.USER_IS_DISABLE, username);
         }
-
-        return new LoginUser(userEntity.getUserId(), userEntity.getIsAdmin());
+        LoginUser loginUser = new LoginUser(userEntity.getUserId(), userEntity.getIsAdmin(), userEntity.getUsername(),
+            userEntity.getPassword());
+        loginUser.fillLoginTimeAndExpireTime();
+        loginUser.fillUserAgent();
+        return loginUser;
     }
 
     public RoleInfo getRoleInfo(Long roleId) {

@@ -3,23 +3,18 @@ package com.agileboot.infrastructure.web.service;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import com.agileboot.common.constant.Constants.Token;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.common.utils.ServletHolderUtil;
-import com.agileboot.common.utils.ip.IpRegionUtil;
-import com.agileboot.infrastructure.cache.CacheCenter;
-import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
-import com.agileboot.infrastructure.web.domain.login.LoginInfo;
+import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +23,7 @@ import org.springframework.stereotype.Component;
 /**
  * token验证处理
  *
- * @author ruoyi
+ * @author valarchie
  */
 @Component
 @Slf4j
@@ -53,6 +48,9 @@ public class TokenService {
     @Value("${token.autoRefreshTime}")
     private long autoRefreshTime;
 
+    @NonNull
+    private RedisCacheService redisCache;
+
     /**
      * 获取用户身份信息
      *
@@ -60,14 +58,14 @@ public class TokenService {
      */
     public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
-        String token = getToken(request);
+        String token = getTokenFromRequest(request);
         if (StrUtil.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Token.LOGIN_USER_KEY);
 
-                return CacheCenter.loginUserCache.getObjectOnlyInCacheById(uuid);
+                return redisCache.loginUserCache.getObjectOnlyInCacheById(uuid);
             } catch (Exception e) {
                 log.error("fail to get cached user from redis", e);
                 throw new ApiException(e, ErrorCode.UNKNOWN_ERROR);
@@ -77,79 +75,32 @@ public class TokenService {
     }
 
     /**
-     * 设置用户身份信息
-     */
-    public void setLoginUser(LoginUser loginUser) {
-        if (loginUser != null && StrUtil.isNotEmpty(loginUser.getToken())) {
-            refreshToken(loginUser);
-        }
-    }
-
-    /**
-     * 删除用户身份信息
-     */
-    public void deleteLoginUser(String token) {
-        if (StrUtil.isNotEmpty(token)) {
-            CacheCenter.loginUserCache.delete(token);
-        }
-    }
-
-    /**
      * 创建令牌
      *
      * @param loginUser 用户信息
      * @return 令牌
      */
-    public String createToken(LoginUser loginUser) {
-        String token = IdUtil.fastUUID();
-        loginUser.setToken(token);
-        setUserAgent(loginUser);
-        refreshToken(loginUser);
+    public String createTokenAndPutUserInCache(LoginUser loginUser) {
+        loginUser.setToken(IdUtil.fastUUID());
 
-        return createToken(MapUtil.of(Token.LOGIN_USER_KEY, token));
+        redisCache.loginUserCache.set(loginUser.getToken(), loginUser);
+
+        return generateToken(MapUtil.of(Token.LOGIN_USER_KEY, loginUser.getToken()));
     }
 
     /**
-     * 验证令牌有效期，相差不足20分钟，自动刷新token
+     * 当过期时间不足20分钟，自动刷新token
      * @param loginUser 登录用户
      */
-    public void verifyToken(LoginUser loginUser) {
+    public void refreshToken(LoginUser loginUser) {
         long currentTime = System.currentTimeMillis();
         if (loginUser.getExpireTime() - currentTime <= TimeUnit.MINUTES.toMillis(autoRefreshTime)) {
-            refreshToken(loginUser);
+            loginUser.refreshExpireTime(currentTime);
+            // 根据uuid将loginUser存入缓存
+            redisCache.loginUserCache.set(loginUser.getToken(), loginUser);
         }
     }
 
-    /**
-     * 刷新令牌有效期
-     *
-     * @param loginUser 登录信息
-     */
-    public void refreshToken(LoginUser loginUser) {
-        loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setExpireTime(loginUser.getLoginTime() + CacheKeyEnum.LOGIN_USER_KEY.timeUnit()
-            .toMillis(CacheKeyEnum.LOGIN_USER_KEY.expiration()));
-        // 根据uuid将loginUser缓存
-        CacheCenter.loginUserCache.set(loginUser.getToken(), loginUser);
-
-    }
-
-    /**
-     * 设置用户代理信息
-     *
-     * @param loginUser 登录信息
-     */
-    public void setUserAgent(LoginUser loginUser) {
-        UserAgent userAgent = UserAgent.parseUserAgentString(ServletHolderUtil.getRequest().getHeader("User-Agent"));
-        String ip = ServletUtil.getClientIP(ServletHolderUtil.getRequest());
-        if (loginUser.getLoginInfo() == null) {
-            loginUser.setLoginInfo(new LoginInfo());
-        }
-        loginUser.getLoginInfo().setIpAddress(ip);
-        loginUser.getLoginInfo().setLocation(IpRegionUtil.getBriefLocationByIp(ip));
-        loginUser.getLoginInfo().setBrowser(userAgent.getBrowser().getName());
-        loginUser.getLoginInfo().setOperationSystem(userAgent.getOperatingSystem().getName());
-    }
 
     /**
      * 从数据声明生成令牌
@@ -157,7 +108,7 @@ public class TokenService {
      * @param claims 数据声明
      * @return 令牌
      */
-    private String createToken(Map<String, Object> claims) {
+    private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
             .setClaims(claims)
             .signWith(SignatureAlgorithm.HS512, secret).compact();
@@ -182,7 +133,7 @@ public class TokenService {
      * @param token 令牌
      * @return 用户名
      */
-    public String getUsernameFromToken(String token) {
+    private String getUsernameFromToken(String token) {
         Claims claims = parseToken(token);
         return claims.getSubject();
     }
@@ -192,7 +143,7 @@ public class TokenService {
      *
      * @return token
      */
-    private String getToken(HttpServletRequest request) {
+    private String getTokenFromRequest(HttpServletRequest request) {
         String token = request.getHeader(header);
         if (StrUtil.isNotEmpty(token) && token.startsWith(Token.TOKEN_PREFIX)) {
             token = StrUtil.stripIgnoreCase(token, Token.TOKEN_PREFIX, null);

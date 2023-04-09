@@ -171,8 +171,6 @@ public class UserApplicationService {
         userModel.setAvatar(command.getAvatar());
         userModel.updateById();
 
-        tokenService.setLoginUser(loginUser);
-
         CacheCenter.userCache.delete(userModel.getUserId());
     }
 

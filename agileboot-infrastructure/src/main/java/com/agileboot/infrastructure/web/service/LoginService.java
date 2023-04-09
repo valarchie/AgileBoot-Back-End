@@ -16,7 +16,8 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.i18n.MessageUtils;
-import com.agileboot.infrastructure.cache.CacheCenter;
+import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
+import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
@@ -53,6 +54,12 @@ public class LoginService {
     private TokenService tokenService;
 
     @NonNull
+    private RedisCacheService redisCache;
+
+    @NonNull
+    private GuavaCacheService guavaCache;
+
+    @NonNull
     private AuthenticationManager authenticationManager;
 
     @Resource(name = "captchaProducer")
@@ -74,17 +81,11 @@ public class LoginService {
         }
         // 用户验证
         Authentication authentication;
+        String decryptPassword = decryptPassword(loginDTO.getPassword());
         try {
-
-            byte[] decryptBytes = SecureUtil.rsa(AgileBootConfig.getRsaPrivateKey(), null)
-                .decrypt(Base64.decode(loginDTO.getPassword()), KeyType.PrivateKey);
-
-            String decryptPassword = StrUtil.str(decryptBytes, CharsetUtil.CHARSET_UTF_8);
-
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), decryptPassword));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            // 该方法会去调用UserDetailsServiceImpl#loadUserByUsername  校验用户名和密码  认证鉴权
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDTO.getUsername(), decryptPassword));
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
                 ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL,
@@ -95,20 +96,20 @@ public class LoginService {
                 throw new ApiException(e.getCause(), ErrorCode.Business.LOGIN_ERROR, e.getMessage());
             }
         }
-        ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_SUCCESS,
-            LoginStatusEnum.LOGIN_SUCCESS.description()));
+        // 把当前登录用户 放入上下文中
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // 这里获取的loginUser是UserDetailsServiceImpl#loadUserByUsername方法返回的LoginUser
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        SysUserEntity userEntity = CacheCenter.userCache.getObjectById(loginUser.getUserId());
-        recordLoginInfo(userEntity);
+        recordLoginInfo(loginUser);
         // 生成token
-        return tokenService.createToken(loginUser);
+        return tokenService.createTokenAndPutUserInCache(loginUser);
     }
 
     /**
      * 获取验证码 data
      * @return
      */
-    public CaptchaDTO getCaptchaImg() {
+    public CaptchaDTO generateCaptchaImg() {
         CaptchaDTO captchaDTO = new CaptchaDTO();
 
         boolean isCaptchaOn = isCaptchaOn();
@@ -140,7 +141,7 @@ public class LoginService {
             // 保存验证码信息
             String uuid = IdUtil.simpleUUID();
 
-            CacheCenter.captchaCache.set(uuid, answer);
+            redisCache.captchaCache.set(uuid, answer);
             // 转换流信息写出
             FastByteArrayOutputStream os = new FastByteArrayOutputStream();
             ImgUtil.writeJpg(image, os);
@@ -162,8 +163,8 @@ public class LoginService {
      * @param uuid 唯一标识
      */
     public void validateCaptcha(String username, String code, String uuid) {
-        String captcha = CacheCenter.captchaCache.getObjectById(uuid);
-        CacheCenter.captchaCache.delete(uuid);
+        String captcha = redisCache.captchaCache.getObjectById(uuid);
+        redisCache.captchaCache.delete(uuid);
         if (captcha == null) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(username, LoginStatusEnum.LOGIN_FAIL,
                 ErrorCode.Business.LOGIN_CAPTCHA_CODE_EXPIRE.message()));
@@ -178,16 +179,28 @@ public class LoginService {
 
     /**
      * 记录登录信息
-     * @param entity
+     * @param loginUser
      */
-    public void recordLoginInfo(SysUserEntity entity) {
+    public void recordLoginInfo(LoginUser loginUser) {
+        ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginUser.getUsername(), LoginStatusEnum.LOGIN_SUCCESS,
+            LoginStatusEnum.LOGIN_SUCCESS.description()));
+
+        SysUserEntity entity = redisCache.userCache.getObjectById(loginUser.getUserId());
+
         entity.setLoginIp(ServletUtil.getClientIP(ServletHolderUtil.getRequest()));
         entity.setLoginDate(DateUtil.date());
         entity.updateById();
     }
 
+    public String decryptPassword(String originalPassword) {
+        byte[] decryptBytes = SecureUtil.rsa(AgileBootConfig.getRsaPrivateKey(), null)
+            .decrypt(Base64.decode(originalPassword), KeyType.PrivateKey);
+
+        return StrUtil.str(decryptBytes, CharsetUtil.CHARSET_UTF_8);
+    }
+
     private boolean isCaptchaOn() {
-        return Convert.toBool(CacheCenter.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
+        return Convert.toBool(guavaCache.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
     }
 
 }

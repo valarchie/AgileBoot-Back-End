@@ -27,7 +27,7 @@ public class DataPermissionService {
     /**
      * 通过userId 校验当前用户 对 目标用户是否有操作权限
      * @param userId
-     * @return
+     * @return 检验结果
      */
     public boolean checkUserId(Long userId) {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();

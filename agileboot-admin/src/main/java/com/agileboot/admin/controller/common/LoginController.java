@@ -70,7 +70,7 @@ public class LoginController {
         limitType = LimitType.IP)
     @GetMapping("/captchaImage")
     public ResponseDTO<CaptchaDTO> getCaptchaImg() {
-        CaptchaDTO captchaImg = loginService.getCaptchaImg();
+        CaptchaDTO captchaImg = loginService.generateCaptchaImg();
         return ResponseDTO.ok(captchaImg);
     }
 
