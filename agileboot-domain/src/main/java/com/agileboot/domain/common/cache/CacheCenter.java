@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.cache;
+package com.agileboot.domain.common.cache;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 缓存中心  提供全局访问点
+ * 如果是领域类的缓存  可以自己新建一个直接放在CacheCenter   不用放在infrastructure包里
  * @author valarchie
  */
 @Component

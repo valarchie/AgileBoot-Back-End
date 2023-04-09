@@ -2,6 +2,7 @@ package com.agileboot.domain.system.user;
 
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
+import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
@@ -18,9 +19,7 @@ import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.service.TokenService;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -54,9 +53,6 @@ public class UserApplicationService {
 
     @NonNull
     private UserModelFactory userModelFactory;
-
-    @NonNull
-    private TokenService tokenService;
 
 
     public PageDTO<UserDTO> getUserList(SearchUserQuery<SearchUserDO> query) {
@@ -165,7 +161,7 @@ public class UserApplicationService {
         CacheCenter.userCache.delete(userModel.getUserId());
     }
 
-    public void updateUserAvatar(LoginUser loginUser, UpdateUserAvatarCommand command) {
+    public void updateUserAvatar(UpdateUserAvatarCommand command) {
         UserModel userModel = userModelFactory.loadById(command.getUserId());
 
         userModel.setAvatar(command.getAvatar());

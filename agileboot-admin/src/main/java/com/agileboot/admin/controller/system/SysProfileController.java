@@ -93,7 +93,7 @@ public class SysProfileController extends BaseController {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         String avatarUrl = FileUploadUtils.upload(UploadSubDir.AVATAR_PATH, file);
 
-        userApplicationService.updateUserAvatar(loginUser, new UpdateUserAvatarCommand(loginUser.getUserId(), avatarUrl));
+        userApplicationService.updateUserAvatar(new UpdateUserAvatarCommand(loginUser.getUserId(), avatarUrl));
         return ResponseDTO.ok(new UploadFileDTO(avatarUrl));
     }
 }

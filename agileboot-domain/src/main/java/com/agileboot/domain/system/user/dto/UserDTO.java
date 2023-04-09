@@ -3,7 +3,7 @@ package com.agileboot.domain.system.user.dto;
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
-import com.agileboot.infrastructure.cache.CacheCenter;
+import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;

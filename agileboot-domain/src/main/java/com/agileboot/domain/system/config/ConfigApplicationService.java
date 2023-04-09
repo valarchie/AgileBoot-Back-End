@@ -1,12 +1,12 @@
 package com.agileboot.domain.system.config;
 
 import com.agileboot.common.core.page.PageDTO;
+import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.domain.system.config.dto.ConfigDTO;
 import com.agileboot.domain.system.config.model.ConfigModel;
 import com.agileboot.domain.system.config.model.ConfigModelFactory;
 import com.agileboot.domain.system.config.query.ConfigQuery;
-import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.orm.system.entity.SysConfigEntity;
 import com.agileboot.orm.system.service.ISysConfigService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

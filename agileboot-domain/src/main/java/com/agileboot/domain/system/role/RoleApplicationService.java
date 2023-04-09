@@ -2,6 +2,7 @@ package com.agileboot.domain.system.role;
 
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.common.core.page.PageDTO;
+import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.domain.system.role.command.UpdateDataScopeCommand;
 import com.agileboot.domain.system.role.command.UpdateRoleCommand;
@@ -15,7 +16,6 @@ import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
-import com.agileboot.infrastructure.cache.CacheCenter;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysRoleService;

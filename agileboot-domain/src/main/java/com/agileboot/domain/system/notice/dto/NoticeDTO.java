@@ -1,6 +1,6 @@
 package com.agileboot.domain.system.notice.dto;
 
-import com.agileboot.infrastructure.cache.CacheCenter;
+import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.orm.system.entity.SysNoticeEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import java.util.Date;
