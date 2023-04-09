@@ -23,7 +23,7 @@ public class LoginInfoDTO {
             loginLocation = entity.getLoginLocation();
             operationSystem = entity.getOperationSystem();
             browser = entity.getBrowser();
-            status = entity.getStatus() + "";
+            status = entity.getStatus();
             statusStr = BasicEnumUtil.getDescriptionByValue(LoginStatusEnum.class, entity.getStatus());
             msg = entity.getMsg();
             loginTime = entity.getLoginTime();
@@ -49,7 +49,7 @@ public class LoginInfoDTO {
     @ExcelColumn(name = "浏览器")
     private String browser;
 
-    private String status;
+    private Integer status;
 
     @ExcelColumn(name = "状态")
     private String statusStr;

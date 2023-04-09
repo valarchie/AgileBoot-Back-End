@@ -6,6 +6,7 @@ import cn.hutool.core.util.ArrayUtil;
 import com.agileboot.orm.common.annotations.Dictionary;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.agileboot.orm.common.enums.GenderEnum;
+import com.agileboot.orm.common.enums.LoginStatusEnum;
 import com.agileboot.orm.common.enums.NoticeStatusEnum;
 import com.agileboot.orm.common.enums.NoticeTypeEnum;
 import com.agileboot.orm.common.enums.OperationStatusEnum;
@@ -42,6 +43,7 @@ public class MapCache {
         loadInCache(NoticeStatusEnum.values());
         loadInCache(NoticeTypeEnum.values());
         loadInCache(OperationStatusEnum.values());
+        loadInCache(LoginStatusEnum.values());
         loadInCache(VisibleStatusEnum.values());
 
     }

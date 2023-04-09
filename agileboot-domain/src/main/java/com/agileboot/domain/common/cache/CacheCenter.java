@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * 缓存中心  提供全局访问点
- * 如果是领域类的缓存  可以自己新建一个直接放在CacheCenter   不用放在infrastructure包里
+ * 如果是领域类的缓存  可以自己新建一个直接放在CacheCenter   不用放在infrastructure包里的GuavaCacheService
+ * 或者RedisCacheService
  * @author valarchie
  */
 @Component

@@ -7,7 +7,6 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.domain.system.role.command.UpdateRoleCommand;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysRoleMenuEntity;
@@ -81,12 +80,6 @@ public class RoleModel extends SysRoleEntity {
         if (StatusEnum.DISABLE.getValue().equals(getStatus())) {
             throw new ApiException(Business.ROLE_IS_NOT_AVAILABLE, getRoleName());
         }
-    }
-
-    /**
-     *  TODO  用户可能在请求参数中，传输比自身更大的权限，导致越权
-     */
-    public void checkAssignedPermissionsExceedLoginUser(LoginUser loginUser) {
     }
 
     public void generateDeptIdSet() {
