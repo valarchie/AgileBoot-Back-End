@@ -36,7 +36,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         LoginUser loginUser = tokenService.getLoginUser(request);
         if (loginUser != null && AuthenticationUtils.getAuthentication() == null) {
             tokenService.refreshToken(loginUser);
-
+            // 如果没有将当前登录用户放入到上下文中的话，会认定用户未授权，返回用户未登陆的错误
             putCurrentLoginUserIntoContext(request, loginUser);
 
             log.debug("request process in jwt token filter. get login user id: {}", loginUser.getUserId());
@@ -46,10 +46,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 
     private void putCurrentLoginUserIntoContext(HttpServletRequest request, LoginUser loginUser) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginUser,
             null, loginUser.getAuthorities());
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
     }
 
 }

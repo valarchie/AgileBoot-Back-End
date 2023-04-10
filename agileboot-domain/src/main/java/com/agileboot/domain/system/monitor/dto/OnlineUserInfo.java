@@ -58,8 +58,8 @@ public class OnlineUserInfo {
         if (user == null) {
             return;
         }
-        this.setTokenId(user.getToken());
-        this.tokenId = user.getToken();
+        this.setTokenId(user.getCachedKey());
+        this.tokenId = user.getCachedKey();
         this.userName = user.getUsername();
         this.ipaddr = user.getLoginInfo().getIpAddress();
         this.loginLocation = user.getLoginInfo().getLocation();

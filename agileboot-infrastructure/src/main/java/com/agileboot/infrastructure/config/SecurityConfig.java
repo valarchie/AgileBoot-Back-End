@@ -35,8 +35,8 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * 主要配置登录流程逻辑涉及以下几个类
  * @see UserDetailsServiceImpl#loadUserByUsername  用于登录流程通过用户名加载用户
- * @see this#loginExceptionHandler 用于登录异常 登录失败处理
- * @see this#loginOutSuccessHandler 用于退出登录成功后的逻辑
+ * @see this#unauthorizedHandler()  用于用户未授权或登录失败处理
+ * @see this#logOutSuccessHandler 用于退出登录成功后的逻辑
  * @see JwtAuthenticationTokenFilter#doFilter token的校验和刷新
  * @see com.agileboot.infrastructure.web.service.LoginService#login 登录逻辑
  * @author valarchie
@@ -59,6 +59,9 @@ public class SecurityConfig {
     @NonNull
     private JwtAuthenticationTokenFilter jwtTokenFilter;
 
+    @NonNull
+    private UserDetailsService userDetailsService;
+
     /**
      * 跨域过滤器
      */
@@ -68,9 +71,10 @@ public class SecurityConfig {
 
     /**
      * 登录异常处理类
+     * 用户未登陆的话  在这个Bean中处理
      */
     @Bean
-    public AuthenticationEntryPoint loginExceptionHandler() {
+    public AuthenticationEntryPoint unauthorizedHandler() {
         return (request, response, exception) -> {
             ResponseDTO<Object> responseDTO = ResponseDTO.fail(Client.COMMON_NO_AUTHORIZATION, request.getRequestURI());
             ServletHolderUtil.renderString(response, JSONUtil.toJsonStr(responseDTO));
@@ -83,13 +87,13 @@ public class SecurityConfig {
      *  在SecurityConfig类当中 定义了/logout 路径对应处理逻辑
      */
     @Bean
-    public LogoutSuccessHandler loginOutSuccessHandler() {
+    public LogoutSuccessHandler logOutSuccessHandler() {
         return (request, response, authentication) -> {
             LoginUser loginUser = tokenService.getLoginUser(request);
             if (loginUser != null) {
                 String userName = loginUser.getUsername();
                 // 删除用户缓存记录
-                redisCache.loginUserCache.delete(loginUser.getToken());
+                redisCache.loginUserCache.delete(loginUser.getCachedKey());
                 // 记录用户退出日志
                 ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(
                     userName, LoginStatusEnum.LOGOUT, LoginStatusEnum.LOGOUT.description()));
@@ -112,9 +116,9 @@ public class SecurityConfig {
      * @see UserDetailsServiceImpl#loadUserByUsername
      */
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http, UserDetailsService loadUserService) throws Exception {
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-            .userDetailsService(loadUserService)
+            .userDetailsService(userDetailsService)
             .passwordEncoder(bCryptPasswordEncoder())
             .and()
             .build();
@@ -127,22 +131,15 @@ public class SecurityConfig {
             // CSRF禁用，因为不使用session
             .csrf().disable()
             // 认证失败处理类
-            .exceptionHandling().authenticationEntryPoint(loginExceptionHandler()).and()
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler()).and()
             // 基于token，所以不需要session
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             // 过滤请求
             .authorizeRequests()
             // 对于登录login 注册register 验证码captchaImage 以及公共Api的请求允许匿名访问
             .antMatchers("/login", "/register", "/captchaImage","/api/**").anonymous()
-            .antMatchers(
-                HttpMethod.GET,
-                "/",
-                "/*.html",
-                "/**/*.html",
-                "/**/*.css",
-                "/**/*.js",
-                "/profile/**"
-            ).permitAll()
+            .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js",
+                "/profile/**").permitAll()
             // TODO this is danger.
             .antMatchers("/swagger-ui.html").anonymous()
             .antMatchers("/swagger-resources/**").anonymous()
@@ -152,9 +149,11 @@ public class SecurityConfig {
             // 除上面外的所有请求全部需要鉴权认证
             .anyRequest().authenticated()
             .and()
+            // 禁用 X-Frame-Options 响应头。下面是具体解释：
+            // X-Frame-Options 是一个 HTTP 响应头，用于防止网页被嵌入到其他网页的 <frame>、<iframe> 或 <object> 标签中，从而可以减少点击劫持攻击的风险
             .headers().frameOptions().disable();
-        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(loginOutSuccessHandler());
-        // 添加JWT filter
+        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logOutSuccessHandler());
+        // 添加JWT filter   需要一开始就通过token识别出登录用户 并放到上下文中   所以jwtFilter需要放前面
         httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter
         httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);

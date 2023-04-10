@@ -10,10 +10,14 @@ import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +31,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+@Data
 @RequiredArgsConstructor
 public class TokenService {
 
@@ -43,7 +48,9 @@ public class TokenService {
     private String secret;
 
     /**
-     * 自动刷新token的时间
+     * 自动刷新token的时间，当过期时间不足autoRefreshTime的值的时候，会触发刷新用户登录缓存的时间
+     * 比如这个值是20,   用户是8点登录的， 8点半缓存会过期， 当过8.10分的时候，就少于20分钟了，便触发
+     * 刷新登录用户的缓存时间
      */
     @Value("${token.autoRefreshTime}")
     private long autoRefreshTime;
@@ -66,10 +73,14 @@ public class TokenService {
                 String uuid = (String) claims.get(Token.LOGIN_USER_KEY);
 
                 return redisCache.loginUserCache.getObjectOnlyInCacheById(uuid);
+            } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException jwtException) {
+                log.error("parse token failed. due to:{}", jwtException.getMessage());
+                throw new ApiException(jwtException, ErrorCode.Internal.INVALID_TOKEN);
             } catch (Exception e) {
                 log.error("fail to get cached user from redis", e);
                 throw new ApiException(e, ErrorCode.UNKNOWN_ERROR);
             }
+
         }
         return null;
     }
@@ -81,23 +92,23 @@ public class TokenService {
      * @return 令牌
      */
     public String createTokenAndPutUserInCache(LoginUser loginUser) {
-        loginUser.setToken(IdUtil.fastUUID());
+        loginUser.setCachedKey(IdUtil.fastUUID());
 
-        redisCache.loginUserCache.set(loginUser.getToken(), loginUser);
+        redisCache.loginUserCache.set(loginUser.getCachedKey(), loginUser);
 
-        return generateToken(MapUtil.of(Token.LOGIN_USER_KEY, loginUser.getToken()));
+        return generateToken(MapUtil.of(Token.LOGIN_USER_KEY, loginUser.getCachedKey()));
     }
 
     /**
-     * 当过期时间不足20分钟，自动刷新token
+     * 当超过20分钟，自动刷新token
      * @param loginUser 登录用户
      */
     public void refreshToken(LoginUser loginUser) {
         long currentTime = System.currentTimeMillis();
-        if (loginUser.getExpireTime() - currentTime <= TimeUnit.MINUTES.toMillis(autoRefreshTime)) {
-            loginUser.refreshExpireTime(currentTime);
+        if (currentTime > loginUser.getAutoRefreshCacheTime()) {
+            loginUser.setAutoRefreshCacheTime(currentTime + TimeUnit.MINUTES.toMillis(autoRefreshTime));
             // 根据uuid将loginUser存入缓存
-            redisCache.loginUserCache.set(loginUser.getToken(), loginUser);
+            redisCache.loginUserCache.set(loginUser.getCachedKey(), loginUser);
         }
     }
 

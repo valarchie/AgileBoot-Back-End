@@ -3,6 +3,7 @@ package com.agileboot.infrastructure.filter;
 
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.core.dto.ResponseDTO;
+import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Internal;
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -27,14 +28,21 @@ public class GlobalExceptionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException {
         try {
             chain.doFilter(request, response);
+        } catch (ApiException ex) {
+            log.error("global filter exceptions", ex);
+            String resultJson = JSONUtil.toJsonStr(ResponseDTO.fail(ex.getErrorCode()));
+            writeToResponse(response, resultJson);
         } catch (Exception e) {
-            log.error("global filter exceptions", e);
-            e.printStackTrace();
-            String resultJson = JSONUtil.toJsonStr(ResponseDTO.fail(Internal.INTERNAL_ERROR, e));
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(resultJson);
+            log.error("global filter exceptions, unknown error:", e);
+            String resultJson = JSONUtil.toJsonStr(ResponseDTO.fail(Internal.INTERNAL_ERROR, e.getMessage()));
+            writeToResponse(response, resultJson);
         }
+    }
+
+    private void writeToResponse(ServletResponse response, String resultJson) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(resultJson);
     }
 
     @Override

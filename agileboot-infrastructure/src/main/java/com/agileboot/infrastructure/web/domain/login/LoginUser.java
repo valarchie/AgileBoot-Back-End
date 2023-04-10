@@ -5,7 +5,6 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
-import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -30,7 +29,7 @@ public class LoginUser implements UserDetails {
     /**
      * 用户唯一标识，缓存的key
      */
-    private String token;
+    private String cachedKey;
 
     private boolean isAdmin;
 
@@ -41,7 +40,7 @@ public class LoginUser implements UserDetails {
     /**
      * 登录信息
      */
-    private LoginInfo loginInfo = new LoginInfo();
+    private final LoginInfo loginInfo = new LoginInfo();
 
     /**
      * 登录时间
@@ -49,9 +48,9 @@ public class LoginUser implements UserDetails {
     private Long loginTime;
 
     /**
-     * 过期时间
+     * 当超过这个时间 则触发刷新缓存时间
      */
-    private Long expireTime;
+    private Long autoRefreshCacheTime;
 
 
     public LoginUser(Long userId, Boolean isAdmin, String username, String password) {
@@ -84,38 +83,13 @@ public class LoginUser implements UserDetails {
     public void fillUserAgent() {
         UserAgent userAgent = UserAgent.parseUserAgentString(ServletHolderUtil.getRequest().getHeader("User-Agent"));
         String ip = ServletUtil.getClientIP(ServletHolderUtil.getRequest());
-        if (this.getLoginInfo() == null) {
-            this.setLoginInfo(new LoginInfo());
-        }
+
         this.getLoginInfo().setIpAddress(ip);
         this.getLoginInfo().setLocation(IpRegionUtil.getBriefLocationByIp(ip));
         this.getLoginInfo().setBrowser(userAgent.getBrowser().getName());
         this.getLoginInfo().setOperationSystem(userAgent.getOperatingSystem().getName());
     }
 
-
-    public void fillLoginTimeAndExpireTime() {
-        long currentTime = System.currentTimeMillis();
-        fillLoginTime(currentTime);
-        refreshExpireTime(currentTime);
-    }
-
-    /**
-     * 设置用户登录信息
-     *
-     */
-    public void fillLoginTime(long currentTime) {
-        this.setLoginTime(currentTime);
-    }
-
-    /**
-     * 设置用户过期时间
-     *
-     */
-    public void refreshExpireTime(long currentTime) {
-        this.setExpireTime(currentTime +
-            CacheKeyEnum.LOGIN_USER_KEY.timeUnit().toMillis(CacheKeyEnum.LOGIN_USER_KEY.expiration()));
-    }
 
     @Override
     public String getUsername() {
