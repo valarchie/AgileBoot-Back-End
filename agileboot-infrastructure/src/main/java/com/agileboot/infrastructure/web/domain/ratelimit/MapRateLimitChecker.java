@@ -5,8 +5,6 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.infrastructure.annotations.RateLimit;
 import com.google.common.util.concurrent.RateLimiter;
-import java.util.Objects;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -31,51 +29,14 @@ public class MapRateLimitChecker extends AbstractRateLimitChecker{
         String combinedKey = rateLimit.limitType().generateCombinedKey(rateLimit);
 
         RateLimiter rateLimiter = cache.get(combinedKey,
-            () -> RateLimiter.create((double) rateLimit.maxCount() / rateLimit.time()));
+            () -> RateLimiter.create((double) rateLimit.maxCount() / rateLimit.time())
+        );
 
         if (!rateLimiter.tryAcquire()) {
             throw new ApiException(ErrorCode.Client.COMMON_REQUEST_TOO_OFTEN);
         }
 
         log.info("限制请求key:{}, combined key:{}", rateLimit.key(), combinedKey);
-    }
-
-
-    @Data
-    static class RateLimitCacheDTO {
-
-        private RateLimit rateLimitAnno;
-
-        public RateLimitCacheDTO(RateLimit rateLimitAnno) {
-            this.rateLimitAnno = rateLimitAnno;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            RateLimitCacheDTO that = (RateLimitCacheDTO) o;
-            String combinedKeyThat = that.combinedKey();
-            String combinedKeyThis = this.combinedKey();
-
-            return Objects.equals(combinedKeyThis, combinedKeyThat);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(combinedKey());
-        }
-
-
-        public String combinedKey() {
-            return this.rateLimitAnno.limitType().generateCombinedKey(this.rateLimitAnno);
-        }
-
-
     }
 
 }

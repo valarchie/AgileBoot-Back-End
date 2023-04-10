@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 /**
- * 限流处理
+ * 限流切面处理
  *
  * @author valarchie
  */
@@ -50,8 +50,6 @@ public class RateLimiterAspect {
                 redisRateLimitChecker.check(rateLimiter);
         }
 
-
     }
-
 
 }
