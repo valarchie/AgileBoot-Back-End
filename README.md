@@ -329,3 +329,8 @@ QQ群：  [![加入QQ群](https://img.shields.io/badge/1398880-blue.svg)](https:
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-28b63fdd7b3ce003bd30c25883f2276212b.png">
 
+## 💕 特别鸣谢
+
+
+- <a href="https://github.com/FerryboatSeranade" target="_blank">@pokr</a> 感谢提供ChatGpt账号助力本项目开发
+
