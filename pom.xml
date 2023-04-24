@@ -6,14 +6,14 @@
 
     <groupId>com.agileboot</groupId>
     <artifactId>agileboot</artifactId>
-    <version>${agileboot.version}</version>
+    <version>${revision}</version>
 
     <name>agileboot</name>
     <url>http://www.agileboot.vip</url>
     <description>基于 springboot的快速开发系统</description>
 
     <properties>
-        <agileboot.version>1.0.0</agileboot.version>
+        <revision>1.0.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -171,42 +171,42 @@
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-admin</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 定时任务-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-api</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-domain</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-infrastructure</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-orm</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-common</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- hutool common tools-->
