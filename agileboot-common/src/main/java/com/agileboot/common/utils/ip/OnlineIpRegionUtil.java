@@ -15,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OnlineIpRegionUtil {
 
+    private OnlineIpRegionUtil() {
+    }
+
     /**
      * website for query geography address from ip
      */
@@ -22,7 +25,7 @@ public class OnlineIpRegionUtil {
 
 
     public static IpRegion getIpRegion(String ip) {
-        if(StrUtil.isBlank(ip) || IpUtil.isValidIpv6(ip) || !IpUtil.isValidIpv4(ip)) {
+        if (StrUtil.isBlank(ip) || IpUtil.isValidIpv6(ip) || !IpUtil.isValidIpv4(ip)) {
             return null;
         }
 

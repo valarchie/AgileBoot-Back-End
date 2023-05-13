@@ -21,13 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AsyncTaskFactory {
 
+    private AsyncTaskFactory() {
+    }
 
     /**
      * 记录登录信息
      *
-     * @param username 用户名
+     * @param username        用户名
      * @param loginStatusEnum 状态
-     * @param message 消息
+     * @param message         消息
      * @return 任务task
      */
     public static Runnable loginInfoTask(final String username, final LoginStatusEnum loginStatusEnum, final String message) {

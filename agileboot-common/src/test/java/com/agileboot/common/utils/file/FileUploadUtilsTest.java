@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.web.multipart.MultipartFile;
 
-public class FileUploadUtilsTest {
+class FileUploadUtilsTest {
 
     @Test
     void testIsAllowedExtension() {

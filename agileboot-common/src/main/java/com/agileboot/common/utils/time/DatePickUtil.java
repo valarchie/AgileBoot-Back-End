@@ -1,8 +1,9 @@
 package com.agileboot.common.utils.time;
 
 import cn.hutool.core.date.DateUtil;
-import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Date;
 
 /**
  * @author valarchie
@@ -10,9 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DatePickUtil {
 
+    private DatePickUtil() {
+    }
+
     /**
      * 安全地获取日期的一天开始时间, date为null 则返回null
-     *  DateUtil.beginOfDay(date) 如果传null 会NPE
+     * DateUtil.beginOfDay(date) 如果传null 会NPE
+     *
      * @param date
      * @return
      */
