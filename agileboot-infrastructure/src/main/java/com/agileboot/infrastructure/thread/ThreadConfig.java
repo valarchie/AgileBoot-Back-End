@@ -16,6 +16,8 @@ public class ThreadConfig {
     /**
      * 操作延迟10毫秒
      */
-    public final static int OPERATE_DELAY_TIME = 10;
+    public static final int OPERATE_DELAY_TIME = 10;
 
+    private ThreadConfig() {
+    }
 }

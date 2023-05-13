@@ -4,12 +4,16 @@ import cn.hutool.core.convert.Convert;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.orm.common.interfaces.BasicEnum;
+
 import java.util.Objects;
 
 /**
  * @author valarchie
  */
 public class BasicEnumUtil {
+
+    private BasicEnumUtil() {
+    }
 
     public static final String UNKNOWN = "未知";
 
