@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Resubmit {
+public @interface Unrepeatable {
 
     /**
      * 间隔时间(s)，小于此时间视为重复提交

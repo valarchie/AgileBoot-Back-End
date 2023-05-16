@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.annotations.Resubmit;
+import com.agileboot.infrastructure.annotations.Unrepeatable;
 import com.agileboot.infrastructure.cache.RedisUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -41,7 +41,7 @@ public class ResubmitInterceptor extends RequestBodyAdviceAdapter {
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType,
         Class<? extends HttpMessageConverter<?>> converterType) {
-        return methodParameter.hasMethodAnnotation(Resubmit.class);
+        return methodParameter.hasMethodAnnotation(Unrepeatable.class);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ResubmitInterceptor extends RequestBodyAdviceAdapter {
         // 仅获取有RequestBody注解的参数
         String currentRequest = JSONUtil.toJsonStr(body);
 
-        Resubmit resubmitAnno = parameter.getMethodAnnotation(Resubmit.class);
+        Unrepeatable resubmitAnno = parameter.getMethodAnnotation(Unrepeatable.class);
         if (resubmitAnno != null) {
             String redisKey = generateResubmitRedisKey(parameter.getMethod());
 
