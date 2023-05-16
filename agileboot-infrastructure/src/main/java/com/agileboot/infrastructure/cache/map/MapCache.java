@@ -4,17 +4,10 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.agileboot.orm.common.annotations.Dictionary;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
-import com.agileboot.orm.common.enums.GenderEnum;
-import com.agileboot.orm.common.enums.LoginStatusEnum;
-import com.agileboot.orm.common.enums.NoticeStatusEnum;
-import com.agileboot.orm.common.enums.NoticeTypeEnum;
-import com.agileboot.orm.common.enums.OperationStatusEnum;
-import com.agileboot.orm.common.enums.StatusEnum;
-import com.agileboot.orm.common.enums.VisibleStatusEnum;
-import com.agileboot.orm.common.enums.YesOrNoEnum;
+import com.agileboot.orm.common.enums.*;
 import com.agileboot.orm.common.interfaces.DictionaryEnum;
 import com.agileboot.orm.common.result.DictionaryData;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +22,9 @@ import java.util.stream.Collectors;
 public class MapCache {
 
     private static final Map<String, List<DictionaryData>> DICTIONARY_CACHE = MapUtil.newHashMap(128);
+
+    private MapCache() {
+    }
 
     static {
         initDictionaryCache();

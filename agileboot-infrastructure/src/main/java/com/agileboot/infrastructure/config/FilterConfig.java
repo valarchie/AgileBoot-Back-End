@@ -5,6 +5,7 @@ import com.agileboot.infrastructure.filter.TestFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -32,7 +33,7 @@ public class FilterConfig {
         registration.setFilter(new GlobalExceptionFilter());
         registration.addUrlPatterns("/*");
         registration.setName("exceptionFilter");
-        registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return registration;
     }
 

@@ -12,4 +12,6 @@ public class RateLimitKey {
 
     public static final String TEST_KEY = PREFIX + "Test:";
 
+    private RateLimitKey() {
+    }
 }

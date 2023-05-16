@@ -7,6 +7,8 @@ package com.agileboot.common.constant;
  * @author valarchie
  */
 public class Constants {
+    private Constants() {
+    }
 
     public static final int KB = 1024;
 
@@ -26,6 +28,10 @@ public class Constants {
 
 
     public static class Token {
+
+        private Token() {
+        }
+
         /**
          * 令牌前缀
          */
@@ -39,6 +45,10 @@ public class Constants {
     }
 
     public static class Captcha {
+
+        private Captcha() {
+        }
+
         /**
          * 令牌
          */
@@ -57,6 +67,9 @@ public class Constants {
     public static final String RESOURCE_PREFIX = "profile";
 
     public static class UploadSubDir {
+
+        private UploadSubDir() {
+        }
 
         public static final String IMPORT_PATH = "import";
 

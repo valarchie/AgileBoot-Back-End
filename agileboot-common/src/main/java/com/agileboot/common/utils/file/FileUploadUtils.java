@@ -13,14 +13,15 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.common.exception.error.ErrorCode.Internal;
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.MimeType;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * 文件上传工具类
@@ -42,17 +43,20 @@ public class FileUploadUtils {
     /**
      * 允许上传和下载的文件类型
      */
-    public static final String[] ALLOWED_EXTENSIONS = {
-        // 图片
-        "bmp", "gif", "jpg", "jpeg", "png",
-        // word excel powerpoint
-        "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "htm", "txt",
-        // 压缩文件
-        "rar", "zip", "gz", "bz2",
-        // 视频格式
-        "mp4", "avi", "rmvb",
-        // pdf
-        "pdf"};
+    private static final String[] ALLOWED_EXTENSIONS = {
+            // 图片
+            "bmp", "gif", "jpg", "jpeg", "png",
+            // word excel powerpoint
+            "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "htm", "txt",
+            // 压缩文件
+            "rar", "zip", "gz", "bz2",
+            // 视频格式
+            "mp4", "avi", "rmvb",
+            // pdf
+            "pdf"};
+
+    private FileUploadUtils() {
+    }
 
 
     /**

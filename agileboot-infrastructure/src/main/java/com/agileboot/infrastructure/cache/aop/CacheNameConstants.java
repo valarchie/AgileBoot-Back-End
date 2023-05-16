@@ -9,4 +9,6 @@ public class CacheNameConstants {
 
     public static final String REDIS = "redis";
 
+    private CacheNameConstants() {
+    }
 }
