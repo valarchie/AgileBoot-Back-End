@@ -13,13 +13,13 @@
 docker pull mysql:版本号
 
 ```
-docker pull mysql:8
+docker pull mysql:8.0
 ```
 
 ### 启动Mysql容器
 
 ```
-docker run -d -v D:/workspace/mysql/data:/var/lib/mysql -it --name mysql8 -p 33067:3306 -e MYSQL_ROOT_PASSWORD=12345  mysql:8 --default-authentication-plugin=mysql_native_password
+docker run -d -v D:/workspace/mysql/data:/var/lib/mysql -it --name mysql8 -p 33067:3306 -e MYSQL_ROOT_PASSWORD=12345  mysql:8.0
 ```
 
 注意 以上
@@ -48,7 +48,7 @@ mysql -uroot- p
 use mysql
 ```
 ```
-alter 'root'@'%' identified with mysql_native_password by '12345';
+alter user 'root'@'%' identified by '12345';
 ```
 ```
 flush privileges;
