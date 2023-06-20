@@ -202,6 +202,8 @@ agileboot.embedded.redis: false
 agileboot.embedded.mysql: true
 agileboot.embedded.redis: true
 
+请注意:高版本的MacOS系统，无法启动内置的Redis
+
 
 3. 找到agileboot-admin模块中的AgileBootAdminApplication启动类，直接启动即可
 ```
