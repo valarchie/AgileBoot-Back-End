@@ -177,7 +177,7 @@ git clone https://github.com/valarchie/AgileBoot-Front-End
 
 vite v2.6.14 dev server running at:
 
-> Local: http://127.0.0.1:80/
+> Local: http://127.0.0.1:3000/
 
 ready in 4376ms.
 
