@@ -9,7 +9,7 @@ import lombok.Data;
 public class CaptchaDTO {
 
     private Boolean isCaptchaOn;
-    private String uuid;
-    private String img;
+    private String captchaCodeKey;
+    private String captchaCodeImg;
 
 }

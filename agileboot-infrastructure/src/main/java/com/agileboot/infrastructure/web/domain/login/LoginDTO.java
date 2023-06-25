@@ -23,11 +23,11 @@ public class LoginDTO {
     /**
      * 验证码
      */
-    private String code;
+    private String captchaCode;
 
     /**
      * 唯一标识
      */
-    private String uuid;
+    private String captchaCodeKey;
 
 }
