@@ -13,15 +13,16 @@ import com.agileboot.orm.common.enums.OperationStatusEnum;
 import com.agileboot.orm.common.enums.RequestMethodEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysOperationLogEntity;
-import java.util.Collection;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author valarchie
@@ -31,10 +32,11 @@ public class OperationLogModel extends SysOperationLogEntity {
 
     public static final int MAX_DATA_LENGTH = 512;
 
+    HttpServletRequest request = ServletHolderUtil.getRequest();
 
     public void fillOperatorInfo() {
         // 获取当前的用户
-        String ip = ServletUtil.getClientIP(ServletHolderUtil.getRequest());
+        String ip = ServletUtil.getClientIP(request);
         setOperatorIp(ip);
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         if (loginUser != null) {
@@ -46,7 +48,7 @@ public class OperationLogModel extends SysOperationLogEntity {
 
 
     public void fillRequestInfo(final JoinPoint joinPoint, AccessLog accessLog, Object jsonResult) {
-        this.setRequestUrl(ServletHolderUtil.getRequest().getRequestURI());
+        this.setRequestUrl(request.getRequestURI());
         // 设置方法名称
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
@@ -54,7 +56,7 @@ public class OperationLogModel extends SysOperationLogEntity {
         this.setCalledMethod(methodFormat);
         // 设置请求方式
         RequestMethodEnum requestMethodEnum = EnumUtil.fromString(RequestMethodEnum.class,
-            ServletHolderUtil.getRequest().getMethod());
+                request.getMethod());
         this.setRequestMethod(requestMethodEnum != null ? requestMethodEnum.getValue() : RequestMethodEnum.UNKNOWN.getValue());
 
 
@@ -103,8 +105,8 @@ public class OperationLogModel extends SysOperationLogEntity {
             String params = argsArrayToString(joinPoint.getArgs());
             this.setOperationParam(StrUtil.sub(params, 0, MAX_DATA_LENGTH));
         } else {
-            Map<?, ?> paramsMap = (Map<?, ?>) ServletHolderUtil.getRequest()
-                .getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            Map<?, ?> paramsMap = (Map<?, ?>) request
+                    .getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
             this.setOperationParam(StrUtil.sub(paramsMap.toString(), 0, MAX_DATA_LENGTH));
         }
     }
@@ -114,7 +116,7 @@ public class OperationLogModel extends SysOperationLogEntity {
      */
     private String argsArrayToString(Object[] paramsArray) {
         StringBuilder params = new StringBuilder();
-        if (paramsArray != null && paramsArray.length > 0) {
+        if (paramsArray != null) {
             for (Object o : paramsArray) {
                 if (o != null && !isCanNotBeParseToJson(o)) {
                     try {

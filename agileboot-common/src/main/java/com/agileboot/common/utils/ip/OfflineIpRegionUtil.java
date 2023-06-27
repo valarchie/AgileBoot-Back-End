@@ -1,11 +1,12 @@
 package com.agileboot.common.utils.ip;
 
 import cn.hutool.core.util.StrUtil;
-import java.io.IOException;
-import java.io.InputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.lionsoul.ip2region.xdb.Searcher;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author valarchie
@@ -14,6 +15,9 @@ import org.lionsoul.ip2region.xdb.Searcher;
 public class OfflineIpRegionUtil {
 
     private static Searcher searcher;
+
+    private OfflineIpRegionUtil() {
+    }
 
     static {
         InputStream resourceAsStream = OfflineIpRegionUtil.class.getResourceAsStream("/ip2region.xdb");

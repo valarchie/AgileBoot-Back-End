@@ -7,20 +7,24 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Internal;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 自定义Excel 导入导出工具
+ *
  * @author valarchie
  */
 public class CustomExcelUtil {
 
+    private CustomExcelUtil() {
+    }
 
     public static <T> void writeToResponse(List<T> list, Class<T> clazz, HttpServletResponse response) {
         try {

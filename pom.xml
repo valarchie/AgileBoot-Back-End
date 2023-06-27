@@ -6,14 +6,14 @@
 
     <groupId>com.agileboot</groupId>
     <artifactId>agileboot</artifactId>
-    <version>${agileboot.version}</version>
+    <version>${revision}</version>
 
     <name>agileboot</name>
     <url>http://www.agileboot.vip</url>
     <description>基于 springboot的快速开发系统</description>
 
     <properties>
-        <agileboot.version>1.0.0</agileboot.version>
+        <revision>1.0.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -41,7 +41,8 @@
         <org.lionsoul.version>2.6.5</org.lionsoul.version>
         <com.google.guava.version>31.0.1-jre</com.google.guava.version>
         <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
-        <spring.boot.version>2.7.0</spring.boot.version>
+        <mysql-connector-java>8.0.31</mysql-connector-java>
+        <spring.boot.version>2.7.10</spring.boot.version>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.5</maven.surefire.plugin.version>
         <maven.war.plugin.version>3.1.0</maven.war.plugin.version>
@@ -137,6 +138,13 @@
                 <version>${velocity.version}</version>
             </dependency>
 
+            <!-- Mysql驱动包 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java}</version>
+            </dependency>
+
             <!-- collections工具类 -->
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -163,42 +171,42 @@
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-admin</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 定时任务-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-api</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-domain</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-infrastructure</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-orm</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-common</artifactId>
-                <version>${agileboot.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- hutool common tools-->

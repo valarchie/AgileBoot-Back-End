@@ -1,19 +1,23 @@
 package com.agileboot.common.utils.ip;
 
 import cn.hutool.core.lang.Validator;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
 /**
  * ip校验器
+ *
  * @author valarchie
  */
 public class IpUtil {
 
-    public final static String INNER_IP_REGEX = "^(127\\.0\\.0\\.\\d{1,3})|(localhost)|(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(172\\.((1[6-9])|(2\\d)|(3[01]))\\.\\d{1,3}\\.\\d{1,3})|(192\\.168\\.\\d{1,3}\\.\\d{1,3})$";
+    public static final String INNER_IP_REGEX = "^(127\\.0\\.0\\.\\d{1,3})|(localhost)|(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(172\\.((1[6-9])|(2\\d)|(3[01]))\\.\\d{1,3}\\.\\d{1,3})|(192\\.168\\.\\d{1,3}\\.\\d{1,3})$";
+    public static final Pattern INNER_IP_PATTERN = Pattern.compile(INNER_IP_REGEX);
 
-    public final static Pattern INNER_IP_PATTERN = Pattern.compile(INNER_IP_REGEX);
+    private IpUtil() {
+    }
 
     public static boolean isInnerIp(String ip) {
         return INNER_IP_PATTERN.matcher(ip).matches() || isLocalHost(ip);

@@ -5,25 +5,25 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class OnlineIpRegionUtilTest {
+class OnlineIpRegionUtilTest {
 
     @BeforeEach
-    public void enableOnlineAddressQuery(){
+    public void enableOnlineAddressQuery() {
         AgileBootConfig agileBootConfig = new AgileBootConfig();
         agileBootConfig.setAddressEnabled(true);
     }
 
 
     @Test
-    public void getIpRegionWithIpv6() {
+    void getIpRegionWithIpv6() {
         IpRegion region = Assertions.assertDoesNotThrow(() ->
-            OnlineIpRegionUtil.getIpRegion("ABCD:EF01:2345:6789:ABCD:EF01:2345:6789")
+                OnlineIpRegionUtil.getIpRegion("ABCD:EF01:2345:6789:ABCD:EF01:2345:6789")
         );
         Assertions.assertNull(region);
     }
 
     @Test
-    public void getIpRegionWithIpv4() {
+    void getIpRegionWithIpv4() {
         IpRegion ipRegion = OnlineIpRegionUtil.getIpRegion("120.42.247.130");
 
         Assertions.assertEquals("福建省", ipRegion.getProvince());
@@ -31,9 +31,9 @@ public class OnlineIpRegionUtilTest {
     }
 
     @Test
-    public void getIpRegionWithEmpty() {
+    void getIpRegionWithEmpty() {
         IpRegion region = Assertions.assertDoesNotThrow(() ->
-            OnlineIpRegionUtil.getIpRegion("")
+                OnlineIpRegionUtil.getIpRegion("")
         );
 
         Assertions.assertNull(region);
@@ -41,18 +41,18 @@ public class OnlineIpRegionUtilTest {
 
 
     @Test
-    public void getIpRegionWithNull() {
+    void getIpRegionWithNull() {
         IpRegion region = Assertions.assertDoesNotThrow(() ->
-            OnlineIpRegionUtil.getIpRegion(null)
+                OnlineIpRegionUtil.getIpRegion(null)
         );
 
         Assertions.assertNull(region);
     }
 
     @Test
-    public void getIpRegionWithWrongIpString() {
+    void getIpRegionWithWrongIpString() {
         IpRegion region = Assertions.assertDoesNotThrow(() ->
-            OnlineIpRegionUtil.getIpRegion("seffsdfsdf")
+                OnlineIpRegionUtil.getIpRegion("seffsdfsdf")
         );
 
         Assertions.assertNull(region);

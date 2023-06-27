@@ -177,7 +177,7 @@ git clone https://github.com/valarchie/AgileBoot-Front-End
 
 vite v2.6.14 dev server running at:
 
-> Local: http://127.0.0.1:80/
+> Local: http://127.0.0.1:3000/
 
 ready in 4376ms.
 
@@ -201,6 +201,8 @@ agileboot.embedded.redis: false
 改为
 agileboot.embedded.mysql: true
 agileboot.embedded.redis: true
+
+请注意:高版本的MacOS系统，无法启动内置的Redis
 
 
 3. 找到agileboot-admin模块中的AgileBootAdminApplication启动类，直接启动即可
@@ -329,3 +331,10 @@ QQ群：  [![加入QQ群](https://img.shields.io/badge/1398880-blue.svg)](https:
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-28b63fdd7b3ce003bd30c25883f2276212b.png">
 
+## 💕 特别鸣谢
+
+
+- <a href="https://github.com/FerryboatSeranade" target="_blank">@pokr</a> 感谢提供ChatGpt账号助力本项目开发
+
+## 💒 相关框架
+- 基于node.js开发的后端 <a href="https://gitee.com/TsMask/mask_api_midwayjs" target="_blank">Midwayjs</a> 

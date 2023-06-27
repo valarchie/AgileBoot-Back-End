@@ -13,4 +13,6 @@ public class CssTag {
     public static final String SUCCESS = "success";
     public static final String INFO = "info";
 
+    private CssTag() {
+    }
 }

@@ -1,4 +1,4 @@
-Application Version: ${agileboot.version}
+Application Version: ${revision}
 Spring Boot Version: ${spring-boot.version}
      _           _  _        ____                 _
     / \    __ _ (_)| |  ___ | __ )   ___    ___  | |_

@@ -1,16 +1,10 @@
 package com.agileboot.infrastructure.thread;
 
-import java.util.TimerTask;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+
+import java.util.TimerTask;
+import java.util.concurrent.*;
 
 /**
  * 异步任务管理器
@@ -21,14 +15,13 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 public class ThreadPoolManager {
 
     private static final ThreadPoolExecutor THREAD_EXECUTOR = new ThreadPoolExecutor(
-        ThreadConfig.CORE_POOL_SIZE, ThreadConfig.MAX_POOL_SIZE,
-        ThreadConfig.KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
-        new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
-
+            ThreadConfig.CORE_POOL_SIZE, ThreadConfig.MAX_POOL_SIZE,
+            ThreadConfig.KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
+            new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR = new ScheduledThreadPoolExecutor(
-        ThreadConfig.CORE_POOL_SIZE,
-        new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
-        new ThreadPoolExecutor.CallerRunsPolicy()) {
+            ThreadConfig.CORE_POOL_SIZE,
+            new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
+            new ThreadPoolExecutor.CallerRunsPolicy()) {
         @Override
         protected void afterExecute(Runnable r, Throwable t) {
             if (t == null && r instanceof Future<?>) {
@@ -50,6 +43,9 @@ public class ThreadPoolManager {
             }
         }
     };
+
+    private ThreadPoolManager() {
+    }
 
 
     /**
