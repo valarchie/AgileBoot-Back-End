@@ -156,8 +156,8 @@ public class TokenService {
      */
     private String getTokenFromRequest(HttpServletRequest request) {
         String token = request.getHeader(header);
-        if (StrUtil.isNotEmpty(token) && token.startsWith(Token.TOKEN_PREFIX)) {
-            token = StrUtil.stripIgnoreCase(token, Token.TOKEN_PREFIX, null);
+        if (StrUtil.isNotEmpty(token) && token.startsWith(Token.PREFIX)) {
+            token = StrUtil.stripIgnoreCase(token, Token.PREFIX, null);
         }
         return token;
     }

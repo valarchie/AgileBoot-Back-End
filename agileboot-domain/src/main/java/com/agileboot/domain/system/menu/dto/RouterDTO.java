@@ -1,17 +1,39 @@
 package com.agileboot.domain.system.menu.dto;
 
+import com.agileboot.common.utils.jackson.JacksonUtil;
+import com.agileboot.domain.system.menu.model.RouterModel;
+import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.collect.Lists;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 路由配置信息
+ * 动态路由信息
  *
- * @author ruoyi
+ * @author valarchie
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Data
+@NoArgsConstructor
 public class RouterDTO {
+
+    public RouterDTO(SysMenuEntity entity) {
+        if (entity != null) {
+            this.name = entity.getRouteName();
+            this.path = entity.getPath();
+            this.component = entity.getComponent();
+            this.rank = entity.getRank();
+            if (JacksonUtil.isJson(entity.getMetaInfo())) {
+                this.meta = JacksonUtil.from(entity.getMetaInfo(), MetaDTO.class);
+            } else {
+                this.meta = new MetaDTO();
+            }
+            this.meta.setAuths(Lists.newArrayList(entity.getPermission()));
+        }
+    }
 
     /**
      * 路由名字
@@ -19,17 +41,12 @@ public class RouterDTO {
     private String name;
 
     /**
-     * 路由地址
+     * 路由路径地址
      */
     private String path;
 
     /**
-     * 是否隐藏路由，当设置 true 的时候该路由不会再侧边栏出现
-     */
-    private Boolean hidden;
-
-    /**
-     * 重定向地址，当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
+     * 路由重定向
      */
     private String redirect;
 
@@ -39,14 +56,10 @@ public class RouterDTO {
     private String component;
 
     /**
-     * 路由参数：如 {"id": 1, "name": "agileBoot"}
+     * 一级菜单排序值（排序仅支持一级菜单）
      */
-    private String query;
+    private Integer rank;
 
-    /**
-     * 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
-     */
-    private Boolean alwaysShow;
 
     /**
      * 其他元素

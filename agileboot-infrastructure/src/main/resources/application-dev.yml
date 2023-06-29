@@ -50,7 +50,7 @@ spring:
             datasource:
                 # 主库数据源
                 master:
-                    url: jdbc:mysql://localhost:33067/agileboot?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                    url: jdbc:mysql://localhost:33067/agileboot-pure?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                     username: root
                     password: 12345
                 # 从库数据源

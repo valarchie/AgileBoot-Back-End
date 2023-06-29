@@ -18,18 +18,18 @@ public class MenuDTO {
             this.menuId = entity.getMenuId();
             this.parentId = entity.getParentId();
             this.menuName = entity.getMenuName();
-            this.menuType = entity.getMenuType();
-            this.icon = entity.getIcon();
-            this.orderNum = entity.getOrderNum();
+//            this.menuType = entity.getMenuType();
+//            this.icon = entity.getIcon();
+//            this.orderNum = entity.getOrderNum();
             this.component = entity.getComponent();
-            this.perms = entity.getPerms();
+//            this.perms = entity.getPerms();
             this.path = entity.getPath();
             this.status = entity.getStatus();
             this.statusStr = BasicEnumUtil.getDescriptionByValue(StatusEnum.class, entity.getStatus());
             this.createTime = entity.getCreateTime();
-            this.isExternal = BooleanUtil.toInt(entity.getIsExternal());
-            this.isCache = BooleanUtil.toInt(entity.getIsCache());
-            this.isVisible = BooleanUtil.toInt(entity.getIsVisible());
+//            this.isExternal = BooleanUtil.toInt(entity.getIsExternal());
+//            this.isCache = BooleanUtil.toInt(entity.getIsCache());
+//            this.isVisible = BooleanUtil.toInt(entity.getIsVisible());
             this.query = entity.getQuery();
         }
     }

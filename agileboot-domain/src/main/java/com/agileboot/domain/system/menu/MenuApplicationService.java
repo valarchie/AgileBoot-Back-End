@@ -117,18 +117,18 @@ public class MenuApplicationService {
         }
 
         List<SysMenuEntity> noButtonMenus = allMenus.stream()
-            .filter(menu -> !MenuTypeEnum.BUTTON.getValue().equals(menu.getMenuType()))
+            .filter(menu -> !menu.getIsButton())
             .collect(Collectors.toList());
 
         TreeNodeConfig config = new TreeNodeConfig();
-        //默认为id可以不设置
+        // 默认为id 可以不设置
         config.setIdKey("menuId");
 
         return TreeUtil.build(noButtonMenus, 0L, config, (menu, tree) -> {
             // 也可以使用 tree.setId(dept.getId());等一些默认值
             tree.setId(menu.getMenuId());
             tree.setParentId(menu.getParentId());
-            tree.setWeight(menu.getOrderNum());
+            tree.setWeight(menu.getRank());
             tree.putExtra("entity", menu);
         });
 
@@ -139,34 +139,18 @@ public class MenuApplicationService {
         List<RouterDTO> routers = new LinkedList<>();
         if (CollUtil.isNotEmpty(trees)) {
             for (Tree<Long> tree : trees) {
-                RouterDTO routerDTO;
-
                 Object entity = tree.get("entity");
-
                 if (entity != null) {
-                    RouterModel model = new RouterModel();
-                    BeanUtil.copyProperties(entity, model);
-
-                    routerDTO = model.produceDefaultRouterVO();
-
-                    if(model.isMultipleLevelMenu(tree)) {
-                        routerDTO = model.produceMultipleLevelMenuRouterVO(buildRouterTree(tree.getChildren()));
+                    RouterDTO routerDTO = new RouterDTO((SysMenuEntity) entity);
+                    List<Tree<Long>> children = tree.getChildren();
+                    if (CollUtil.isNotEmpty(children)) {
+                        routerDTO.setChildren(buildRouterTree(children));
                     }
-
-                    if(model.isSingleLevelMenu()) {
-                        routerDTO = model.produceSingleLevelMenuRouterVO();
-                    }
-
-                    if(model.isTopInnerLink()) {
-                        routerDTO = model.produceInnerLinkRouterVO();
-                    }
-
                     routers.add(routerDTO);
                 }
 
             }
         }
-
         return routers;
     }
 

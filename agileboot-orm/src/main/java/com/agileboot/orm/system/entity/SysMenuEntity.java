@@ -35,13 +35,17 @@ public class SysMenuEntity extends BaseEntity<SysMenuEntity> {
     @TableField("menu_name")
     private String menuName;
 
+    @ApiModelProperty("路由名称")
+    @TableField("route_name")
+    private String routeName;
+
     @ApiModelProperty("父菜单ID")
     @TableField("parent_id")
     private Long parentId;
 
     @ApiModelProperty("显示顺序")
-    @TableField("order_num")
-    private Integer orderNum;
+    @TableField("`rank`")
+    private Integer rank;
 
     @ApiModelProperty("路由地址")
     @TableField("path")
@@ -55,38 +59,25 @@ public class SysMenuEntity extends BaseEntity<SysMenuEntity> {
     @TableField("`query`")
     private String query;
 
-    @ApiModelProperty("是否为外链（1是 0否）")
-    @TableField("is_external")
-    private Boolean isExternal;
+    @ApiModelProperty("路由元信息主要由前端处理")
+    @TableField("meta_info")
+    private String metaInfo;
 
-    @ApiModelProperty("是否缓存（1缓存 0不缓存）")
-    @TableField("is_cache")
-    private Boolean isCache;
-
-    @ApiModelProperty("菜单类型（M=1目录 C=2菜单 F=3按钮）")
-    @TableField("menu_type")
-    private Integer menuType;
-
-    @ApiModelProperty("菜单状态（1显示 0隐藏）")
-    @TableField("is_visible")
-    private Boolean isVisible;
+    @ApiModelProperty("是否按钮")
+    @TableField("is_button")
+    private Boolean isButton;
 
     @ApiModelProperty("菜单状态（0正常 1停用）")
     @TableField("`status`")
     private Integer status;
 
     @ApiModelProperty("权限标识")
-    @TableField("perms")
-    private String perms;
-
-    @ApiModelProperty("菜单图标")
-    @TableField("icon")
-    private String icon;
+    @TableField("permission")
+    private String permission;
 
     @ApiModelProperty("备注")
     @TableField("remark")
     private String remark;
-
 
     @Override
     public Serializable pkVal() {

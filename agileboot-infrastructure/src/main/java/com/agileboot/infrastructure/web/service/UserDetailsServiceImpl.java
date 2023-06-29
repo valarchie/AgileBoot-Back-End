@@ -101,7 +101,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<SysMenuEntity> menuList = roleService.getMenuListByRoleId(roleId);
 
         Set<Long> menuIds = menuList.stream().map(SysMenuEntity::getMenuId).collect(Collectors.toSet());
-        Set<String> permissions = menuList.stream().map(SysMenuEntity::getPerms).collect(Collectors.toSet());
+        Set<String> permissions = menuList.stream().map(SysMenuEntity::getPermission).collect(Collectors.toSet());
 
         DataScopeEnum dataScopeEnum = BasicEnumUtil.fromValue(DataScopeEnum.class, roleEntity.getDataScope());
 
