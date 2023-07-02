@@ -22,6 +22,7 @@ import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
+import com.agileboot.infrastructure.web.domain.login.ConfigDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
@@ -106,6 +107,19 @@ public class LoginService {
         recordLoginInfo(loginUser);
         // 生成token
         return tokenService.createTokenAndPutUserInCache(loginUser);
+    }
+
+    /**
+     * 获取验证码 data
+     * @return
+     */
+    public ConfigDTO getConfig() {
+        ConfigDTO configDTO = new ConfigDTO();
+
+        boolean isCaptchaOn = isCaptchaOn();
+        configDTO.setIsCaptchaOn(isCaptchaOn);
+
+        return configDTO;
     }
 
     /**

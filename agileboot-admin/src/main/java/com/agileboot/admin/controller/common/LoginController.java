@@ -16,6 +16,7 @@ import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
+import com.agileboot.infrastructure.web.domain.login.ConfigDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.TokenDTO;
@@ -60,6 +61,17 @@ public class LoginController {
     public String index() {
         return StrUtil.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。",
             agileBootConfig.getName(), agileBootConfig.getVersion());
+    }
+
+
+    /**
+     * 获取系统的内置配置
+     * @return
+     */
+    @GetMapping("/getConfig")
+    public ResponseDTO<ConfigDTO> getConfig() {
+        ConfigDTO configDTO = loginService.getConfig();
+        return ResponseDTO.ok(configDTO);
     }
 
     /**

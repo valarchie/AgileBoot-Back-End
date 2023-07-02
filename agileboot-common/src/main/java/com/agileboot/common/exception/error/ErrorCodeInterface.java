@@ -27,8 +27,6 @@ public interface ErrorCodeInterface {
      * i18n资源文件的key, 详见messages.properties文件
      * @return key
      */
-    default String i18nKey() {
-        return code() + "_" + name();
-    }
+    String i18nKey();
 
 }
