@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.common.command.BulkOperationCommand;
+import com.agileboot.domain.common.dto.CurrentLoginUserDTO;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;
@@ -19,6 +20,7 @@ import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
+import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
@@ -68,6 +70,21 @@ public class UserApplicationService {
         SysRoleEntity roleEntity = userService.getRoleOfUser(userId);
 
         return new UserProfileDTO(userEntity, postEntity, roleEntity);
+    }
+
+
+    /**
+     * 获取当前登录用户信息
+     * @return
+     */
+    public CurrentLoginUserDTO getLoginUserInfo(LoginUser loginUser) {
+        CurrentLoginUserDTO permissionDTO = new CurrentLoginUserDTO();
+
+        permissionDTO.setUserInfo(new UserDTO(CacheCenter.userCache.getObjectById(loginUser.getUserId())));
+        permissionDTO.setRoleKey(loginUser.getRoleInfo().getRoleKey());
+        permissionDTO.setPermissions(loginUser.getRoleInfo().getMenuPermissions());
+
+        return permissionDTO;
     }
 
 

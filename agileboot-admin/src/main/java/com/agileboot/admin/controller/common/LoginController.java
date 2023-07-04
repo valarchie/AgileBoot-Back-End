@@ -4,22 +4,20 @@ import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.domain.common.dto.UserPermissionDTO;
+import com.agileboot.domain.common.dto.CurrentLoginUserDTO;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
+import com.agileboot.domain.system.user.UserApplicationService;
 import com.agileboot.domain.system.user.command.AddUserCommand;
-import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.annotations.RateLimit;
 import com.agileboot.infrastructure.annotations.RateLimit.CacheType;
 import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
-import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.ConfigDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.login.TokenDTO;
+import com.agileboot.domain.common.dto.TokenDTO;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,6 +45,9 @@ public class LoginController {
 
     @NonNull
     private MenuApplicationService menuApplicationService;
+
+    @NonNull
+    private UserApplicationService userApplicationService;
 
     @NonNull
     private AgileBootConfig agileBootConfig;
@@ -97,8 +98,10 @@ public class LoginController {
     public ResponseDTO<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         // 生成令牌
         String token = loginService.login(loginDTO);
+        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
-        return ResponseDTO.ok(new TokenDTO(token));
+        return ResponseDTO.ok(new TokenDTO(token, currentUserDTO));
     }
 
     /**
@@ -108,17 +111,12 @@ public class LoginController {
      */
     @Operation(summary = "获取当前登录用户信息")
     @GetMapping("/getLoginUserInfo")
-    public ResponseDTO<UserPermissionDTO> getLoginUserInfo() {
+    public ResponseDTO<CurrentLoginUserDTO> getLoginUserInfo() {
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
 
-        UserPermissionDTO permissionDTO = new UserPermissionDTO();
+        CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
-        permissionDTO.setUser(new UserDTO(CacheCenter.userCache.getObjectById(loginUser.getUserId())));
-        permissionDTO.setRoleKey(loginUser.getRoleInfo().getRoleKey());
-        permissionDTO.setPermissions(loginUser.getRoleInfo().getMenuPermissions());
-        permissionDTO.setDictTypes(MapCache.dictionaryCache());
-
-        return ResponseDTO.ok(permissionDTO);
+        return ResponseDTO.ok(currentUserDTO);
     }
 
     /**

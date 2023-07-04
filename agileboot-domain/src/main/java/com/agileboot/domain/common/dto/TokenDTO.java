@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.domain.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,5 +11,7 @@ import lombok.Data;
 public class TokenDTO {
 
     private String token;
+
+    private CurrentLoginUserDTO currentUser;
 
 }

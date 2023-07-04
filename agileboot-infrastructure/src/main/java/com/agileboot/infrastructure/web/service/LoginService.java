@@ -18,6 +18,7 @@ import com.agileboot.common.exception.error.ErrorCode.Internal;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.i18n.MessageUtils;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
+import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
@@ -91,7 +92,7 @@ public class LoginService {
                 loginDTO.getUsername(), decryptPassword));
         } catch (BadCredentialsException e) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL,
-                MessageUtils.message("user.password.not.match")));
+                MessageUtils.message("Business.LOGIN_WRONG_USER_PASSWORD")));
             throw new ApiException(ErrorCode.Business.LOGIN_WRONG_USER_PASSWORD);
         } catch (AuthenticationException e) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
@@ -118,6 +119,7 @@ public class LoginService {
 
         boolean isCaptchaOn = isCaptchaOn();
         configDTO.setIsCaptchaOn(isCaptchaOn);
+        configDTO.setDictTypes(MapCache.dictionaryCache());
 
         return configDTO;
     }
