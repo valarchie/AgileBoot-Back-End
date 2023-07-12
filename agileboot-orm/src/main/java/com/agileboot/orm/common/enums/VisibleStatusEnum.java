@@ -8,7 +8,8 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  * 对应sys_menu表的is_visible字段
  * @author valarchie
  */
-@Dictionary(name = "sys_visible")
+@Deprecated
+@Dictionary(name = "sysMenu.isVisible")
 public enum VisibleStatusEnum implements DictionaryEnum<Integer> {
 
     /**

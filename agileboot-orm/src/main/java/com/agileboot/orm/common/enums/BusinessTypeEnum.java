@@ -9,7 +9,7 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  *
  * @author valarchie
  */
-@Dictionary(name = "sys_operation_type")
+@Dictionary(name = "sysOperationLog.businessType")
 public enum BusinessTypeEnum implements DictionaryEnum<Integer> {
 
     /**

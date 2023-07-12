@@ -1,11 +1,13 @@
 package com.agileboot.orm.common.enums;
 
+import com.agileboot.orm.common.annotations.Dictionary;
 import com.agileboot.orm.common.interfaces.BasicEnum;
 
 /**
  * 操作者类型
  * @author valarchie
  */
+@Dictionary(name = "sysOperationLog.operatorType")
 public enum OperatorTypeEnum implements BasicEnum<Integer> {
 
     /**

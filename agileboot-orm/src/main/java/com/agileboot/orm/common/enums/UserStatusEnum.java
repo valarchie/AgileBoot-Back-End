@@ -1,9 +1,12 @@
 package com.agileboot.orm.common.enums;
 
+import com.agileboot.orm.common.annotations.Dictionary;
+
 /**
  * 对应sys_user的status字段
  * @author valarchie
  */
+@Dictionary(name = "sysUser.status")
 public enum UserStatusEnum {
 
     /**

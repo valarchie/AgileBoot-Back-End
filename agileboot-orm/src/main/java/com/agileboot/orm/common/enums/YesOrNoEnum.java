@@ -8,7 +8,7 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  * 系统内代表是与否的枚举
  * @author valarchie
  */
-@Dictionary(name = "sys_yes_no")
+@Dictionary(name = "common.yesOrNo")
 public enum YesOrNoEnum implements DictionaryEnum<Integer> {
     /**
      * 是与否

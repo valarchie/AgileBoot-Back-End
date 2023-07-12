@@ -9,7 +9,7 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  *
  * @author valarchie
  */
-@Dictionary(name = "sys_user_sex")
+@Dictionary(name = "sysUser.sex")
 public enum GenderEnum implements DictionaryEnum<Integer> {
 
     /**

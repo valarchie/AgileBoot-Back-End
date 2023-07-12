@@ -6,9 +6,11 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_notice的 notice_type字段
+ * 名称一般由对应的表名.字段构成
+ * 全局的话使用common作为表名
  * @author valarchie
  */
-@Dictionary(name = "sys_notice_type")
+@Dictionary(name = "sysNotice.noticeType")
 public enum NoticeTypeEnum implements DictionaryEnum<Integer> {
 
     /**

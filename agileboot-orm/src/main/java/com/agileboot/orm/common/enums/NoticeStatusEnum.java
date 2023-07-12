@@ -8,7 +8,7 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  * 对应sys_notice的 status字段
  * @author valarchie
  */
-@Dictionary(name = "sys_notice_status")
+@Dictionary(name = "sysNotice.status")
 public enum NoticeStatusEnum implements DictionaryEnum<Integer> {
 
     /**

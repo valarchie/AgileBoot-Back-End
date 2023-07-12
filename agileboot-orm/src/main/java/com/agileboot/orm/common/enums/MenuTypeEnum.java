@@ -6,6 +6,7 @@ import com.agileboot.orm.common.interfaces.BasicEnum;
  * @author valarchie
  * 对应 sys_menu表的menu_type字段
  */
+@Deprecated
 public enum MenuTypeEnum implements BasicEnum<Integer> {
 
     /**

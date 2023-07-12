@@ -8,7 +8,7 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  * 对应sys_operation_log的status字段
  * @author valarchie
  */
-@Dictionary(name = "sys_operation_status")
+@Dictionary(name = "sysOperationLog.status")
 public enum OperationStatusEnum implements DictionaryEnum<Integer> {
 
     /**

@@ -9,7 +9,7 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
  *
  * @author valarchie
  */
-@Dictionary(name = "sys_login_status")
+@Dictionary(name = "sysLoginInfo.status")
 public enum LoginStatusEnum implements DictionaryEnum<Integer> {
     /**
      * status of user

@@ -3,8 +3,10 @@ package com.agileboot.orm.common.enums;
 import com.agileboot.orm.common.interfaces.BasicEnum;
 
 /**
+ *
  * @author valarchie
  */
+@Deprecated
 public enum MenuComponentEnum implements BasicEnum<Integer> {
 
     /**
