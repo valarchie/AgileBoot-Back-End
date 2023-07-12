@@ -20,14 +20,16 @@ public class LoginInfoQuery extends AbstractPageQuery<SysLoginInfoEntity> {
 
 
     @Override
-    public QueryWrapper<SysLoginInfoEntity> toQueryWrapper() {
+    public QueryWrapper<SysLoginInfoEntity> addQueryCondition() {
         QueryWrapper<SysLoginInfoEntity> queryWrapper = new QueryWrapper<SysLoginInfoEntity>()
             .like(StrUtil.isNotEmpty(ipaddr), "ip_address", ipaddr)
             .eq(StrUtil.isNotEmpty(status), "status", status)
             .like(StrUtil.isNotEmpty(username), "username", username);
 
         addSortCondition(queryWrapper);
-        addTimeCondition(queryWrapper, "login_time");
+
+        this.timeRangeColumn = "login_time";
+//        addTimeCondition(queryWrapper, "login_time");
 
         return queryWrapper;
     }

@@ -14,10 +14,10 @@ class AbstractQueryTest {
 
     @BeforeEach
     public void getNewQuery() {
-        query = new AbstractQuery() {
+        query = new AbstractQuery<Object>() {
             @Override
-            public QueryWrapper toQueryWrapper() {
-                return null;
+            public QueryWrapper addQueryCondition() {
+                return new QueryWrapper();
             }
         };
     }
@@ -25,8 +25,8 @@ class AbstractQueryTest {
 
     @Test
     void addTimeConditionWithNull() {
-        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
-        query.addTimeCondition(queryWrapper, "login_time");
+        query.setTimeRangeColumn("loginTime");
+        QueryWrapper<Object> queryWrapper = query.toQueryWrapper();
 
         String targetSql = queryWrapper.getTargetSql();
         Assertions.assertEquals("", targetSql);
@@ -37,9 +37,9 @@ class AbstractQueryTest {
     void addTimeConditionWithBothValue() {
         query.setBeginTime(new Date());
         query.setEndTime(new Date());
+        query.setTimeRangeColumn("loginTime");
 
-        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
-        query.addTimeCondition(queryWrapper, "login_time");
+        QueryWrapper<Object> queryWrapper = query.toQueryWrapper();
 
         String targetSql = queryWrapper.getTargetSql();
         Assertions.assertEquals("(login_time >= ? AND login_time <= ?)", targetSql);
@@ -49,9 +49,9 @@ class AbstractQueryTest {
     @Test
     void addTimeConditionWithBeginValueOnly() {
         query.setBeginTime(new Date());
+        query.setTimeRangeColumn("loginTime");
 
-        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
-        query.addTimeCondition(queryWrapper, "login_time");
+        QueryWrapper<Object> queryWrapper = query.toQueryWrapper();
 
         String targetSql = queryWrapper.getTargetSql();
         Assertions.assertEquals("(login_time >= ?)", targetSql);
@@ -61,11 +61,17 @@ class AbstractQueryTest {
 
     @Test
     void testConvertSortDirection() {
-        query.setIsAsc("ascending");
+        query.setOrderDirection("ascending");
         Assertions.assertTrue(query.convertSortDirection());
 
-        query.setIsAsc("descending");
+        query.setOrderDirection("descending");
         Assertions.assertFalse(query.convertSortDirection());
+
+        query.setOrderDirection("");
+        Assertions.assertNull(query.convertSortDirection());
+
+        query.setOrderDirection(null);
+        Assertions.assertNull(query.convertSortDirection());
     }
 
 

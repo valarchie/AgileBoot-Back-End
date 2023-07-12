@@ -19,7 +19,7 @@ public class SearchUserQuery<T> extends AbstractPageQuery<T> {
     protected Long deptId;
 
     @Override
-    public QueryWrapper<T> toQueryWrapper() {
+    public QueryWrapper<T> addQueryCondition() {
         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.like(StrUtil.isNotEmpty(username), "username", username)
@@ -33,7 +33,8 @@ public class SearchUserQuery<T> extends AbstractPageQuery<T> {
                     .apply("u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE find_in_set(" + deptId
                         + ", ancestors))"));
 
-        this.addTimeCondition(queryWrapper, "u.create_time");
+        // 设置排序字段
+        this.timeRangeColumn = "u.create_time";
 
         return queryWrapper;
     }

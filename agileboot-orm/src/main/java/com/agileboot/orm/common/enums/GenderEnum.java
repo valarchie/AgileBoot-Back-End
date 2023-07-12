@@ -15,9 +15,9 @@ public enum GenderEnum implements DictionaryEnum<Integer> {
     /**
      * 用户性别
      */
-    MALE(1, "男", CssTag.NONE),
-    FEMALE(2, "女", CssTag.NONE),
-    UNKNOWN(0, "未知", CssTag.NONE);
+    MALE(1, "男", CssTag.PRIMARY),
+    FEMALE(2, "女", CssTag.PRIMARY),
+    UNKNOWN(0, "未知", CssTag.PRIMARY);
 
     private final int value;
     private final String description;

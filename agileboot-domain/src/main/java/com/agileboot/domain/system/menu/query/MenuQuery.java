@@ -17,9 +17,8 @@ public class MenuQuery extends AbstractQuery<SysMenuEntity> {
     private Boolean isVisible;
     private Integer status;
 
-
     @Override
-    public QueryWrapper<SysMenuEntity> toQueryWrapper() {
+    public QueryWrapper<SysMenuEntity> addQueryCondition() {
         QueryWrapper<SysMenuEntity> queryWrapper = new QueryWrapper<SysMenuEntity>()
             .like(StrUtil.isNotEmpty(menuName), "menu_name", menuName)
             .eq(isVisible != null, "is_visible", isVisible)

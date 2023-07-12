@@ -9,14 +9,17 @@ import java.util.Date;
 import lombok.Data;
 
 /**
+ * 如果是简单的排序 和 时间范围筛选  可以使用内置的这几个字段
  * @author valarchie
  */
 @Data
 public abstract class AbstractQuery<T> {
 
-    protected String orderByColumn;
+    protected String orderColumn;
 
-    protected String isAsc;
+    protected String orderDirection;
+
+    protected String timeRangeColumn;
 
     @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
     private Date beginTime;
@@ -31,34 +34,53 @@ public abstract class AbstractQuery<T> {
      * 生成query conditions
      * @return
      */
-    public abstract QueryWrapper<T> toQueryWrapper();
+    public QueryWrapper<T> toQueryWrapper() {
+        QueryWrapper<T> queryWrapper = addQueryCondition();
+        addSortCondition(queryWrapper);
+        addTimeCondition(queryWrapper);
+
+        return queryWrapper;
+    }
+
+    public abstract QueryWrapper<T> addQueryCondition();
 
     public void addSortCondition(QueryWrapper<T> queryWrapper) {
-        if(queryWrapper != null) {
-            boolean sortDirection = convertSortDirection();
-            queryWrapper.orderBy(StrUtil.isNotBlank(orderByColumn), sortDirection,
-                StrUtil.toUnderlineCase(orderByColumn));
+        if (queryWrapper == null || StrUtil.isEmpty(orderColumn)) {
+            return;
+        }
+
+        Boolean sortDirection = convertSortDirection();
+        if (sortDirection != null) {
+            queryWrapper.orderBy(StrUtil.isNotEmpty(orderColumn), sortDirection,
+                StrUtil.toUnderlineCase(orderColumn));
         }
     }
 
-    public void addTimeCondition(QueryWrapper<T> queryWrapper, String fieldName) {
-        if (queryWrapper != null) {
+    public void addTimeCondition(QueryWrapper<T> queryWrapper) {
+        if (queryWrapper != null && StrUtil.isNotEmpty(this.timeRangeColumn)) {
             queryWrapper
-                .ge(beginTime != null, fieldName, DatePickUtil.getBeginOfTheDay(beginTime))
-                .le(endTime != null, fieldName, DatePickUtil.getEndOfTheDay(endTime));
+                .ge(beginTime != null, StrUtil.toUnderlineCase(timeRangeColumn), DatePickUtil.getBeginOfTheDay(beginTime))
+                .le(endTime != null, StrUtil.toUnderlineCase(timeRangeColumn), DatePickUtil.getEndOfTheDay(endTime));
         }
     }
 
-    public boolean convertSortDirection() {
-        boolean orderDirection = true;
-        if (StrUtil.isNotEmpty(isAsc)) {
-            if (ASC.equals(isAsc)) {
-                orderDirection = true;
-            } else if (DESC.equals(isAsc)) {
-                orderDirection = false;
-            }
+    /**
+     * 获取前端传来的排序方向  转换成MyBatisPlus所需的排序参数 boolean=isAsc
+     * @return 排序顺序， null为无排序
+     */
+    public Boolean convertSortDirection() {
+        Boolean isAsc = null;
+        if (StrUtil.isEmpty(this.orderDirection)) {
+            return isAsc;
         }
-        return orderDirection;
+
+        if (ASC.equals(this.orderDirection)) {
+            isAsc = true;
+        }if (DESC.equals(this.orderDirection)) {
+            isAsc = false;
+        }
+
+        return isAsc;
     }
 
 }

@@ -13,6 +13,6 @@ public class ConfigDTO {
 
     private Boolean isCaptchaOn;
 
-    private Map<String, List<DictionaryData>> dictTypes;
+    private Map<String, List<DictionaryData>> dictionary;
 
 }

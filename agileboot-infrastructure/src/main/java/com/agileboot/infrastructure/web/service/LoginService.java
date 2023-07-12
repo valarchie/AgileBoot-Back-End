@@ -28,9 +28,12 @@ import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
+import com.agileboot.orm.common.result.DictionaryData;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.google.code.kaptcha.Producer;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Resource;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -119,8 +122,7 @@ public class LoginService {
 
         boolean isCaptchaOn = isCaptchaOn();
         configDTO.setIsCaptchaOn(isCaptchaOn);
-        configDTO.setDictTypes(MapCache.dictionaryCache());
-
+        configDTO.setDictionary(MapCache.dictionaryCache());
         return configDTO;
     }
 

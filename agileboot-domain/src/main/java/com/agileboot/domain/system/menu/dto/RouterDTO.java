@@ -1,9 +1,9 @@
 package com.agileboot.domain.system.menu.dto;
 
 import com.agileboot.common.utils.jackson.JacksonUtil;
-import com.agileboot.domain.system.menu.model.RouterModel;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 
 /**
  * 动态路由信息
- *
+ * 必须加上@JsonInclude(Include.NON_NULL)的注解  否则传null值给Vue动态路由渲染时会出错
  * @author valarchie
  */
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonInclude(Include.NON_NULL)
 @Data
 @NoArgsConstructor
 public class RouterDTO {
@@ -24,8 +24,10 @@ public class RouterDTO {
         if (entity != null) {
             this.name = entity.getRouteName();
             this.path = entity.getPath();
-            this.component = entity.getComponent();
+            // 暂时不需要component
+//            this.component = entity.getComponent();
             this.rank = entity.getRank();
+            this.redirect = entity.getRedirect();
             if (JacksonUtil.isJson(entity.getMetaInfo())) {
                 this.meta = JacksonUtil.from(entity.getMetaInfo(), MetaDTO.class);
             } else {
@@ -36,7 +38,9 @@ public class RouterDTO {
     }
 
     /**
-     * 路由名字
+     * 路由名字  根据前端的要求   必须唯一
+     * 并按照前端项目的推荐  这个Name最好和组件的Name一样
+     * TODO 这里后端需要加校验
      */
     private String name;
 

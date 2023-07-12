@@ -25,8 +25,7 @@ public class DeptQuery extends AbstractQuery<SysDeptEntity> {
     private String deptName;
 
     @Override
-    public QueryWrapper<SysDeptEntity> toQueryWrapper() {
-
+    public QueryWrapper<SysDeptEntity> addQueryCondition() {
         return new QueryWrapper<SysDeptEntity>()
             .eq(status != null, "status", status)
             .eq(parentId != null, "parent_id", parentId)

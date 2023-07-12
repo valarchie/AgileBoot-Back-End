@@ -16,8 +16,7 @@ public class UnallocatedRoleQuery extends AbstractPageQuery<SysUserEntity> {
     private String username;
     private String phoneNumber;
 
-    @Override
-    public QueryWrapper<SysUserEntity> toQueryWrapper() {
+    public QueryWrapper<SysUserEntity> addQueryCondition() {
         QueryWrapper<SysUserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(StrUtil.isNotEmpty(username),"u.username", username)
             .like(StrUtil.isNotEmpty(phoneNumber), "u.phone_number", phoneNumber)
@@ -27,4 +26,5 @@ public class UnallocatedRoleQuery extends AbstractPageQuery<SysUserEntity> {
 
         return queryWrapper;
     }
+    
 }

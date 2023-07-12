@@ -39,6 +39,10 @@ public class SysMenuEntity extends BaseEntity<SysMenuEntity> {
     @TableField("route_name")
     private String routeName;
 
+    @ApiModelProperty("重定向地址")
+    @TableField("redirect")
+    private String redirect;
+
     @ApiModelProperty("父菜单ID")
     @TableField("parent_id")
     private Long parentId;
