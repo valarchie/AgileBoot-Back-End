@@ -14,8 +14,19 @@ public class BasicEnumUtilTest {
         YesOrNoEnum yes = BasicEnumUtil.fromValue(YesOrNoEnum.class, 1);
         YesOrNoEnum no = BasicEnumUtil.fromValue(YesOrNoEnum.class, 0);
 
-        Assert.assertEquals(yes.description(), "是");
-        Assert.assertEquals(no.description(), "否");
+        Assert.assertEquals("是", yes.description());
+        Assert.assertEquals("否", no.description());
+
+    }
+
+    @Test
+    public void testFromBool() {
+
+        String yesDescription = BasicEnumUtil.getDescriptionByBool(YesOrNoEnum.class, true);
+        String noDescription = BasicEnumUtil.getDescriptionByBool(YesOrNoEnum.class, false);
+
+        Assert.assertEquals("是", yesDescription);
+        Assert.assertEquals("否", noDescription);
 
     }
 }
