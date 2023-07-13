@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "公告API", description = "公告相关的增删查改")
 @RestController
-@RequestMapping("/system/notice")
+@RequestMapping("/system/notices")
 @Validated
 @RequiredArgsConstructor
 public class SysNoticeController extends BaseController {
@@ -51,7 +52,7 @@ public class SysNoticeController extends BaseController {
      */
     @Operation(summary = "公告列表")
     @PreAuthorize("@permission.has('system:notice:list')")
-    @GetMapping("/list")
+    @GetMapping
     public ResponseDTO<PageDTO<NoticeDTO>> list(NoticeQuery query) {
         PageDTO<NoticeDTO> pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
@@ -64,7 +65,7 @@ public class SysNoticeController extends BaseController {
     @Operation(summary = "公告列表（从数据库从库获取）", description = "演示主从库的例子")
     @DS("slave")
     @PreAuthorize("@permission.has('system:notice:list')")
-    @GetMapping("/listFromSlave")
+    @GetMapping("/database/slave")
     public ResponseDTO<PageDTO<NoticeDTO>> listFromSlave(NoticeQuery query) {
         PageDTO<NoticeDTO> pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
@@ -99,8 +100,9 @@ public class SysNoticeController extends BaseController {
     @Operation(summary = "修改公告")
     @PreAuthorize("@permission.has('system:notice:edit')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.MODIFY)
-    @PutMapping
-    public ResponseDTO<Void> edit(@RequestBody NoticeUpdateCommand updateCommand) {
+    @PutMapping("/{noticeId}")
+    public ResponseDTO<Void> edit(@PathVariable Long noticeId, @RequestBody NoticeUpdateCommand updateCommand) {
+        updateCommand.setNoticeId(noticeId);
         noticeApplicationService.updateNotice(updateCommand);
         return ResponseDTO.ok();
     }
@@ -111,8 +113,8 @@ public class SysNoticeController extends BaseController {
     @Operation(summary = "删除公告")
     @PreAuthorize("@permission.has('system:notice:remove')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
-    @DeleteMapping("/{noticeIds}")
-    public ResponseDTO<Void> remove(@PathVariable List<Integer> noticeIds) {
+    @DeleteMapping
+    public ResponseDTO<Void> remove(@RequestParam List<Integer> noticeIds) {
         noticeApplicationService.deleteNotice(new BulkOperationCommand<>(noticeIds));
         return ResponseDTO.ok();
     }
