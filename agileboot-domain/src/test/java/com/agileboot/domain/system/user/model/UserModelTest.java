@@ -1,7 +1,6 @@
 package com.agileboot.domain.system.user.model;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,8 +38,8 @@ class UserModelTest {
         userWithNewName.setUserId(USER_ID);
         userWithNewName.setUsername("user 2");
 
-        when(userService.isUserNameDuplicated(eq("user 1"))).thenReturn(true);
-        when(userService.isUserNameDuplicated(eq("user 2"))).thenReturn(false);
+        when(userService.isUserNameDuplicated("user 1")).thenReturn(true);
+        when(userService.isUserNameDuplicated("user 2")).thenReturn(false);
 
         ApiException exception = assertThrows(ApiException.class, userWithSameName::checkUsernameIsUnique);
         Assertions.assertEquals(Business.USER_NAME_IS_NOT_UNIQUE, exception.getErrorCode());
@@ -73,8 +72,8 @@ class UserModelTest {
         userWithNewNumber.setUserId(USER_ID);
         userWithNewNumber.setEmail("2@2.com");
 
-        when(userService.isEmailDuplicated(eq("1@1.com"), eq(USER_ID))).thenReturn(true);
-        when(userService.isEmailDuplicated(eq("2@2.com"), eq(USER_ID))).thenReturn(false);
+        when(userService.isEmailDuplicated("1@1.com", USER_ID)).thenReturn(true);
+        when(userService.isEmailDuplicated("2@2.com", USER_ID)).thenReturn(false);
 
         ApiException exception = assertThrows(ApiException.class, userWithSameEmail::checkEmailIsUnique);
         Assertions.assertEquals(Business.USER_EMAIL_IS_NOT_UNIQUE, exception.getErrorCode());
