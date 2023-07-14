@@ -1,12 +1,15 @@
 package com.agileboot.orm.common.query;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import javax.validation.constraints.Max;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.Max;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class AbstractPageQuery<T> extends AbstractQuery<T> {
 

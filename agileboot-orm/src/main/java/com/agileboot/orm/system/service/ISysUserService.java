@@ -7,6 +7,7 @@ import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.result.SearchUserDO;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.Set;
 
 /**
@@ -21,45 +22,46 @@ public interface ISysUserService extends IService<SysUserEntity> {
 
     /**
      * 检测号码是否唯一
-     * @param phone
-     * @param userId
-     * @return
+     *
+     * @param phone  电话号码
+     * @param userId 用户id
+     * @return 校验结果
      */
     boolean isPhoneDuplicated(String phone, Long userId);
 
     /**
      * 检测邮箱是否唯一
-     * @param email
-     * @param userId
-     * @return
+     * @param email 邮箱
+     * @param userId 用户id
+     * @return 校验结果
      */
     boolean isEmailDuplicated(String email, Long userId);
 
     /**
      * 检测用户名是否
-     * @param userName
-     * @return
+     * @param userName 用户名
+     * @return 校验结果
      */
     boolean isUserNameDuplicated(String userName);
 
     /**
      * 获取用户的角色
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 用户角色
      */
     SysRoleEntity getRoleOfUser(Long userId);
 
     /**
      * 获取用户的岗位
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 用户岗位
      */
     SysPostEntity getPostOfUser(Long userId);
 
     /**
      * 获取用户的权限列表
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 用户菜单权限列表
      */
     Set<String> getMenuPermissionsForUser(Long userId);
 

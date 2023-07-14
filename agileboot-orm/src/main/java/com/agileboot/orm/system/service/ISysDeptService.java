@@ -16,10 +16,11 @@ public interface ISysDeptService extends IService<SysDeptEntity> {
 
     /**
      * 检测部门名称是否一致
-     * @param deptName
-     * @param deptId
-     * @param parentId
-     * @return
+     *
+     * @param deptName 部门名称
+     * @param deptId   部门id
+     * @param parentId 父级部门id
+     * @return 校验结果
      */
     boolean isDeptNameDuplicated(String deptName, Long deptId, Long parentId);
 
@@ -35,14 +36,14 @@ public interface ISysDeptService extends IService<SysDeptEntity> {
      * 是否是目标部门的子部门
      * @param parentId 目标部门id
      * @param childId 子部门id
-     * @return
+     * @return 校验结果
      */
     boolean isChildOfTheDept(Long parentId, Long childId);
 
     /**
      * 检测该部门是否已有用户使用
-     * @param deptId
-     * @return
+     * @param deptId 部门id
+     * @return 校验结果
      */
     boolean isDeptAssignedToUsers(Long deptId);
 

@@ -5,8 +5,9 @@ import com.agileboot.common.utils.time.DatePickUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 如果是简单的排序 和 时间范围筛选  可以使用内置的这几个字段
@@ -32,7 +33,8 @@ public abstract class AbstractQuery<T> {
 
     /**
      * 生成query conditions
-     * @return
+     *
+     * @return 添加条件后的QueryWrapper
      */
     public QueryWrapper<T> toQueryWrapper() {
         QueryWrapper<T> queryWrapper = addQueryCondition();

@@ -20,9 +20,10 @@ public interface SysNoticeMapper extends BaseMapper<SysNoticeEntity> {
 
     /**
      * 根据条件分页查询角色关联的用户列表
-     * @param page
-     * @param queryWrapper
-     * @return
+     *
+     * @param page         分页对象
+     * @param queryWrapper 条件选择器
+     * @return 分页处理后的公告列表
      */
     @Select("SELECT n.* "
         + "FROM sys_notice n "

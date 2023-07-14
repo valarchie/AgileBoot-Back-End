@@ -2,6 +2,7 @@ package com.agileboot.orm.system.service;
 
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**
@@ -32,10 +33,11 @@ public interface ISysMenuService extends IService<SysMenuEntity> {
 
     /**
      * 校验菜单名称是否唯一
-     * @param menuName
-     * @param menuId
-     * @param parentId
-     * @return
+     *
+     * @param menuName 菜单名称
+     * @param menuId   菜单id
+     * @param parentId 父级菜单id
+     * @return 校验结果
      */
     boolean isMenuNameDuplicated(String menuName, Long menuId, Long parentId);
 
