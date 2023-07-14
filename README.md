@@ -15,7 +15,7 @@
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.8.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.8.0 (2.0.0版本将进行大版本重构以及启动新的前端框架pure-admin)</h1>
 
 <h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发脚手架</h4>
 <p align="center">
