@@ -8,11 +8,13 @@ import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.common.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysNoticeEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class NoticeModel extends SysNoticeEntity {

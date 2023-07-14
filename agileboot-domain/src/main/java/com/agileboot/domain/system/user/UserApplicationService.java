@@ -20,7 +20,6 @@ import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
@@ -75,7 +74,8 @@ public class UserApplicationService {
 
     /**
      * 获取当前登录用户信息
-     * @return
+     *
+     * @return 当前登录用户信息
      */
     public CurrentLoginUserDTO getLoginUserInfo(LoginUser loginUser) {
         CurrentLoginUserDTO permissionDTO = new CurrentLoginUserDTO();

@@ -5,10 +5,12 @@ import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class UnallocatedRoleQuery extends AbstractPageQuery<SysUserEntity> {
 

@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class DeptModel extends SysDeptEntity {
 
-    private ISysDeptService deptService;
+    private final ISysDeptService deptService;
 
     public DeptModel(ISysDeptService deptService) {
         this.deptService = deptService;

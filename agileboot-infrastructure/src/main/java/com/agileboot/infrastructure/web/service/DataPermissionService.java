@@ -26,7 +26,8 @@ public class DataPermissionService {
 
     /**
      * 通过userId 校验当前用户 对 目标用户是否有操作权限
-     * @param userId
+     *
+     * @param userId 用户id
      * @return 检验结果
      */
     public boolean checkUserId(Long userId) {
@@ -40,8 +41,8 @@ public class DataPermissionService {
 
     /**
      * 通过userId 校验当前用户 对 目标用户是否有操作权限
-     * @param userIds
-     * @return
+     * @param userIds 用户id列表
+     * @return 校验结果
      */
     public boolean checkUserIds(List<Long> userIds) {
         if (CollUtil.isNotEmpty(userIds)) {

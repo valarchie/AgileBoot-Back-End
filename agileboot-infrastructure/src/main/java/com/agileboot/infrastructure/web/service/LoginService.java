@@ -28,12 +28,9 @@ import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
-import com.agileboot.orm.common.result.DictionaryData;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.google.code.kaptcha.Producer;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Resource;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -115,7 +112,8 @@ public class LoginService {
 
     /**
      * 获取验证码 data
-     * @return
+     *
+     * @return {@link ConfigDTO}
      */
     public ConfigDTO getConfig() {
         ConfigDTO configDTO = new ConfigDTO();
@@ -128,7 +126,8 @@ public class LoginService {
 
     /**
      * 获取验证码 data
-     * @return
+     *
+     * @return 验证码
      */
     public CaptchaDTO generateCaptchaImg() {
         CaptchaDTO captchaDTO = new CaptchaDTO();
@@ -137,7 +136,8 @@ public class LoginService {
         captchaDTO.setIsCaptchaOn(isCaptchaOn);
 
         if (isCaptchaOn) {
-            String expression, answer = null;
+            String expression;
+            String answer = null;
             BufferedImage image = null;
 
             // 生成验证码
@@ -200,7 +200,7 @@ public class LoginService {
 
     /**
      * 记录登录信息
-     * @param loginUser
+     * @param loginUser 登录用户
      */
     public void recordLoginInfo(LoginUser loginUser) {
         ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginUser.getUsername(), LoginStatusEnum.LOGIN_SUCCESS,

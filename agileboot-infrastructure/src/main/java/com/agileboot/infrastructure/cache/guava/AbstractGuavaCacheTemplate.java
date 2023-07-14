@@ -97,8 +97,9 @@ public abstract class AbstractGuavaCacheTemplate<T> {
 
     /**
      * 从数据库加载数据
-     * @param id
-     * @return
+     *
+     * @param id id
+     * @return T
      */
     public abstract T getObjectFromDb(Object id);
 

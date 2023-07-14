@@ -25,8 +25,8 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 public class GlobalTransactionConfig {
 
     /**
-     * 配置全局事务的切点为service层的所有方法
-     * AOP切面表达式 可参考（https://blog.csdn.net/ycf921244819/article/details/106599489）
+     * 配置全局事务的切点为service层的所有方法 AOP切面表达式 可参考（<a
+     * href="https://blog.csdn.net/ycf921244819/article/details/106599489">https://blog.csdn.net/ycf921244819/article/details/106599489</a>）
      * 本项目设置在 applicationService层
      */
     private static final String POINTCUT_EXPRESSION = "execution(public * com.agileboot.domain..*.*ApplicationService.*(..))";
@@ -40,7 +40,8 @@ public class GlobalTransactionConfig {
 
     /**
      * 配置事务拦截器
-     * @return
+     *
+     * @return TransactionInterceptor
      */
     @Bean
     public TransactionInterceptor txAdvice() {
@@ -92,7 +93,7 @@ public class GlobalTransactionConfig {
 
     /**
      * 设置切面
-     * @return
+     * @return Advisor
      */
     @Bean
     public Advisor txAdviceAdvisor() {
