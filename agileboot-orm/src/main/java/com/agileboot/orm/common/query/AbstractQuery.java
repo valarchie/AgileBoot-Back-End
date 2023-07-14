@@ -5,9 +5,8 @@ import com.agileboot.common.utils.time.DatePickUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Data;
 
 /**
  * 如果是简单的排序 和 时间范围筛选  可以使用内置的这几个字段
@@ -78,7 +77,8 @@ public abstract class AbstractQuery<T> {
 
         if (ASC.equals(this.orderDirection)) {
             isAsc = true;
-        }if (DESC.equals(this.orderDirection)) {
+        }
+        if (DESC.equals(this.orderDirection)) {
             isAsc = false;
         }
 

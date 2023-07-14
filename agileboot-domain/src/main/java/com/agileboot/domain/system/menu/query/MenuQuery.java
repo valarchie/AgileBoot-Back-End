@@ -6,10 +6,12 @@ import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class MenuQuery extends AbstractQuery<SysMenuEntity> {
 

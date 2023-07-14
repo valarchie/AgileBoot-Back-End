@@ -48,7 +48,7 @@ public class ScheduleJobManager {
 
     /**
      * cron：使用Cron表达式。　每分钟的1，2秒运行
-     * https://cron.qqe2.com/
+     * <a href="https://cron.qqe2.com/">https://cron.qqe2.com/</a>
      * cron表达式 在线解析
      */
     @Scheduled(cron = "1-2 * * * * ? ")

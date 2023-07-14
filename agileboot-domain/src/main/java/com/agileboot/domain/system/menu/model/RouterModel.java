@@ -1,18 +1,6 @@
 package com.agileboot.domain.system.menu.model;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpUtil;
-import com.agileboot.common.constant.Constants;
-import com.agileboot.domain.system.menu.dto.MetaDTO;
-import com.agileboot.domain.system.menu.dto.RouterDTO;
-import com.agileboot.orm.common.enums.MenuComponentEnum;
-import com.agileboot.orm.common.enums.MenuTypeEnum;
 import com.agileboot.orm.system.entity.SysMenuEntity;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author valarchie

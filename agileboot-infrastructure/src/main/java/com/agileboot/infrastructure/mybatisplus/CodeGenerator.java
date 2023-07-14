@@ -49,7 +49,6 @@ public class CodeGenerator {
     /**
      * 避免覆盖掉原有生成的类  生成的类 放在orm子模块下的/target/generated-code目录底下
      * 有需要更新的实体自己在手动覆盖  或者 挪动过去
-     * @param args
      */
     public static void main(String[] args) {
         // 默认读取application-dev yml中的master数据库配置

@@ -25,9 +25,9 @@ public class DbExceptionAspect {
 
     /**
      * 包装成ApiException 再交给globalExceptionHandler处理
-     * @param joinPoint
-     * @return
-     * @throws Throwable
+     *
+     * @param joinPoint joinPoint
+     * @return object
      */
     @Around("dbException()")
     public Object aroundDbException(ProceedingJoinPoint joinPoint) throws Throwable {
