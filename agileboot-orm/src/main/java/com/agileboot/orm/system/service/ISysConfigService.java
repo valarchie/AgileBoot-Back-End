@@ -15,8 +15,9 @@ public interface ISysConfigService extends IService<SysConfigEntity> {
 
     /**
      * 通过key获取配置
+     *
      * @param key 配置对应的key
-     * @return
+     * @return 配置
      */
     String getConfigValueByKey(String key);
 
