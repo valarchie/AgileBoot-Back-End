@@ -1,11 +1,11 @@
-package com.agileboot.domain.system.monitor;
+package com.agileboot.domain.monitor;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.domain.system.monitor.dto.OnlineUserInfo;
-import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
-import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO.CommonStatusDTO;
-import com.agileboot.domain.system.monitor.dto.ServerInfo;
+import com.agileboot.domain.monitor.dto.OnlineUserInfo;
+import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO;
+import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO.CommonStatusDTO;
+import com.agileboot.domain.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.cache.RedisUtil;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 public class MonitorApplicationService {
 
     @NonNull
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<?, ?> redisTemplate;
 
     @NonNull
     private RedisUtil redisUtil;

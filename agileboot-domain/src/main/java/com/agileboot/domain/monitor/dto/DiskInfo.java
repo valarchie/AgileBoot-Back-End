@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.monitor.dto;
+package com.agileboot.domain.monitor.dto;
 
 import lombok.Data;
 

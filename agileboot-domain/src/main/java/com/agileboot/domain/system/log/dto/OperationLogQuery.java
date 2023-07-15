@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.operationlog.query;
+package com.agileboot.domain.system.log.dto;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.orm.common.query.AbstractPageQuery;
@@ -18,7 +18,6 @@ public class OperationLogQuery extends AbstractPageQuery<SysOperationLogEntity> 
     private String status;
     private String username;
     private String requestModule;
-
 
     @Override
     public QueryWrapper<SysOperationLogEntity> addQueryCondition() {

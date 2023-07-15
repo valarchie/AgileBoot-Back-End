@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.operationlog.dto;
+package com.agileboot.domain.system.log.dto;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;

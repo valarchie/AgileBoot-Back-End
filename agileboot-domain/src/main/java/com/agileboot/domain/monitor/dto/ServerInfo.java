@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.monitor.dto;
+package com.agileboot.domain.monitor.dto;
 
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.NumberUtil;

@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.logininfo.dto;
+package com.agileboot.domain.system.log.dto;
 
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;

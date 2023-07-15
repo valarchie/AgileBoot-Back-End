@@ -146,6 +146,7 @@ public class SecurityConfig {
             .antMatchers("/swagger-resources/**").anonymous()
             .antMatchers("/webjars/**").anonymous()
             .antMatchers("/**/api-docs/**" ).anonymous()
+            .antMatchers("/**/api-docs.yaml" ).anonymous()
             .antMatchers("/druid/**").anonymous()
             // 除上面外的所有请求全部需要鉴权认证
             .anyRequest().authenticated()

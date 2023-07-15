@@ -57,9 +57,12 @@ public abstract class AbstractQuery<T> {
     }
 
     public void addTimeCondition(QueryWrapper<T> queryWrapper) {
-        if (queryWrapper != null && StrUtil.isNotEmpty(this.timeRangeColumn)) {
+        if (queryWrapper != null
+            && StrUtil.isNotEmpty(this.timeRangeColumn)
+            && beginTime != null && endTime != null) {
             queryWrapper
-                .ge(beginTime != null, StrUtil.toUnderlineCase(timeRangeColumn), DatePickUtil.getBeginOfTheDay(beginTime))
+                .ge(beginTime != null, StrUtil.toUnderlineCase(timeRangeColumn),
+                    DatePickUtil.getBeginOfTheDay(beginTime))
                 .le(endTime != null, StrUtil.toUnderlineCase(timeRangeColumn), DatePickUtil.getEndOfTheDay(endTime));
         }
     }
