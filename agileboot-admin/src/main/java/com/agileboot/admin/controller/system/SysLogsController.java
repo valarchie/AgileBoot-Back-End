@@ -89,7 +89,7 @@ public class SysLogsController extends BaseController {
     @Operation(summary = "删除操作日志")
     @AccessLog(title = "操作日志", businessType = BusinessTypeEnum.DELETE)
     @PreAuthorize("@permission.has('monitor:operlog:remove')")
-    @DeleteMapping
+    @DeleteMapping("/operationLogs")
     public ResponseDTO<Void> removeOperationLogs(@RequestParam List<Long> operationIds) {
         logApplicationService.deleteOperationLog(new BulkOperationCommand<>(operationIds));
         return ResponseDTO.ok();
