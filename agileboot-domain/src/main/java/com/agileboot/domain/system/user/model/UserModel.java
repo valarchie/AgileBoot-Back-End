@@ -19,11 +19,13 @@ import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysUserService;
 import java.util.Objects;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class UserModel extends SysUserEntity {

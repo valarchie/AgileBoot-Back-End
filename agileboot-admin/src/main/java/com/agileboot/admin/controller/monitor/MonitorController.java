@@ -55,9 +55,10 @@ public class MonitorController extends BaseController {
 
     /**
      * 获取在线用户列表
-     * @param ipaddr
-     * @param userName
-     * @return
+     *
+     * @param ipaddr ip地址
+     * @param userName 用户名
+     * @return 分页处理后的在线用户信息
      */
     @Operation(summary = "在线用户列表")
     @PreAuthorize("@permission.has('monitor:online:list')")

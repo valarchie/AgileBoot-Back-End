@@ -5,6 +5,7 @@ import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.common.dto.CurrentLoginUserDTO;
+import com.agileboot.domain.common.dto.TokenDTO;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.user.UserApplicationService;
@@ -17,7 +18,6 @@ import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
 import com.agileboot.infrastructure.web.domain.login.ConfigDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginDTO;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.domain.common.dto.TokenDTO;
 import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,7 +67,8 @@ public class LoginController {
 
     /**
      * 获取系统的内置配置
-     * @return
+     *
+     * @return 配置信息
      */
     @GetMapping("/getConfig")
     public ResponseDTO<ConfigDTO> getConfig() {

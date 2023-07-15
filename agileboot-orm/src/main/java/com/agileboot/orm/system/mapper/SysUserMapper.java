@@ -8,10 +8,11 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.List;
-import java.util.Set;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -67,9 +68,10 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 
     /**
      * 根据条件分页查询角色关联的用户列表
-     * @param page
-     * @param queryWrapper
-     * @return
+     *
+     * @param page         分页对象
+     * @param queryWrapper 条件选择器
+     * @return 分页处理后的用户列表
      */
     @Select("SELECT DISTINCT u.user_id, u.dept_id, u.username, u.nick_name, u.email "
         + " , u.phone_number, u.status, u.create_time "

@@ -1,7 +1,6 @@
 package com.agileboot.domain.system.menu.model;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -76,7 +75,7 @@ class MenuModelTest {
     void testCheckHasChildMenus() {
         MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
-        when(menuService.hasChildrenMenu(eq(MENU_ID))).thenReturn(true);
+        when(menuService.hasChildrenMenu(MENU_ID)).thenReturn(true);
 
         ApiException exception = assertThrows(ApiException.class, menuModel::checkHasChildMenus);
 
@@ -88,7 +87,7 @@ class MenuModelTest {
     void testCheckMenuAlreadyAssignToRole() {
         MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
-        when(menuService.isMenuAssignToRoles(eq(MENU_ID))).thenReturn(true);
+        when(menuService.isMenuAssignToRoles(MENU_ID)).thenReturn(true);
 
         ApiException exception = assertThrows(ApiException.class, menuModel::checkMenuAlreadyAssignToRole);
 

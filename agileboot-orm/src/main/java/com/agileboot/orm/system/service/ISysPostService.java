@@ -32,8 +32,9 @@ public interface ISysPostService extends IService<SysPostEntity> {
 
     /**
      * 检测职位是否分配给用户
+     *
      * @param postId 职位id
-     * @return
+     * @return 校验结果
      */
     boolean isAssignedToUsers(Long postId);
 

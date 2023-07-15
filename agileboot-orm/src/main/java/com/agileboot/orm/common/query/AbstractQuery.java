@@ -32,7 +32,8 @@ public abstract class AbstractQuery<T> {
 
     /**
      * 生成query conditions
-     * @return
+     *
+     * @return 添加条件后的QueryWrapper
      */
     public QueryWrapper<T> toQueryWrapper() {
         QueryWrapper<T> queryWrapper = addQueryCondition();
@@ -79,7 +80,8 @@ public abstract class AbstractQuery<T> {
 
         if (ASC.equals(this.orderDirection)) {
             isAsc = true;
-        }if (DESC.equals(this.orderDirection)) {
+        }
+        if (DESC.equals(this.orderDirection)) {
             isAsc = false;
         }
 

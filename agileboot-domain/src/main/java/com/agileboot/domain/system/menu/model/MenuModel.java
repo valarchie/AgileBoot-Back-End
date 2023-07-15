@@ -1,7 +1,6 @@
 package com.agileboot.domain.system.menu.model;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.http.HttpUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;

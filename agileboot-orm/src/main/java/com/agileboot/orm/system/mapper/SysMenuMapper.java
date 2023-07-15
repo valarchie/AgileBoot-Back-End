@@ -2,9 +2,10 @@ package com.agileboot.orm.system.mapper;
 
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,8 +19,9 @@ public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
 
     /**
      * 根据用户查询出所有菜单
-     * @param userId
-     * @return
+     *
+     * @param userId 用户id
+     * @return 菜单列表
      */
     @Select("SELECT DISTINCT m.* "
         + "FROM sys_menu m "

@@ -1,6 +1,5 @@
 package com.agileboot.domain.system.menu;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
@@ -11,10 +10,8 @@ import com.agileboot.domain.system.menu.dto.MenuDTO;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.menu.model.MenuModel;
 import com.agileboot.domain.system.menu.model.MenuModelFactory;
-import com.agileboot.domain.system.menu.model.RouterModel;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.common.enums.MenuTypeEnum;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
 import java.util.LinkedList;
