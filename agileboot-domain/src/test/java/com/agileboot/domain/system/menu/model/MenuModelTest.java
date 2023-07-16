@@ -34,11 +34,11 @@ class MenuModelTest {
     @Test
     void testCheckExternalLinkWhenSuccessful() {
         MenuModel notExternalButWithoutHttpPrefix = new MenuModel();
-        notExternalButWithoutHttpPrefix.setIsExternal(false);
+//        notExternalButWithoutHttpPrefix.setIsExternal(false);
         notExternalButWithoutHttpPrefix.setPath("www.baidu.com");
 
         MenuModel isExternalWithHttpPrefix = new MenuModel();
-        isExternalWithHttpPrefix.setIsExternal(true);
+//        isExternalWithHttpPrefix.setIsExternal(true);
         isExternalWithHttpPrefix.setPath("http://www.baidu.com");
 
         Assertions.assertDoesNotThrow(()->{
@@ -50,7 +50,7 @@ class MenuModelTest {
     @Test
     void testCheckExternalLinkWhenFailed() {
         MenuModel externalWithoutHttpPrefix = new MenuModel();
-        externalWithoutHttpPrefix.setIsExternal(true);
+//        externalWithoutHttpPrefix.setIsExternal(true);
         externalWithoutHttpPrefix.setPath("www.baidu.com");
 
         ApiException exception = assertThrows(ApiException.class, externalWithoutHttpPrefix::checkExternalLink);
