@@ -13,11 +13,11 @@ import lombok.Data;
  */
 @Data
 @ExcelSheet(name = "登录日志")
-public class LoginInfoDTO {
+public class LoginLogDTO {
 
-    public LoginInfoDTO(SysLoginInfoEntity entity) {
+    public LoginLogDTO(SysLoginInfoEntity entity) {
         if (entity != null) {
-            infoId = entity.getInfoId() + "";
+            logId = entity.getInfoId() + "";
             username = entity.getUsername();
             ipAddress = entity.getIpAddress();
             loginLocation = entity.getLoginLocation();
@@ -32,7 +32,7 @@ public class LoginInfoDTO {
 
 
     @ExcelColumn(name = "ID")
-    private String infoId;
+    private String logId;
 
     @ExcelColumn(name = "用户名")
     private String username;

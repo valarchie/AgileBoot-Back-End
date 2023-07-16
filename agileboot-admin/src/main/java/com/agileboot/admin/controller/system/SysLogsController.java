@@ -7,8 +7,8 @@ import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.log.LogApplicationService;
-import com.agileboot.domain.system.log.dto.LoginInfoDTO;
-import com.agileboot.domain.system.log.query.LoginInfoQuery;
+import com.agileboot.domain.system.log.dto.LoginLogDTO;
+import com.agileboot.domain.system.log.query.LoginLogQuery;
 import com.agileboot.domain.system.log.dto.OperationLogDTO;
 import com.agileboot.domain.system.log.dto.OperationLogQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -45,27 +45,27 @@ public class SysLogsController extends BaseController {
 
     @Operation(summary = "登录日志列表")
     @PreAuthorize("@permission.has('monitor:logininfor:list')")
-    @GetMapping("/loginInfos")
-    public ResponseDTO<PageDTO<LoginInfoDTO>> loginInfoList(LoginInfoQuery query) {
-        PageDTO<LoginInfoDTO> pageDTO = logApplicationService.getLoginInfoList(query);
+    @GetMapping("/loginLogs")
+    public ResponseDTO<PageDTO<LoginLogDTO>> loginInfoList(LoginLogQuery query) {
+        PageDTO<LoginLogDTO> pageDTO = logApplicationService.getLoginInfoList(query);
         return ResponseDTO.ok(pageDTO);
     }
 
     @Operation(summary = "登录日志导出", description = "将登录日志导出到excel")
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@permission.has('monitor:logininfor:export')")
-    @PostMapping("/loginInfos/excel")
-    public void loginInfosExcel(HttpServletResponse response, LoginInfoQuery query) {
-        PageDTO<LoginInfoDTO> pageDTO = logApplicationService.getLoginInfoList(query);
-        CustomExcelUtil.writeToResponse(pageDTO.getRows(), LoginInfoDTO.class, response);
+    @GetMapping("/loginLogs/excel")
+    public void loginInfosExcel(HttpServletResponse response, LoginLogQuery query) {
+        PageDTO<LoginLogDTO> pageDTO = logApplicationService.getLoginInfoList(query);
+        CustomExcelUtil.writeToResponse(pageDTO.getRows(), LoginLogDTO.class, response);
     }
 
     @Operation(summary = "删除登录日志")
     @PreAuthorize("@permission.has('monitor:logininfor:remove')")
     @AccessLog(title = "登录日志", businessType = BusinessTypeEnum.DELETE)
-    @DeleteMapping("/loginInfos")
-    public ResponseDTO<Void> removeLoginInfos(@RequestParam @NotNull @NotEmpty List<Long> infoIds) {
-        logApplicationService.deleteLoginInfo(new BulkOperationCommand<>(infoIds));
+    @DeleteMapping("/loginLogs")
+    public ResponseDTO<Void> removeLoginInfos(@RequestParam @NotNull @NotEmpty List<Long> ids) {
+        logApplicationService.deleteLoginInfo(new BulkOperationCommand<>(ids));
         return ResponseDTO.ok();
     }
 

@@ -2,8 +2,8 @@ package com.agileboot.domain.system.log;
 
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
-import com.agileboot.domain.system.log.dto.LoginInfoDTO;
-import com.agileboot.domain.system.log.query.LoginInfoQuery;
+import com.agileboot.domain.system.log.dto.LoginLogDTO;
+import com.agileboot.domain.system.log.query.LoginLogQuery;
 import com.agileboot.domain.system.log.dto.OperationLogDTO;
 import com.agileboot.domain.system.log.dto.OperationLogQuery;
 import com.agileboot.orm.system.entity.SysLoginInfoEntity;
@@ -25,15 +25,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LogApplicationService {
 
+    // TODO 命名到时候统一改成叫LoginLog
     @NonNull
     private ISysLoginInfoService loginInfoService;
 
     @NonNull
     private ISysOperationLogService operationLogService;
 
-    public PageDTO<LoginInfoDTO> getLoginInfoList(LoginInfoQuery query) {
+    public PageDTO<LoginLogDTO> getLoginInfoList(LoginLogQuery query) {
         Page<SysLoginInfoEntity> page = loginInfoService.page(query.toPage(), query.toQueryWrapper());
-        List<LoginInfoDTO> records = page.getRecords().stream().map(LoginInfoDTO::new).collect(Collectors.toList());
+        List<LoginLogDTO> records = page.getRecords().stream().map(LoginLogDTO::new).collect(Collectors.toList());
         return new PageDTO<>(records, page.getTotal());
     }
 

@@ -6,10 +6,10 @@ import com.agileboot.orm.common.interfaces.DictionaryEnum;
 
 /**
  * 用户状态
- *
  * @author valarchie
  */
-@Dictionary(name = "sysLoginInfo.status")
+// TODO 表记得改成LoginLog
+@Dictionary(name = "sysLoginLog.status")
 public enum LoginStatusEnum implements DictionaryEnum<Integer> {
     /**
      * status of user
