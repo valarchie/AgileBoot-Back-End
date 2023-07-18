@@ -88,13 +88,18 @@ logging:
 
 
 springdoc:
-    api-docs:
-        path: ${agileboot.api-docs-path-prefix}/v3/api-docs
+    swagger-ui:
+        # 开启Swagger UI界面  **安全考虑的话生产环境需要关掉**
+        # 因为knife4j的一些配置不灵活 所以重新改回springdoc+swagger的组合  真实开发的时候 使用apifox这种工具效率更高
+        enabled: true
+        url: ${agileboot.api-prefix}/v3/api-docs
+        config-url: ${agileboot.api-prefix}/v3/api-docs/swagger-config
+
 
 # 项目相关配置
 agileboot:
     # 文件基路径 示例（ Windows配置D:\agileboot，Linux配置 /home/agileboot）
     file-base-dir: D:\agileboot
-    # 因为knife4j不能给configUrl 配置前缀， 所以只能自己配置一个，然后通过转发来实现
-    api-docs-path-prefix: /dev-api
+    # 前端url请求转发前缀
+    api-prefix: /dev-api
     demo-enabled: false

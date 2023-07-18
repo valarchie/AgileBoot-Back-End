@@ -118,19 +118,10 @@ springdoc:
     path: /v3/api-docs
     groups:
       enabled: true
+  # 配置需要生成接口文档的扫描包
+  packages-to-scan: com.agileboot
 
-knife4j:
-  enable: true
-#  setting:
-#    language: zh_cn
-#    swagger-model-name: 实体类列表
-#  documents:
-#    - name: 标题1
-#      locations: classpath:markdown/*
-#      group: default
-#    - name: 标题2
-#      locations: classpath:markdown1/*
-#      group: 用户模块
+
 
 
 

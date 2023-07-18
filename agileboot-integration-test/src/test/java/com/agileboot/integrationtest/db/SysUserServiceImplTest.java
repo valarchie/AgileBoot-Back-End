@@ -91,7 +91,7 @@ class SysUserServiceImplTest {
     void testGetMenuPermissionsForUsers() {
         Set<String> permissionByUser = userService.getMenuPermissionsForUser(2L);
         List<SysMenuEntity> allMenus = menuService.list();
-        Set<String> allPermissions = allMenus.stream().map(SysMenuEntity::getPerms).collect(Collectors.toSet());
+        Set<String> allPermissions = allMenus.stream().map(SysMenuEntity::getPermission).collect(Collectors.toSet());
 
         Assertions.assertEquals(allPermissions.size() - 1, permissionByUser.size());
     }

@@ -34,6 +34,12 @@ public class MetaDTO {
     private Boolean keepAlive;
     // 需要内嵌的iframe链接地址
     private String frameSrc;
+    /**
+     *  是否是内部页面   使用frameSrc来嵌入页面时，当isFrameSrcInternal=true的时候, 前端需要做特殊处理
+     *  比如链接是 /druid/login.html
+     *  前端需要处理成 http://localhost:8080/druid/login.html
+    */
+    private Boolean isFrameSrcInternal;
     // 内嵌的iframe页面是否开启首次加载动画
     private Boolean frameLoading;
     // 页面加载动画（两种模式，第一种直接采用vue内置的transitions动画，第二种是使用animate.css编写进、离场动画，平台更推荐使用第二种模式，已经内置了animate.css，直接写对应的动画名即可）
