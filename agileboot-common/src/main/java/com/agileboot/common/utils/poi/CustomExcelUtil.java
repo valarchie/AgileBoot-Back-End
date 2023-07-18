@@ -31,7 +31,7 @@ public class CustomExcelUtil {
             writeToOutputStream(list, clazz, response.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
-            throw new ApiException(Internal.UNKNOWN_ERROR);
+            throw new ApiException(e, Internal.UNKNOWN_ERROR);
         }
     }
 

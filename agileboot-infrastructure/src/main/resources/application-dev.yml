@@ -89,7 +89,7 @@ logging:
 
 springdoc:
     swagger-ui:
-        # 开启Swagger UI界面  **安全考虑的话生产环境需要关掉**
+        # ***注意*** 开启Swagger UI界面  **安全考虑的话生产环境需要关掉**
         # 因为knife4j的一些配置不灵活 所以重新改回springdoc+swagger的组合  真实开发的时候 使用apifox这种工具效率更高
         enabled: true
         url: ${agileboot.api-prefix}/v3/api-docs

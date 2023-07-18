@@ -35,7 +35,8 @@ public class DbExceptionAspect {
         try {
             proceed = joinPoint.proceed();
         } catch (Exception e) {
-            throw new ApiException(e, ErrorCode.Internal.DB_INTERNAL_ERROR, e.getCause().getMessage());
+            throw new ApiException(e, ErrorCode.Internal.DB_INTERNAL_ERROR,
+                e.getCause() != null ? e.getCause().getMessage() : ErrorCode.UNKNOWN_ERROR.message());
         }
         return proceed;
     }
