@@ -12,11 +12,11 @@ import lombok.Data;
 public class RedisCacheInfoDTO {
 
     private Properties info;
-    private Object dbSize;
-    private List<CommonStatusDTO> commandStats;
+    private Long dbSize;
+    private List<CommandStatusDTO> commandStats;
 
     @Data
-    public static class CommonStatusDTO {
+    public static class CommandStatusDTO {
         private String name;
         private String value;
     }

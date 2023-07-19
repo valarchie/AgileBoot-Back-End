@@ -1,12 +1,13 @@
 package com.agileboot.domain.monitor;
 
 import cn.hutool.core.util.StrUtil;
+import com.agileboot.common.exception.ApiException;
+import com.agileboot.common.exception.error.ErrorCode.Internal;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.monitor.dto.OnlineUserDTO;
 import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO;
-import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO.CommonStatusDTO;
+import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO.CommandStatusDTO;
 import com.agileboot.domain.monitor.dto.ServerInfo;
-import com.agileboot.infrastructure.cache.RedisUtil;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,21 +32,16 @@ import org.springframework.stereotype.Service;
 public class MonitorApplicationService {
 
     @NonNull
-    private RedisTemplate<?, ?> redisTemplate;
-
-    @NonNull
-    private RedisUtil redisUtil;
-
+    private RedisTemplate<String, ?> redisTemplate;
 
     public RedisCacheInfoDTO getRedisCacheInfo() {
-
         Properties info = (Properties) redisTemplate.execute((RedisCallback<Object>) RedisServerCommands::info);
         Properties commandStats = (Properties) redisTemplate.execute(
             (RedisCallback<Object>) connection -> connection.info("commandstats"));
-        Object dbSize = redisTemplate.execute((RedisCallback<Object>) RedisServerCommands::dbSize);
+        Long dbSize = redisTemplate.execute(RedisServerCommands::dbSize);
 
-        if(commandStats == null) {
-            throw new RuntimeException("找不到对应的redis信息。");
+        if (commandStats == null || info == null) {
+            throw new ApiException(Internal.INTERNAL_ERROR, "找不到对应的redis信息。");
         }
 
         RedisCacheInfoDTO cacheInfo = new RedisCacheInfoDTO();
@@ -57,7 +53,7 @@ public class MonitorApplicationService {
         commandStats.stringPropertyNames().forEach(key -> {
             String property = commandStats.getProperty(key);
 
-            RedisCacheInfoDTO.CommonStatusDTO commonStatus = new CommonStatusDTO();
+            CommandStatusDTO commonStatus = new CommandStatusDTO();
             commonStatus.setName(StrUtil.removePrefix(key, "cmdstat_"));
             commonStatus.setValue(StrUtil.subBetween(property, "calls=", ",usec"));
 
@@ -68,7 +64,7 @@ public class MonitorApplicationService {
     }
 
     public List<OnlineUserDTO> getOnlineUserList(String username, String ipAddress) {
-        Collection<String> keys = redisUtil.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
+        Collection<String> keys = redisTemplate.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
 
         Stream<OnlineUserDTO> onlineUserStream = keys.stream().map(o ->
                     CacheCenter.loginUserCache.getObjectOnlyInCacheByKey(o))
