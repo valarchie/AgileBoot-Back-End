@@ -5,7 +5,7 @@ import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.monitor.MonitorApplicationService;
-import com.agileboot.domain.monitor.dto.OnlineUserInfo;
+import com.agileboot.domain.monitor.dto.OnlineUserDTO;
 import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.annotations.AccessLog;
@@ -56,15 +56,15 @@ public class MonitorController extends BaseController {
     /**
      * 获取在线用户列表
      *
-     * @param ipaddr ip地址
-     * @param userName 用户名
+     * @param ipAddress ip地址
+     * @param username 用户名
      * @return 分页处理后的在线用户信息
      */
     @Operation(summary = "在线用户列表")
     @PreAuthorize("@permission.has('monitor:online:list')")
-    @GetMapping("/onlineUser/list")
-    public ResponseDTO<PageDTO<OnlineUserInfo>> list(String ipaddr, String userName) {
-        List<OnlineUserInfo> onlineUserList = monitorApplicationService.getOnlineUserList(userName, ipaddr);
+    @GetMapping("/onlineUsers")
+    public ResponseDTO<PageDTO<OnlineUserDTO>> onlineUsers(String ipAddress, String username) {
+        List<OnlineUserDTO> onlineUserList = monitorApplicationService.getOnlineUserList(username, ipAddress);
         return ResponseDTO.ok(new PageDTO<>(onlineUserList));
     }
 
@@ -75,7 +75,7 @@ public class MonitorController extends BaseController {
     @PreAuthorize("@permission.has('monitor:online:forceLogout')")
     @AccessLog(title = "在线用户", businessType = BusinessTypeEnum.FORCE_LOGOUT)
     @DeleteMapping("/onlineUser/{tokenId}")
-    public ResponseDTO<Void> forceLogout(@PathVariable String tokenId) {
+    public ResponseDTO<Void> logoutOnlineUser(@PathVariable String tokenId) {
         CacheCenter.loginUserCache.delete(tokenId);
         return ResponseDTO.ok();
     }

@@ -2,7 +2,7 @@ package com.agileboot.domain.monitor;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.domain.monitor.dto.OnlineUserInfo;
+import com.agileboot.domain.monitor.dto.OnlineUserDTO;
 import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO.CommonStatusDTO;
 import com.agileboot.domain.monitor.dto.ServerInfo;
@@ -67,18 +67,18 @@ public class MonitorApplicationService {
         return cacheInfo;
     }
 
-    public List<OnlineUserInfo> getOnlineUserList(String userName, String ipaddr) {
+    public List<OnlineUserDTO> getOnlineUserList(String username, String ipAddress) {
         Collection<String> keys = redisUtil.keys(CacheKeyEnum.LOGIN_USER_KEY.key() + "*");
 
-        Stream<OnlineUserInfo> onlineUserStream = keys.stream().map(o ->
+        Stream<OnlineUserDTO> onlineUserStream = keys.stream().map(o ->
                     CacheCenter.loginUserCache.getObjectOnlyInCacheByKey(o))
-            .filter(Objects::nonNull).map(OnlineUserInfo::new);
+            .filter(Objects::nonNull).map(OnlineUserDTO::new);
 
-        List<OnlineUserInfo> filteredOnlineUsers = onlineUserStream
+        List<OnlineUserDTO> filteredOnlineUsers = onlineUserStream
             .filter(o ->
-                StrUtil.isEmpty(userName) || userName.equals(o.getUserName())
+                StrUtil.isEmpty(username) || username.equals(o.getUsername())
             ).filter( o ->
-                StrUtil.isEmpty(ipaddr) || ipaddr.equals(o.getIpaddr())
+                StrUtil.isEmpty(ipAddress) || ipAddress.equals(o.getIpAddress())
             ).collect(Collectors.toList());
 
         Collections.reverse(filteredOnlineUsers);

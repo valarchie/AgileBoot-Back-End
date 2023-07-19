@@ -11,7 +11,7 @@ import lombok.Data;
  * @author ruoyi
  */
 @Data
-public class OnlineUserInfo {
+public class OnlineUserDTO {
 
     /**
      * 会话编号
@@ -26,12 +26,12 @@ public class OnlineUserInfo {
     /**
      * 用户名称
      */
-    private String userName;
+    private String username;
 
     /**
      * 登录IP地址
      */
-    private String ipaddr;
+    private String ipAddress;
 
     /**
      * 登录地址
@@ -46,7 +46,7 @@ public class OnlineUserInfo {
     /**
      * 操作系统
      */
-    private String os;
+    private String operationSystem;
 
     /**
      * 登录时间
@@ -54,17 +54,17 @@ public class OnlineUserInfo {
     private Long loginTime;
 
 
-    public OnlineUserInfo(LoginUser user) {
+    public OnlineUserDTO(LoginUser user) {
         if (user == null) {
             return;
         }
         this.setTokenId(user.getCachedKey());
         this.tokenId = user.getCachedKey();
-        this.userName = user.getUsername();
-        this.ipaddr = user.getLoginInfo().getIpAddress();
+        this.username = user.getUsername();
+        this.ipAddress = user.getLoginInfo().getIpAddress();
         this.loginLocation = user.getLoginInfo().getLocation();
         this.browser = user.getLoginInfo().getBrowser();
-        this.os = user.getLoginInfo().getOperationSystem();
+        this.operationSystem = user.getLoginInfo().getOperationSystem();
         this.loginTime = user.getLoginTime();
 
         SysDeptEntity deptEntity = CacheCenter.deptCache.get(user.getDeptId() + "");
