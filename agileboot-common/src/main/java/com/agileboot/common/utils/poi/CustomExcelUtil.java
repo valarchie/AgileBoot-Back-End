@@ -47,7 +47,7 @@ public class CustomExcelUtil {
     public static <T> void writeToOutputStream(List<T> list, Class<T> clazz, OutputStream outputStream) {
 
         // 通过工具类创建writer
-        ExcelWriter writer = ExcelUtil.getWriter();
+        ExcelWriter writer = ExcelUtil.getWriter(true);
 
         ExcelSheet sheetAnno = clazz.getAnnotation(ExcelSheet.class);
 
