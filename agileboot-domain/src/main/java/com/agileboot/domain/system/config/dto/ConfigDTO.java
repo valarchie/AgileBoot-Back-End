@@ -27,7 +27,7 @@ public class ConfigDTO {
             configOptions =
                 JSONUtil.isTypeJSONArray(entity.getConfigOptions()) ? JSONUtil.toList(entity.getConfigOptions(),
                     String.class) : ListUtil.empty();
-            isAllowChange = Convert.toInt(entity.getIsAllowChange()) + "";
+            isAllowChange = Convert.toInt(entity.getIsAllowChange());
             isAllowChangeStr = BasicEnumUtil.getDescriptionByBool(YesOrNoEnum.class, entity.getIsAllowChange());
             remark = entity.getRemark();
             createTime = entity.getCreateTime();
@@ -39,7 +39,7 @@ public class ConfigDTO {
     private String configKey;
     private String configValue;
     private List<String> configOptions;
-    private String isAllowChange;
+    private Integer isAllowChange;
     private String isAllowChangeStr;
     private String remark;
     private Date createTime;

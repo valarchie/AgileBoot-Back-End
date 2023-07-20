@@ -341,7 +341,7 @@ public enum ErrorCode implements ErrorCodeInterface {
          */
         INVALID_PARAMETER(Module.COMMON, 1, "Internal.INVALID_PARAMETER", "参数异常：{}"),
 
-        UNKNOWN_ERROR(Module.COMMON, 2, "Internal.UNKNOWN_ERROR", "未知异常, 请查看系统日志"),
+        UNKNOWN_ERROR(Module.COMMON, 2, "Internal.UNKNOWN_ERROR", "未知异常, 详情请查看系统日志"),
 
         GET_ENUM_FAILED(Module.COMMON, 3, "Internal.GET_ENUM_FAILED", "获取枚举类型失败, 枚举类: {}"),
 

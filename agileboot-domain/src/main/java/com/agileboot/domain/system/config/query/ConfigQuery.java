@@ -18,13 +18,13 @@ import lombok.NoArgsConstructor;
 @Schema(name = "配置查询参数")
 public class ConfigQuery extends AbstractPageQuery<SysConfigEntity> {
 
-    @Schema(name = "配置名称")
+    @Schema(description = "配置名称")
     private String configName;
 
-    @Schema(name = "配置key")
+    @Schema(description = "配置key")
     private String configKey;
 
-    @Schema(name = "是否允许更改配置")
+    @Schema(description = "是否允许更改配置")
     private Boolean isAllowChange;
 
 

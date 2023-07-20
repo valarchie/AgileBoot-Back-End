@@ -14,7 +14,7 @@ public enum StatusEnum implements DictionaryEnum<Integer> {
      * 开关状态
      */
     ENABLE(1, "正常", CssTag.PRIMARY),
-    DISABLE(0, "停1用", CssTag.DANGER);
+    DISABLE(0, "停用", CssTag.DANGER);
 
     private final int value;
     private final String description;
