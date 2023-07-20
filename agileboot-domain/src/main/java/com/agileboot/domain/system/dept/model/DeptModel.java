@@ -33,12 +33,12 @@ public class DeptModel extends SysDeptEntity {
 
     public void loadAddCommand(AddDeptCommand addCommand) {
         this.setParentId(addCommand.getParentId());
-        this.setAncestors(addCommand.getAncestors());
         this.setDeptName(addCommand.getDeptName());
         this.setOrderNum(addCommand.getOrderNum());
         this.setLeaderName(addCommand.getLeaderName());
         this.setPhone(addCommand.getPhone());
         this.setEmail(addCommand.getEmail());
+        this.setStatus(addCommand.getStatus());
     }
 
     public void loadUpdateCommand(UpdateDeptCommand updateCommand) {

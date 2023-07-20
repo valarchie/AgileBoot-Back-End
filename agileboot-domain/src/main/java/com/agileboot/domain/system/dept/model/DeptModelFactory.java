@@ -34,7 +34,6 @@ public class DeptModelFactory {
 
     public DeptModel loadFromAddCommand(AddDeptCommand addCommand, DeptModel model) {
         model.setParentId(addCommand.getParentId());
-        model.setAncestors(addCommand.getAncestors());
         model.setDeptName(addCommand.getDeptName());
         model.setOrderNum(addCommand.getOrderNum());
         model.setLeaderName(addCommand.getLeaderName());

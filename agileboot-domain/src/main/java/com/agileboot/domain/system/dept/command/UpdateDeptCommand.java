@@ -16,8 +16,4 @@ public class UpdateDeptCommand extends AddDeptCommand {
     @PositiveOrZero
     private Long deptId;
 
-    @PositiveOrZero
-    private String status;
-
-
 }
