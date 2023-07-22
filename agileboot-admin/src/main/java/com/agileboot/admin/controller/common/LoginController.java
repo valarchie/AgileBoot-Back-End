@@ -122,7 +122,7 @@ public class LoginController {
 
     /**
      * 获取路由信息
-     *
+     * TODO 如果要在前端开启路由缓存的话 需要在ServerConfig.json 中  设置CachingAsyncRoutes=true  避免一直重复请求路由接口
      * @return 路由信息
      */
     @Operation(summary = "获取用户对应的菜单路由", description = "用于动态生成路由")

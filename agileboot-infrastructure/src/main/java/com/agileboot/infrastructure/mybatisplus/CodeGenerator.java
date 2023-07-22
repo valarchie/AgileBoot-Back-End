@@ -62,7 +62,7 @@ public class CodeGenerator {
             //生成的类 放在orm子模块下的/target/generated-code目录底下
             .module("/agileboot-orm/target/generated-code")
             .parentPackage("com.agileboot")
-            .tableName("sys_config")
+            .tableName("sys_menu")
             // 决定是否继承基类
             .isExtendsFromBaseEntity(true)
             .build();

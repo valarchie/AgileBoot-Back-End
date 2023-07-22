@@ -7,13 +7,16 @@ import cn.hutool.core.lang.tree.TreeUtil;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.domain.system.menu.dto.MenuDTO;
+import com.agileboot.domain.system.menu.dto.MenuDetailDTO;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.menu.model.MenuModel;
 import com.agileboot.domain.system.menu.model.MenuModelFactory;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,12 +41,14 @@ public class MenuApplicationService {
 
     public List<MenuDTO> getMenuList(MenuQuery query) {
         List<SysMenuEntity> list = menuService.list(query.toQueryWrapper());
-        return list.stream().map(MenuDTO::new).collect(Collectors.toList());
+        return list.stream().map(MenuDTO::new)
+            .sorted(Comparator.comparing(MenuDTO::getRank, Comparator.nullsLast(Integer::compareTo)))
+            .collect(Collectors.toList());
     }
 
-    public MenuDTO getMenuInfo(Long menuId) {
+    public MenuDetailDTO getMenuInfo(Long menuId) {
         SysMenuEntity byId = menuService.getById(menuId);
-        return new MenuDTO(byId);
+        return new MenuDetailDTO(byId);
     }
 
     public List<Tree<Long>> getDropdownList(LoginUser loginUser) {
@@ -58,7 +63,11 @@ public class MenuApplicationService {
         MenuModel model = menuModelFactory.create();
         model.loadAddCommand(addCommand);
 
+        // TODO 只允许在页面类型上添加按钮
+        // 目前前端不支持嵌套的外链跳转
         model.checkMenuNameUnique();
+        model.checkAddButtonInIframeOrOutLink();
+        model.checkAddMenuNotInCatalog();
         model.checkExternalLink();
 
         model.insert();
@@ -69,6 +78,8 @@ public class MenuApplicationService {
         model.loadUpdateCommand(updateCommand);
 
         model.checkMenuNameUnique();
+        model.checkAddButtonInIframeOrOutLink();
+        model.checkAddMenuNotInCatalog();
         model.checkExternalLink();
         model.checkParentIdConflict();
 
@@ -113,8 +124,10 @@ public class MenuApplicationService {
             allMenus = menuService.getMenuListByUserId(loginUser.getUserId());
         }
 
+        // 传给前端的路由排除掉按钮和停用的菜单
         List<SysMenuEntity> noButtonMenus = allMenus.stream()
             .filter(menu -> !menu.getIsButton())
+            .filter(menu-> StatusEnum.ENABLE.getValue().equals(menu.getStatus()))
             .collect(Collectors.toList());
 
         TreeNodeConfig config = new TreeNodeConfig();
@@ -125,7 +138,8 @@ public class MenuApplicationService {
             // 也可以使用 tree.setId(dept.getId());等一些默认值
             tree.setId(menu.getMenuId());
             tree.setParentId(menu.getParentId());
-            tree.setWeight(menu.getRank());
+            // TODO 可以取meta中的rank来排序
+//            tree.setWeight(menu.getRank());
             tree.putExtra("entity", menu);
         });
 

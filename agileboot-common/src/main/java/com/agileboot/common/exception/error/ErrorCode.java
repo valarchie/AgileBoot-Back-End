@@ -151,6 +151,15 @@ public enum ErrorCode implements ErrorCodeInterface {
         MENU_ALREADY_ASSIGN_TO_ROLE_NOT_ALLOW_DELETE(Module.MENU, 5,
             "Business.MENU_ALREADY_ASSIGN_TO_ROLE_NOT_ALLOW_DELETE", "菜单已分配给角色，不允许"),
 
+        MENU_NOT_ALLOWED_TO_CREATE_BUTTON_ON_IFRAME_OR_OUT_LINK(Module.MENU, 6,
+            "Business.MENU_ONLY_ALLOWED_TO_CREATE_BUTTON_ON_PAGE", "不允许在Iframe和外链跳转类型下创建按钮"),
+
+        MENU_ONLY_ALLOWED_TO_CREATE_SUB_MENU_IN_CATALOG(Module.MENU, 7,
+            "Business.MENU_ONLY_ALLOWED_TO_CREATE_SUB_MENU_IN_CATALOG", "只允许在目录类型底下创建子菜单"),
+
+        MENU_CAN_NOT_CHANGE_MENU_TYPE(Module.MENU, 8,
+            "Business.MENU_CAN_NOT_CHANGE_MENU_TYPE", "不允许更改菜单的类型"),
+
         // -------------------------------- Role -------------------------------------------------
 
         ROLE_NAME_IS_NOT_UNIQUE(Module.ROLE, 1, "Business.ROLE_NAME_IS_NOT_UNIQUE", "角色名称：{}, 已存在"),
