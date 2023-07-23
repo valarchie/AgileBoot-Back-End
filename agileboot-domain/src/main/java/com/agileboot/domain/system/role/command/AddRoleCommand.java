@@ -34,7 +34,7 @@ public class AddRoleCommand {
      */
     @ExcelColumn(name = "角色排序")
     @NotBlank(message = "显示顺序不能为空")
-    private String roleSort;
+    private Integer roleSort;
 
 
     private String remark;
