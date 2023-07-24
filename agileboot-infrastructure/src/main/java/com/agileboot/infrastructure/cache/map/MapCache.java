@@ -31,7 +31,7 @@ public class MapCache {
     }
 
     private static void initDictionaryCache() {
-
+        // TODO 这个可以做成自动扫描
         loadInCache(BusinessTypeEnum.values());
         loadInCache(YesOrNoEnum.values());
         loadInCache(StatusEnum.values());
@@ -41,7 +41,7 @@ public class MapCache {
         loadInCache(OperationStatusEnum.values());
         loadInCache(LoginStatusEnum.values());
         loadInCache(VisibleStatusEnum.values());
-
+        loadInCache(UserStatusEnum.values());
     }
 
 

@@ -49,8 +49,8 @@ public class SysUserEntity extends BaseEntity<SysUserEntity> {
     private String username;
 
     @ApiModelProperty("用户昵称")
-    @TableField("nick_name")
-    private String nickName;
+    @TableField("nickname")
+    private String nickname;
 
     @ApiModelProperty("用户类型（00系统用户）")
     @TableField("user_type")

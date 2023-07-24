@@ -16,7 +16,7 @@ public class AddUserCommand {
     private String username;
 
     @ExcelColumn(name = "昵称")
-    private String nickName;
+    private String nickname;
 
     @ExcelColumn(name = "邮件")
     private String email;
@@ -34,7 +34,7 @@ public class AddUserCommand {
     private String password;
 
     @ExcelColumn(name = "状态")
-    private String status;
+    private Integer status;
 
     @ExcelColumn(name = "角色ID")
     private Long roleId;

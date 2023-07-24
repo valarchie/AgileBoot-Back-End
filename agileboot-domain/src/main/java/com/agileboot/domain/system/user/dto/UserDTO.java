@@ -74,7 +74,7 @@ public class UserDTO {
     private String username;
 
     @ExcelColumn(name = "用户昵称")
-    private String nickName;
+    private String nickname;
 
     @ExcelColumn(name = "用户类型")
     private Integer userType;

@@ -39,12 +39,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 用户信息
- *
- * @author ruoyi
+ * @author valarchie
  */
 @Tag(name = "用户API", description = "用户相关的增删查改")
 @RestController
-@RequestMapping("/system/user")
+@RequestMapping("/system/users")
 @RequiredArgsConstructor
 public class SysUserController extends BaseController {
 
@@ -56,8 +55,8 @@ public class SysUserController extends BaseController {
      */
     @Operation(summary = "用户列表")
     @PreAuthorize("@permission.has('system:user:list') AND @dataScope.checkDeptId(#query.deptId)")
-    @GetMapping("/list")
-    public ResponseDTO<PageDTO<UserDTO>> list(SearchUserQuery<SearchUserDO> query) {
+    @GetMapping
+    public ResponseDTO<PageDTO<UserDTO>> userList(SearchUserQuery<SearchUserDO> query) {
         PageDTO<UserDTO> page = userApplicationService.getUserList(query);
         return ResponseDTO.ok(page);
     }
@@ -65,8 +64,8 @@ public class SysUserController extends BaseController {
     @Operation(summary = "用户列表导出")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@permission.has('system:user:export')")
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, SearchUserQuery<SearchUserDO> query) {
+    @GetMapping("/excel")
+    public void exportUserByExcel(HttpServletResponse response, SearchUserQuery<SearchUserDO> query) {
         PageDTO<UserDTO> userList = userApplicationService.getUserList(query);
         CustomExcelUtil.writeToResponse(userList.getRows(), UserDTO.class, response);
     }
@@ -74,8 +73,8 @@ public class SysUserController extends BaseController {
     @Operation(summary = "用户列表导入")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.IMPORT)
     @PreAuthorize("@permission.has('system:user:import')")
-    @PostMapping("/importData")
-    public ResponseDTO<Void> importData(MultipartFile file) {
+    @PostMapping("/excel")
+    public ResponseDTO<Void> importUserByExcel(MultipartFile file) {
         List<AddUserCommand> commands = CustomExcelUtil.readFromRequest(AddUserCommand.class, file);
 
         for (AddUserCommand command : commands) {
@@ -88,8 +87,8 @@ public class SysUserController extends BaseController {
      * 下载批量导入模板
      */
     @Operation(summary = "用户导入excel下载")
-    @PostMapping("/downloadTemplate")
-    public void downloadTemplate(HttpServletResponse response) {
+    @GetMapping("/excelTemplate")
+    public void downloadExcelTemplate(HttpServletResponse response) {
         CustomExcelUtil.writeToResponse(ListUtil.toList(new AddUserCommand()), AddUserCommand.class, response);
     }
 
@@ -98,7 +97,7 @@ public class SysUserController extends BaseController {
      */
     @Operation(summary = "用户详情")
     @PreAuthorize("@permission.has('system:user:query')")
-    @GetMapping(value = {"/", "/{userId}"})
+    @GetMapping("/{userId}")
     public ResponseDTO<UserDetailDTO> getUserDetailInfo(@PathVariable(value = "userId", required = false) Long userId) {
         UserDetailDTO userDetailInfo = userApplicationService.getUserDetailInfo(userId);
         return ResponseDTO.ok(userDetailInfo);
@@ -122,7 +121,7 @@ public class SysUserController extends BaseController {
     @Operation(summary = "修改用户")
     @PreAuthorize("@permission.has('system:user:edit') AND @dataScope.checkUserId(#command.userId)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
-    @PutMapping
+    @PutMapping("/{userId}")
     public ResponseDTO<Void> edit(@Validated @RequestBody UpdateUserCommand command) {
         userApplicationService.updateUser(command);
         return ResponseDTO.ok();
@@ -148,7 +147,7 @@ public class SysUserController extends BaseController {
     @Operation(summary = "重置用户密码")
     @PreAuthorize("@permission.has('system:user:resetPwd') AND @dataScope.checkUserId(#userId)")
     @AccessLog(title = "用户管理", businessType = BusinessTypeEnum.MODIFY)
-    @PutMapping("/{userId}/password/reset")
+    @PutMapping("/{userId}/password")
     public ResponseDTO<Void> resetPassword(@PathVariable Long userId, @RequestBody ResetPasswordCommand command) {
         command.setUserId(userId);
         userApplicationService.resetUserPassword(command);
