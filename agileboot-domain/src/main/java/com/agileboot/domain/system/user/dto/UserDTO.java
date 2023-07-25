@@ -5,6 +5,7 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.result.SearchUserDO;
@@ -37,6 +38,11 @@ public class UserDTO {
                 this.roleName = roleEntity != null ? roleEntity.getRoleName() : "";
             }
 
+            if (entity.getPostId() != null) {
+                SysPostEntity post = CacheCenter.postCache.getObjectById(entity.getRoleId());
+                this.postName = post != null ? post.getPostName() : "";
+            }
+
         }
     }
 
@@ -57,6 +63,9 @@ public class UserDTO {
 
     @ExcelColumn(name = "职位ID")
     private Long postId;
+
+    @ExcelColumn(name = "职位名称")
+    private String postName;
 
     @ExcelColumn(name = "角色ID")
     private Long roleId;

@@ -1,5 +1,6 @@
 package com.agileboot.infrastructure.interceptor.exception;
 
+import com.agileboot.common.core.dto.ErrorDTO;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
@@ -71,7 +72,7 @@ public class GlobalExceptionInterceptor {
     @ExceptionHandler(RuntimeException.class)
     public ResponseDTO<?> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         log.error("请求地址'{}',发生未知异常.", request.getRequestURI(), e);
-        return ResponseDTO.fail(Internal.UNKNOWN_ERROR);
+        return ResponseDTO.fail(Internal.UNKNOWN_ERROR, new ErrorDTO(e.getMessage(), "xxxxx"));
     }
 
     /**

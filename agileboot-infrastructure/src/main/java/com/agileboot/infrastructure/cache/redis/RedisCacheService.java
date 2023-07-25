@@ -5,8 +5,10 @@ import com.agileboot.infrastructure.cache.RedisUtil;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.infrastructure.web.service.UserDetailsServiceImpl;
+import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.orm.system.service.ISysPostService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
 import java.io.Serializable;
@@ -29,6 +31,8 @@ public class RedisCacheService {
     public RedisCacheTemplate<LoginUser> loginUserCache;
     public RedisCacheTemplate<SysUserEntity> userCache;
     public RedisCacheTemplate<SysRoleEntity> roleCache;
+
+    public RedisCacheTemplate<SysPostEntity> postCache;
 
     public RedisCacheTemplate<RoleInfo> roleModelInfoCache;
 
@@ -63,6 +67,16 @@ public class RedisCacheService {
             }
 
         };
+
+        postCache = new RedisCacheTemplate<SysPostEntity>(redisUtil, CacheKeyEnum.POST_ENTITY_KEY) {
+            @Override
+            public SysPostEntity getObjectFromDb(Object id) {
+                ISysPostService postService = SpringUtil.getBean(ISysPostService.class);
+                return postService.getById((Serializable) id);
+            }
+
+        };
+
 
     }
 

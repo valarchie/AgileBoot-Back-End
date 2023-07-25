@@ -41,6 +41,9 @@ public class ResponseDTO<T> {
     public static <T> ResponseDTO<T> fail(ErrorCodeInterface code) {
         return build(null, code);
     }
+    public static <T> ResponseDTO<T> fail(ErrorCodeInterface code, T data) {
+        return build(data, code);
+    }
 
     public static <T> ResponseDTO<T> fail(ErrorCodeInterface code, Object... args) {
         return build(null, code, args);

@@ -8,6 +8,7 @@ import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import javax.annotation.PostConstruct;
@@ -34,6 +35,8 @@ public class CacheCenter {
 
     public static RedisCacheTemplate<SysRoleEntity> roleCache;
 
+    public static RedisCacheTemplate<SysPostEntity> postCache;
+
     public static RedisCacheTemplate<RoleInfo> roleModelInfoCache;
 
     @PostConstruct
@@ -49,6 +52,7 @@ public class CacheCenter {
         userCache = redisCache.userCache;
         roleCache = redisCache.roleCache;
         roleModelInfoCache = redisCache.roleModelInfoCache;
+        postCache = redisCache.postCache;
     }
 
 }
