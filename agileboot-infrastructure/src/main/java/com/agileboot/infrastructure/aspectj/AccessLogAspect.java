@@ -53,9 +53,7 @@ public class AccessLogAspect {
             // 保存数据库
             ThreadPoolManager.execute(AsyncTaskFactory.recordOperationLog(operationLog));
         } catch (Exception exp) {
-            // 记录本地异常日志
-            log.error("生成操作日志异常，异常信息:{}", exp.getMessage());
-            exp.printStackTrace();
+            log.error("写入操作日式失败", exp);
         }
     }
 

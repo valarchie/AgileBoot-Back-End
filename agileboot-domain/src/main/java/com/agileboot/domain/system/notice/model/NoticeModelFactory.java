@@ -23,7 +23,7 @@ public class NoticeModelFactory {
         SysNoticeEntity byId = noticeService.getById(noticeId);
 
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, noticeId, "通知公告");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, noticeId, "通知公告");
         }
 
         return new NoticeModel(byId);

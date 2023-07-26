@@ -7,6 +7,7 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Internal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.util.List;
  *
  * @author valarchie
  */
+@Slf4j
 public class CustomExcelUtil {
 
     private CustomExcelUtil() {
@@ -30,8 +32,7 @@ public class CustomExcelUtil {
         try {
             writeToOutputStream(list, clazz, response.getOutputStream());
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new ApiException(e, Internal.UNKNOWN_ERROR);
+            throw new ApiException(e, Internal.EXCEL_PROCESS_ERROR, e.getMessage());
         }
     }
 
@@ -39,8 +40,8 @@ public class CustomExcelUtil {
         try {
             return readFromInputStream(clazz, file.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new ApiException(Internal.UNKNOWN_ERROR);
+            // 注意如果是捕获到的错误 一定要放进ApiException当中
+            throw new ApiException(e, Internal.EXCEL_PROCESS_ERROR, e.getMessage());
         }
     }
 

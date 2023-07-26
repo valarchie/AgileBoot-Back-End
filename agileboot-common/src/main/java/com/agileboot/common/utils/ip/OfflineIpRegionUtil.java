@@ -55,7 +55,7 @@ public class OfflineIpRegionUtil {
             return new IpRegion(split[0], split[1], split[2], split[3], split[4]);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("获取IP地理位置失败", e);
         }
         return null;
     }

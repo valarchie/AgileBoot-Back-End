@@ -32,7 +32,7 @@ public class RoleModelFactory {
     public RoleModel loadById(Long roleId) {
         SysRoleEntity byId = roleService.getById(roleId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, roleId, "角色");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, roleId, "角色");
         }
 
         LambdaQueryWrapper<SysRoleMenuEntity> queryWrapper = new LambdaQueryWrapper<>();

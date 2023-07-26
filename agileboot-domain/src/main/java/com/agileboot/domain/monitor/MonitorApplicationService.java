@@ -41,7 +41,7 @@ public class MonitorApplicationService {
         Long dbSize = redisTemplate.execute(RedisServerCommands::dbSize);
 
         if (commandStats == null || info == null) {
-            throw new ApiException(Internal.INTERNAL_ERROR, "找不到对应的redis信息。");
+            throw new ApiException(Internal.INTERNAL_ERROR, "获取Redis监控信息失败。");
         }
 
         RedisCacheInfoDTO cacheInfo = new RedisCacheInfoDTO();

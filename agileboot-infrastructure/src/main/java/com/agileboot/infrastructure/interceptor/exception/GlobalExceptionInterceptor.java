@@ -1,6 +1,5 @@
 package com.agileboot.infrastructure.interceptor.exception;
 
-import com.agileboot.common.core.dto.ErrorDTO;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
@@ -32,7 +31,7 @@ public class GlobalExceptionInterceptor {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseDTO<?> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request) {
         log.error("请求地址'{}',权限校验失败'{}'", request.getRequestURI(), e.getMessage());
-        return ResponseDTO.fail(Business.NO_PERMISSION_TO_OPERATE);
+        return ResponseDTO.fail(new ApiException(Business.PERMISSION_NOT_ALLOWED_TO_OPERATE));
     }
 
     /**
@@ -42,7 +41,7 @@ public class GlobalExceptionInterceptor {
     public ResponseDTO<?> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
         HttpServletRequest request) {
         log.error("请求地址'{}',不支持'{}'请求", request.getRequestURI(), e.getMethod());
-        return ResponseDTO.fail(Client.COMMON_REQUEST_METHOD_INVALID, e.getMethod());
+        return ResponseDTO.fail(new ApiException(Client.COMMON_REQUEST_METHOD_INVALID, e.getMethod()));
     }
 
     /**
@@ -51,10 +50,7 @@ public class GlobalExceptionInterceptor {
     @ExceptionHandler(ApiException.class)
     public ResponseDTO<?> handleServiceException(ApiException e) {
         log.error(e.getMessage(), e);
-        if (e.getErrorCode() == ErrorCode.Internal.DB_INTERNAL_ERROR) {
-            return ResponseDTO.fail(e.getErrorCode(), "请联系管理员查看错误日志");
-        }
-        return ResponseDTO.fail(e);
+        return ResponseDTO.fail(e, e.getPayload());
     }
 
     /**
@@ -63,7 +59,7 @@ public class GlobalExceptionInterceptor {
     @ExceptionHandler(UncheckedExecutionException.class)
     public ResponseDTO<?> handleServiceException(UncheckedExecutionException e) {
         log.error(e.getMessage(), e);
-        return ResponseDTO.fail(Internal.GET_CACHE_FAILED);
+        return ResponseDTO.fail(new ApiException(Internal.GET_CACHE_FAILED, e.getMessage()));
     }
 
     /**
@@ -71,8 +67,9 @@ public class GlobalExceptionInterceptor {
      */
     @ExceptionHandler(RuntimeException.class)
     public ResponseDTO<?> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
-        log.error("请求地址'{}',发生未知异常.", request.getRequestURI(), e);
-        return ResponseDTO.fail(Internal.UNKNOWN_ERROR, new ErrorDTO(e.getMessage(), "xxxxx"));
+        String errorMsg = String.format("请求地址'%s',发生未知异常.", request.getRequestURI());
+        log.error(errorMsg, e);
+        return ResponseDTO.fail(new ApiException(Internal.INTERNAL_ERROR, e.getMessage()));
     }
 
     /**
@@ -80,8 +77,9 @@ public class GlobalExceptionInterceptor {
      */
     @ExceptionHandler(Exception.class)
     public ResponseDTO<?> handleException(Exception e, HttpServletRequest request) {
-        log.error("请求地址'{}',发生系统异常.", request.getRequestURI(), e);
-        return ResponseDTO.fail(Internal.UNKNOWN_ERROR);
+        String errorMsg = String.format("请求地址'%s',发生未知异常.", request.getRequestURI());
+        log.error(errorMsg, e);
+        return ResponseDTO.fail(new ApiException(Internal.INTERNAL_ERROR, e.getMessage()));
     }
 
     /**
@@ -91,7 +89,7 @@ public class GlobalExceptionInterceptor {
     public ResponseDTO<?> handleBindException(BindException e) {
         log.error(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
-        return ResponseDTO.fail(ErrorCode.Client.COMMON_REQUEST_PARAMETERS_INVALID, message);
+        return ResponseDTO.fail(new ApiException(ErrorCode.Client.COMMON_REQUEST_PARAMETERS_INVALID, message));
     }
 
     /**
@@ -101,7 +99,7 @@ public class GlobalExceptionInterceptor {
     public ResponseDTO<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
-        return ResponseDTO.fail(ErrorCode.Client.COMMON_REQUEST_PARAMETERS_INVALID, message);
+        return ResponseDTO.fail(new ApiException(ErrorCode.Client.COMMON_REQUEST_PARAMETERS_INVALID, message));
     }
 
 

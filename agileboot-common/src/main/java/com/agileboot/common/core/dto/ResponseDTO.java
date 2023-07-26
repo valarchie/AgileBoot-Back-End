@@ -1,9 +1,7 @@
 package com.agileboot.common.core.dto;
 
-import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.common.exception.error.ErrorCodeInterface;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -22,44 +20,40 @@ public class ResponseDTO<T> {
 
     private T data;
 
+    private String requestId;
+
     public static <T> ResponseDTO<T> ok() {
-        return build(null, ErrorCode.SUCCESS);
+        return build(null, ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message());
     }
 
     public static <T> ResponseDTO<T> ok(T data) {
-        return build(data, ErrorCode.SUCCESS);
+        return build(data, ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message());
     }
 
     public static <T> ResponseDTO<T> fail() {
-        return build(null, ErrorCode.FAIL);
+        return build(null, ErrorCode.FAILED.code(), ErrorCode.FAILED.message());
     }
 
     public static <T> ResponseDTO<T> fail(T data) {
-        return build(data, ErrorCode.FAIL);
-    }
-
-    public static <T> ResponseDTO<T> fail(ErrorCodeInterface code) {
-        return build(null, code);
-    }
-    public static <T> ResponseDTO<T> fail(ErrorCodeInterface code, T data) {
-        return build(data, code);
-    }
-
-    public static <T> ResponseDTO<T> fail(ErrorCodeInterface code, Object... args) {
-        return build(null, code, args);
+        return build(data, ErrorCode.FAILED.code(), ErrorCode.FAILED.message());
     }
 
     public static <T> ResponseDTO<T> fail(ApiException exception) {
-        return build(exception.getErrorCode().code(), exception.getMessage());
+        return build(null, exception.getErrorCode().code(), exception.getMessage());
     }
 
-    public static <T> ResponseDTO<T> build(T data, ErrorCodeInterface code, Object... args) {
-        return new ResponseDTO<>(code.code(), StrUtil.format(code.message(), args), data);
+    public static <T> ResponseDTO<T> fail(ApiException exception, T data) {
+        return build(data, exception.getErrorCode().code(), exception.getMessage());
     }
 
-    public static <T> ResponseDTO<T> build(Integer code, String msg) {
-        return new ResponseDTO<>(code, msg, null);
+    public static <T> ResponseDTO<T> build(T data, Integer code, String msg) {
+        return new ResponseDTO<>(code, msg, data, "mock-requestId");
     }
+
+    // 去掉直接填充错误码的方式， 这种方式不能拿到i18n的错误消息  统一通过ApiException来构造错误消息
+//    public static <T> ResponseDTO<T> fail(ErrorCodeInterface code, Object... args) {
+//        return build(null, code, args);
+//    }
 
 }
 

@@ -33,7 +33,7 @@ public class ScheduleJobManager {
             log.info("Current Thread : {}, Fixed Delay Task : The time is now {}",
                 Thread.currentThread().getName(), DateUtil.formatTime(new Date()));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("计划任务执行失败", e);
         }
     }
 

@@ -52,7 +52,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
             LoginUser loginUser = AuthenticationUtils.getLoginUser();
             userId = loginUser.getUserId();
         } catch (Exception e) {
-            log.info("can not find user in current thread.");
+            log.warn("can not find user in current thread.");
         }
         return userId;
     }

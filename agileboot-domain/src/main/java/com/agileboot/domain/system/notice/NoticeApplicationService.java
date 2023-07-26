@@ -1,6 +1,8 @@
 package com.agileboot.domain.system.notice;
 
 import com.agileboot.common.core.page.PageDTO;
+import com.agileboot.common.exception.ApiException;
+import com.agileboot.common.exception.error.ErrorCode.Client;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;

@@ -22,7 +22,7 @@ public class ConfigModelFactory {
     public ConfigModel loadById(Long configId) {
         SysConfigEntity byId = configService.getById(configId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, configId, "参数配置");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, configId, "参数配置");
         }
         return new ConfigModel(byId, configService);
     }

@@ -22,7 +22,7 @@ public class MenuModelFactory {
     public MenuModel loadById(Long menuId) {
         SysMenuEntity byId = menuService.getById(menuId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, menuId, "菜单");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, menuId, "菜单");
         }
         return new MenuModel(byId, menuService);
     }

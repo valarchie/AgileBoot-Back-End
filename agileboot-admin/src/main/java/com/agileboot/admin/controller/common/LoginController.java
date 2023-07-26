@@ -3,6 +3,7 @@ package com.agileboot.admin.controller.common;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.core.dto.ResponseDTO;
+import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.common.dto.CurrentLoginUserDTO;
 import com.agileboot.domain.common.dto.TokenDTO;
@@ -137,7 +138,7 @@ public class LoginController {
     @Operation(summary = "注册接口", description = "暂未实现")
     @PostMapping("/register")
     public ResponseDTO<Void> register(@RequestBody AddUserCommand command) {
-        return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
+        return ResponseDTO.fail(new ApiException(Business.COMMON_UNSUPPORTED_OPERATION));
     }
 
 }

@@ -81,6 +81,7 @@ public class ResubmitInterceptor extends RequestBodyAdviceAdapter {
             LoginUser loginUser = AuthenticationUtils.getLoginUser();
             username = loginUser.getUsername();
         } catch (Exception e) {
+            log.warn("未找到对象用户", e);
             username = NO_LOGIN;
         }
 

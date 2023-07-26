@@ -64,7 +64,7 @@ public class RedisCacheTemplate<T> {
 
             return optional.get();
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.error("从缓存中获取对象失败", e);
             return null;
         }
     }
@@ -80,7 +80,7 @@ public class RedisCacheTemplate<T> {
             log.debug("find the guava cache of key: {}", cachedKey);
             return optional.orElse(null);
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.error("从缓存中获取对象失败", e);
             return null;
         }
     }
@@ -95,7 +95,7 @@ public class RedisCacheTemplate<T> {
             log.debug("find the guava cache of key: {}", cachedKey);
             return optional.orElse(null);
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.error("从缓存中获取对象失败", e);
             return null;
         }
     }

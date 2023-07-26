@@ -2,6 +2,7 @@ package com.agileboot.infrastructure.config;
 
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.core.dto.ResponseDTO;
+import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Client;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
@@ -76,7 +77,9 @@ public class SecurityConfig {
     @Bean
     public AuthenticationEntryPoint unauthorizedHandler() {
         return (request, response, exception) -> {
-            ResponseDTO<Object> responseDTO = ResponseDTO.fail(Client.COMMON_NO_AUTHORIZATION, request.getRequestURI());
+            ResponseDTO<Object> responseDTO = ResponseDTO.fail(
+                new ApiException(Client.COMMON_NO_AUTHORIZATION, request.getRequestURI())
+            );
             ServletHolderUtil.renderString(response, JSONUtil.toJsonStr(responseDTO));
         };
     }

@@ -21,7 +21,7 @@ public class PostModelFactory {
     public PostModel loadById(Long postId) {
         SysPostEntity byId = postService.getById(postId);
         if (byId == null) {
-            throw new ApiException(Business.OBJECT_NOT_FOUND, postId, "职位");
+            throw new ApiException(Business.COMMON_OBJECT_NOT_FOUND, postId, "职位");
         }
         return new PostModel(byId, postService);
     }

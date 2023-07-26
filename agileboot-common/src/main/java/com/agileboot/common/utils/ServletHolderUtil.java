@@ -1,6 +1,7 @@
 package com.agileboot.common.utils;
 
 import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,6 +15,7 @@ import java.io.IOException;
  *
  * @author ruoyi
  */
+@Slf4j
 public class ServletHolderUtil {
 
     private ServletHolderUtil() {
@@ -52,7 +54,7 @@ public class ServletHolderUtil {
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("返回response失败", e);
         }
     }
 

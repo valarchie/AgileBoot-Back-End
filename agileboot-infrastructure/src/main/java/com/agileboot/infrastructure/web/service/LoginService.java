@@ -14,7 +14,7 @@ import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants.Captcha;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.common.exception.error.ErrorCode.Internal;
+import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.i18n.MessageUtils;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
@@ -93,13 +93,13 @@ public class LoginService {
         } catch (BadCredentialsException e) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL,
                 MessageUtils.message("Business.LOGIN_WRONG_USER_PASSWORD")));
-            throw new ApiException(ErrorCode.Business.LOGIN_WRONG_USER_PASSWORD);
+            throw new ApiException(e, ErrorCode.Business.LOGIN_WRONG_USER_PASSWORD);
         } catch (AuthenticationException e) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
-            throw new ApiException(e.getCause(), ErrorCode.Business.LOGIN_ERROR, e.getMessage());
+            throw new ApiException(e, ErrorCode.Business.LOGIN_ERROR, e.getMessage());
         } catch (Exception e) {
             ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
-            throw new ApiException(e.getCause(), Internal.INTERNAL_ERROR, e.getMessage());
+            throw new ApiException(e, Business.LOGIN_ERROR, e.getMessage());
         }
         // 把当前登录用户 放入上下文中
         SecurityContextHolder.getContext().setAuthentication(authentication);

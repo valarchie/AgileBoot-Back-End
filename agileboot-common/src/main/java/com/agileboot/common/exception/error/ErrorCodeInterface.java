@@ -6,12 +6,6 @@ package com.agileboot.common.exception.error;
 public interface ErrorCodeInterface {
 
     /**
-     * 返回错误码名称
-     * @return 枚举名称
-     */
-    String name();
-
-    /**
      * 返回错误码
      * @return 错误码
      */

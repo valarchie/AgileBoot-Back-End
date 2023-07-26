@@ -34,7 +34,7 @@ public class UserModelFactory {
     public UserModel loadById(Long userId) {
         SysUserEntity byId = userService.getById(userId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, userId, "用户");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, userId, "用户");
         }
         return new UserModel(byId, userService, postModelFactory, deptModelFactory, roleModelFactory);
     }

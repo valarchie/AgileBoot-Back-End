@@ -74,11 +74,11 @@ public class TokenService {
 
                 return redisCache.loginUserCache.getObjectOnlyInCacheById(uuid);
             } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException jwtException) {
-                log.error("parse token failed. due to:{}", jwtException.getMessage());
-                throw new ApiException(jwtException, ErrorCode.Internal.INVALID_TOKEN);
+                log.error("parse token failed.", jwtException);
+                throw new ApiException(jwtException, ErrorCode.Client.INVALID_TOKEN);
             } catch (Exception e) {
                 log.error("fail to get cached user from redis", e);
-                throw new ApiException(e, ErrorCode.UNKNOWN_ERROR);
+                throw new ApiException(e, ErrorCode.Client.TOKEN_PROCESS_FAILED, e.getMessage());
             }
 
         }

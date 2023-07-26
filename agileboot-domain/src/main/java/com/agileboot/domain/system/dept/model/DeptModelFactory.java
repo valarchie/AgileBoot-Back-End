@@ -23,7 +23,7 @@ public class DeptModelFactory {
     public DeptModel loadById(Long deptId) {
         SysDeptEntity byId = deptService.getById(deptId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, deptId, "部门");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, deptId, "部门");
         }
         return new DeptModel(byId, deptService);
     }

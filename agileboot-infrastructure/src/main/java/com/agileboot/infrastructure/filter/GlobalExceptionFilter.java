@@ -30,11 +30,12 @@ public class GlobalExceptionFilter implements Filter {
             chain.doFilter(request, response);
         } catch (ApiException ex) {
             log.error("global filter exceptions", ex);
-            String resultJson = JSONUtil.toJsonStr(ResponseDTO.fail(ex.getErrorCode()));
+            String resultJson = JSONUtil.toJsonStr(ResponseDTO.fail(ex));
             writeToResponse(response, resultJson);
         } catch (Exception e) {
             log.error("global filter exceptions, unknown error:", e);
-            String resultJson = JSONUtil.toJsonStr(ResponseDTO.fail(Internal.INTERNAL_ERROR, e.getMessage()));
+            ResponseDTO<Object> responseDTO = ResponseDTO.fail(new ApiException(Internal.INTERNAL_ERROR, e.getMessage()));
+            String resultJson = JSONUtil.toJsonStr(responseDTO);
             writeToResponse(response, resultJson);
         }
     }
