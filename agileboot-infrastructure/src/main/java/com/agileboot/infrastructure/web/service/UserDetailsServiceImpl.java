@@ -8,7 +8,7 @@ import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.orm.common.enums.DataScopeEnum;
 import com.agileboot.orm.common.enums.UserStatusEnum;
-import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.common.enums.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;

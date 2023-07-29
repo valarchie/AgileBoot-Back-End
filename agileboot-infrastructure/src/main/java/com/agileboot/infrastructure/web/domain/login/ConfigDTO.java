@@ -1,6 +1,6 @@
 package com.agileboot.infrastructure.web.domain.login;
 
-import com.agileboot.orm.common.result.DictionaryData;
+import com.agileboot.orm.common.dto.DictionaryData;
 import java.util.List;
 import java.util.Map;
 import lombok.Data;

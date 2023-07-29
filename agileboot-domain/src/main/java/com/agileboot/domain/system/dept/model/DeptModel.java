@@ -7,7 +7,7 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.orm.common.enums.StatusEnum;
-import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.common.enums.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.service.ISysDeptService;
 import java.util.Objects;

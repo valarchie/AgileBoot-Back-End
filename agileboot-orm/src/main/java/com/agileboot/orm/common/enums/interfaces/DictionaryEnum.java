@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.interfaces;
+package com.agileboot.orm.common.enums.interfaces;
 
 /**
  * 字典类型 接口

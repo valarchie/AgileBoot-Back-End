@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.interfaces;
+package com.agileboot.orm.common.enums.interfaces;
 
 /**
  * @author valarchie

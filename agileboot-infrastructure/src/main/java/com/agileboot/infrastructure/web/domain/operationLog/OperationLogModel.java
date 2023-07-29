@@ -11,7 +11,7 @@ import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.OperationStatusEnum;
 import com.agileboot.orm.common.enums.RequestMethodEnum;
-import com.agileboot.orm.common.util.BasicEnumUtil;
+import com.agileboot.orm.common.enums.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysOperationLogEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

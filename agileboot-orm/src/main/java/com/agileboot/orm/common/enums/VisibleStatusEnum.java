@@ -2,7 +2,7 @@ package com.agileboot.orm.common.enums;
 
 import com.agileboot.orm.common.CssTag;
 import com.agileboot.orm.common.annotations.Dictionary;
-import com.agileboot.orm.common.interfaces.DictionaryEnum;
+import com.agileboot.orm.common.enums.interfaces.DictionaryEnum;
 
 /**
  * 对应sys_menu表的is_visible字段

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 读取项目相关配置
- *
+ * TODO 移走  不合适放在这里common包底下
  * @author valarchie
  */
 @Component
