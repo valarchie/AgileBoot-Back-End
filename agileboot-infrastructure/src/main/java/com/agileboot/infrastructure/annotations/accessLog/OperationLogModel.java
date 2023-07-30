@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.operationLog;
+package com.agileboot.infrastructure.annotations.accessLog;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.EnumUtil;
@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
-import com.agileboot.infrastructure.annotations.AccessLog;
+import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.OperationStatusEnum;

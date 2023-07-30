@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.interceptor.exception;
+package com.agileboot.infrastructure.exception;
 
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;

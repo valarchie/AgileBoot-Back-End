@@ -9,7 +9,7 @@ import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.domain.system.menu.dto.MenuDTO;
 import com.agileboot.domain.system.menu.dto.MenuDetailDTO;
 import com.agileboot.domain.system.menu.query.MenuQuery;
-import com.agileboot.infrastructure.annotations.AccessLog;
+import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;

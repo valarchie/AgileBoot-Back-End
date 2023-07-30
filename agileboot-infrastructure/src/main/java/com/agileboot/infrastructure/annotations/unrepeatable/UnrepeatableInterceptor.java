@@ -1,9 +1,8 @@
-package com.agileboot.infrastructure.interceptor.unrepeatable;
+package com.agileboot.infrastructure.annotations.unrepeatable;
 
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.annotations.Unrepeatable;
 import com.agileboot.infrastructure.cache.RedisUtil;
 import java.lang.reflect.Type;
 import java.util.Objects;

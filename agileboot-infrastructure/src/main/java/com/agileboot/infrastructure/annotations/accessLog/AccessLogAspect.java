@@ -1,9 +1,7 @@
-package com.agileboot.infrastructure.aspectj;
+package com.agileboot.infrastructure.annotations.accessLog;
 
-import com.agileboot.infrastructure.annotations.AccessLog;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
-import com.agileboot.infrastructure.web.domain.operationLog.OperationLogModel;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

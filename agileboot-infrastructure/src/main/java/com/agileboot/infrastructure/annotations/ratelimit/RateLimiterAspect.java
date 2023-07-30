@@ -1,8 +1,7 @@
-package com.agileboot.infrastructure.aspectj;
+package com.agileboot.infrastructure.annotations.ratelimit;
 
-import com.agileboot.infrastructure.annotations.RateLimit;
-import com.agileboot.infrastructure.web.domain.ratelimit.MapRateLimitChecker;
-import com.agileboot.infrastructure.web.domain.ratelimit.RedisRateLimitChecker;
+import com.agileboot.infrastructure.annotations.ratelimit.implementation.MapRateLimitChecker;
+import com.agileboot.infrastructure.annotations.ratelimit.implementation.RedisRateLimitChecker;
 import java.lang.reflect.Method;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

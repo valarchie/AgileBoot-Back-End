@@ -1,6 +1,7 @@
 package com.agileboot.infrastructure.annotations;
 
-import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.LimitType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

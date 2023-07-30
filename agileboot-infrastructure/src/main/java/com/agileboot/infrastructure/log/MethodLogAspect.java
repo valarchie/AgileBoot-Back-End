@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.aspectj;
+package com.agileboot.infrastructure.log;
 
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.utils.jackson.JacksonUtil;

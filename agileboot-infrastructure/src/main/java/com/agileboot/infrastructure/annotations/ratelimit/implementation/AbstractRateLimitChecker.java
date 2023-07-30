@@ -1,6 +1,6 @@
-package com.agileboot.infrastructure.web.domain.ratelimit;
+package com.agileboot.infrastructure.annotations.ratelimit.implementation;
 
-import com.agileboot.infrastructure.annotations.RateLimit;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
 
 /**
  * @author valarchie

@@ -14,7 +14,7 @@ import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.infrastructure.annotations.AccessLog;
+import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;

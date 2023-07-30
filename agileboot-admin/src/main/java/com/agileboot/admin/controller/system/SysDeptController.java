@@ -8,7 +8,7 @@ import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.domain.system.dept.dto.DeptDTO;
 import com.agileboot.domain.system.dept.query.DeptQuery;
-import com.agileboot.infrastructure.annotations.AccessLog;
+import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

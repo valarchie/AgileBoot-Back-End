@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.annotations;
+package com.agileboot.infrastructure.annotations.accessLog;
 
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.agileboot.orm.common.enums.OperatorTypeEnum;

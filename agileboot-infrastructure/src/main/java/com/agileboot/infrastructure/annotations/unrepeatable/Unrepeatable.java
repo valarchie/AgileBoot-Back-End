@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.annotations;
+package com.agileboot.infrastructure.annotations.unrepeatable;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;

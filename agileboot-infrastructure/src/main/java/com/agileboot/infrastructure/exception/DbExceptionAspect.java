@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.aspectj;
+package com.agileboot.infrastructure.exception;
 
 import cn.hutool.core.map.MapUtil;
 import com.agileboot.common.exception.ApiException;

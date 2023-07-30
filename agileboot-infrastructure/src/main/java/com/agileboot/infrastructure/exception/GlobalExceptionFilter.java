@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.filter;
+package com.agileboot.infrastructure.exception;
 
 
 import cn.hutool.json.JSONUtil;

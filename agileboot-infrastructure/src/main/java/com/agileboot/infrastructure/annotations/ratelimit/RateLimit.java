@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.annotations;
+package com.agileboot.infrastructure.annotations.ratelimit;
 
 import cn.hutool.extra.servlet.ServletUtil;
 import com.agileboot.common.exception.ApiException;

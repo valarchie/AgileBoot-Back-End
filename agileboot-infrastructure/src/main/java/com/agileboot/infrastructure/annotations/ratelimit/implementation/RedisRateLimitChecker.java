@@ -1,9 +1,9 @@
-package com.agileboot.infrastructure.web.domain.ratelimit;
+package com.agileboot.infrastructure.annotations.ratelimit.implementation;
 
 import cn.hutool.core.collection.ListUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.annotations.RateLimit;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

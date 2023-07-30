@@ -1,6 +1,6 @@
 package com.agileboot.infrastructure.config;
 
-import com.agileboot.infrastructure.filter.GlobalExceptionFilter;
+import com.agileboot.infrastructure.exception.GlobalExceptionFilter;
 import com.agileboot.infrastructure.filter.TestFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
