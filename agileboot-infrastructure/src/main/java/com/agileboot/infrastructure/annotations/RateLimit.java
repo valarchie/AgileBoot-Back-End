@@ -72,18 +72,33 @@ public @interface RateLimit {
         },
 
         /**
-         * 按用户限流
+         * 按Web用户限流
          */
-        USER {
+        WEB_USER {
             @Override
             public String generateCombinedKey(RateLimit rateLimiter) {
-                LoginUser loginUser = AuthenticationUtils.getLoginUser();
+                LoginUser loginUser = AuthenticationUtils.getWebLoginUser();
+                if (loginUser == null) {
+                    throw new ApiException(ErrorCode.Client.COMMON_NO_AUTHORIZATION);
+                }
+                return rateLimiter.key() + loginUser.getUsername();
+            }
+        },
+
+        /**
+         * 按App用户限流
+         */
+        APP_USER {
+            @Override
+            public String generateCombinedKey(RateLimit rateLimiter) {
+                LoginUser loginUser = AuthenticationUtils.getAppLoginUser();
                 if (loginUser == null) {
                     throw new ApiException(ErrorCode.Client.COMMON_NO_AUTHORIZATION);
                 }
                 return rateLimiter.key() + loginUser.getUsername();
             }
         };
+
 
         public abstract String generateCombinedKey(RateLimit rateLimiter);
 

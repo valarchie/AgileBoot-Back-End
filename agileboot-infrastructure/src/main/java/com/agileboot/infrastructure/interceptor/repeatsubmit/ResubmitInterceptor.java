@@ -56,7 +56,7 @@ public class ResubmitInterceptor extends RequestBodyAdviceAdapter {
 
         Unrepeatable resubmitAnno = parameter.getMethodAnnotation(Unrepeatable.class);
         if (resubmitAnno != null) {
-            String redisKey = generateResubmitRedisKey(parameter.getMethod());
+            String redisKey = resubmitAnno.checkType().generateResubmitRedisKey(parameter.getMethod());
 
             log.info("请求重复提交拦截，当前key:{}, 当前参数：{}", redisKey, currentRequest);
 
@@ -74,20 +74,4 @@ public class ResubmitInterceptor extends RequestBodyAdviceAdapter {
         return body;
     }
 
-    public String generateResubmitRedisKey(Method method) {
-        String username;
-
-        try {
-            LoginUser loginUser = AuthenticationUtils.getLoginUser();
-            username = loginUser.getUsername();
-        } catch (Exception e) {
-            log.warn("未找到对象用户", e);
-            username = NO_LOGIN;
-        }
-
-        return StrUtil.format(RESUBMIT_REDIS_KEY,
-            method.getDeclaringClass().getName(),
-            method.getName(),
-            username);
-    }
 }

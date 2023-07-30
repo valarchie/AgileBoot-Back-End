@@ -40,6 +40,28 @@ public class AuthenticationUtils {
     }
 
     /**
+     * 获取App用户
+     **/
+    public static LoginUser getAppLoginUser() {
+        try {
+            return (LoginUser) getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
+        }
+    }
+
+    /**
+     * 获取App用户
+     **/
+    public static LoginUser getWebLoginUser() {
+        try {
+            return (LoginUser) getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
+        }
+    }
+
+    /**
      * 获取Authentication
      */
     public static Authentication getAuthentication() {
