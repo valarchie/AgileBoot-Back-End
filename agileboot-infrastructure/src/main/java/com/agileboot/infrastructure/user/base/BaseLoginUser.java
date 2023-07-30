@@ -1,11 +1,9 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.infrastructure.user.base;
 
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import eu.bitwalker.useragentutils.UserAgent;
 import java.util.Collection;

@@ -6,8 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.agileboot.admin.customize.service.permission.model.checker.SingleDeptDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.infrastructure.user.web.RoleInfo;
 import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.orm.system.service.ISysDeptService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ class SingleDeptDataPermissionCheckerTest {
 
     private final ISysDeptService deptService = mock(ISysDeptService.class);
 
-    public WebLoginUser loginUser = mock(WebLoginUser.class);
+    public SystemLoginUser loginUser = mock(SystemLoginUser.class);
 
     @BeforeEach
     public void mockBefore() {
@@ -30,7 +30,7 @@ class SingleDeptDataPermissionCheckerTest {
         SingleDeptDataPermissionChecker checker = new SingleDeptDataPermissionChecker(deptService);
 
         boolean check1 = checker.check(null, null);
-        boolean check2 = checker.check(new WebLoginUser(), null);
+        boolean check2 = checker.check(new SystemLoginUser(), null);
         boolean check3 = checker.check(null, new DataCondition());
         boolean check4 = checker.check(loginUser, new DataCondition());
 

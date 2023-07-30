@@ -2,8 +2,7 @@ package com.agileboot.infrastructure.cache.redis;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.RedisUtil;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -14,7 +13,6 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,7 +26,7 @@ public class RedisCacheService {
     private RedisUtil redisUtil;
 
     public RedisCacheTemplate<String> captchaCache;
-    public RedisCacheTemplate<WebLoginUser> loginUserCache;
+    public RedisCacheTemplate<SystemLoginUser> loginUserCache;
     public RedisCacheTemplate<SysUserEntity> userCache;
     public RedisCacheTemplate<SysRoleEntity> roleCache;
 

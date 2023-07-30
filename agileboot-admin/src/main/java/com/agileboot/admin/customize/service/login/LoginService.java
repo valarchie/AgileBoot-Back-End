@@ -25,7 +25,7 @@ import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
 import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
 import com.agileboot.admin.customize.service.login.command.LoginCommand;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -104,7 +104,7 @@ public class LoginService {
         // 把当前登录用户 放入上下文中
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // 这里获取的loginUser是UserDetailsServiceImpl#loadUserByUsername方法返回的LoginUser
-        WebLoginUser loginUser = (WebLoginUser) authentication.getPrincipal();
+        SystemLoginUser loginUser = (SystemLoginUser) authentication.getPrincipal();
         recordLoginInfo(loginUser);
         // 生成token
         return tokenService.createTokenAndPutUserInCache(loginUser);
@@ -202,7 +202,7 @@ public class LoginService {
      * 记录登录信息
      * @param loginUser 登录用户
      */
-    public void recordLoginInfo(WebLoginUser loginUser) {
+    public void recordLoginInfo(SystemLoginUser loginUser) {
         ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginUser.getUsername(), LoginStatusEnum.LOGIN_SUCCESS,
             LoginStatusEnum.LOGIN_SUCCESS.description()));
 

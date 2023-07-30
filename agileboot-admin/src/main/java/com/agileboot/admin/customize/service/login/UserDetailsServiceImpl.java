@@ -4,8 +4,8 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.infrastructure.user.web.RoleInfo;
 import com.agileboot.orm.common.enums.DataScopeEnum;
 import com.agileboot.orm.common.enums.UserStatusEnum;
 import com.agileboot.orm.common.enums.util.BasicEnumUtil;
@@ -71,7 +71,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         RoleInfo roleInfo = getRoleInfo(userEntity.getRoleId(), userEntity.getIsAdmin());
 
-        WebLoginUser loginUser = new WebLoginUser(userEntity.getUserId(), userEntity.getIsAdmin(), userEntity.getUsername(),
+        SystemLoginUser loginUser = new SystemLoginUser(userEntity.getUserId(), userEntity.getIsAdmin(), userEntity.getUsername(),
             userEntity.getPassword(), roleInfo, userEntity.getDeptId());
         loginUser.fillLoginInfo();
         loginUser.setAutoRefreshCacheTime(loginUser.getLoginInfo().getLoginTime()

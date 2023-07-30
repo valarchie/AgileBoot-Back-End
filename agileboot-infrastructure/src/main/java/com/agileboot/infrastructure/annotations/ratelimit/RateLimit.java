@@ -4,8 +4,9 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.app.AppLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -74,10 +75,10 @@ public @interface RateLimit {
         /**
          * 按Web用户限流
          */
-        WEB_USER {
+        SYSTEM_USER {
             @Override
             public String generateCombinedKey(RateLimit rateLimiter) {
-                WebLoginUser loginUser = AuthenticationUtils.getWebLoginUser();
+                SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
                 if (loginUser == null) {
                     throw new ApiException(ErrorCode.Client.COMMON_NO_AUTHORIZATION);
                 }
@@ -91,7 +92,7 @@ public @interface RateLimit {
         APP_USER {
             @Override
             public String generateCombinedKey(RateLimit rateLimiter) {
-                WebLoginUser loginUser = AuthenticationUtils.getAppLoginUser();
+                AppLoginUser loginUser = AuthenticationUtils.getAppLoginUser();
                 if (loginUser == null) {
                     throw new ApiException(ErrorCode.Client.COMMON_NO_AUTHORIZATION);
                 }

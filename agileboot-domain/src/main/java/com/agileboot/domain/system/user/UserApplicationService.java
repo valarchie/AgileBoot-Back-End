@@ -20,7 +20,7 @@ import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -77,7 +77,7 @@ public class UserApplicationService {
      *
      * @return 当前登录用户信息
      */
-    public CurrentLoginUserDTO getLoginUserInfo(WebLoginUser loginUser) {
+    public CurrentLoginUserDTO getLoginUserInfo(SystemLoginUser loginUser) {
         CurrentLoginUserDTO permissionDTO = new CurrentLoginUserDTO();
 
         permissionDTO.setUserInfo(new UserDTO(CacheCenter.userCache.getObjectById(loginUser.getUserId())));
@@ -144,7 +144,7 @@ public class UserApplicationService {
         CacheCenter.userCache.delete(model.getUserId());
     }
 
-    public void deleteUsers(WebLoginUser loginUser, BulkOperationCommand<Long> command) {
+    public void deleteUsers(SystemLoginUser loginUser, BulkOperationCommand<Long> command) {
         for (Long id : command.getIds()) {
             UserModel userModel = userModelFactory.loadById(id);
             userModel.checkCanBeDelete(loginUser);
@@ -152,7 +152,7 @@ public class UserApplicationService {
         }
     }
 
-    public void updatePasswordBySelf(WebLoginUser loginUser, UpdateUserPasswordCommand command) {
+    public void updatePasswordBySelf(SystemLoginUser loginUser, UpdateUserPasswordCommand command) {
         UserModel userModel = userModelFactory.loadById(command.getUserId());
         userModel.modifyPassword(command);
         userModel.updateById();

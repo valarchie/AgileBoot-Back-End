@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import com.agileboot.admin.customize.service.permission.model.checker.OnlySelfDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.orm.system.service.ISysDeptService;
 import org.junit.jupiter.api.Test;
@@ -19,9 +19,9 @@ class OnlySelfDataPermissionCheckerTest {
         OnlySelfDataPermissionChecker checker = new OnlySelfDataPermissionChecker(deptService);
 
         boolean check1 = checker.check(null, null);
-        boolean check2 = checker.check(new WebLoginUser(), null);
+        boolean check2 = checker.check(new SystemLoginUser(), null);
         boolean check3 = checker.check(null, new DataCondition());
-        boolean check4 = checker.check(new WebLoginUser(), new DataCondition());
+        boolean check4 = checker.check(new SystemLoginUser(), new DataCondition());
 
         assertFalse(check1);
         assertFalse(check2);
@@ -32,7 +32,7 @@ class OnlySelfDataPermissionCheckerTest {
     @Test
     void testCheckWhenSameUserId() {
         OnlySelfDataPermissionChecker checker = new OnlySelfDataPermissionChecker(deptService);
-        WebLoginUser loginUser = new WebLoginUser();
+        SystemLoginUser loginUser = new SystemLoginUser();
         loginUser.setUserId(1L);
         DataCondition dataCondition = new DataCondition();
         dataCondition.setTargetUserId(1L);
@@ -46,7 +46,7 @@ class OnlySelfDataPermissionCheckerTest {
     @Test
     void testCheckWhenDifferentUserId() {
         OnlySelfDataPermissionChecker checker = new OnlySelfDataPermissionChecker(deptService);
-        WebLoginUser loginUser = new WebLoginUser();
+        SystemLoginUser loginUser = new SystemLoginUser();
         loginUser.setUserId(1L);
         DataCondition dataCondition = new DataCondition();
         dataCondition.setTargetDeptId(2L);

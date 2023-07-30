@@ -1,8 +1,9 @@
 package com.agileboot.infrastructure.annotations.unrepeatable;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.app.AppLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -33,7 +34,7 @@ public @interface Unrepeatable {
     /**
      * 检测条件类型
      */
-    CheckType checkType() default CheckType.WEB_USER;
+    CheckType checkType() default CheckType.SYSTEM_USER;
 
     @Slf4j
     enum CheckType {
@@ -46,7 +47,7 @@ public @interface Unrepeatable {
                 String username;
 
                 try {
-                    WebLoginUser loginUser = AuthenticationUtils.getAppLoginUser();
+                    AppLoginUser loginUser = AuthenticationUtils.getAppLoginUser();
                     username = loginUser.getUsername();
                 } catch (Exception e) {
                     username = NO_LOGIN;
@@ -63,13 +64,13 @@ public @interface Unrepeatable {
         /**
          * 按Web用户
          */
-        WEB_USER {
+        SYSTEM_USER {
             @Override
             public String generateResubmitRedisKey(Method method) {
                 String username;
 
                 try {
-                    WebLoginUser loginUser = AuthenticationUtils.getWebLoginUser();
+                    SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
                     username = loginUser.getUsername();
                 } catch (Exception e) {
                     username = NO_LOGIN;

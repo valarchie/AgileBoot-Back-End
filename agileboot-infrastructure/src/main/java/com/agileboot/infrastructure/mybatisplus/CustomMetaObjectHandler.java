@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.mybatisplus;
 
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public Long getUserIdSafely() {
         Long userId = null;
         try {
-            WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+            SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
             userId = loginUser.getUserId();
         } catch (Exception e) {
             log.warn("can not find user in current thread.");

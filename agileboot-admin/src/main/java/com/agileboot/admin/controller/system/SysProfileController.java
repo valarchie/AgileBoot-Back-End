@@ -13,8 +13,8 @@ import com.agileboot.domain.system.user.command.UpdateUserAvatarCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,7 +49,7 @@ public class SysProfileController extends BaseController {
     @Operation(summary = "获取个人信息")
     @GetMapping
     public ResponseDTO<UserProfileDTO> profile() {
-        WebLoginUser user = AuthenticationUtils.getLoginUser();
+        SystemLoginUser user = AuthenticationUtils.getSystemLoginUser();
         UserProfileDTO userProfile = userApplicationService.getUserProfile(user.getUserId());
         return ResponseDTO.ok(userProfile);
     }
@@ -61,7 +61,7 @@ public class SysProfileController extends BaseController {
     @AccessLog(title = "个人信息", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping
     public ResponseDTO<Void> updateProfile(@RequestBody UpdateProfileCommand command) {
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         command.setUserId(loginUser.getUserId());
         userApplicationService.updateUserProfile(command);
         return ResponseDTO.ok();
@@ -74,7 +74,7 @@ public class SysProfileController extends BaseController {
     @AccessLog(title = "个人信息", businessType = BusinessTypeEnum.MODIFY)
     @PutMapping("/password")
     public ResponseDTO<Void> updatePassword(@RequestBody UpdateUserPasswordCommand command) {
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         command.setUserId(loginUser.getUserId());
         userApplicationService.updatePasswordBySelf(loginUser, command);
         return ResponseDTO.ok();
@@ -90,7 +90,7 @@ public class SysProfileController extends BaseController {
         if (file.isEmpty()) {
             throw new ApiException(ErrorCode.Business.USER_UPLOAD_FILE_FAILED);
         }
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         String avatarUrl = FileUploadUtils.upload(UploadSubDir.AVATAR_PATH, file);
 
         userApplicationService.updateUserAvatar(new UpdateUserAvatarCommand(loginUser.getUserId(), avatarUrl));

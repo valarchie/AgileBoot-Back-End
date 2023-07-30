@@ -1,7 +1,6 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.infrastructure.user.web;
 
-import cn.hutool.extra.spring.SpringUtil;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
+import com.agileboot.infrastructure.user.base.BaseLoginUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class WebLoginUser extends BaseLoginUser {
+public class SystemLoginUser extends BaseLoginUser {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class WebLoginUser extends BaseLoginUser {
     private Long autoRefreshCacheTime;
 
 
-    public WebLoginUser(Long userId, Boolean isAdmin, String username, String password, RoleInfo roleInfo,
+    public SystemLoginUser(Long userId, Boolean isAdmin, String username, String password, RoleInfo roleInfo,
         Long deptId) {
         this.userId = userId;
         this.isAdmin = isAdmin;

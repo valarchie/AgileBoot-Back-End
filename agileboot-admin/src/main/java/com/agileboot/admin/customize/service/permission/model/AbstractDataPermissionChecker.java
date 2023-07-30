@@ -1,6 +1,6 @@
 package com.agileboot.admin.customize.service.permission.model;
 
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.system.service.ISysDeptService;
 import lombok.Data;
 
@@ -20,6 +20,6 @@ public abstract class AbstractDataPermissionChecker {
      * @param condition 条件
      * @return 校验结果
      */
-    public abstract boolean check(WebLoginUser loginUser, DataCondition condition);
+    public abstract boolean check(SystemLoginUser loginUser, DataCondition condition);
 
 }

@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.infrastructure.user.base;
 
 import lombok.Data;
 

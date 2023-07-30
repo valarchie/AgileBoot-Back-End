@@ -12,7 +12,7 @@ import com.agileboot.domain.system.menu.dto.RouterDTO;
 import com.agileboot.domain.system.menu.model.MenuModel;
 import com.agileboot.domain.system.menu.model.MenuModelFactory;
 import com.agileboot.domain.system.menu.query.MenuQuery;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
@@ -51,7 +51,7 @@ public class MenuApplicationService {
         return new MenuDetailDTO(byId);
     }
 
-    public List<Tree<Long>> getDropdownList(WebLoginUser loginUser) {
+    public List<Tree<Long>> getDropdownList(SystemLoginUser loginUser) {
         List<SysMenuEntity> menuEntityList =
             loginUser.isAdmin() ? menuService.list() : menuService.getMenuListByUserId(loginUser.getUserId());
 
@@ -116,7 +116,7 @@ public class MenuApplicationService {
     }
 
 
-    public List<Tree<Long>> buildMenuEntityTree(WebLoginUser loginUser) {
+    public List<Tree<Long>> buildMenuEntityTree(SystemLoginUser loginUser) {
         List<SysMenuEntity> allMenus;
         if (loginUser.isAdmin()) {
             allMenus = menuService.list();
@@ -166,7 +166,7 @@ public class MenuApplicationService {
     }
 
 
-    public List<RouterDTO> getRouterTree(WebLoginUser loginUser) {
+    public List<RouterDTO> getRouterTree(SystemLoginUser loginUser) {
         List<Tree<Long>> trees = buildMenuEntityTree(loginUser);
         return buildRouterTree(trees);
     }

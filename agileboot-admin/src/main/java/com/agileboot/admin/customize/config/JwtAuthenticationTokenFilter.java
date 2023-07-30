@@ -1,7 +1,7 @@
 package com.agileboot.admin.customize.config;
 
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.admin.customize.service.login.TokenService;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -33,7 +33,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws ServletException, IOException {
-        WebLoginUser loginUser = tokenService.getLoginUser(request);
+        SystemLoginUser loginUser = tokenService.getLoginUser(request);
         if (loginUser != null && AuthenticationUtils.getAuthentication() == null) {
             tokenService.refreshToken(loginUser);
             // 如果没有将当前登录用户放入到上下文中的话，会认定用户未授权，返回用户未登陆的错误
@@ -45,7 +45,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     }
 
 
-    private void putCurrentLoginUserIntoContext(HttpServletRequest request, WebLoginUser loginUser) {
+    private void putCurrentLoginUserIntoContext(HttpServletRequest request, SystemLoginUser loginUser) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginUser,
             null, loginUser.getAuthorities());
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

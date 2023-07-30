@@ -14,11 +14,11 @@ import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.CacheType;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.LimitType;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
 import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
 import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
 import com.agileboot.admin.customize.service.login.command.LoginCommand;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimitKey;
 import com.agileboot.admin.customize.service.login.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -100,7 +100,7 @@ public class LoginController {
     public ResponseDTO<TokenDTO> login(@RequestBody LoginCommand loginCommand) {
         // 生成令牌
         String token = loginService.login(loginCommand);
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
         return ResponseDTO.ok(new TokenDTO(token, currentUserDTO));
@@ -114,7 +114,7 @@ public class LoginController {
     @Operation(summary = "获取当前登录用户信息")
     @GetMapping("/getLoginUserInfo")
     public ResponseDTO<CurrentLoginUserDTO> getLoginUserInfo() {
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
 
         CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
@@ -129,7 +129,7 @@ public class LoginController {
     @Operation(summary = "获取用户对应的菜单路由", description = "用于动态生成路由")
     @GetMapping("/getRouters")
     public ResponseDTO<List<RouterDTO>> getRouters() {
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         List<RouterDTO> routerTree = menuApplicationService.getRouterTree(loginUser);
         return ResponseDTO.ok(routerTree);
     }

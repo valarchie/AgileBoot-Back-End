@@ -6,8 +6,8 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.common.enums.OperationStatusEnum;
 import com.agileboot.orm.common.enums.RequestMethodEnum;
 import com.agileboot.orm.common.enums.util.BasicEnumUtil;
@@ -37,7 +37,7 @@ public class OperationLogModel extends SysOperationLogEntity {
         // 获取当前的用户
         String ip = ServletUtil.getClientIP(request);
         setOperatorIp(ip);
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         if (loginUser != null) {
             this.setUsername(loginUser.getUsername());
         }

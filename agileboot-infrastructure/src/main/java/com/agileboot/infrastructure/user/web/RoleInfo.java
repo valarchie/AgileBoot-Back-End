@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.infrastructure.user.web;
 
 import com.agileboot.orm.common.enums.DataScopeEnum;
 import java.util.Set;

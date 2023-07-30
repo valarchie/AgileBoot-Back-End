@@ -86,7 +86,7 @@ public class SysNoticeController extends BaseController {
      * 新增通知公告
      */
     @Operation(summary = "添加公告")
-    @Unrepeatable(interval = 60, checkType = CheckType.WEB_USER)
+    @Unrepeatable(interval = 60, checkType = CheckType.SYSTEM_USER)
     @PreAuthorize("@permission.has('system:notice:add')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
     @PostMapping

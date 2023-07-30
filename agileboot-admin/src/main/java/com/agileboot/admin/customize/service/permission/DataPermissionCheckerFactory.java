@@ -2,7 +2,7 @@ package com.agileboot.admin.customize.service.permission;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.admin.customize.service.permission.model.AbstractDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.admin.customize.service.permission.model.checker.AllDataPermissionChecker;
 import com.agileboot.admin.customize.service.permission.model.checker.CustomDataPermissionChecker;
 import com.agileboot.admin.customize.service.permission.model.checker.DefaultDataPermissionChecker;
@@ -41,7 +41,7 @@ public class DataPermissionCheckerFactory {
     }
 
 
-    public static AbstractDataPermissionChecker getChecker(WebLoginUser loginUser) {
+    public static AbstractDataPermissionChecker getChecker(SystemLoginUser loginUser) {
         if (loginUser == null) {
             return deptTreeChecker;
         }

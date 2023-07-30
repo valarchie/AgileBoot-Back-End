@@ -1,9 +1,10 @@
-package com.agileboot.infrastructure.security;
+package com.agileboot.infrastructure.user;
 
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.app.AppLoginUser;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,19 +23,18 @@ public class AuthenticationUtils {
      **/
     public static Long getUserId() {
         try {
-            return getLoginUser().getUserId();
+            return getSystemLoginUser().getUserId();
         } catch (Exception e) {
             throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_ID);
         }
     }
 
     /**
-     * 获取用户
+     * 获取系统用户
      **/
-    @Deprecated
-    public static WebLoginUser getLoginUser() {
+    public static SystemLoginUser getSystemLoginUser() {
         try {
-            return (WebLoginUser) getAuthentication().getPrincipal();
+            return (SystemLoginUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
             throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
         }
@@ -43,20 +43,9 @@ public class AuthenticationUtils {
     /**
      * 获取App用户
      **/
-    public static WebLoginUser getAppLoginUser() {
+    public static AppLoginUser getAppLoginUser() {
         try {
-            return (WebLoginUser) getAuthentication().getPrincipal();
-        } catch (Exception e) {
-            throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
-        }
-    }
-
-    /**
-     * 获取App用户
-     **/
-    public static WebLoginUser getWebLoginUser() {
-        try {
-            return (WebLoginUser) getAuthentication().getPrincipal();
+            return (AppLoginUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
             throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
         }

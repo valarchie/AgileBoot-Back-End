@@ -5,8 +5,8 @@ import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.infrastructure.user.web.RoleInfo;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
@@ -29,7 +29,7 @@ public class CacheCenter {
 
     public static RedisCacheTemplate<String> captchaCache;
 
-    public static RedisCacheTemplate<WebLoginUser> loginUserCache;
+    public static RedisCacheTemplate<SystemLoginUser> loginUserCache;
 
     public static RedisCacheTemplate<SysUserEntity> userCache;
 

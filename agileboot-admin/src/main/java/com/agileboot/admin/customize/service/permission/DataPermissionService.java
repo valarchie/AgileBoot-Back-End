@@ -3,8 +3,8 @@ package com.agileboot.admin.customize.service.permission;
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.admin.customize.service.permission.model.AbstractDataPermissionChecker;
 import com.agileboot.admin.customize.service.permission.model.DataCondition;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysUserService;
 import java.util.List;
@@ -30,7 +30,7 @@ public class DataPermissionService {
      * @return 检验结果
      */
     public boolean checkUserId(Long userId) {
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         SysUserEntity targetUser = userService.getById(userId);
         if (targetUser == null) {
             return true;
@@ -56,12 +56,12 @@ public class DataPermissionService {
     }
 
     public boolean checkDeptId(Long deptId) {
-        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         return checkDataScope(loginUser, deptId, null);
     }
 
 
-    public boolean checkDataScope(WebLoginUser loginUser, Long targetDeptId, Long targetUserId) {
+    public boolean checkDataScope(SystemLoginUser loginUser, Long targetDeptId, Long targetUserId) {
         DataCondition dataCondition = DataCondition.builder().targetDeptId(targetDeptId).targetUserId(targetUserId).build();
         AbstractDataPermissionChecker checker = DataPermissionCheckerFactory.getChecker(loginUser);
         return checker.check(loginUser, dataCondition);
