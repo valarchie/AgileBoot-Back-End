@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.permission;
+package com.agileboot.admin.customize.service.permission.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

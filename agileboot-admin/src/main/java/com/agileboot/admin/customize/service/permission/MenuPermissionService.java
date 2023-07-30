@@ -1,9 +1,9 @@
-package com.agileboot.infrastructure.web.service;
+package com.agileboot.admin.customize.service.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import java.util.Set;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class MenuPermissionService {
         if (StrUtil.isEmpty(permission)) {
             return false;
         }
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
         if (loginUser == null || CollUtil.isEmpty(loginUser.getRoleInfo().getMenuPermissions())) {
             return false;
         }

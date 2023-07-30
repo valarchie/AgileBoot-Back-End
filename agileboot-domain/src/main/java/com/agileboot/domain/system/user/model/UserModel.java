@@ -14,7 +14,7 @@ import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysUserService;
 import java.util.Objects;
@@ -114,7 +114,7 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-    public void checkCanBeDelete(LoginUser loginUser) {
+    public void checkCanBeDelete(WebLoginUser loginUser) {
         if (Objects.equals(getUserId(), loginUser.getUserId())
             || this.getIsAdmin()) {
             throw new ApiException(ErrorCode.Business.USER_CURRENT_USER_CAN_NOT_BE_DELETE);

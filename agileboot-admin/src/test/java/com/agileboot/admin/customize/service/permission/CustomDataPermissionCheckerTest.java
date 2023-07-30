@@ -1,13 +1,14 @@
-package com.agileboot.infrastructure.web.domain.permission.checker;
+package com.agileboot.admin.customize.service.permission;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.admin.customize.service.permission.model.checker.CustomDataPermissionChecker;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
-import com.agileboot.infrastructure.web.domain.permission.DataCondition;
+import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.orm.system.service.ISysDeptService;
 import org.apache.commons.collections4.SetUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class CustomDataPermissionCheckerTest {
 
     private final ISysDeptService deptService = mock(ISysDeptService.class);
-    public LoginUser loginUser = mock(LoginUser.class);
+    public WebLoginUser loginUser = mock(WebLoginUser.class);
 
     @BeforeEach
     public void mockBefore() {

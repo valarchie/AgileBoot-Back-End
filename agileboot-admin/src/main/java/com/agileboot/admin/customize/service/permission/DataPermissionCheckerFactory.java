@@ -1,13 +1,14 @@
-package com.agileboot.infrastructure.web.domain.permission;
+package com.agileboot.admin.customize.service.permission;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.permission.checker.AllDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.checker.CustomDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.checker.DefaultDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.checker.DeptTreeDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.checker.OnlySelfDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.checker.SingleDeptDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.AbstractDataPermissionChecker;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.admin.customize.service.permission.model.checker.AllDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.checker.CustomDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.checker.DefaultDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.checker.DeptTreeDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.checker.OnlySelfDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.checker.SingleDeptDataPermissionChecker;
 import com.agileboot.orm.common.enums.DataScopeEnum;
 import com.agileboot.orm.system.service.ISysDeptService;
 import javax.annotation.PostConstruct;
@@ -40,7 +41,7 @@ public class DataPermissionCheckerFactory {
     }
 
 
-    public static AbstractDataPermissionChecker getChecker(LoginUser loginUser) {
+    public static AbstractDataPermissionChecker getChecker(WebLoginUser loginUser) {
         if (loginUser == null) {
             return deptTreeChecker;
         }

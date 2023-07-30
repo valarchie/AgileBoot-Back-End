@@ -3,7 +3,7 @@ package com.agileboot.infrastructure.security;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,9 +32,9 @@ public class AuthenticationUtils {
      * 获取用户
      **/
     @Deprecated
-    public static LoginUser getLoginUser() {
+    public static WebLoginUser getLoginUser() {
         try {
-            return (LoginUser) getAuthentication().getPrincipal();
+            return (WebLoginUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
             throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
         }
@@ -43,9 +43,9 @@ public class AuthenticationUtils {
     /**
      * 获取App用户
      **/
-    public static LoginUser getAppLoginUser() {
+    public static WebLoginUser getAppLoginUser() {
         try {
-            return (LoginUser) getAuthentication().getPrincipal();
+            return (WebLoginUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
             throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
         }
@@ -54,9 +54,9 @@ public class AuthenticationUtils {
     /**
      * 获取App用户
      **/
-    public static LoginUser getWebLoginUser() {
+    public static WebLoginUser getWebLoginUser() {
         try {
-            return (LoginUser) getAuthentication().getPrincipal();
+            return (WebLoginUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
             throw new ApiException(ErrorCode.Business.USER_FAIL_TO_GET_USER_INFO);
         }

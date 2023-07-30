@@ -2,9 +2,8 @@ package com.agileboot.infrastructure.cache.redis;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.RedisUtil;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
-import com.agileboot.infrastructure.web.service.UserDetailsServiceImpl;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -15,6 +14,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,13 +28,13 @@ public class RedisCacheService {
     private RedisUtil redisUtil;
 
     public RedisCacheTemplate<String> captchaCache;
-    public RedisCacheTemplate<LoginUser> loginUserCache;
+    public RedisCacheTemplate<WebLoginUser> loginUserCache;
     public RedisCacheTemplate<SysUserEntity> userCache;
     public RedisCacheTemplate<SysRoleEntity> roleCache;
 
     public RedisCacheTemplate<SysPostEntity> postCache;
 
-    public RedisCacheTemplate<RoleInfo> roleModelInfoCache;
+//    public RedisCacheTemplate<RoleInfo> roleModelInfoCache;
 
     @PostConstruct
     public void init() {
@@ -59,14 +59,14 @@ public class RedisCacheService {
             }
         };
 
-        roleModelInfoCache = new RedisCacheTemplate<RoleInfo>(redisUtil, CacheKeyEnum.ROLE_MODEL_INFO_KEY) {
-            @Override
-            public RoleInfo getObjectFromDb(Object id) {
-                UserDetailsServiceImpl userDetailsService = SpringUtil.getBean(UserDetailsServiceImpl.class);
-                return userDetailsService.getRoleInfo((Long) id);
-            }
-
-        };
+//        roleModelInfoCache = new RedisCacheTemplate<RoleInfo>(redisUtil, CacheKeyEnum.ROLE_MODEL_INFO_KEY) {
+//            @Override
+//            public RoleInfo getObjectFromDb(Object id) {
+//                UserDetailsService userDetailsService = SpringUtil.getBean(UserDetailsService.class);
+//                return userDetailsService.getRoleInfo((Long) id);
+//            }
+//
+//        };
 
         postCache = new RedisCacheTemplate<SysPostEntity>(redisUtil, CacheKeyEnum.POST_ENTITY_KEY) {
             @Override

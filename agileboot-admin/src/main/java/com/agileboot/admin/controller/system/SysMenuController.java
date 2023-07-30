@@ -11,7 +11,7 @@ import com.agileboot.domain.system.menu.dto.MenuDetailDTO;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -74,7 +74,7 @@ public class SysMenuController extends BaseController {
     @Operation(summary = "菜单列表（树级）", description = "菜单树级下拉框")
     @GetMapping("/dropdown")
     public ResponseDTO<List<Tree<Long>>> dropdownList() {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
         List<Tree<Long>> dropdownList = menuApplicationService.getDropdownList(loginUser);
         return ResponseDTO.ok(dropdownList);
     }

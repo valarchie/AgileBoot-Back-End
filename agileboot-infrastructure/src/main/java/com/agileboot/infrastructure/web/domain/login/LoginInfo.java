@@ -28,4 +28,9 @@ public class LoginInfo {
      */
     private String operationSystem;
 
+    /**
+     * 登录时间
+     */
+    private Long loginTime;
+
 }

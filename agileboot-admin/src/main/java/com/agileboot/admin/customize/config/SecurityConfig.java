@@ -9,9 +9,8 @@ import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.service.TokenService;
-import com.agileboot.infrastructure.web.service.UserDetailsServiceImpl;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.admin.customize.service.login.TokenService;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -92,7 +91,7 @@ public class SecurityConfig {
     @Bean
     public LogoutSuccessHandler logOutSuccessHandler() {
         return (request, response, authentication) -> {
-            LoginUser loginUser = tokenService.getLoginUser(request);
+            WebLoginUser loginUser = tokenService.getLoginUser(request);
             if (loginUser != null) {
                 String userName = loginUser.getUsername();
                 // 删除用户缓存记录

@@ -1,10 +1,10 @@
-package com.agileboot.infrastructure.web.service;
+package com.agileboot.admin.customize.service.login;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
 import com.agileboot.orm.common.enums.DataScopeEnum;
 import com.agileboot.orm.common.enums.UserStatusEnum;
@@ -35,6 +35,7 @@ import org.springframework.stereotype.Service;
 /**
  * 自定义加载用户信息通过用户名
  * 用于SpringSecurity 登录流程
+ * 没有办法把这个类 放进loginService中  会在SecurityConfig中造成循环依赖
  * @see com.agileboot.infrastructure.config.SecurityConfig#filterChain(HttpSecurity)
  * @author valarchie
  */
@@ -67,20 +68,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("登录用户：{} 已被停用.", username);
             throw new ApiException(ErrorCode.Business.USER_IS_DISABLE, username);
         }
-        LoginUser loginUser = new LoginUser(userEntity.getUserId(), userEntity.getIsAdmin(), userEntity.getUsername(),
-            userEntity.getPassword());
-        loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setAutoRefreshCacheTime(loginUser.getLoginTime() + TimeUnit.MINUTES.toMillis(tokenService.getAutoRefreshTime()));
-        loginUser.fillUserAgent();
+
+        RoleInfo roleInfo = getRoleInfo(userEntity.getRoleId(), userEntity.getIsAdmin());
+
+        WebLoginUser loginUser = new WebLoginUser(userEntity.getUserId(), userEntity.getIsAdmin(), userEntity.getUsername(),
+            userEntity.getPassword(), roleInfo, userEntity.getDeptId());
+        loginUser.fillLoginInfo();
+        loginUser.setAutoRefreshCacheTime(loginUser.getLoginInfo().getLoginTime()
+            + TimeUnit.MINUTES.toMillis(tokenService.getAutoRefreshTime()));
         return loginUser;
     }
 
-    public RoleInfo getRoleInfo(Long roleId) {
+    public RoleInfo getRoleInfo(Long roleId, boolean isAdmin) {
         if (roleId == null) {
             return RoleInfo.EMPTY_ROLE;
         }
 
-        if (roleId == RoleInfo.ADMIN_ROLE_ID) {
+        if (isAdmin) {
             LambdaQueryWrapper<SysMenuEntity> menuQuery = Wrappers.lambdaQuery();
             menuQuery.select(SysMenuEntity::getMenuId);
             List<SysMenuEntity> allMenus = menuService.list(menuQuery);
@@ -113,7 +117,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new RoleInfo(roleId, roleEntity.getRoleKey(), dataScopeEnum, deptIdSet, permissions, menuIds);
     }
-
 
 
 }

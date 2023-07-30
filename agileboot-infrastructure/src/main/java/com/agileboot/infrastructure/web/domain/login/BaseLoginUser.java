@@ -20,67 +20,38 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Data
 @NoArgsConstructor
-public class LoginUser implements UserDetails {
+public class BaseLoginUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private Long userId;
+    protected Long userId;
 
     /**
      * 用户唯一标识，缓存的key
      */
-    private String cachedKey;
+    protected String cachedKey;
 
-    private boolean isAdmin;
+    protected String username;
 
-    private String username;
-
-    private String password;
+    protected String password;
 
     /**
      * 登录信息
      */
-    private final LoginInfo loginInfo = new LoginInfo();
-
-    /**
-     * 登录时间
-     */
-    private Long loginTime;
-
-    /**
-     * 当超过这个时间 则触发刷新缓存时间
-     */
-    private Long autoRefreshCacheTime;
+    protected final LoginInfo loginInfo = new LoginInfo();
 
 
-    public LoginUser(Long userId, Boolean isAdmin, String username, String password) {
+    public BaseLoginUser(Long userId, String username, String password) {
         this.userId = userId;
-        this.isAdmin = isAdmin;
         this.username = username;
         this.password = password;
-    }
-
-    public RoleInfo getRoleInfo() {
-        return SpringUtil.getBean(RedisCacheService.class).roleModelInfoCache.getObjectById(getRoleId());
-    }
-
-    public Long getRoleId() {
-        if (isAdmin()) {
-            return RoleInfo.ADMIN_ROLE_ID;
-        } else {
-            return SpringUtil.getBean(RedisCacheService.class).userCache.getObjectById(userId).getRoleId();
-        }
-    }
-
-    public Long getDeptId() {
-        return SpringUtil.getBean(RedisCacheService.class).userCache.getObjectById(userId).getDeptId();
     }
 
     /**
      * 设置用户代理信息
      *
      */
-    public void fillUserAgent() {
+    public void fillLoginInfo() {
         UserAgent userAgent = UserAgent.parseUserAgentString(ServletHolderUtil.getRequest().getHeader("User-Agent"));
         String ip = ServletUtil.getClientIP(ServletHolderUtil.getRequest());
 
@@ -88,6 +59,7 @@ public class LoginUser implements UserDetails {
         this.getLoginInfo().setLocation(IpRegionUtil.getBriefLocationByIp(ip));
         this.getLoginInfo().setBrowser(userAgent.getBrowser().getName());
         this.getLoginInfo().setOperationSystem(userAgent.getOperatingSystem().getName());
+        this.getLoginInfo().setLoginTime(System.currentTimeMillis());
     }
 
 

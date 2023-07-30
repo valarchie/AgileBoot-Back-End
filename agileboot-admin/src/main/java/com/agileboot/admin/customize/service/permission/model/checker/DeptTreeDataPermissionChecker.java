@@ -1,8 +1,8 @@
-package com.agileboot.infrastructure.web.domain.permission.checker;
+package com.agileboot.admin.customize.service.permission.model.checker;
 
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.permission.AbstractDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.DataCondition;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
+import com.agileboot.admin.customize.service.permission.model.AbstractDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.orm.system.service.ISysDeptService;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class DeptTreeDataPermissionChecker extends AbstractDataPermissionChecker
     private ISysDeptService deptService;
 
     @Override
-    public boolean check(LoginUser loginUser, DataCondition condition) {
+    public boolean check(WebLoginUser loginUser, DataCondition condition) {
         if (condition == null || loginUser == null) {
             return false;
         }

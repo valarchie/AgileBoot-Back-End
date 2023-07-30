@@ -1,11 +1,10 @@
-package com.agileboot.infrastructure.web.service;
+package com.agileboot.admin.customize.service.permission;
 
 import cn.hutool.core.collection.CollUtil;
+import com.agileboot.admin.customize.service.permission.model.AbstractDataPermissionChecker;
+import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.permission.AbstractDataPermissionChecker;
-import com.agileboot.infrastructure.web.domain.permission.DataCondition;
-import com.agileboot.infrastructure.web.domain.permission.DataPermissionCheckerFactory;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.agileboot.orm.system.service.ISysUserService;
 import java.util.List;
@@ -31,7 +30,7 @@ public class DataPermissionService {
      * @return 检验结果
      */
     public boolean checkUserId(Long userId) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
         SysUserEntity targetUser = userService.getById(userId);
         if (targetUser == null) {
             return true;
@@ -57,12 +56,12 @@ public class DataPermissionService {
     }
 
     public boolean checkDeptId(Long deptId) {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
         return checkDataScope(loginUser, deptId, null);
     }
 
 
-    public boolean checkDataScope(LoginUser loginUser, Long targetDeptId, Long targetUserId) {
+    public boolean checkDataScope(WebLoginUser loginUser, Long targetDeptId, Long targetUserId) {
         DataCondition dataCondition = DataCondition.builder().targetDeptId(targetDeptId).targetUserId(targetUserId).build();
         AbstractDataPermissionChecker checker = DataPermissionCheckerFactory.getChecker(loginUser);
         return checker.check(loginUser, dataCondition);

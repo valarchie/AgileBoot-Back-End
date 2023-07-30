@@ -16,7 +16,7 @@ import com.agileboot.domain.system.user.dto.UserDetailDTO;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import com.agileboot.orm.system.result.SearchUserDO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -136,7 +136,7 @@ public class SysUserController extends BaseController {
     @DeleteMapping("/{userIds}")
     public ResponseDTO<Void> remove(@PathVariable List<Long> userIds) {
         BulkOperationCommand<Long> bulkDeleteCommand = new BulkOperationCommand<>(userIds);
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        WebLoginUser loginUser = AuthenticationUtils.getLoginUser();
         userApplicationService.deleteUsers(loginUser, bulkDeleteCommand);
         return ResponseDTO.ok();
     }

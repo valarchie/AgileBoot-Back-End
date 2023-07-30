@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.permission.checker;
+package com.agileboot.admin.customize.service.permission;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,9 +6,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.admin.customize.service.permission.model.checker.DeptTreeDataPermissionChecker;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.infrastructure.web.domain.login.RoleInfo;
-import com.agileboot.infrastructure.web.domain.permission.DataCondition;
+import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.orm.system.service.ISysDeptService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ class DeptTreeDataPermissionCheckerTest {
 
     private final ISysDeptService deptService = mock(ISysDeptService.class);
 
-    public LoginUser loginUser = mock(LoginUser.class);
+    public WebLoginUser loginUser = mock(WebLoginUser.class);
 
     @BeforeEach
     public void mockBefore() {
@@ -30,7 +31,7 @@ class DeptTreeDataPermissionCheckerTest {
         DeptTreeDataPermissionChecker checker = new DeptTreeDataPermissionChecker(deptService);
 
         boolean check1 = checker.check(null, null);
-        boolean check2 = checker.check(new LoginUser(), null);
+        boolean check2 = checker.check(new WebLoginUser(), null);
         boolean check3 = checker.check(null, new DataCondition());
         boolean check4 = checker.check(loginUser, new DataCondition());
 
@@ -61,7 +62,7 @@ class DeptTreeDataPermissionCheckerTest {
     void testCheckWhenIsSameDept() {
         DeptTreeDataPermissionChecker checker = new DeptTreeDataPermissionChecker(deptService);
 
-        Mockito.when(deptService.isChildOfTheDept(any(), any())).thenReturn(false);
+        when(deptService.isChildOfTheDept(any(), any())).thenReturn(false);
         when(loginUser.getDeptId()).thenReturn(1L);
         DataCondition dataCondition = new DataCondition();
         dataCondition.setTargetDeptId(1L);
@@ -76,7 +77,7 @@ class DeptTreeDataPermissionCheckerTest {
     void testCheckWhenFailed() {
         DeptTreeDataPermissionChecker checker = new DeptTreeDataPermissionChecker(deptService);
 
-        Mockito.when(deptService.isChildOfTheDept(any(), any())).thenReturn(false);
+        when(deptService.isChildOfTheDept(any(), any())).thenReturn(false);
         when(loginUser.getDeptId()).thenReturn(1L);
         DataCondition dataCondition = new DataCondition();
         dataCondition.setTargetDeptId(2L);

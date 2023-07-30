@@ -2,7 +2,7 @@ package com.agileboot.infrastructure.annotations.unrepeatable;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -46,7 +46,7 @@ public @interface Unrepeatable {
                 String username;
 
                 try {
-                    LoginUser loginUser = AuthenticationUtils.getAppLoginUser();
+                    WebLoginUser loginUser = AuthenticationUtils.getAppLoginUser();
                     username = loginUser.getUsername();
                 } catch (Exception e) {
                     username = NO_LOGIN;
@@ -69,7 +69,7 @@ public @interface Unrepeatable {
                 String username;
 
                 try {
-                    LoginUser loginUser = AuthenticationUtils.getWebLoginUser();
+                    WebLoginUser loginUser = AuthenticationUtils.getWebLoginUser();
                     username = loginUser.getUsername();
                 } catch (Exception e) {
                     username = NO_LOGIN;

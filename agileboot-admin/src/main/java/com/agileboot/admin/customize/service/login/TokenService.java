@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.service;
+package com.agileboot.admin.customize.service.login;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
@@ -7,7 +7,7 @@ import com.agileboot.common.constant.Constants.Token;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -63,7 +63,7 @@ public class TokenService {
      *
      * @return 用户信息
      */
-    public LoginUser getLoginUser(HttpServletRequest request) {
+    public WebLoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getTokenFromRequest(request);
         if (StrUtil.isNotEmpty(token)) {
@@ -91,7 +91,7 @@ public class TokenService {
      * @param loginUser 用户信息
      * @return 令牌
      */
-    public String createTokenAndPutUserInCache(LoginUser loginUser) {
+    public String createTokenAndPutUserInCache(WebLoginUser loginUser) {
         loginUser.setCachedKey(IdUtil.fastUUID());
 
         redisCache.loginUserCache.set(loginUser.getCachedKey(), loginUser);
@@ -103,7 +103,7 @@ public class TokenService {
      * 当超过20分钟，自动刷新token
      * @param loginUser 登录用户
      */
-    public void refreshToken(LoginUser loginUser) {
+    public void refreshToken(WebLoginUser loginUser) {
         long currentTime = System.currentTimeMillis();
         if (currentTime > loginUser.getAutoRefreshCacheTime()) {
             loginUser.setAutoRefreshCacheTime(currentTime + TimeUnit.MINUTES.toMillis(autoRefreshTime));

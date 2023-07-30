@@ -5,7 +5,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -77,7 +77,7 @@ public @interface RateLimit {
         WEB_USER {
             @Override
             public String generateCombinedKey(RateLimit rateLimiter) {
-                LoginUser loginUser = AuthenticationUtils.getWebLoginUser();
+                WebLoginUser loginUser = AuthenticationUtils.getWebLoginUser();
                 if (loginUser == null) {
                     throw new ApiException(ErrorCode.Client.COMMON_NO_AUTHORIZATION);
                 }
@@ -91,7 +91,7 @@ public @interface RateLimit {
         APP_USER {
             @Override
             public String generateCombinedKey(RateLimit rateLimiter) {
-                LoginUser loginUser = AuthenticationUtils.getAppLoginUser();
+                WebLoginUser loginUser = AuthenticationUtils.getAppLoginUser();
                 if (loginUser == null) {
                     throw new ApiException(ErrorCode.Client.COMMON_NO_AUTHORIZATION);
                 }

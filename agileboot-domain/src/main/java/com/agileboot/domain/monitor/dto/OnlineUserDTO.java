@@ -1,7 +1,7 @@
 package com.agileboot.domain.monitor.dto;
 
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import lombok.Data;
 
@@ -54,7 +54,7 @@ public class OnlineUserDTO {
     private Long loginTime;
 
 
-    public OnlineUserDTO(LoginUser user) {
+    public OnlineUserDTO(WebLoginUser user) {
         if (user == null) {
             return;
         }
@@ -65,7 +65,7 @@ public class OnlineUserDTO {
         this.loginLocation = user.getLoginInfo().getLocation();
         this.browser = user.getLoginInfo().getBrowser();
         this.operationSystem = user.getLoginInfo().getOperationSystem();
-        this.loginTime = user.getLoginTime();
+        this.loginTime = user.getLoginInfo().getLoginTime();
 
         SysDeptEntity deptEntity = CacheCenter.deptCache.get(user.getDeptId() + "");
 

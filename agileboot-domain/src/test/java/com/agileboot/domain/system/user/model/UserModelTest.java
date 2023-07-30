@@ -11,7 +11,7 @@ import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.domain.login.WebLoginUser;
 import com.agileboot.orm.system.service.ISysUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -84,7 +84,7 @@ class UserModelTest {
     void testCheckCanBeDeleteWhenDeleteItself() {
         UserModel userModel = userModelFactory.create();
         userModel.setUserId(USER_ID);
-        LoginUser loginUser = new LoginUser();
+        WebLoginUser loginUser = new WebLoginUser();
         loginUser.setUserId(USER_ID);
 
         ApiException exception = assertThrows(ApiException.class, () -> userModel.checkCanBeDelete(loginUser));
@@ -97,7 +97,7 @@ class UserModelTest {
         UserModel userModel = userModelFactory.create();
         long adminId = 1L;
         userModel.setUserId(adminId);
-        LoginUser loginUser = new LoginUser();
+        WebLoginUser loginUser = new WebLoginUser();
         loginUser.setUserId(2L);
 
         ApiException exception = assertThrows(ApiException.class, () -> userModel.checkCanBeDelete(loginUser));
@@ -110,7 +110,7 @@ class UserModelTest {
     void testCheckCanBeDeleteWhenSuccessful() {
         UserModel userModel = userModelFactory.create();
         userModel.setUserId(2L);
-        LoginUser loginUser = new LoginUser();
+        WebLoginUser loginUser = new WebLoginUser();
         loginUser.setUserId(ADMIN_USER_ID);
 
         Assertions.assertDoesNotThrow(() -> userModel.checkCanBeDelete(loginUser));
