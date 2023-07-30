@@ -31,6 +31,7 @@ public class AuthenticationUtils {
     /**
      * 获取用户
      **/
+    @Deprecated
     public static LoginUser getLoginUser() {
         try {
             return (LoginUser) getAuthentication().getPrincipal();

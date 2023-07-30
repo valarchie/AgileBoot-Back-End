@@ -1,14 +1,10 @@
-package com.agileboot.infrastructure.interceptor.repeatsubmit;
+package com.agileboot.infrastructure.interceptor.unrepeatable;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.infrastructure.annotations.Unrepeatable;
 import com.agileboot.infrastructure.cache.RedisUtil;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -30,10 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAd
 @ControllerAdvice(basePackages = "com.agileboot")
 @Slf4j
 @RequiredArgsConstructor
-public class ResubmitInterceptor extends RequestBodyAdviceAdapter {
-
-    public static final String NO_LOGIN = "Anonymous";
-    public static final String RESUBMIT_REDIS_KEY = "resubmit:{}:{}:{}";
+public class UnrepeatableInterceptor extends RequestBodyAdviceAdapter {
 
     @NonNull
     private RedisUtil redisUtil;
