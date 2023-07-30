@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.admin.customize.service.login.dto;
 
 import com.agileboot.orm.common.dto.DictionaryData;
 import java.util.List;

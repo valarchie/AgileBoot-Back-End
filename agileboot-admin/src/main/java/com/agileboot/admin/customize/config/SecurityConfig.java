@@ -1,12 +1,12 @@
-package com.agileboot.infrastructure.config;
+package com.agileboot.admin.customize.config;
 
 import cn.hutool.json.JSONUtil;
+import com.agileboot.admin.customize.service.login.LoginService;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Client;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
-import com.agileboot.infrastructure.filter.JwtAuthenticationTokenFilter;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
@@ -39,7 +39,7 @@ import org.springframework.web.filter.CorsFilter;
  * @see this#unauthorizedHandler()  用于用户未授权或登录失败处理
  * @see this#logOutSuccessHandler 用于退出登录成功后的逻辑
  * @see JwtAuthenticationTokenFilter#doFilter token的校验和刷新
- * @see com.agileboot.infrastructure.web.service.LoginService#login 登录逻辑
+ * @see LoginService#login 登录逻辑
  * @author valarchie
  */
 @Configuration

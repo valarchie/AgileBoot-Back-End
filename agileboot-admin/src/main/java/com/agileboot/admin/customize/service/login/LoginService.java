@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.service;
+package com.agileboot.admin.customize.service.login;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.convert.Convert;
@@ -22,10 +22,11 @@ import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
-import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
-import com.agileboot.infrastructure.web.domain.login.ConfigDTO;
-import com.agileboot.infrastructure.web.domain.login.LoginDTO;
+import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
+import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
+import com.agileboot.admin.customize.service.login.command.LoginCommand;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.web.service.TokenService;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
 import com.agileboot.orm.system.entity.SysUserEntity;
@@ -75,30 +76,30 @@ public class LoginService {
     /**
      * 登录验证
      *
-     * @param loginDTO 登录参数
+     * @param loginCommand 登录参数
      * @return 结果
      */
-    public String login(LoginDTO loginDTO) {
+    public String login(LoginCommand loginCommand) {
         // 验证码开关
         if (isCaptchaOn()) {
-            validateCaptcha(loginDTO.getUsername(), loginDTO.getCaptchaCode(), loginDTO.getCaptchaCodeKey());
+            validateCaptcha(loginCommand.getUsername(), loginCommand.getCaptchaCode(), loginCommand.getCaptchaCodeKey());
         }
         // 用户验证
         Authentication authentication;
-        String decryptPassword = decryptPassword(loginDTO.getPassword());
+        String decryptPassword = decryptPassword(loginCommand.getPassword());
         try {
             // 该方法会去调用UserDetailsServiceImpl#loadUserByUsername  校验用户名和密码  认证鉴权
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDTO.getUsername(), decryptPassword));
+                loginCommand.getUsername(), decryptPassword));
         } catch (BadCredentialsException e) {
-            ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL,
+            ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginCommand.getUsername(), LoginStatusEnum.LOGIN_FAIL,
                 MessageUtils.message("Business.LOGIN_WRONG_USER_PASSWORD")));
             throw new ApiException(e, ErrorCode.Business.LOGIN_WRONG_USER_PASSWORD);
         } catch (AuthenticationException e) {
-            ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
+            ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginCommand.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
             throw new ApiException(e, ErrorCode.Business.LOGIN_ERROR, e.getMessage());
         } catch (Exception e) {
-            ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginDTO.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
+            ThreadPoolManager.execute(AsyncTaskFactory.loginInfoTask(loginCommand.getUsername(), LoginStatusEnum.LOGIN_FAIL, e.getMessage()));
             throw new ApiException(e, Business.LOGIN_ERROR, e.getMessage());
         }
         // 把当前登录用户 放入上下文中

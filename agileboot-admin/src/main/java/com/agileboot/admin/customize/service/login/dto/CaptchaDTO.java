@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.admin.customize.service.login.dto;
 
 import lombok.Data;
 

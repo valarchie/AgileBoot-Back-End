@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.web.domain.login;
+package com.agileboot.admin.customize.service.login.command;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @author valarchie
  */
 @Data
-public class LoginDTO {
+public class LoginCommand {
 
     /**
      * 用户名

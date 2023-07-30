@@ -15,12 +15,12 @@ import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.CacheType;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.LimitType;
 import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
-import com.agileboot.infrastructure.web.domain.login.ConfigDTO;
-import com.agileboot.infrastructure.web.domain.login.LoginDTO;
+import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
+import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
+import com.agileboot.admin.customize.service.login.command.LoginCommand;
 import com.agileboot.infrastructure.web.domain.login.LoginUser;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimitKey;
-import com.agileboot.infrastructure.web.service.LoginService;
+import com.agileboot.admin.customize.service.login.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -92,14 +92,14 @@ public class LoginController {
     /**
      * 登录方法
      *
-     * @param loginDTO 登录信息
+     * @param loginCommand 登录信息
      * @return 结果
      */
     @Operation(summary = "登录")
     @PostMapping("/login")
-    public ResponseDTO<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseDTO<TokenDTO> login(@RequestBody LoginCommand loginCommand) {
         // 生成令牌
-        String token = loginService.login(loginDTO);
+        String token = loginService.login(loginCommand);
         LoginUser loginUser = AuthenticationUtils.getLoginUser();
         CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
