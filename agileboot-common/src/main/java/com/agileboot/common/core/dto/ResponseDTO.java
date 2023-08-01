@@ -2,6 +2,7 @@ package com.agileboot.common.core.dto;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,9 +19,8 @@ public class ResponseDTO<T> {
 
     private String msg;
 
+    @JsonInclude
     private T data;
-
-    private String requestId;
 
     public static <T> ResponseDTO<T> ok() {
         return build(null, ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message());
@@ -47,7 +47,7 @@ public class ResponseDTO<T> {
     }
 
     public static <T> ResponseDTO<T> build(T data, Integer code, String msg) {
-        return new ResponseDTO<>(code, msg, data, "mock-requestId");
+        return new ResponseDTO<>(code, msg, data);
     }
 
     // 去掉直接填充错误码的方式， 这种方式不能拿到i18n的错误消息  统一通过ApiException来构造错误消息
