@@ -1,15 +1,17 @@
 package com.agileboot.infrastructure.user.base;
 
-import cn.hutool.core.collection.ListUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import eu.bitwalker.useragentutils.UserAgent;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -33,6 +35,7 @@ public class BaseLoginUser implements UserDetails {
 
     protected String password;
 
+    protected List<GrantedAuthority> authorities = new ArrayList<>();
     /**
      * 登录信息
      */
@@ -58,6 +61,10 @@ public class BaseLoginUser implements UserDetails {
         this.getLoginInfo().setBrowser(userAgent.getBrowser().getName());
         this.getLoginInfo().setOperationSystem(userAgent.getOperatingSystem().getName());
         this.getLoginInfo().setLoginTime(System.currentTimeMillis());
+    }
+
+    public void grantAppPermission(String appName) {
+        authorities.add(new SimpleGrantedAuthority(appName));
     }
 
 
@@ -107,7 +114,6 @@ public class BaseLoginUser implements UserDetails {
      * 是否可用 ,禁用的用户不能身份验证
      * 未实现此功能
      */
-    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
@@ -116,7 +122,7 @@ public class BaseLoginUser implements UserDetails {
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return ListUtil.empty();
+        return authorities;
     }
 
 
