@@ -2,6 +2,8 @@ package com.agileboot.infrastructure.config;
 
 import com.agileboot.infrastructure.exception.GlobalExceptionFilter;
 import com.agileboot.infrastructure.filter.TestFilter;
+import com.agileboot.infrastructure.filter.TraceIdFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,11 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class FilterConfig {
 
+    // TODO 后续统一到一个properties 类中比较好
+    @Value("${agileboot.traceRequestIdKey}")
+    private String requestIdKey;
+
+
     @Bean
     public FilterRegistrationBean<TestFilter> testFilterRegistrationBean() {
         FilterRegistrationBean<TestFilter> registration = new FilterRegistrationBean<>();
@@ -24,6 +31,16 @@ public class FilterConfig {
         registration.addUrlPatterns("/*");
         registration.setName("testFilter");
         registration.setOrder(2);
+        return registration;
+    }
+
+    @Bean
+    public FilterRegistrationBean<TraceIdFilter> traceIdFilterRegistrationBean() {
+        FilterRegistrationBean<TraceIdFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new TraceIdFilter(requestIdKey));
+        registration.addUrlPatterns("/*");
+        registration.setName("traceIdFilter");
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return registration;
     }
 
