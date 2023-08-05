@@ -36,7 +36,9 @@ public class MenuDTO {
             }
 
             if (StrUtil.isNotEmpty(entity.getMetaInfo()) && JacksonUtil.isJson(entity.getMetaInfo())) {
-                this.rank = JacksonUtil.from(entity.getMetaInfo(), MetaDTO.class).getRank();
+                MetaDTO meta = JacksonUtil.from(entity.getMetaInfo(), MetaDTO.class);
+                this.rank = meta.getRank();
+                this.icon = meta.getIcon();
             }
             this.createTime = entity.getCreateTime();
         }
@@ -66,6 +68,8 @@ public class MenuDTO {
     private String statusStr;
 
     private Date createTime;
+
+    private String icon;
 
 
 

@@ -1,4 +1,4 @@
-package com.agileboot.domain.monitor.dto;
+package com.agileboot.domain.system.monitor.dto;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;

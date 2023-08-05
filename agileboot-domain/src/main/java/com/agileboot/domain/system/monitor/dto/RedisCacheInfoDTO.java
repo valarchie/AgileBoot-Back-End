@@ -1,4 +1,4 @@
-package com.agileboot.domain.monitor.dto;
+package com.agileboot.domain.system.monitor.dto;
 
 import java.util.List;
 import java.util.Properties;

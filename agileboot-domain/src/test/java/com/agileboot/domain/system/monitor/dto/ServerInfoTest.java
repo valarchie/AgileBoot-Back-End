@@ -1,6 +1,5 @@
 package com.agileboot.domain.system.monitor.dto;
 
-import com.agileboot.domain.monitor.dto.ServerInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

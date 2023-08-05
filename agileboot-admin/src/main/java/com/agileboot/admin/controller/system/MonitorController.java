@@ -1,13 +1,13 @@
-package com.agileboot.admin.controller.monitor;
+package com.agileboot.admin.controller.system;
 
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.domain.monitor.MonitorApplicationService;
-import com.agileboot.domain.monitor.dto.OnlineUserDTO;
-import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO;
-import com.agileboot.domain.monitor.dto.ServerInfo;
+import com.agileboot.domain.system.monitor.MonitorApplicationService;
+import com.agileboot.domain.system.monitor.dto.OnlineUserDTO;
+import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
+import com.agileboot.domain.system.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;

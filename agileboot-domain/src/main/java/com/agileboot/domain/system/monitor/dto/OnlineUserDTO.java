@@ -1,4 +1,4 @@
-package com.agileboot.domain.monitor.dto;
+package com.agileboot.domain.system.monitor.dto;
 
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;

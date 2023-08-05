@@ -1,13 +1,13 @@
-package com.agileboot.domain.monitor;
+package com.agileboot.domain.system.monitor;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Internal;
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.domain.monitor.dto.OnlineUserDTO;
-import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO;
-import com.agileboot.domain.monitor.dto.RedisCacheInfoDTO.CommandStatusDTO;
-import com.agileboot.domain.monitor.dto.ServerInfo;
+import com.agileboot.domain.system.monitor.dto.OnlineUserDTO;
+import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
+import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO.CommandStatusDTO;
+import com.agileboot.domain.system.monitor.dto.ServerInfo;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
 import java.util.ArrayList;
 import java.util.Collection;
