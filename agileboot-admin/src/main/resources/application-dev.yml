@@ -1,0 +1,105 @@
+# 数据源配置
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        druid:
+            webStatFilter:
+                enabled: true
+            statViewServlet:
+                enabled: true
+                # 设置白名单，不填则允许所有访问
+                allow:
+                url-pattern: /druid/*
+                # 控制台管理用户名和密码
+                login-username: agileboot
+                login-password: 123456
+            filter:
+                stat:
+                    enabled: true
+                    # 慢SQL记录
+                    log-slow-sql: true
+                    slow-sql-millis: 1000
+                    merge-sql: true
+                wall:
+                    config:
+                        multi-statement-allow: true
+        dynamic:
+            primary: master
+            strict: false
+            druid:
+                # 初始连接数
+                initialSize: 5
+                # 最小连接池数量
+                minIdle: 10
+                # 最大连接池数量
+                maxActive: 20
+                # 配置获取连接等待超时的时间
+                maxWait: 60000
+                # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+                timeBetweenEvictionRunsMillis: 60000
+                # 配置一个连接在池中最小生存的时间，单位是毫秒
+                minEvictableIdleTimeMillis: 300000
+                # 配置一个连接在池中最大生存的时间，单位是毫秒
+                maxEvictableIdleTimeMillis: 900000
+                # 配置检测连接是否有效
+                validationQuery: SELECT 1 FROM DUAL
+                testWhileIdle: true
+                testOnBorrow: false
+                testOnReturn: false
+            datasource:
+                # 主库数据源
+                master:
+                    url: jdbc:mysql://localhost:33067/agileboot-pure?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                    username: root
+                    password: 12345
+                # 从库数据源
+#                slave:
+#                    url: jdbc:mysql://localhost:33067/agileboot2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                    username: root
+#                    password: 12345
+
+    # redis 配置
+    redis:
+        # 地址
+        host: localhost
+        # 端口，默认为6379
+        port: 36379
+        # 数据库索引
+        database: 0
+        # 密码
+        password: 12345
+        # 连接超时时间
+        timeout: 10s
+        lettuce:
+            pool:
+                # 连接池中的最小空闲连接
+                min-idle: 0
+                # 连接池中的最大空闲连接
+                max-idle: 8
+                # 连接池的最大数据库连接数
+                max-active: 8
+                # #连接池最大阻塞等待时间（使用负值表示没有限制）
+                max-wait: -1ms
+
+logging:
+    file:
+        path: D:/logs/agileboot-dev
+
+
+springdoc:
+    swagger-ui:
+        # ***注意*** 开启Swagger UI界面  **安全考虑的话生产环境需要关掉**
+        # 因为knife4j的一些配置不灵活 所以重新改回springdoc+swagger的组合  真实开发的时候 使用apifox这种工具效率更高
+        enabled: true
+        url: ${agileboot.api-prefix}/v3/api-docs
+        config-url: ${agileboot.api-prefix}/v3/api-docs/swagger-config
+
+
+# 项目相关配置
+agileboot:
+    # 文件基路径 示例（ Windows配置D:\agileboot，Linux配置 /home/agileboot）
+    file-base-dir: D:\agileboot
+    # 前端url请求转发前缀
+    api-prefix: /dev-api
+    demo-enabled: false
