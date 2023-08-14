@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.annotations.accessLog;
+package com.agileboot.admin.customize.aop.accessLog;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.EnumUtil;

@@ -9,7 +9,7 @@ import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.domain.system.notice.dto.NoticeDTO;
 import com.agileboot.domain.system.notice.query.NoticeQuery;
-import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.infrastructure.annotations.unrepeatable.Unrepeatable;
 import com.agileboot.infrastructure.annotations.unrepeatable.Unrepeatable.CheckType;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;

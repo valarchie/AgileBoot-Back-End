@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.annotations.accessLog;
+package com.agileboot.admin.customize.aop.accessLog;
 
 import com.agileboot.infrastructure.thread.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;

@@ -8,7 +8,7 @@ import com.agileboot.domain.system.monitor.MonitorApplicationService;
 import com.agileboot.domain.system.monitor.dto.OnlineUserDTO;
 import com.agileboot.domain.system.monitor.dto.RedisCacheInfoDTO;
 import com.agileboot.domain.system.monitor.dto.ServerInfo;
-import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

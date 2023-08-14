@@ -10,7 +10,7 @@ import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.post.query.PostQuery;
-import com.agileboot.infrastructure.annotations.accessLog.AccessLog;
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
