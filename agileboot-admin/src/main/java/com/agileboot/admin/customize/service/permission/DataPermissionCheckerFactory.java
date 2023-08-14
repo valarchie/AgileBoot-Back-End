@@ -9,7 +9,7 @@ import com.agileboot.admin.customize.service.permission.model.checker.DefaultDat
 import com.agileboot.admin.customize.service.permission.model.checker.DeptTreeDataPermissionChecker;
 import com.agileboot.admin.customize.service.permission.model.checker.OnlySelfDataPermissionChecker;
 import com.agileboot.admin.customize.service.permission.model.checker.SingleDeptDataPermissionChecker;
-import com.agileboot.orm.common.enums.DataScopeEnum;
+import com.agileboot.infrastructure.user.web.DataScopeEnum;
 import com.agileboot.orm.system.service.ISysDeptService;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;

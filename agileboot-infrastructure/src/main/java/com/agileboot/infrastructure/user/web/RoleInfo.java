@@ -1,6 +1,5 @@
 package com.agileboot.infrastructure.user.web;
 
-import com.agileboot.orm.common.enums.DataScopeEnum;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;

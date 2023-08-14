@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.enums;
+package com.agileboot.infrastructure.user.web;
 
 import com.agileboot.orm.common.enums.interfaces.BasicEnum;
 

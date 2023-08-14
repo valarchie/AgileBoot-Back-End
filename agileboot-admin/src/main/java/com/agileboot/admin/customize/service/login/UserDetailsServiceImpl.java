@@ -6,7 +6,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.infrastructure.user.web.RoleInfo;
-import com.agileboot.orm.common.enums.DataScopeEnum;
+import com.agileboot.infrastructure.user.web.DataScopeEnum;
 import com.agileboot.orm.common.enums.UserStatusEnum;
 import com.agileboot.orm.common.enums.util.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysMenuEntity;
