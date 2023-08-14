@@ -1,7 +1,6 @@
 package com.agileboot.infrastructure.user.app;
 
 import com.agileboot.infrastructure.user.base.BaseLoginUser;
-import com.agileboot.infrastructure.user.web.RoleInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

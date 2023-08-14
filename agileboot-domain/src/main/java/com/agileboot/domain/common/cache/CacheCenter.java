@@ -37,8 +37,6 @@ public class CacheCenter {
 
     public static RedisCacheTemplate<SysPostEntity> postCache;
 
-    public static RedisCacheTemplate<RoleInfo> roleModelInfoCache;
-
     @PostConstruct
     public void init() {
         GuavaCacheService guavaCache = SpringUtil.getBean(GuavaCacheService.class);
@@ -51,7 +49,6 @@ public class CacheCenter {
         loginUserCache = redisCache.loginUserCache;
         userCache = redisCache.userCache;
         roleCache = redisCache.roleCache;
-//        roleModelInfoCache = redisCache.roleModelInfoCache;
         postCache = redisCache.postCache;
     }
 
