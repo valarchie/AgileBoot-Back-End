@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.constant.Constants.Token;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
+import com.agileboot.domain.common.cache.RedisCacheService;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

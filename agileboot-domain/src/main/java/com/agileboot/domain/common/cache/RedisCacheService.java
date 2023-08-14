@@ -1,7 +1,9 @@
-package com.agileboot.infrastructure.cache.redis;
+package com.agileboot.domain.common.cache;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.RedisUtil;
+import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
+import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;
