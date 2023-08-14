@@ -17,7 +17,7 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.i18n.MessageUtils;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
+import com.agileboot.domain.common.cache.GuavaCacheService;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.domain.common.cache.RedisCacheService;
 import com.agileboot.admin.customize.async.AsyncTaskFactory;

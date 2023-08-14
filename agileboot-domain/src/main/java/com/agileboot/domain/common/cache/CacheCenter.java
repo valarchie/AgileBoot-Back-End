@@ -2,7 +2,6 @@ package com.agileboot.domain.common.cache;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.orm.system.entity.SysDeptEntity;

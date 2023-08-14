@@ -1,6 +1,7 @@
-package com.agileboot.infrastructure.cache.guava;
+package com.agileboot.domain.common.cache;
 
 
+import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
 import com.agileboot.orm.system.entity.SysDeptEntity;
 import com.agileboot.orm.system.service.ISysConfigService;
 import com.agileboot.orm.system.service.ISysDeptService;
