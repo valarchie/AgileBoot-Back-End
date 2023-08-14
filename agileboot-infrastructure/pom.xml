@@ -54,11 +54,6 @@
             <artifactId>oshi-core</artifactId>
         </dependency>
 
-        <!-- 系统模块-->
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-orm</artifactId>
-        </dependency>
 
         <!-- 通用模块-->
         <dependency>

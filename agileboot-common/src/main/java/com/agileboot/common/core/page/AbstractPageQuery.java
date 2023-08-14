@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.query;
+package com.agileboot.common.core.page;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;

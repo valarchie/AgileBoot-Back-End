@@ -15,7 +15,7 @@ import com.agileboot.domain.system.role.query.RoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.admin.customize.aop.accessLog.AccessLog;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;

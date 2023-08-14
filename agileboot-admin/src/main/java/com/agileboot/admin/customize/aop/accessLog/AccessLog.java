@@ -1,7 +1,7 @@
 package com.agileboot.admin.customize.aop.accessLog;
 
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
-import com.agileboot.orm.common.enums.OperatorTypeEnum;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
+import com.agileboot.common.enums.common.OperatorTypeEnum;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

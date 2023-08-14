@@ -1,4 +1,4 @@
-package com.agileboot.orm.common;
+package com.agileboot.common.enums.dictionary;
 
 /**
  * Css 样式

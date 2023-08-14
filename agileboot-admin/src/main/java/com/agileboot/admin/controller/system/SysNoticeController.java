@@ -12,7 +12,7 @@ import com.agileboot.domain.system.notice.query.NoticeQuery;
 import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.infrastructure.annotations.unrepeatable.Unrepeatable;
 import com.agileboot.infrastructure.annotations.unrepeatable.Unrepeatable.CheckType;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

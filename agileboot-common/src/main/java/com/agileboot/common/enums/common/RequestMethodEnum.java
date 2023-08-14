@@ -1,25 +1,26 @@
-package com.agileboot.orm.common.enums;
+package com.agileboot.common.enums.common;
 
 import com.agileboot.common.enums.BasicEnum;
 
 /**
- *
+ * Http Method
  * @author valarchie
  */
-@Deprecated
-public enum MenuComponentEnum implements BasicEnum<Integer> {
+public enum RequestMethodEnum implements BasicEnum<Integer> {
 
     /**
-     * 菜单组件类型
+     * 菜单类型
      */
-    LAYOUT(1,"Layout"),
-    PARENT_VIEW(2,"ParentView"),
-    INNER_LINK(3,"InnerLink");
+    GET(1, "GET"),
+    POST(2, "POST"),
+    PUT(3, "PUT"),
+    DELETE(4, "DELETE"),
+    UNKNOWN(-1, "UNKNOWN");
 
     private final int value;
     private final String description;
 
-    MenuComponentEnum(int value, String description) {
+    RequestMethodEnum(int value, String description) {
         this.value = value;
         this.description = description;
     }
@@ -33,4 +34,6 @@ public enum MenuComponentEnum implements BasicEnum<Integer> {
     public String description() {
         return description;
     }
+
+
 }

@@ -7,7 +7,7 @@ import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.common.utils.jackson.JacksonUtil;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
-import com.agileboot.orm.common.enums.MenuTypeEnum;
+import com.agileboot.common.enums.common.MenuTypeEnum;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
 import java.util.Objects;

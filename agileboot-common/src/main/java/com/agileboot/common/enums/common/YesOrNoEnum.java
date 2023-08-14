@@ -1,8 +1,8 @@
-package com.agileboot.orm.common.enums;
+package com.agileboot.common.enums.common;
 
-import com.agileboot.orm.common.CssTag;
-import com.agileboot.orm.common.annotations.Dictionary;
 import com.agileboot.common.enums.DictionaryEnum;
+import com.agileboot.common.enums.dictionary.CssTag;
+import com.agileboot.common.enums.dictionary.Dictionary;
 
 /**
  * 系统内代表是与否的枚举

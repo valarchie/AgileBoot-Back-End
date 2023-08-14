@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.dto;
+package com.agileboot.common.enums.dictionary;
 
 import com.agileboot.common.enums.DictionaryEnum;
 import lombok.Data;

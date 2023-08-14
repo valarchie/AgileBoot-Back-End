@@ -11,7 +11,7 @@ import com.agileboot.admin.customize.async.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.admin.customize.service.login.TokenService;
-import com.agileboot.orm.common.enums.LoginStatusEnum;
+import com.agileboot.common.enums.common.LoginStatusEnum;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

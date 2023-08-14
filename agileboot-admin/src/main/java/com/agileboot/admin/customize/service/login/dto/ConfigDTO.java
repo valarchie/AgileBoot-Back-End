@@ -1,6 +1,6 @@
 package com.agileboot.admin.customize.service.login.dto;
 
-import com.agileboot.orm.common.dto.DictionaryData;
+import com.agileboot.common.enums.dictionary.DictionaryData;
 import java.util.List;
 import java.util.Map;
 import lombok.Data;

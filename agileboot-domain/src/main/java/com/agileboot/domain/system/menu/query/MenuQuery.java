@@ -1,6 +1,6 @@
 package com.agileboot.domain.system.menu.query;
 
-import com.agileboot.orm.common.query.AbstractQuery;
+import com.agileboot.common.core.page.AbstractQuery;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;

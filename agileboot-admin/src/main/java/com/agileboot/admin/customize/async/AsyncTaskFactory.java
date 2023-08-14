@@ -5,7 +5,7 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
-import com.agileboot.orm.common.enums.LoginStatusEnum;
+import com.agileboot.common.enums.common.LoginStatusEnum;
 import com.agileboot.orm.system.entity.SysLoginInfoEntity;
 import com.agileboot.orm.system.entity.SysOperationLogEntity;
 import com.agileboot.orm.system.service.ISysLoginInfoService;

@@ -13,7 +13,7 @@ import com.agileboot.domain.system.menu.model.MenuModel;
 import com.agileboot.domain.system.menu.model.MenuModelFactory;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.common.enums.StatusEnum;
+import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
 import java.util.Comparator;

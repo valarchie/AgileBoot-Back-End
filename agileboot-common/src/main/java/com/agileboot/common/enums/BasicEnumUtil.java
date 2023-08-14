@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.enums.util;
+package com.agileboot.common.enums;
 
 import cn.hutool.core.convert.Convert;
 import com.agileboot.common.exception.ApiException;

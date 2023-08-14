@@ -1,7 +1,7 @@
 package com.agileboot.domain.system.role.query;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.common.query.AbstractPageQuery;
+import com.agileboot.common.core.page.AbstractPageQuery;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.enums;
+package com.agileboot.common.enums.common;
 
 import com.agileboot.common.enums.BasicEnum;
 

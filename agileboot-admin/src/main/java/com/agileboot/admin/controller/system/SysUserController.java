@@ -17,7 +17,7 @@ import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.infrastructure.user.AuthenticationUtils;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import com.agileboot.orm.system.result.SearchUserDO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

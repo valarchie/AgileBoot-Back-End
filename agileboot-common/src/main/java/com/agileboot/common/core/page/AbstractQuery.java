@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.query;
+package com.agileboot.common.core.page;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.utils.time.DatePickUtil;

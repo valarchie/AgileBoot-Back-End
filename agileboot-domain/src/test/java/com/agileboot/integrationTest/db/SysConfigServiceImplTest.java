@@ -1,7 +1,7 @@
 package com.agileboot.integrationTest.db;
 
 import com.agileboot.integrationTest.IntegrationTestApplication;
-import com.agileboot.orm.common.enums.ConfigKeyEnum;
+import com.agileboot.common.enums.common.ConfigKeyEnum;
 import com.agileboot.orm.system.service.ISysConfigService;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;

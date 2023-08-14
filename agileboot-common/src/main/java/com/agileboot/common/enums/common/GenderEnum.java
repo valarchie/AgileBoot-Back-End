@@ -1,27 +1,29 @@
-package com.agileboot.orm.common.enums;
+package com.agileboot.common.enums.common;
 
-import com.agileboot.orm.common.CssTag;
-import com.agileboot.orm.common.annotations.Dictionary;
+import com.agileboot.common.enums.dictionary.CssTag;
+import com.agileboot.common.enums.dictionary.Dictionary;
 import com.agileboot.common.enums.DictionaryEnum;
 
 /**
- * 对应sys_notice的 status字段
+ * 对应sys_user的sex字段
+ *
  * @author valarchie
  */
-@Dictionary(name = "sysNotice.status")
-public enum NoticeStatusEnum implements DictionaryEnum<Integer> {
+@Dictionary(name = "sysUser.sex")
+public enum GenderEnum implements DictionaryEnum<Integer> {
 
     /**
-     * 通知状态
+     * 用户性别
      */
-    OPEN(1, "正常", CssTag.PRIMARY),
-    CLOSE(0, "关闭", CssTag.DANGER);
+    MALE(1, "男", CssTag.PRIMARY),
+    FEMALE(2, "女", CssTag.PRIMARY),
+    UNKNOWN(0, "未知", CssTag.PRIMARY);
 
     private final int value;
     private final String description;
     private final String cssTag;
 
-    NoticeStatusEnum(int value, String description, String cssTag) {
+    GenderEnum(int value, String description, String cssTag) {
         this.value = value;
         this.description = description;
         this.cssTag = cssTag;

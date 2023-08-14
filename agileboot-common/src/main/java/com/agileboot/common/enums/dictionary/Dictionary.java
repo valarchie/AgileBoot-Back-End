@@ -1,4 +1,4 @@
-package com.agileboot.orm.common.annotations;
+package com.agileboot.common.enums.dictionary;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

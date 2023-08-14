@@ -2,9 +2,9 @@ package com.agileboot.domain.system.menu.dto;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.utils.jackson.JacksonUtil;
-import com.agileboot.orm.common.enums.MenuTypeEnum;
-import com.agileboot.orm.common.enums.StatusEnum;
-import com.agileboot.orm.common.enums.util.BasicEnumUtil;
+import com.agileboot.common.enums.common.MenuTypeEnum;
+import com.agileboot.common.enums.common.StatusEnum;
+import com.agileboot.common.enums.BasicEnumUtil;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import java.util.Date;
 import lombok.Data;

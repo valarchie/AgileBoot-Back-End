@@ -7,7 +7,7 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.domain.system.role.command.UpdateRoleCommand;
-import com.agileboot.orm.common.enums.StatusEnum;
+import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.orm.system.entity.SysRoleEntity;
 import com.agileboot.orm.system.entity.SysRoleMenuEntity;
 import com.agileboot.orm.system.service.ISysRoleMenuService;

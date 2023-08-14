@@ -1,26 +1,25 @@
-package com.agileboot.orm.common.enums;
+package com.agileboot.common.enums.common;
 
-import com.agileboot.orm.common.annotations.Dictionary;
 import com.agileboot.common.enums.BasicEnum;
 
 /**
- * 操作者类型
  * @author valarchie
+ * 对应 sys_menu表的menu_type字段
  */
-@Dictionary(name = "sysOperationLog.operatorType")
-public enum OperatorTypeEnum implements BasicEnum<Integer> {
+public enum MenuTypeEnum implements BasicEnum<Integer> {
 
     /**
      * 菜单类型
      */
-    OTHER(1, "其他"),
-    WEB(2, "Web用户"),
-    MOBILE(3, "手机端用户");
+    MENU(1, "页面"),
+    CATALOG(2, "目录"),
+    IFRAME(3, "内嵌Iframe"),
+    OUTSIDE_LINK_REDIRECT(4, "外链跳转");
 
     private final int value;
     private final String description;
 
-    OperatorTypeEnum(int value, String description) {
+    MenuTypeEnum(int value, String description) {
         this.value = value;
         this.description = description;
     }

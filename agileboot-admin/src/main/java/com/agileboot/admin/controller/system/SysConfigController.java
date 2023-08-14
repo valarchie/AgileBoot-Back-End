@@ -9,7 +9,7 @@ import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.domain.system.config.dto.ConfigDTO;
 import com.agileboot.domain.system.config.query.ConfigQuery;
 import com.agileboot.admin.customize.aop.accessLog.AccessLog;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.constraints.NotNull;
