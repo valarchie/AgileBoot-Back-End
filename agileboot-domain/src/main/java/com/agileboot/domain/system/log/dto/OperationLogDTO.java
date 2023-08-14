@@ -8,7 +8,7 @@ import com.agileboot.common.enums.common.OperationStatusEnum;
 import com.agileboot.common.enums.common.OperatorTypeEnum;
 import com.agileboot.common.enums.common.RequestMethodEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysOperationLogEntity;
+import com.agileboot.domain.system.log.db.SysOperationLogEntity;
 import java.util.Date;
 import lombok.Data;
 

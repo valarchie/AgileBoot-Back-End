@@ -1,6 +1,6 @@
 package com.agileboot.domain.system.menu.model;
 
-import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
 
 /**
  * @author valarchie

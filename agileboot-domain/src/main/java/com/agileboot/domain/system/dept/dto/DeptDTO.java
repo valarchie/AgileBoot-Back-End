@@ -2,7 +2,7 @@ package com.agileboot.domain.system.dept.dto;
 
 import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
 import java.util.Date;
 import lombok.Data;
 

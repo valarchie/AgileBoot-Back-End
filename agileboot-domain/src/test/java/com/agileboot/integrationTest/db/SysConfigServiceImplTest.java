@@ -1,8 +1,8 @@
 package com.agileboot.integrationTest.db;
 
+import com.agileboot.domain.system.config.db.SysConfigService;
 import com.agileboot.integrationTest.IntegrationTestApplication;
 import com.agileboot.common.enums.common.ConfigKeyEnum;
-import com.agileboot.orm.system.service.ISysConfigService;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 class  SysConfigServiceImplTest {
 
     @Resource
-    ISysConfigService configService;
+    SysConfigService configService;
 
     @Test
     void testGetConfigValueByKey() {

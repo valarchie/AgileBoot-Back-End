@@ -2,9 +2,9 @@ package com.agileboot.domain.common.cache;
 
 
 import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.service.ISysConfigService;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.config.db.SysConfigService;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +19,10 @@ import org.springframework.stereotype.Component;
 public class GuavaCacheService {
 
     @NonNull
-    private ISysConfigService configService;
+    private SysConfigService configService;
 
     @NonNull
-    private ISysDeptService deptService;
+    private SysDeptService deptService;
 
     public final AbstractGuavaCacheTemplate<String> configCache = new AbstractGuavaCacheTemplate<String>() {
         @Override

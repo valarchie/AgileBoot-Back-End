@@ -6,7 +6,7 @@ import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.common.enums.common.NoticeTypeEnum;
 import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysNoticeEntity;
+import com.agileboot.domain.system.notice.db.SysNoticeEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

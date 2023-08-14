@@ -15,8 +15,8 @@ import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.user.AuthenticationUtils;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SysUserService;
 import java.util.Objects;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserModel extends SysUserEntity {
 
-    private ISysUserService userService;
+    private SysUserService userService;
 
     private PostModelFactory postModelFactory;
 
@@ -38,7 +38,7 @@ public class UserModel extends SysUserEntity {
 
     private RoleModelFactory roleModelFactory;
 
-    public UserModel(SysUserEntity entity, ISysUserService userService, PostModelFactory postModelFactory,
+    public UserModel(SysUserEntity entity, SysUserService userService, PostModelFactory postModelFactory,
         DeptModelFactory deptModelFactory, RoleModelFactory roleModelFactory) {
         this(userService, postModelFactory, deptModelFactory, roleModelFactory);
 
@@ -47,7 +47,7 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-    public UserModel(ISysUserService userService, PostModelFactory postModelFactory,
+    public UserModel(SysUserService userService, PostModelFactory postModelFactory,
         DeptModelFactory deptModelFactory, RoleModelFactory roleModelFactory) {
         this.userService = userService;
         this.postModelFactory = postModelFactory;

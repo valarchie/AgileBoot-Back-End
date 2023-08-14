@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysPostEntity;
+import com.agileboot.domain.system.post.db.SysPostEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;

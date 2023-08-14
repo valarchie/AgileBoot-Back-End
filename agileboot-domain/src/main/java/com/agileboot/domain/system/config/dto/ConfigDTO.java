@@ -5,7 +5,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.enums.common.YesOrNoEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysConfigEntity;
+import com.agileboot.domain.system.config.db.SysConfigEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import java.util.List;

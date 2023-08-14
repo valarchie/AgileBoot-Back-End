@@ -8,8 +8,8 @@ import com.agileboot.common.utils.jackson.JacksonUtil;
 import com.agileboot.domain.system.menu.command.AddMenuCommand;
 import com.agileboot.domain.system.menu.command.UpdateMenuCommand;
 import com.agileboot.common.enums.common.MenuTypeEnum;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
 import java.util.Objects;
 import lombok.NoArgsConstructor;
 
@@ -19,13 +19,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuModel extends SysMenuEntity {
 
-    private ISysMenuService menuService;
+    private SysMenuService menuService;
 
-    public MenuModel(ISysMenuService menuService) {
+    public MenuModel(SysMenuService menuService) {
         this.menuService = menuService;
     }
 
-    public MenuModel(SysMenuEntity entity, ISysMenuService menuService) {
+    public MenuModel(SysMenuEntity entity, SysMenuService menuService) {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
         }

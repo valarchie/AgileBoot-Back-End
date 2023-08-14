@@ -10,7 +10,7 @@ import com.agileboot.admin.customize.service.permission.model.checker.DeptTreeDa
 import com.agileboot.admin.customize.service.permission.model.checker.OnlySelfDataPermissionChecker;
 import com.agileboot.admin.customize.service.permission.model.checker.SingleDeptDataPermissionChecker;
 import com.agileboot.infrastructure.user.web.DataScopeEnum;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ public class DataPermissionCheckerFactory {
 
     @PostConstruct
     public void initAllChecker() {
-        ISysDeptService deptService = SpringUtil.getBean(ISysDeptService.class);
+        SysDeptService deptService = SpringUtil.getBean(SysDeptService.class);
 
         allChecker = new AllDataPermissionChecker();
         customChecker = new CustomDataPermissionChecker(deptService);

@@ -6,10 +6,10 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.ip.IpRegionUtil;
 import com.agileboot.common.enums.common.LoginStatusEnum;
-import com.agileboot.orm.system.entity.SysLoginInfoEntity;
-import com.agileboot.orm.system.entity.SysOperationLogEntity;
-import com.agileboot.orm.system.service.ISysLoginInfoService;
-import com.agileboot.orm.system.service.ISysOperationLogService;
+import com.agileboot.domain.system.log.db.SysLoginInfoEntity;
+import com.agileboot.domain.system.log.db.SysOperationLogEntity;
+import com.agileboot.domain.system.log.db.SysLoginInfoService;
+import com.agileboot.domain.system.log.db.SysOperationLogService;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +57,7 @@ public class AsyncTaskFactory {
             loginInfo.setLoginTime(DateUtil.date());
             loginInfo.setStatus(loginStatusEnum.getValue());
             // 插入数据
-            SpringUtil.getBean(ISysLoginInfoService.class).save(loginInfo);
+            SpringUtil.getBean(SysLoginInfoService.class).save(loginInfo);
         };
     }
 
@@ -71,7 +71,7 @@ public class AsyncTaskFactory {
         return () -> {
             // 远程查询操作地点
             operationLog.setOperatorLocation(IpRegionUtil.getBriefLocationByIp(operationLog.getOperatorIp()));
-            SpringUtil.getBean(ISysOperationLogService.class).save(operationLog);
+            SpringUtil.getBean(SysOperationLogService.class).save(operationLog);
         };
     }
 

@@ -33,7 +33,7 @@
         <resources>
             <!-- mapper.xml文件在resources目录下 -->
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>../agileboot-domain/src/main/resources</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>

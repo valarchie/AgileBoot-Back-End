@@ -7,8 +7,8 @@ import cn.hutool.json.JSONUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
-import com.agileboot.orm.system.entity.SysConfigEntity;
-import com.agileboot.orm.system.service.ISysConfigService;
+import com.agileboot.domain.system.config.db.SysConfigEntity;
+import com.agileboot.domain.system.config.db.SysConfigService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,15 +22,15 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ConfigModel extends SysConfigEntity {
 
-    private ISysConfigService configService;
+    private SysConfigService configService;
 
     private Set<String> configOptionSet;
 
-    public ConfigModel(ISysConfigService configService) {
+    public ConfigModel(SysConfigService configService) {
         this.configService = configService;
     }
 
-    public ConfigModel(SysConfigEntity entity, ISysConfigService configService) {
+    public ConfigModel(SysConfigEntity entity, SysConfigService configService) {
         BeanUtil.copyProperties(entity, this);
 
         List<String> options =

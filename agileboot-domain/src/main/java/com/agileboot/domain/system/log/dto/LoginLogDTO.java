@@ -4,7 +4,7 @@ import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.common.enums.common.LoginStatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysLoginInfoEntity;
+import com.agileboot.domain.system.log.db.SysLoginInfoEntity;
 import java.util.Date;
 import lombok.Data;
 

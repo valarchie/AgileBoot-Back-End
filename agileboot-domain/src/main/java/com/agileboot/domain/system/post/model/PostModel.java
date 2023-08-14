@@ -5,8 +5,8 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.service.ISysPostService;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.post.db.SysPostService;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostModel extends SysPostEntity {
 
-    private ISysPostService postService;
+    private SysPostService postService;
 
-    public PostModel(ISysPostService postService) {
+    public PostModel(SysPostService postService) {
         this.postService = postService;
     }
 
-    public PostModel(SysPostEntity entity, ISysPostService postService) {
+    public PostModel(SysPostEntity entity, SysPostService postService) {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
         }

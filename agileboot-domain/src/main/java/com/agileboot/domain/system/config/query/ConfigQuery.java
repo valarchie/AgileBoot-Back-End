@@ -2,7 +2,7 @@ package com.agileboot.domain.system.config.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.core.page.AbstractPageQuery;
-import com.agileboot.orm.system.entity.SysConfigEntity;
+import com.agileboot.domain.system.config.db.SysConfigEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

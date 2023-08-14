@@ -4,10 +4,10 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 

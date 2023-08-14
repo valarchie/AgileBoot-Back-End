@@ -7,8 +7,8 @@ import com.agileboot.domain.system.config.dto.ConfigDTO;
 import com.agileboot.domain.system.config.model.ConfigModel;
 import com.agileboot.domain.system.config.model.ConfigModelFactory;
 import com.agileboot.domain.system.config.query.ConfigQuery;
-import com.agileboot.orm.system.entity.SysConfigEntity;
-import com.agileboot.orm.system.service.ISysConfigService;
+import com.agileboot.domain.system.config.db.SysConfigEntity;
+import com.agileboot.domain.system.config.db.SysConfigService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +27,7 @@ public class  ConfigApplicationService {
     private ConfigModelFactory configModelFactory;
 
     @NonNull
-    private ISysConfigService configService;
+    private SysConfigService configService;
 
     public PageDTO<ConfigDTO> getConfigList(ConfigQuery query) {
         Page<SysConfigEntity> page = configService.page(query.toPage(), query.toQueryWrapper());

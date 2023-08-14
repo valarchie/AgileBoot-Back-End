@@ -14,6 +14,7 @@ import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserAvatarCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
+import com.agileboot.domain.system.user.db.SearchUserDO;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
 import com.agileboot.domain.system.user.dto.UserProfileDTO;
@@ -21,13 +22,12 @@ import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.result.SearchUserDO;
-import com.agileboot.orm.system.service.ISysPostService;
-import com.agileboot.orm.system.service.ISysRoleService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.post.db.SysPostService;
+import com.agileboot.domain.system.role.db.SysRoleService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
@@ -44,13 +44,13 @@ import org.springframework.stereotype.Service;
 public class UserApplicationService {
 
     @NonNull
-    private ISysUserService userService;
+    private SysUserService userService;
 
     @NonNull
-    private ISysRoleService roleService;
+    private SysRoleService roleService;
 
     @NonNull
-    private ISysPostService postService;
+    private SysPostService postService;
 
     @NonNull
     private UserModelFactory userModelFactory;

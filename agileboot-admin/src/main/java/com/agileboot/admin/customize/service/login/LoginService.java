@@ -28,7 +28,7 @@ import com.agileboot.admin.customize.service.login.command.LoginCommand;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.common.enums.common.ConfigKeyEnum;
 import com.agileboot.common.enums.common.LoginStatusEnum;
-import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
 import com.google.code.kaptcha.Producer;
 import java.awt.image.BufferedImage;
 import javax.annotation.Resource;

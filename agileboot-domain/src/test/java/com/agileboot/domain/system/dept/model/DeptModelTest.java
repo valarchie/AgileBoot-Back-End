@@ -7,8 +7,8 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -18,7 +18,7 @@ class DeptModelTest {
     private static final Long DEPT_ID = 1L;
     private static final Long PARENT_ID = 2L;
 
-    private final ISysDeptService deptService = mock(ISysDeptService.class);
+    private final SysDeptService deptService = mock(SysDeptService.class);
 
     private final DeptModelFactory deptModelFactory = new DeptModelFactory(deptService);
 

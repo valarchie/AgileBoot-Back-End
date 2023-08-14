@@ -3,8 +3,8 @@ package com.agileboot.domain.system.dept.model;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class DeptModelFactory {
 
     @NonNull
-    private ISysDeptService deptService;
+    private SysDeptService deptService;
 
     public DeptModel loadById(Long deptId) {
         SysDeptEntity byId = deptService.getById(deptId);

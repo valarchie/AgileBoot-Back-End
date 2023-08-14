@@ -1,7 +1,7 @@
 package com.agileboot.domain.system.menu.dto;
 
 import com.agileboot.common.utils.jackson.JacksonUtil;
-import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.common.collect.Lists;

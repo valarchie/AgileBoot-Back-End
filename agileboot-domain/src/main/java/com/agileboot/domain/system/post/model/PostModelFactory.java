@@ -2,8 +2,8 @@ package com.agileboot.domain.system.post.model;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.service.ISysPostService;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.post.db.SysPostService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class PostModelFactory {
 
     @NonNull
-    private ISysPostService postService;
+    private SysPostService postService;
 
     public PostModel loadById(Long postId) {
         SysPostEntity byId = postService.getById(postId);

@@ -2,7 +2,7 @@ package com.agileboot.domain.system.post.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.core.page.AbstractPageQuery;
-import com.agileboot.orm.system.entity.SysPostEntity;
+import com.agileboot.domain.system.post.db.SysPostEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

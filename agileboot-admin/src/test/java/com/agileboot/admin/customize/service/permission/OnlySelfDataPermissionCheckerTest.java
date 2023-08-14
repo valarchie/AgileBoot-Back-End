@@ -7,12 +7,12 @@ import static org.mockito.Mockito.mock;
 import com.agileboot.admin.customize.service.permission.model.checker.OnlySelfDataPermissionChecker;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.admin.customize.service.permission.model.DataCondition;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import org.junit.jupiter.api.Test;
 
 class OnlySelfDataPermissionCheckerTest {
 
-    private final ISysDeptService deptService = mock(ISysDeptService.class);
+    private final SysDeptService deptService = mock(SysDeptService.class);
 
     @Test
     void testCheckWhenParameterNull() {

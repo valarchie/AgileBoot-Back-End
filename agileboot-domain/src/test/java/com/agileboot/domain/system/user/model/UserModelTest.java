@@ -12,13 +12,13 @@ import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
 import com.agileboot.infrastructure.user.AuthenticationUtils;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class UserModelTest {
 
-    private final ISysUserService userService = mock(ISysUserService.class);
+    private final SysUserService userService = mock(SysUserService.class);
     private final PostModelFactory postModelFactory = mock(PostModelFactory.class);
     private final DeptModelFactory deptModelFactory = mock(DeptModelFactory.class);
     private final RoleModelFactory roleModelFactory = mock(RoleModelFactory.class);

@@ -10,13 +10,13 @@ import com.agileboot.admin.customize.service.permission.model.checker.DeptTreeDa
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.infrastructure.user.web.RoleInfo;
 import com.agileboot.admin.customize.service.permission.model.DataCondition;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class DeptTreeDataPermissionCheckerTest {
 
-    private final ISysDeptService deptService = mock(ISysDeptService.class);
+    private final SysDeptService deptService = mock(SysDeptService.class);
 
     public SystemLoginUser loginUser = mock(SystemLoginUser.class);
 

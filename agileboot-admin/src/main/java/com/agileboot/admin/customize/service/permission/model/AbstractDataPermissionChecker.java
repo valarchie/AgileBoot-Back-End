@@ -1,7 +1,7 @@
 package com.agileboot.admin.customize.service.permission.model;
 
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import lombok.Data;
 
 /**
@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public abstract class AbstractDataPermissionChecker {
 
-    private ISysDeptService deptService;
+    private SysDeptService deptService;
 
     /**
      * 检测当前用户对于 给定条件的数据 是否有权限

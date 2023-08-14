@@ -8,8 +8,8 @@ import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.command.UpdateDeptCommand;
 import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import java.util.Objects;
 
 /**
@@ -17,13 +17,13 @@ import java.util.Objects;
  */
 public class DeptModel extends SysDeptEntity {
 
-    private final ISysDeptService deptService;
+    private final SysDeptService deptService;
 
-    public DeptModel(ISysDeptService deptService) {
+    public DeptModel(SysDeptService deptService) {
         this.deptService = deptService;
     }
 
-    public DeptModel(SysDeptEntity entity, ISysDeptService deptService) {
+    public DeptModel(SysDeptEntity entity, SysDeptService deptService) {
         if (entity != null) {
             // 如果大数据量的话  可以用MapStruct优化
             BeanUtil.copyProperties(entity, this);

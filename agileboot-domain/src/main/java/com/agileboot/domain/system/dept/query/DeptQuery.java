@@ -1,7 +1,7 @@
 package com.agileboot.domain.system.dept.query;
 
 import com.agileboot.common.core.page.AbstractQuery;
-import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

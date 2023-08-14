@@ -5,8 +5,8 @@ import com.agileboot.admin.customize.service.permission.model.AbstractDataPermis
 import com.agileboot.admin.customize.service.permission.model.DataCondition;
 import com.agileboot.infrastructure.user.AuthenticationUtils;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SysUserService;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class DataPermissionService {
 
     @NonNull
-    private ISysUserService userService;
+    private SysUserService userService;
 
     /**
      * 通过userId 校验当前用户 对 目标用户是否有操作权限

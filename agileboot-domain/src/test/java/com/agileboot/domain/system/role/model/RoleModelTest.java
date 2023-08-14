@@ -7,16 +7,16 @@ import static org.mockito.Mockito.when;
 import cn.hutool.core.collection.ListUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.service.ISysRoleMenuService;
-import com.agileboot.orm.system.service.ISysRoleService;
+import com.agileboot.domain.system.role.db.SysRoleMenuService;
+import com.agileboot.domain.system.role.db.SysRoleService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class RoleModelTest {
 
-    private final ISysRoleService roleService = mock(ISysRoleService.class);
+    private final SysRoleService roleService = mock(SysRoleService.class);
 
-    private final ISysRoleMenuService roleMenuService = mock(ISysRoleMenuService.class);
+    private final SysRoleMenuService roleMenuService = mock(SysRoleMenuService.class);
 
     private final RoleModelFactory roleModelFactory = new RoleModelFactory(roleService, roleMenuService);
 

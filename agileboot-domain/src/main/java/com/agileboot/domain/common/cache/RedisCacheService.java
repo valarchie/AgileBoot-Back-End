@@ -5,12 +5,12 @@ import com.agileboot.infrastructure.cache.RedisUtil;
 import com.agileboot.infrastructure.cache.redis.CacheKeyEnum;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysPostService;
-import com.agileboot.orm.system.service.ISysRoleService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.post.db.SysPostService;
+import com.agileboot.domain.system.role.db.SysRoleService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import lombok.NonNull;
@@ -46,7 +46,7 @@ public class RedisCacheService {
         userCache = new RedisCacheTemplate<SysUserEntity>(redisUtil, CacheKeyEnum.USER_ENTITY_KEY) {
             @Override
             public SysUserEntity getObjectFromDb(Object id) {
-                ISysUserService userService = SpringUtil.getBean(ISysUserService.class);
+                SysUserService userService = SpringUtil.getBean(SysUserService.class);
                 return userService.getById((Serializable) id);
             }
         };
@@ -54,7 +54,7 @@ public class RedisCacheService {
         roleCache = new RedisCacheTemplate<SysRoleEntity>(redisUtil, CacheKeyEnum.ROLE_ENTITY_KEY) {
             @Override
             public SysRoleEntity getObjectFromDb(Object id) {
-                ISysRoleService roleService = SpringUtil.getBean(ISysRoleService.class);
+                SysRoleService roleService = SpringUtil.getBean(SysRoleService.class);
                 return roleService.getById((Serializable) id);
             }
         };
@@ -71,7 +71,7 @@ public class RedisCacheService {
         postCache = new RedisCacheTemplate<SysPostEntity>(redisUtil, CacheKeyEnum.POST_ENTITY_KEY) {
             @Override
             public SysPostEntity getObjectFromDb(Object id) {
-                ISysPostService postService = SpringUtil.getBean(ISysPostService.class);
+                SysPostService postService = SpringUtil.getBean(SysPostService.class);
                 return postService.getById((Serializable) id);
             }
 

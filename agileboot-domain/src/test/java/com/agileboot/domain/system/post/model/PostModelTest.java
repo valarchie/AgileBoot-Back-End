@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.service.ISysPostService;
+import com.agileboot.domain.system.post.db.SysPostService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 
 class PostModelTest {
 
-    private final ISysPostService postService = mock(ISysPostService.class);
+    private final SysPostService postService = mock(SysPostService.class);
 
     private final PostModelFactory postModelFactory = new PostModelFactory(postService);
 

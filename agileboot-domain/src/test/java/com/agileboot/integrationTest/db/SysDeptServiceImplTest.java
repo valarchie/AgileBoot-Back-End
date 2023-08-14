@@ -1,7 +1,7 @@
 package com.agileboot.integrationTest.db;
 
 import com.agileboot.integrationTest.IntegrationTestApplication;
-import com.agileboot.orm.system.service.ISysDeptService;
+import com.agileboot.domain.system.dept.db.SysDeptService;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 class SysDeptServiceImplTest {
 
     @Resource
-    ISysDeptService deptService;
+    SysDeptService deptService;
 
     @Test
     @Rollback

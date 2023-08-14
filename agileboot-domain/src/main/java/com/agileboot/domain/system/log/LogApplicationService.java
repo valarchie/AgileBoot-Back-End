@@ -6,10 +6,10 @@ import com.agileboot.domain.system.log.dto.LoginLogDTO;
 import com.agileboot.domain.system.log.query.LoginLogQuery;
 import com.agileboot.domain.system.log.dto.OperationLogDTO;
 import com.agileboot.domain.system.log.dto.OperationLogQuery;
-import com.agileboot.orm.system.entity.SysLoginInfoEntity;
-import com.agileboot.orm.system.entity.SysOperationLogEntity;
-import com.agileboot.orm.system.service.ISysLoginInfoService;
-import com.agileboot.orm.system.service.ISysOperationLogService;
+import com.agileboot.domain.system.log.db.SysLoginInfoEntity;
+import com.agileboot.domain.system.log.db.SysOperationLogEntity;
+import com.agileboot.domain.system.log.db.SysLoginInfoService;
+import com.agileboot.domain.system.log.db.SysOperationLogService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
@@ -27,10 +27,10 @@ public class LogApplicationService {
 
     // TODO 命名到时候统一改成叫LoginLog
     @NonNull
-    private ISysLoginInfoService loginInfoService;
+    private SysLoginInfoService loginInfoService;
 
     @NonNull
-    private ISysOperationLogService operationLogService;
+    private SysOperationLogService operationLogService;
 
     public PageDTO<LoginLogDTO> getLoginInfoList(LoginLogQuery query) {
         Page<SysLoginInfoEntity> page = loginInfoService.page(query.toPage(), query.toQueryWrapper());

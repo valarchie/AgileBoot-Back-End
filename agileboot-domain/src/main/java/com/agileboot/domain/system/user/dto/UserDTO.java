@@ -4,11 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import com.agileboot.common.annotation.ExcelColumn;
 import com.agileboot.common.annotation.ExcelSheet;
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.result.SearchUserDO;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SearchUserDO;
 import java.util.Date;
 import lombok.Data;
 

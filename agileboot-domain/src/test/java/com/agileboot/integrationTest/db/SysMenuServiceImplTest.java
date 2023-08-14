@@ -2,8 +2,8 @@ package com.agileboot.integrationTest.db;
 
 import cn.hutool.core.collection.CollUtil;
 import com.agileboot.integrationTest.IntegrationTestApplication;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 class SysMenuServiceImplTest {
 
     @Resource
-    ISysMenuService menuService;
+    SysMenuService menuService;
 
     @Test
     @Rollback

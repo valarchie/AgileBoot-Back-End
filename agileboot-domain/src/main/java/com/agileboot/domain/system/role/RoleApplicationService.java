@@ -17,11 +17,11 @@ import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
-import com.agileboot.orm.system.service.ISysRoleService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
+import com.agileboot.domain.system.role.db.SysRoleService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
@@ -44,13 +44,13 @@ public class RoleApplicationService {
     private UserModelFactory userModelFactory;
 
     @NonNull
-    private ISysRoleService roleService;
+    private SysRoleService roleService;
 
     @NonNull
-    private ISysUserService userService;
+    private SysUserService userService;
 
     @NonNull
-    private ISysMenuService menuService;
+    private SysMenuService menuService;
 
 
     public PageDTO<RoleDTO> getRoleList(RoleQuery query) {

@@ -2,7 +2,7 @@ package com.agileboot.domain.system.menu.dto;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.utils.jackson.JacksonUtil;
-import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

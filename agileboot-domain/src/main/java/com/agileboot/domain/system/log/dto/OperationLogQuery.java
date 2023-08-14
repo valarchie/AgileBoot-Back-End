@@ -2,7 +2,7 @@ package com.agileboot.domain.system.log.dto;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.core.page.AbstractPageQuery;
-import com.agileboot.orm.system.entity.SysOperationLogEntity;
+import com.agileboot.domain.system.log.db.SysOperationLogEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

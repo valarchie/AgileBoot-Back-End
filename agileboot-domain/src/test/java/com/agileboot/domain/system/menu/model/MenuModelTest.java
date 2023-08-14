@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.domain.system.menu.db.SysMenuService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -15,7 +15,7 @@ class MenuModelTest {
 
     private static final long MENU_ID = 1L;
 
-    private final ISysMenuService menuService = mock(ISysMenuService.class);
+    private final SysMenuService menuService = mock(SysMenuService.class);
 
     private final MenuModelFactory menuModelFactory = new MenuModelFactory(menuService);
 

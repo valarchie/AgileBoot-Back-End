@@ -14,8 +14,8 @@ import com.agileboot.domain.system.menu.model.MenuModelFactory;
 import com.agileboot.domain.system.menu.query.MenuQuery;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.common.enums.common.StatusEnum;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 public class MenuApplicationService {
 
     @NonNull
-    private ISysMenuService menuService;
+    private SysMenuService menuService;
 
     @NonNull
     private MenuModelFactory menuModelFactory;

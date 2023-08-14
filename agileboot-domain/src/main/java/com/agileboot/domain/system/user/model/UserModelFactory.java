@@ -5,8 +5,8 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.model.DeptModelFactory;
 import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SysUserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class UserModelFactory {
 
     @NonNull
-    private ISysUserService userService;
+    private SysUserService userService;
 
     @NonNull
     private PostModelFactory postModelFactory;

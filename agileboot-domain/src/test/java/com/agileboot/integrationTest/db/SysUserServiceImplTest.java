@@ -4,13 +4,13 @@ import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
 import com.agileboot.integrationTest.IntegrationTestApplication;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.result.SearchUserDO;
-import com.agileboot.orm.system.service.ISysMenuService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SearchUserDO;
+import com.agileboot.domain.system.menu.db.SysMenuService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.Set;
@@ -28,9 +28,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 class SysUserServiceImplTest {
 
     @Resource
-    ISysUserService userService;
+    SysUserService userService;
     @Resource
-    ISysMenuService menuService;
+    SysMenuService menuService;
 
     @Test
     @Rollback

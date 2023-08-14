@@ -9,12 +9,12 @@ import com.agileboot.infrastructure.user.web.RoleInfo;
 import com.agileboot.infrastructure.user.web.DataScopeEnum;
 import com.agileboot.common.enums.common.UserStatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
-import com.agileboot.orm.system.service.ISysRoleService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
+import com.agileboot.domain.system.role.db.SysRoleService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import java.util.List;
@@ -45,13 +45,13 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @NonNull
-    private ISysUserService userService;
+    private SysUserService userService;
 
     @NonNull
-    private ISysMenuService menuService;
+    private SysMenuService menuService;
 
     @NonNull
-    private ISysRoleService roleService;
+    private SysRoleService roleService;
 
     @NonNull
     private TokenService tokenService;

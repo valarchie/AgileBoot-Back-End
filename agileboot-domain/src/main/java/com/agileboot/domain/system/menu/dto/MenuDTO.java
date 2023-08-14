@@ -5,7 +5,7 @@ import com.agileboot.common.utils.jackson.JacksonUtil;
 import com.agileboot.common.enums.common.MenuTypeEnum;
 import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.common.enums.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
