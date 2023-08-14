@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class DbExceptionAspect {
 
 
-    @Pointcut("execution(* com.agileboot.orm..*(..))")
+    @Pointcut("execution(* com.agileboot..db..*(..))")
     public void dbException() {
     }
 
