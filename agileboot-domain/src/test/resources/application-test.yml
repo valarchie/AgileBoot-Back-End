@@ -1,0 +1,53 @@
+
+# 数据源配置
+spring:
+    datasource:
+        #  驱动
+        driver-class-name: org.h2.Driver
+        dynamic:
+            primary: master
+            strict: false
+            datasource:
+                master:
+                    # h2 内存数据库 内存模式连接配置 库名: agileboot
+                    url: jdbc:h2:mem:agileboot;DB_CLOSE_DELAY=-1
+                    h2:
+                        # 开启console 访问 默认false
+                        console:
+                            enabled: true
+                            settings:
+                                #  开启h2 console 跟踪 方便调试  默认 false
+                                trace: true
+                                #  允许console 远程访问 默认false
+                                web-allow-others: true
+                            #  h2 访问路径上下文
+                            path: /h2-console
+
+    sql:
+        init:
+            platform: mysql
+            # 初始化数据
+            schema-locations: classpath:h2sql/agileboot_schema.sql
+            data-locations: classpath:h2sql/agileboot_data.sql
+
+    # redis 配置
+    redis:
+        # 地址
+        host: localhost
+        # 端口，默认为6379
+        port: 36379
+        # 数据库索引
+        database: 0
+        # 连接超时时间
+        timeout: 10s
+        lettuce:
+            pool:
+                # 连接池中的最小空闲连接
+                min-idle: 0
+                # 连接池中的最大空闲连接
+                max-idle: 8
+                # 连接池的最大数据库连接数
+                max-active: 8
+                # #连接池最大阻塞等待时间（使用负值表示没有限制）
+                max-wait: -1ms
+

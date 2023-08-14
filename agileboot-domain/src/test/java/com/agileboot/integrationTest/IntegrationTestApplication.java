@@ -1,4 +1,4 @@
-package com.agileboot.integrationtest;
+package com.agileboot.integrationTest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

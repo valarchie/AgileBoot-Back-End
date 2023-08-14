@@ -1,6 +1,6 @@
-package com.agileboot.integrationtest.db;
+package com.agileboot.integrationTest.db;
 
-import com.agileboot.integrationtest.IntegrationTestApplication;
+import com.agileboot.integrationTest.IntegrationTestApplication;
 import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.system.service.ISysConfigService;
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest(classes = IntegrationTestApplication.class)
 @RunWith(SpringRunner.class)
-class SysConfigServiceImplTest {
+class  SysConfigServiceImplTest {
 
     @Resource
     ISysConfigService configService;

@@ -1,7 +1,7 @@
-package com.agileboot.integrationtest.db;
+package com.agileboot.integrationTest.db;
 
 import cn.hutool.core.collection.CollUtil;
-import com.agileboot.integrationtest.IntegrationTestApplication;
+import com.agileboot.integrationTest.IntegrationTestApplication;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.service.ISysMenuService;
 import java.util.List;

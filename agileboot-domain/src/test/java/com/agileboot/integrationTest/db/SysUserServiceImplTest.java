@@ -1,9 +1,9 @@
-package com.agileboot.integrationtest.db;
+package com.agileboot.integrationTest.db;
 
 import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.integrationtest.IntegrationTestApplication;
+import com.agileboot.integrationTest.IntegrationTestApplication;
 import com.agileboot.orm.system.entity.SysMenuEntity;
 import com.agileboot.orm.system.entity.SysPostEntity;
 import com.agileboot.orm.system.entity.SysRoleEntity;

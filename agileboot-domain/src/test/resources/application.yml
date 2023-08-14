@@ -9,7 +9,7 @@ spring:
 agileboot:
   embedded:
     mysql: true
-    redis: true
+    redis: false
 
 
 

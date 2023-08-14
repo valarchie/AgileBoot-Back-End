@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class ConfigApplicationService {
+public class  ConfigApplicationService {
 
     @NonNull
     private ConfigModelFactory configModelFactory;
