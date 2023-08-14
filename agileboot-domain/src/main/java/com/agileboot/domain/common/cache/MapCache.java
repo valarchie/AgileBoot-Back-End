@@ -5,7 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.agileboot.orm.common.annotations.Dictionary;
 import com.agileboot.orm.common.enums.*;
-import com.agileboot.orm.common.enums.interfaces.DictionaryEnum;
+import com.agileboot.common.enums.DictionaryEnum;
 import com.agileboot.orm.common.dto.DictionaryData;
 
 import java.util.Arrays;

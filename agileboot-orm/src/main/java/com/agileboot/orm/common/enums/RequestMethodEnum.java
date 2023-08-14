@@ -1,6 +1,6 @@
 package com.agileboot.orm.common.enums;
 
-import com.agileboot.orm.common.enums.interfaces.BasicEnum;
+import com.agileboot.common.enums.BasicEnum;
 
 /**
  * Http Method

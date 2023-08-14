@@ -1,7 +1,7 @@
 package com.agileboot.orm.common.enums;
 
 import com.agileboot.orm.common.annotations.Dictionary;
-import com.agileboot.orm.common.enums.interfaces.BasicEnum;
+import com.agileboot.common.enums.BasicEnum;
 
 /**
  * 操作者类型

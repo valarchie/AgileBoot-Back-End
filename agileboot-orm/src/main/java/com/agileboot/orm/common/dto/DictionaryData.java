@@ -1,6 +1,6 @@
 package com.agileboot.orm.common.dto;
 
-import com.agileboot.orm.common.enums.interfaces.DictionaryEnum;
+import com.agileboot.common.enums.DictionaryEnum;
 import lombok.Data;
 
 /**

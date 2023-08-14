@@ -2,7 +2,7 @@ package com.agileboot.orm.common.enums;
 
 import com.agileboot.orm.common.CssTag;
 import com.agileboot.orm.common.annotations.Dictionary;
-import com.agileboot.orm.common.enums.interfaces.DictionaryEnum;
+import com.agileboot.common.enums.DictionaryEnum;
 
 /**
  * 除非表有特殊指明的话，一般用这个枚举代表 status字段
