@@ -20,7 +20,7 @@ import com.agileboot.common.utils.i18n.MessageUtils;
 import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
 import com.agileboot.infrastructure.cache.map.MapCache;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
-import com.agileboot.infrastructure.thread.AsyncTaskFactory;
+import com.agileboot.admin.customize.async.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
 import com.agileboot.admin.customize.service.login.dto.ConfigDTO;

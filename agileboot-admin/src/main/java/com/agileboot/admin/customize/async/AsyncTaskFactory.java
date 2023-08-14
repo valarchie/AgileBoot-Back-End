@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.thread;
+package com.agileboot.admin.customize.async;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.extra.servlet.ServletUtil;

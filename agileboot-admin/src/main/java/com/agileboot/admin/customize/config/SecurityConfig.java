@@ -7,7 +7,7 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Client;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.infrastructure.cache.redis.RedisCacheService;
-import com.agileboot.infrastructure.thread.AsyncTaskFactory;
+import com.agileboot.admin.customize.async.AsyncTaskFactory;
 import com.agileboot.infrastructure.thread.ThreadPoolManager;
 import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.admin.customize.service.login.TokenService;
