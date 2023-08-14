@@ -26,11 +26,9 @@ import org.springframework.stereotype.Service;
 public class LogApplicationService {
 
     // TODO 命名到时候统一改成叫LoginLog
-    @NonNull
-    private SysLoginInfoService loginInfoService;
+    private final SysLoginInfoService loginInfoService;
 
-    @NonNull
-    private SysOperationLogService operationLogService;
+    private final SysOperationLogService operationLogService;
 
     public PageDTO<LoginLogDTO> getLoginInfoList(LoginLogQuery query) {
         Page<SysLoginInfoEntity> page = loginInfoService.page(query.toPage(), query.toQueryWrapper());

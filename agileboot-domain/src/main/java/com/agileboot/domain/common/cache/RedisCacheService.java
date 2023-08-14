@@ -24,8 +24,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RedisCacheService {
 
-    @NonNull
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
     public RedisCacheTemplate<String> captchaCache;
     public RedisCacheTemplate<SystemLoginUser> loginUserCache;

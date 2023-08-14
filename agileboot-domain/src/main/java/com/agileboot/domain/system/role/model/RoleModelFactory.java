@@ -23,11 +23,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RoleModelFactory {
 
-    @NonNull
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private SysRoleMenuService roleMenuService;
+    private final SysRoleMenuService roleMenuService;
 
     public RoleModel loadById(Long roleId) {
         SysRoleEntity byId = roleService.getById(roleId);

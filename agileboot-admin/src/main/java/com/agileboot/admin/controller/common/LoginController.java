@@ -41,17 +41,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LoginController {
 
-    @NonNull
-    private LoginService loginService;
+    private final LoginService loginService;
 
-    @NonNull
-    private MenuApplicationService menuApplicationService;
+    private final MenuApplicationService menuApplicationService;
 
-    @NonNull
-    private UserApplicationService userApplicationService;
+    private final UserApplicationService userApplicationService;
 
-    @NonNull
-    private AgileBootConfig agileBootConfig;
+    private final AgileBootConfig agileBootConfig;
 
     /**
      * 访问首页，提示语

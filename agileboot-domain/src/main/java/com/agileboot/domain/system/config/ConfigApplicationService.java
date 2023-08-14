@@ -21,13 +21,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class  ConfigApplicationService {
+public class ConfigApplicationService {
 
-    @NonNull
-    private ConfigModelFactory configModelFactory;
+    private final ConfigModelFactory configModelFactory;
 
-    @NonNull
-    private SysConfigService configService;
+    private final SysConfigService configService;
 
     public PageDTO<ConfigDTO> getConfigList(ConfigQuery query) {
         Page<SysConfigEntity> page = configService.page(query.toPage(), query.toQueryWrapper());

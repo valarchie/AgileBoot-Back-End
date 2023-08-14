@@ -31,15 +31,13 @@ public class SecurityConfig {
     /**
      * token认证过滤器
      */
-    @NonNull
-    private JwtAuthenticationFilter jwtTokenFilter;
+    private final JwtAuthenticationFilter jwtTokenFilter;
 
 
     /**
      * 跨域过滤器
      */
-    @NonNull
-    private CorsFilter corsFilter;
+    private final CorsFilter corsFilter;
 
 
     /**

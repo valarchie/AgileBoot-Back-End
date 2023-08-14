@@ -27,8 +27,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAd
 @RequiredArgsConstructor
 public class UnrepeatableInterceptor extends RequestBodyAdviceAdapter {
 
-    @NonNull
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType,

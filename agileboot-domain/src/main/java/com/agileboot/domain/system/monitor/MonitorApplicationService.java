@@ -31,8 +31,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MonitorApplicationService {
 
-    @NonNull
-    private RedisTemplate<String, ?> redisTemplate;
+    private final RedisTemplate<String, ?> redisTemplate;
 
     public RedisCacheInfoDTO getRedisCacheInfo() {
         Properties info = (Properties) redisTemplate.execute((RedisCallback<Object>) RedisServerCommands::info);

@@ -20,8 +20,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RedisRateLimitChecker extends AbstractRateLimitChecker{
 
-    @NonNull
-    private RedisTemplate<Object, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
     private final RedisScript<Long> limitScript = new DefaultRedisScript<>(limitScriptText(), Long.class);
 

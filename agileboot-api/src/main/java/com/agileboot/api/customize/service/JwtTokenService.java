@@ -44,8 +44,7 @@ public class JwtTokenService {
     @Value("${token.secret}")
     private String secret;
 
-    @NonNull
-    private RedisCacheService redisCache;
+    private final RedisCacheService redisCache;
 
     /**
      * 获取用户身份信息

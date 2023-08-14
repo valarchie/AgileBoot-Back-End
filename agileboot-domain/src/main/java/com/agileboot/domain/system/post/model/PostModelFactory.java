@@ -15,8 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PostModelFactory {
 
-    @NonNull
-    private SysPostService postService;
+    private final SysPostService postService;
 
     public PostModel loadById(Long postId) {
         SysPostEntity byId = postService.getById(postId);

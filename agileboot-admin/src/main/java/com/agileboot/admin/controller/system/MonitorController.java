@@ -33,8 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MonitorController extends BaseController {
 
-    @NonNull
-    private MonitorApplicationService monitorApplicationService;
+    private final MonitorApplicationService monitorApplicationService;
 
     @Operation(summary = "Redis信息")
     @PreAuthorize("@permission.has('monitor:cache:list')")

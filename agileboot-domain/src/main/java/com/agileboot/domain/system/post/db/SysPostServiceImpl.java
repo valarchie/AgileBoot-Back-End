@@ -20,8 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity> implements SysPostService {
 
-    @NonNull
-    private SysUserMapper userMapper;
+    private final SysUserMapper userMapper;
 
     /**
      * 校验岗位名称是否唯一

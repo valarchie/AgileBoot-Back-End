@@ -47,26 +47,21 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @NonNull
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
-    @NonNull
-    private RedisCacheService redisCache;
+    private final RedisCacheService redisCache;
 
     /**
      * token认证过滤器
      */
-    @NonNull
-    private JwtAuthenticationTokenFilter jwtTokenFilter;
+    private final JwtAuthenticationTokenFilter jwtTokenFilter;
 
-    @NonNull
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     /**
      * 跨域过滤器
      */
-    @NonNull
-    private CorsFilter corsFilter;
+    private final CorsFilter corsFilter;
 
 
     /**

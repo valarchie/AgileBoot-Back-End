@@ -40,8 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class SysProfileController extends BaseController {
 
-    @NonNull
-    private UserApplicationService userApplicationService;
+    private final UserApplicationService userApplicationService;
 
     /**
      * 个人信息

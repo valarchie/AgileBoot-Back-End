@@ -37,20 +37,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleApplicationService {
 
-    @NonNull
-    private RoleModelFactory roleModelFactory;
+    private final RoleModelFactory roleModelFactory;
 
-    @NonNull
-    private UserModelFactory userModelFactory;
+    private final UserModelFactory userModelFactory;
 
-    @NonNull
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private SysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
 
 
     public PageDTO<RoleDTO> getRoleList(RoleQuery query) {

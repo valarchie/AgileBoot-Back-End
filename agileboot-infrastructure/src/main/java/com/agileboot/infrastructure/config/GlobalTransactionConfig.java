@@ -35,8 +35,7 @@ public class GlobalTransactionConfig {
     /**
      * 注入事务管理器
      */
-    @NonNull
-    private TransactionManager transactionManager;
+    private final TransactionManager transactionManager;
 
     /**
      * 配置事务拦截器

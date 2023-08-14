@@ -43,17 +43,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserApplicationService {
 
-    @NonNull
-    private SysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private SysPostService postService;
+    private final SysPostService postService;
 
-    @NonNull
-    private UserModelFactory userModelFactory;
+    private final UserModelFactory userModelFactory;
 
 
     public PageDTO<UserDTO> getUserList(SearchUserQuery<SearchUserDO> query) {

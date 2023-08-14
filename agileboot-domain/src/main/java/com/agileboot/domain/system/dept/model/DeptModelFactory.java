@@ -17,8 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeptModelFactory {
 
-    @NonNull
-    private SysDeptService deptService;
+    private final SysDeptService deptService;
 
     public DeptModel loadById(Long deptId) {
         SysDeptEntity byId = deptService.getById(deptId);

@@ -25,14 +25,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DeptApplicationService {
 
-    @NonNull
-    private SysDeptService deptService;
+    private final SysDeptService deptService;
 
-    @NonNull
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private DeptModelFactory deptModelFactory;
+    private final DeptModelFactory deptModelFactory;
 
 
     public List<DeptDTO> getDeptList(DeptQuery query) {

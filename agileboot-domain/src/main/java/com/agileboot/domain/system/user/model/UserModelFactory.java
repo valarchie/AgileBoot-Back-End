@@ -19,17 +19,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserModelFactory {
 
-    @NonNull
-    private SysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private PostModelFactory postModelFactory;
+    private final PostModelFactory postModelFactory;
 
-    @NonNull
-    private DeptModelFactory deptModelFactory;
+    private final DeptModelFactory deptModelFactory;
 
-    @NonNull
-    private RoleModelFactory roleModelFactory;
+    private final RoleModelFactory roleModelFactory;
 
     public UserModel loadById(Long userId) {
         SysUserEntity byId = userService.getById(userId);

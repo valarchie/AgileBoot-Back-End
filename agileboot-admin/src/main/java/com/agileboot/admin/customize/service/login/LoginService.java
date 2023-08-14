@@ -54,17 +54,13 @@ import org.springframework.util.FastByteArrayOutputStream;
 @RequiredArgsConstructor
 public class LoginService {
 
-    @NonNull
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
-    @NonNull
-    private RedisCacheService redisCache;
+    private final RedisCacheService redisCache;
 
-    @NonNull
-    private GuavaCacheService guavaCache;
+    private final GuavaCacheService guavaCache;
 
-    @NonNull
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @Resource(name = "captchaProducer")
     private Producer captchaProducer;

@@ -46,8 +46,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysRoleController extends BaseController {
 
-    @NonNull
-    private RoleApplicationService roleApplicationService;
+    private final RoleApplicationService roleApplicationService;
 
     @Operation(summary = "角色列表")
     @PreAuthorize("@permission.has('system:role:list')")

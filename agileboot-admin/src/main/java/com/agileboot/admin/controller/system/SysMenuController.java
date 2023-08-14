@@ -43,8 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysMenuController extends BaseController {
 
-    @NonNull
-    MenuApplicationService menuApplicationService;
+    private final MenuApplicationService menuApplicationService;
 
     /**
      * 获取菜单列表

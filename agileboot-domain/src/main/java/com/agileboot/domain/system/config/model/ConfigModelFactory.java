@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ConfigModelFactory {
 
-    @NonNull
-    private SysConfigService configService;
+    private final SysConfigService configService;
 
     public ConfigModel loadById(Long configId) {
         SysConfigEntity byId = configService.getById(configId);

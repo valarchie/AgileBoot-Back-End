@@ -22,8 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> implements SysRoleService {
 
-    @NonNull
-    private SysUserMapper userMapper;
+    private final SysUserMapper userMapper;
 
     @Override
     public boolean isRoleNameDuplicated(Long roleId, String roleName) {

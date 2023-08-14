@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class NoticeModelFactory {
 
-    @NonNull
-    private SysNoticeService noticeService;
+    private final SysNoticeService noticeService;
 
     public NoticeModel loadById(Long noticeId) {
         SysNoticeEntity byId = noticeService.getById(noticeId);

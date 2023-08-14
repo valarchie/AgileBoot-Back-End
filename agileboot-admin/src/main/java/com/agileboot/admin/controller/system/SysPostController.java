@@ -41,8 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysPostController extends BaseController {
 
-    @NonNull
-    private PostApplicationService postApplicationService;
+    private final PostApplicationService postApplicationService;
 
     /**
      * 获取岗位列表

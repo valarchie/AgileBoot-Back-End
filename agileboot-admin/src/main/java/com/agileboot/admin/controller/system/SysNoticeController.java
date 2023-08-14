@@ -45,8 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysNoticeController extends BaseController {
 
-    @NonNull
-    private NoticeApplicationService noticeApplicationService;
+    private final NoticeApplicationService noticeApplicationService;
 
     /**
      * 获取通知公告列表

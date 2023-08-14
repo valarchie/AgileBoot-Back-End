@@ -37,8 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "配置API", description = "配置相关的增删查改")
 public class SysConfigController extends BaseController {
 
-    @NonNull
-    private ConfigApplicationService configApplicationService;
+    private final ConfigApplicationService configApplicationService;
 
     /**
      * 获取参数配置列表

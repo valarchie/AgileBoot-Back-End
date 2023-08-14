@@ -20,8 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptEntity> implements SysDeptService {
 
-    @NonNull
-    private SysUserMapper userMapper;
+    private final SysUserMapper userMapper;
 
 
     @Override

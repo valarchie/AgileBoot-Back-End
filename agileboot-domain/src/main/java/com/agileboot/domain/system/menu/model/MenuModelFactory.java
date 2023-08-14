@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MenuModelFactory {
 
-    @NonNull
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
 
     public MenuModel loadById(Long menuId) {
         SysMenuEntity byId = menuService.getById(menuId);

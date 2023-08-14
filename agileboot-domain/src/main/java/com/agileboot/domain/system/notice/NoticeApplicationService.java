@@ -24,11 +24,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NoticeApplicationService {
 
-    @NonNull
-    private SysNoticeService noticeService;
+    private final SysNoticeService noticeService;
 
-    @NonNull
-    private NoticeModelFactory noticeModelFactory;
+    private final NoticeModelFactory noticeModelFactory;
 
     public PageDTO<NoticeDTO> getNoticeList(NoticeQuery query) {
         Page<SysNoticeEntity> page = noticeService.getNoticeList(query.toPage(), query.toQueryWrapper());

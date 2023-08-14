@@ -55,8 +55,7 @@ public class TokenService {
     @Value("${token.autoRefreshTime}")
     private long autoRefreshTime;
 
-    @NonNull
-    private RedisCacheService redisCache;
+    private final RedisCacheService redisCache;
 
     /**
      * 获取用户身份信息

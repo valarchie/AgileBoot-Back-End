@@ -25,11 +25,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RateLimiterAspect {
 
-    @NonNull
-    private RedisRateLimitChecker redisRateLimitChecker;
+    private final RedisRateLimitChecker redisRateLimitChecker;
 
-    @NonNull
-    private MapRateLimitChecker mapRateLimitChecker;
+    private final MapRateLimitChecker mapRateLimitChecker;
 
 
     @Before("@annotation(rateLimiter)")

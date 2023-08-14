@@ -20,8 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DataPermissionService {
 
-    @NonNull
-    private SysUserService userService;
+    private final SysUserService userService;
 
     /**
      * 通过userId 校验当前用户 对 目标用户是否有操作权限

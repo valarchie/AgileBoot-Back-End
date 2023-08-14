@@ -44,17 +44,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @NonNull
-    private SysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
 
-    @NonNull
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
 
     @Override

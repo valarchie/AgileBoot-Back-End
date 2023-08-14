@@ -32,11 +32,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MenuApplicationService {
 
-    @NonNull
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
 
-    @NonNull
-    private MenuModelFactory menuModelFactory;
+    private final MenuModelFactory menuModelFactory;
 
 
     public List<MenuDTO> getMenuList(MenuQuery query) {

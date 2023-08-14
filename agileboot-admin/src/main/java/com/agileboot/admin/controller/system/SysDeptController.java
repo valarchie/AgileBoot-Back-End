@@ -39,8 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "部门API", description = "部门相关的增删查改")
 public class SysDeptController extends BaseController {
 
-    @NonNull
-    private DeptApplicationService deptApplicationService;
+    private final DeptApplicationService deptApplicationService;
 
     /**
      * 获取部门列表

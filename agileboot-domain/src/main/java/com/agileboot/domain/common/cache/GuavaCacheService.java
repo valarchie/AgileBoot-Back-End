@@ -18,11 +18,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GuavaCacheService {
 
-    @NonNull
-    private SysConfigService configService;
+    private final SysConfigService configService;
 
-    @NonNull
-    private SysDeptService deptService;
+    private final SysDeptService deptService;
 
     public final AbstractGuavaCacheTemplate<String> configCache = new AbstractGuavaCacheTemplate<String>() {
         @Override

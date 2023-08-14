@@ -24,11 +24,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostApplicationService {
 
-    @NonNull
-    private PostModelFactory postModelFactory;
+    private final PostModelFactory postModelFactory;
 
-    @NonNull
-    private SysPostService postService;
+    private final SysPostService postService;
 
     public PageDTO<PostDTO> getPostList(PostQuery query) {
         Page<SysPostEntity> page = postService.page(query.toPage(), query.toQueryWrapper());
