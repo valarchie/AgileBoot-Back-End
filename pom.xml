@@ -196,13 +196,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- 系统模块-->
-            <dependency>
-                <groupId>com.agileboot</groupId>
-                <artifactId>agileboot-orm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.agileboot</groupId>
@@ -281,7 +274,6 @@
         <module>agileboot-common</module>
         <module>agileboot-domain</module>
         <module>agileboot-infrastructure</module>
-        <module>agileboot-orm</module>
     </modules>
     <packaging>pom</packaging>
 

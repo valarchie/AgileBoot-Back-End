@@ -24,12 +24,6 @@
             <artifactId>agileboot-common</artifactId>
         </dependency>
 
-        <!-- 通用工具-->
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-orm</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-infrastructure</artifactId>

@@ -237,7 +237,7 @@ public class CodeGenerator {
         builder.serviceBuilder()
 //                    .superServiceClass(BaseService.class)
 //                    .superServiceImplClass(BaseServiceImpl.class)
-            .formatServiceFileName("I%sService")
+            .formatServiceFileName("%sService")
             .formatServiceImplFileName("%sServiceImpl")
             .build();
     }
