@@ -66,17 +66,22 @@ public class GlobalTransactionConfig {
 
         // 事务管理规则，声明具备事务管理的方法名
         NameMatchTransactionAttributeSource source = new NameMatchTransactionAttributeSource();
-        //方法名规则限制，必须以下列开头才会加入事务管理当中
+        // 方法名规则限制，必须以下列开头才会加入事务管理当中
+        // 新增
         source.addTransactionalMethod("add*", txAttrRequired);
         source.addTransactionalMethod("save*", txAttrRequired);
         source.addTransactionalMethod("create*", txAttrRequired);
         source.addTransactionalMethod("insert*", txAttrRequired);
+        // 修改
         source.addTransactionalMethod("submit*", txAttrRequired);
-        source.addTransactionalMethod("del*", txAttrRequired);
-        source.addTransactionalMethod("remove*", txAttrRequired);
+        source.addTransactionalMethod("edit*", txAttrRequired);
         source.addTransactionalMethod("update*", txAttrRequired);
+        source.addTransactionalMethod("modify*", txAttrRequired);
         source.addTransactionalMethod("exec*", txAttrRequired);
         source.addTransactionalMethod("set*", txAttrRequired);
+        // 删除
+        source.addTransactionalMethod("del*", txAttrRequired);
+        source.addTransactionalMethod("remove*", txAttrRequired);
 
         //对于查询方法，根据实际情况添加事务管理 可能存在查询多个数据时，已查询出来的数据刚好被改变的情况
         source.addTransactionalMethod("get*", txAttrRequiredReadOnly);
