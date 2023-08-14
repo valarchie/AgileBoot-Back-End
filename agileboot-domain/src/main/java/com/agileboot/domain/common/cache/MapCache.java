@@ -1,4 +1,4 @@
-package com.agileboot.infrastructure.cache.map;
+package com.agileboot.domain.common.cache;
 
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
