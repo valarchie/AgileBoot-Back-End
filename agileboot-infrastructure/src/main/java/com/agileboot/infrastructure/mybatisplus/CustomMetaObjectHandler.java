@@ -1,7 +1,7 @@
 package com.agileboot.infrastructure.mybatisplus;
 
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,8 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
             this.setFieldValByName(CREATE_TIME_FIELD, new Date(), metaObject);
         }
 
-        if (metaObject.hasSetter(CREATOR_ID_FIELD)) {
+        Long userId = getUserIdSafely();
+        if (metaObject.hasSetter(CREATOR_ID_FIELD) && userId != null) {
             this.strictInsertFill(metaObject, CREATOR_ID_FIELD, Long.class, getUserIdSafely());
         }
     }
@@ -41,7 +42,8 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
             this.setFieldValByName(UPDATE_TIME_FIELD, new Date(), metaObject);
         }
 
-        if (metaObject.hasSetter(UPDATER_ID_FIELD)) {
+        Long userId = getUserIdSafely();
+        if (metaObject.hasSetter(UPDATER_ID_FIELD) && userId != null) {
             this.strictUpdateFill(metaObject, UPDATER_ID_FIELD, Long.class, getUserIdSafely());
         }
     }
@@ -49,10 +51,10 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public Long getUserIdSafely() {
         Long userId = null;
         try {
-            LoginUser loginUser = AuthenticationUtils.getLoginUser();
+            SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
             userId = loginUser.getUserId();
         } catch (Exception e) {
-            log.info("can not find user in current thread.");
+            log.warn("can not find user in current thread.");
         }
         return userId;
     }

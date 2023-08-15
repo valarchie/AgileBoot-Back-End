@@ -54,11 +54,6 @@
             <artifactId>oshi-core</artifactId>
         </dependency>
 
-        <!-- 系统模块-->
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-orm</artifactId>
-        </dependency>
 
         <!-- 通用模块-->
         <dependency>
@@ -107,13 +102,6 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-springdoc-ui</artifactId>
-            <!--在引用时请在maven中央仓库搜索3.X最新版本号-->
-            <version>3.0.3</version>
         </dependency>
 
     </dependencies>

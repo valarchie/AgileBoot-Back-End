@@ -4,10 +4,10 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysRoleMenuEntity;
-import com.agileboot.orm.system.service.ISysRoleMenuService;
-import com.agileboot.orm.system.service.ISysRoleService;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.role.db.SysRoleMenuEntity;
+import com.agileboot.domain.system.role.db.SysRoleMenuService;
+import com.agileboot.domain.system.role.db.SysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,16 +23,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RoleModelFactory {
 
-    @NonNull
-    private ISysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private ISysRoleMenuService roleMenuService;
+    private final SysRoleMenuService roleMenuService;
 
     public RoleModel loadById(Long roleId) {
         SysRoleEntity byId = roleService.getById(roleId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, roleId, "角色");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, roleId, "角色");
         }
 
         LambdaQueryWrapper<SysRoleMenuEntity> queryWrapper = new LambdaQueryWrapper<>();

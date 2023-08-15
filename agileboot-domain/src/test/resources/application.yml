@@ -1,0 +1,18 @@
+
+
+# Spring配置
+spring:
+  profiles:
+    active: basic,test
+
+# 如果需要无Mysql  无Redis直接启动的话  可以将这个参数置为true, 并且spring.profile.active: dev换成test
+agileboot:
+  embedded:
+    mysql: true
+    redis: false
+
+
+
+
+
+

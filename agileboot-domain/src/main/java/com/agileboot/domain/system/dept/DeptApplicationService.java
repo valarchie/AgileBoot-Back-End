@@ -8,9 +8,9 @@ import com.agileboot.domain.system.dept.dto.DeptDTO;
 import com.agileboot.domain.system.dept.model.DeptModel;
 import com.agileboot.domain.system.dept.model.DeptModelFactory;
 import com.agileboot.domain.system.dept.query.DeptQuery;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.service.ISysDeptService;
-import com.agileboot.orm.system.service.ISysRoleService;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.dept.db.SysDeptService;
+import com.agileboot.domain.system.role.db.SysRoleService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
@@ -25,14 +25,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DeptApplicationService {
 
-    @NonNull
-    private ISysDeptService deptService;
+    private final SysDeptService deptService;
 
-    @NonNull
-    private ISysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private DeptModelFactory deptModelFactory;
+    private final DeptModelFactory deptModelFactory;
 
 
     public List<DeptDTO> getDeptList(DeptQuery query) {

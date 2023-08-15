@@ -1,6 +1,6 @@
 package com.agileboot.infrastructure.web.util;
 
-import com.agileboot.infrastructure.security.AuthenticationUtils;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

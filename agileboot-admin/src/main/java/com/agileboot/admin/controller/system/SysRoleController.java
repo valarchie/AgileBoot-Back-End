@@ -14,8 +14,8 @@ import com.agileboot.domain.system.role.query.AllocatedRoleQuery;
 import com.agileboot.domain.system.role.query.RoleQuery;
 import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
-import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -46,8 +46,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysRoleController extends BaseController {
 
-    @NonNull
-    private RoleApplicationService roleApplicationService;
+    private final RoleApplicationService roleApplicationService;
 
     @Operation(summary = "角色列表")
     @PreAuthorize("@permission.has('system:role:list')")

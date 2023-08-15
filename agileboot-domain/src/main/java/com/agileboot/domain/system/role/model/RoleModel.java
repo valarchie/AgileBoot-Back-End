@@ -7,21 +7,23 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.system.role.command.AddRoleCommand;
 import com.agileboot.domain.system.role.command.UpdateRoleCommand;
-import com.agileboot.orm.common.enums.StatusEnum;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysRoleMenuEntity;
-import com.agileboot.orm.system.service.ISysRoleMenuService;
-import com.agileboot.orm.system.service.ISysRoleService;
+import com.agileboot.common.enums.common.StatusEnum;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.role.db.SysRoleMenuEntity;
+import com.agileboot.domain.system.role.db.SysRoleMenuService;
+import com.agileboot.domain.system.role.db.SysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class RoleModel extends SysRoleEntity {
@@ -30,15 +32,15 @@ public class RoleModel extends SysRoleEntity {
 
     private List<Long> deptIds;
 
-    private ISysRoleService roleService;
-    private ISysRoleMenuService roleMenuService;
+    private SysRoleService roleService;
+    private SysRoleMenuService roleMenuService;
 
-    public RoleModel(ISysRoleService roleService, ISysRoleMenuService roleMenuService) {
+    public RoleModel(SysRoleService roleService, SysRoleMenuService roleMenuService) {
         this.roleService = roleService;
         this.roleMenuService = roleMenuService;
     }
 
-    public RoleModel(SysRoleEntity entity, ISysRoleService roleService, ISysRoleMenuService roleMenuService) {
+    public RoleModel(SysRoleEntity entity, SysRoleService roleService, SysRoleMenuService roleMenuService) {
         if (entity != null) {
             BeanUtil.copyProperties(entity, this);
         }

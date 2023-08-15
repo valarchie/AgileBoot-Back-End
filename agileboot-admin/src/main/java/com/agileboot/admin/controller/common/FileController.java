@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 通用请求处理
- *
+ * TODO 需要重构
  * @author valarchie
  */
 @Tag(name = "上传API", description = "上传相关接口")
@@ -52,7 +52,7 @@ public class FileController {
             if (!FileUploadUtils.isAllowDownload(fileName)) {
                 // 返回类型是ResponseEntity 不能捕获异常， 需要手动将错误填到 ResponseEntity
                 ResponseDTO<Object> fail = ResponseDTO.fail(
-                    new ApiException(Business.FILE_NOT_ALLOWED_TO_DOWNLOAD, fileName));
+                    new ApiException(Business.COMMON_FILE_NOT_ALLOWED_TO_DOWNLOAD, fileName));
                 return new ResponseEntity<>(JacksonUtil.to(fail).getBytes(), null, HttpStatus.OK);
             }
 

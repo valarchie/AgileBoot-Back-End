@@ -5,12 +5,14 @@ import cn.hutool.core.lang.Validator;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * ip校验器
  *
  * @author valarchie
  */
+@Slf4j
 public class IpUtil {
 
     public static final String INNER_IP_REGEX = "^(127\\.0\\.0\\.\\d{1,3})|(localhost)|(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(172\\.((1[6-9])|(2\\d)|(3[01]))\\.\\d{1,3}\\.\\d{1,3})|(192\\.168\\.\\d{1,3}\\.\\d{1,3})$";
@@ -30,6 +32,7 @@ public class IpUtil {
             byte[] ip = ad.getAddress();
             ia = InetAddress.getByAddress(ip);
         } catch (UnknownHostException e) {
+            log.error("解析Ip失败", e);
             e.printStackTrace();
         }
         if (ia == null) {

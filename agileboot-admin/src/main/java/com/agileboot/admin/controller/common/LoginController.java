@@ -3,24 +3,24 @@ package com.agileboot.admin.controller.common;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.core.dto.ResponseDTO;
+import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.domain.common.dto.UserPermissionDTO;
+import com.agileboot.domain.common.dto.CurrentLoginUserDTO;
+import com.agileboot.domain.common.dto.TokenDTO;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
+import com.agileboot.domain.system.user.UserApplicationService;
 import com.agileboot.domain.system.user.command.AddUserCommand;
-import com.agileboot.domain.system.user.dto.UserDTO;
-import com.agileboot.infrastructure.annotations.RateLimit;
-import com.agileboot.infrastructure.annotations.RateLimit.CacheType;
-import com.agileboot.infrastructure.annotations.RateLimit.LimitType;
-import com.agileboot.infrastructure.cache.map.MapCache;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.CaptchaDTO;
-import com.agileboot.infrastructure.web.domain.login.LoginDTO;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.login.TokenDTO;
-import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
-import com.agileboot.infrastructure.web.service.LoginService;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.CacheType;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimit.LimitType;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
+import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
+import com.agileboot.admin.customize.service.login.command.LoginCommand;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.infrastructure.annotations.ratelimit.RateLimitKey;
+import com.agileboot.admin.customize.service.login.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -41,14 +41,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LoginController {
 
-    @NonNull
-    private LoginService loginService;
+    private final LoginService loginService;
 
-    @NonNull
-    private MenuApplicationService menuApplicationService;
+    private final MenuApplicationService menuApplicationService;
 
-    @NonNull
-    private AgileBootConfig agileBootConfig;
+    private final UserApplicationService userApplicationService;
+
+    private final AgileBootConfig agileBootConfig;
 
     /**
      * 访问首页，提示语
@@ -60,6 +59,18 @@ public class LoginController {
     public String index() {
         return StrUtil.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。",
             agileBootConfig.getName(), agileBootConfig.getVersion());
+    }
+
+
+    /**
+     * 获取系统的内置配置
+     *
+     * @return 配置信息
+     */
+    @GetMapping("/getConfig")
+    public ResponseDTO<ConfigDTO> getConfig() {
+        ConfigDTO configDTO = loginService.getConfig();
+        return ResponseDTO.ok(configDTO);
     }
 
     /**
@@ -77,16 +88,18 @@ public class LoginController {
     /**
      * 登录方法
      *
-     * @param loginDTO 登录信息
+     * @param loginCommand 登录信息
      * @return 结果
      */
     @Operation(summary = "登录")
     @PostMapping("/login")
-    public ResponseDTO<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseDTO<TokenDTO> login(@RequestBody LoginCommand loginCommand) {
         // 生成令牌
-        String token = loginService.login(loginDTO);
+        String token = loginService.login(loginCommand);
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
+        CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
-        return ResponseDTO.ok(new TokenDTO(token));
+        return ResponseDTO.ok(new TokenDTO(token, currentUserDTO));
     }
 
     /**
@@ -96,28 +109,23 @@ public class LoginController {
      */
     @Operation(summary = "获取当前登录用户信息")
     @GetMapping("/getLoginUserInfo")
-    public ResponseDTO<UserPermissionDTO> getLoginUserInfo() {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+    public ResponseDTO<CurrentLoginUserDTO> getLoginUserInfo() {
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
 
-        UserPermissionDTO permissionDTO = new UserPermissionDTO();
+        CurrentLoginUserDTO currentUserDTO = userApplicationService.getLoginUserInfo(loginUser);
 
-        permissionDTO.setUser(new UserDTO(CacheCenter.userCache.getObjectById(loginUser.getUserId())));
-        permissionDTO.setRoleKey(loginUser.getRoleInfo().getRoleKey());
-        permissionDTO.setPermissions(loginUser.getRoleInfo().getMenuPermissions());
-        permissionDTO.setDictTypes(MapCache.dictionaryCache());
-
-        return ResponseDTO.ok(permissionDTO);
+        return ResponseDTO.ok(currentUserDTO);
     }
 
     /**
      * 获取路由信息
-     *
+     * TODO 如果要在前端开启路由缓存的话 需要在ServerConfig.json 中  设置CachingAsyncRoutes=true  避免一直重复请求路由接口
      * @return 路由信息
      */
     @Operation(summary = "获取用户对应的菜单路由", description = "用于动态生成路由")
     @GetMapping("/getRouters")
     public ResponseDTO<List<RouterDTO>> getRouters() {
-        LoginUser loginUser = AuthenticationUtils.getLoginUser();
+        SystemLoginUser loginUser = AuthenticationUtils.getSystemLoginUser();
         List<RouterDTO> routerTree = menuApplicationService.getRouterTree(loginUser);
         return ResponseDTO.ok(routerTree);
     }
@@ -126,7 +134,7 @@ public class LoginController {
     @Operation(summary = "注册接口", description = "暂未实现")
     @PostMapping("/register")
     public ResponseDTO<Void> register(@RequestBody AddUserCommand command) {
-        return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
+        return ResponseDTO.fail(new ApiException(Business.COMMON_UNSUPPORTED_OPERATION));
     }
 
 }

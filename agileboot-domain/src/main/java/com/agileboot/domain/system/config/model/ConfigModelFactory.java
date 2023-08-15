@@ -2,8 +2,8 @@ package com.agileboot.domain.system.config.model;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.orm.system.entity.SysConfigEntity;
-import com.agileboot.orm.system.service.ISysConfigService;
+import com.agileboot.domain.system.config.db.SysConfigEntity;
+import com.agileboot.domain.system.config.db.SysConfigService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,13 +16,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ConfigModelFactory {
 
-    @NonNull
-    private ISysConfigService configService;
+    private final SysConfigService configService;
 
     public ConfigModel loadById(Long configId) {
         SysConfigEntity byId = configService.getById(configId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, configId, "参数配置");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, configId, "参数配置");
         }
         return new ConfigModel(byId, configService);
     }

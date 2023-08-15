@@ -5,8 +5,8 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.model.DeptModelFactory;
 import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SysUserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,22 +19,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserModelFactory {
 
-    @NonNull
-    private ISysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private PostModelFactory postModelFactory;
+    private final PostModelFactory postModelFactory;
 
-    @NonNull
-    private DeptModelFactory deptModelFactory;
+    private final DeptModelFactory deptModelFactory;
 
-    @NonNull
-    private RoleModelFactory roleModelFactory;
+    private final RoleModelFactory roleModelFactory;
 
     public UserModel loadById(Long userId) {
         SysUserEntity byId = userService.getById(userId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, userId, "用户");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, userId, "用户");
         }
         return new UserModel(byId, userService, postModelFactory, deptModelFactory, roleModelFactory);
     }

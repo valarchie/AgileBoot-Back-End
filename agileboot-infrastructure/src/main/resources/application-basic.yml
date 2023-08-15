@@ -1,3 +1,4 @@
+# 基础公用的配置参数放置在这份yml中
 # 项目相关配置
 agileboot:
   # 名称
@@ -16,6 +17,7 @@ agileboot:
   rsaPrivateKey: MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKHoeQr6sIzfsUDMIdXK2FNzqnG+vnnUrTsJGF1f82MJ10cC5Aw53/ntHl+IjCBU0R8KwPVwjJLoDwhaPgO0ktHa3b0l6E+mqIVIniE20Nws3E0mJhFwJC/IxB7JAg8TkuNzflzvZjAO1ACwgkKGxq7Iutz4TocLeCfUkObXwc1fAgMBAAECgYAWwCzqDwnp8bDdkxGaEhPNvi4QJ6ZqRilFZ2TGEiqIGyTl9JEI6sT/QIOJFw3hqSltfDxbAMKwDe221b9rE9+hZhE2rrpwcTKuehob9Z8CObYeUHR9HG7Qb2tYRElvSCWo74iz2zajXAvJLjIE4MPuPYqXC5zOabH+EJ/eaOzVwQJBANmRkMlb+qzp1GWuqFMHP+5MeYhFwUHVX7fxKNA24oHldX8zjPIZ6d3vaRfliTvxOaz1T80acvJkkb7zHBmaW38CQQC+gfF8Lg+nvBY/S3wfOPL8FcntP16jdFhNNZmbOxq72ZmCfl5Zk5cYNBc4rDSrd9Sj4TkLLug+wrK6Wr117P4hAkBOVxnZR2NVy8SM8HzvmJauiZ7hMKzLtbcHlrBpeLnKqALM0JUZv7b0EPa4ghAOI2fvHU2kvrdRDGFmbkdZ+LilAkBnX8eT5MKl+A/yZJmDr7laRNB/poVKGNXZf55Md3P4Pwlnn/6+iLHSdmGrZPZnnOyLyKjVgqyPccLeEGMCXIlBAkAt2OMwss16OH2x79OcfBrabU5iCVbDHg56JYGbWP8KcPfvspxtL/4TdACRsa+yCMcI6L29Q4wn791SEEnE834a
   # 是否检查 i18n 资源文件（messages.properties）是否都有对应的键值对
   checkI18nKey: false
+  traceRequestIdKey: AG-RequestId
 
 
 
@@ -44,7 +46,7 @@ logging:
     com.agileboot: debug
     org.springframework: info
   pattern:
-    console: "%date %thread %green(%level) [%cyan(%logger{10}):%magenta(%line)] %red(%method) | %msg%n"
+    console: "%date requestId:%X{${agileboot.traceRequestIdKey}} %thread %green(%level) [%cyan(%logger{10}):%magenta(%line)] %red(%method) | %msg%n"
 
 
 # Spring配置
@@ -92,8 +94,8 @@ token:
 
 # MyBatis配置
 mybatis-plus:
-    # 搜索指定包别名
-    typeAliasesPackage: com.agileboot.orm.*
+    # 搜索指定包别名 使用简短的类型名称来代替完整的类型名称
+#    typeAliasesPackage: com.agileboot.orm.*
     # 配置mapper的扫描，找到所有的mapper.xml映射文件
     mapperLocations: classpath*:mapper/**/*Mapper.xml
     # 加载全局的配置文件
@@ -118,19 +120,10 @@ springdoc:
     path: /v3/api-docs
     groups:
       enabled: true
+  # 配置需要生成接口文档的扫描包
+  packages-to-scan: com.agileboot
 
-knife4j:
-  enable: true
-#  setting:
-#    language: zh_cn
-#    swagger-model-name: 实体类列表
-#  documents:
-#    - name: 标题1
-#      locations: classpath:markdown/*
-#      group: default
-#    - name: 标题2
-#      locations: classpath:markdown1/*
-#      group: 用户模块
+
 
 
 

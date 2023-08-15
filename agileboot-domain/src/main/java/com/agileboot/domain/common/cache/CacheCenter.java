@@ -2,14 +2,12 @@ package com.agileboot.domain.common.cache;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
-import com.agileboot.infrastructure.cache.guava.GuavaCacheService;
-import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.agileboot.infrastructure.cache.redis.RedisCacheTemplate;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.infrastructure.web.domain.login.RoleInfo;
-import com.agileboot.orm.system.entity.SysDeptEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
@@ -28,13 +26,13 @@ public class CacheCenter {
 
     public static RedisCacheTemplate<String> captchaCache;
 
-    public static RedisCacheTemplate<LoginUser> loginUserCache;
+    public static RedisCacheTemplate<SystemLoginUser> loginUserCache;
 
     public static RedisCacheTemplate<SysUserEntity> userCache;
 
     public static RedisCacheTemplate<SysRoleEntity> roleCache;
 
-    public static RedisCacheTemplate<RoleInfo> roleModelInfoCache;
+    public static RedisCacheTemplate<SysPostEntity> postCache;
 
     @PostConstruct
     public void init() {
@@ -48,7 +46,7 @@ public class CacheCenter {
         loginUserCache = redisCache.loginUserCache;
         userCache = redisCache.userCache;
         roleCache = redisCache.roleCache;
-        roleModelInfoCache = redisCache.roleModelInfoCache;
+        postCache = redisCache.postCache;
     }
 
 }

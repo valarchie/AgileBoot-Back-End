@@ -18,8 +18,7 @@ public class RedisCacheBean implements Cache {
     /**
      * 缓存仓库
      */
-    @NonNull
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
     @Override
     public String getName() {

@@ -7,15 +7,15 @@ import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.entity.SysConfigEntity;
-import com.agileboot.orm.system.service.ISysConfigService;
+import com.agileboot.domain.system.config.db.SysConfigEntity;
+import com.agileboot.domain.system.config.db.SysConfigService;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ConfigModelTest {
 
-    private final ISysConfigService configService = mock(ISysConfigService.class);
+    private final SysConfigService configService = mock(SysConfigService.class);
 
     private final ConfigModelFactory configModelFactory = new ConfigModelFactory(configService);
 

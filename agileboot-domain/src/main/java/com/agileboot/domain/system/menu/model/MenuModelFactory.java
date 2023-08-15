@@ -2,8 +2,8 @@ package com.agileboot.domain.system.menu.model;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,13 +16,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MenuModelFactory {
 
-    @NonNull
-    private ISysMenuService menuService;
+    private final SysMenuService menuService;
 
     public MenuModel loadById(Long menuId) {
         SysMenuEntity byId = menuService.getById(menuId);
         if (byId == null) {
-            throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, menuId, "菜单");
+            throw new ApiException(ErrorCode.Business.COMMON_OBJECT_NOT_FOUND, menuId, "菜单");
         }
         return new MenuModel(byId, menuService);
     }

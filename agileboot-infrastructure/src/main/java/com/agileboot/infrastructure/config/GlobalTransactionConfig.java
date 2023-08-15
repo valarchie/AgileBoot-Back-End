@@ -25,8 +25,8 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 public class GlobalTransactionConfig {
 
     /**
-     * 配置全局事务的切点为service层的所有方法
-     * AOP切面表达式 可参考（https://blog.csdn.net/ycf921244819/article/details/106599489）
+     * 配置全局事务的切点为service层的所有方法 AOP切面表达式 可参考（<a
+     * href="https://blog.csdn.net/ycf921244819/article/details/106599489">https://blog.csdn.net/ycf921244819/article/details/106599489</a>）
      * 本项目设置在 applicationService层
      */
     private static final String POINTCUT_EXPRESSION = "execution(public * com.agileboot.domain..*.*ApplicationService.*(..))";
@@ -35,12 +35,12 @@ public class GlobalTransactionConfig {
     /**
      * 注入事务管理器
      */
-    @NonNull
-    private TransactionManager transactionManager;
+    private final TransactionManager transactionManager;
 
     /**
      * 配置事务拦截器
-     * @return
+     *
+     * @return TransactionInterceptor
      */
     @Bean
     public TransactionInterceptor txAdvice() {
@@ -65,17 +65,22 @@ public class GlobalTransactionConfig {
 
         // 事务管理规则，声明具备事务管理的方法名
         NameMatchTransactionAttributeSource source = new NameMatchTransactionAttributeSource();
-        //方法名规则限制，必须以下列开头才会加入事务管理当中
+        // 方法名规则限制，必须以下列开头才会加入事务管理当中
+        // 新增
         source.addTransactionalMethod("add*", txAttrRequired);
         source.addTransactionalMethod("save*", txAttrRequired);
         source.addTransactionalMethod("create*", txAttrRequired);
         source.addTransactionalMethod("insert*", txAttrRequired);
+        // 修改
         source.addTransactionalMethod("submit*", txAttrRequired);
-        source.addTransactionalMethod("del*", txAttrRequired);
-        source.addTransactionalMethod("remove*", txAttrRequired);
+        source.addTransactionalMethod("edit*", txAttrRequired);
         source.addTransactionalMethod("update*", txAttrRequired);
+        source.addTransactionalMethod("modify*", txAttrRequired);
         source.addTransactionalMethod("exec*", txAttrRequired);
         source.addTransactionalMethod("set*", txAttrRequired);
+        // 删除
+        source.addTransactionalMethod("del*", txAttrRequired);
+        source.addTransactionalMethod("remove*", txAttrRequired);
 
         //对于查询方法，根据实际情况添加事务管理 可能存在查询多个数据时，已查询出来的数据刚好被改变的情况
         source.addTransactionalMethod("get*", txAttrRequiredReadOnly);
@@ -92,7 +97,7 @@ public class GlobalTransactionConfig {
 
     /**
      * 设置切面
-     * @return
+     * @return Advisor
      */
     @Bean
     public Advisor txAdviceAdvisor() {

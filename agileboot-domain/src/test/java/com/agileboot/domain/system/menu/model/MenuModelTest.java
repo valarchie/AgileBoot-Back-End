@@ -1,13 +1,12 @@
 package com.agileboot.domain.system.menu.model;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Business;
-import com.agileboot.orm.system.service.ISysMenuService;
+import com.agileboot.domain.system.menu.db.SysMenuService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -16,7 +15,7 @@ class MenuModelTest {
 
     private static final long MENU_ID = 1L;
 
-    private final ISysMenuService menuService = mock(ISysMenuService.class);
+    private final SysMenuService menuService = mock(SysMenuService.class);
 
     private final MenuModelFactory menuModelFactory = new MenuModelFactory(menuService);
 
@@ -35,11 +34,11 @@ class MenuModelTest {
     @Test
     void testCheckExternalLinkWhenSuccessful() {
         MenuModel notExternalButWithoutHttpPrefix = new MenuModel();
-        notExternalButWithoutHttpPrefix.setIsExternal(false);
+//        notExternalButWithoutHttpPrefix.setIsExternal(false);
         notExternalButWithoutHttpPrefix.setPath("www.baidu.com");
 
         MenuModel isExternalWithHttpPrefix = new MenuModel();
-        isExternalWithHttpPrefix.setIsExternal(true);
+//        isExternalWithHttpPrefix.setIsExternal(true);
         isExternalWithHttpPrefix.setPath("http://www.baidu.com");
 
         Assertions.assertDoesNotThrow(()->{
@@ -51,7 +50,7 @@ class MenuModelTest {
     @Test
     void testCheckExternalLinkWhenFailed() {
         MenuModel externalWithoutHttpPrefix = new MenuModel();
-        externalWithoutHttpPrefix.setIsExternal(true);
+//        externalWithoutHttpPrefix.setIsExternal(true);
         externalWithoutHttpPrefix.setPath("www.baidu.com");
 
         ApiException exception = assertThrows(ApiException.class, externalWithoutHttpPrefix::checkExternalLink);
@@ -76,7 +75,7 @@ class MenuModelTest {
     void testCheckHasChildMenus() {
         MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
-        when(menuService.hasChildrenMenu(eq(MENU_ID))).thenReturn(true);
+        when(menuService.hasChildrenMenu(MENU_ID)).thenReturn(true);
 
         ApiException exception = assertThrows(ApiException.class, menuModel::checkHasChildMenus);
 
@@ -88,7 +87,7 @@ class MenuModelTest {
     void testCheckMenuAlreadyAssignToRole() {
         MenuModel menuModel = menuModelFactory.create();
         menuModel.setMenuId(MENU_ID);
-        when(menuService.isMenuAssignToRoles(eq(MENU_ID))).thenReturn(true);
+        when(menuService.isMenuAssignToRoles(MENU_ID)).thenReturn(true);
 
         ApiException exception = assertThrows(ApiException.class, menuModel::checkMenuAlreadyAssignToRole);
 

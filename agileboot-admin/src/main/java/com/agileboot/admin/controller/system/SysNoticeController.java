@@ -9,9 +9,10 @@ import com.agileboot.domain.system.notice.command.NoticeAddCommand;
 import com.agileboot.domain.system.notice.command.NoticeUpdateCommand;
 import com.agileboot.domain.system.notice.dto.NoticeDTO;
 import com.agileboot.domain.system.notice.query.NoticeQuery;
-import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.infrastructure.annotations.Unrepeatable;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
+import com.agileboot.infrastructure.annotations.unrepeatable.Unrepeatable;
+import com.agileboot.infrastructure.annotations.unrepeatable.Unrepeatable.CheckType;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,20 +40,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "公告API", description = "公告相关的增删查改")
 @RestController
-@RequestMapping("/system/notice")
+@RequestMapping("/system/notices")
 @Validated
 @RequiredArgsConstructor
 public class SysNoticeController extends BaseController {
 
-    @NonNull
-    private NoticeApplicationService noticeApplicationService;
+    private final NoticeApplicationService noticeApplicationService;
 
     /**
      * 获取通知公告列表
      */
     @Operation(summary = "公告列表")
     @PreAuthorize("@permission.has('system:notice:list')")
-    @GetMapping("/list")
+    @GetMapping
     public ResponseDTO<PageDTO<NoticeDTO>> list(NoticeQuery query) {
         PageDTO<NoticeDTO> pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
@@ -64,7 +65,7 @@ public class SysNoticeController extends BaseController {
     @Operation(summary = "公告列表（从数据库从库获取）", description = "演示主从库的例子")
     @DS("slave")
     @PreAuthorize("@permission.has('system:notice:list')")
-    @GetMapping("/listFromSlave")
+    @GetMapping("/database/slave")
     public ResponseDTO<PageDTO<NoticeDTO>> listFromSlave(NoticeQuery query) {
         PageDTO<NoticeDTO> pageDTO = noticeApplicationService.getNoticeList(query);
         return ResponseDTO.ok(pageDTO);
@@ -84,7 +85,7 @@ public class SysNoticeController extends BaseController {
      * 新增通知公告
      */
     @Operation(summary = "添加公告")
-    @Unrepeatable(interval = 60)
+    @Unrepeatable(interval = 60, checkType = CheckType.SYSTEM_USER)
     @PreAuthorize("@permission.has('system:notice:add')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.ADD)
     @PostMapping
@@ -99,8 +100,9 @@ public class SysNoticeController extends BaseController {
     @Operation(summary = "修改公告")
     @PreAuthorize("@permission.has('system:notice:edit')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.MODIFY)
-    @PutMapping
-    public ResponseDTO<Void> edit(@RequestBody NoticeUpdateCommand updateCommand) {
+    @PutMapping("/{noticeId}")
+    public ResponseDTO<Void> edit(@PathVariable Long noticeId, @RequestBody NoticeUpdateCommand updateCommand) {
+        updateCommand.setNoticeId(noticeId);
         noticeApplicationService.updateNotice(updateCommand);
         return ResponseDTO.ok();
     }
@@ -111,8 +113,8 @@ public class SysNoticeController extends BaseController {
     @Operation(summary = "删除公告")
     @PreAuthorize("@permission.has('system:notice:remove')")
     @AccessLog(title = "通知公告", businessType = BusinessTypeEnum.DELETE)
-    @DeleteMapping("/{noticeIds}")
-    public ResponseDTO<Void> remove(@PathVariable List<Integer> noticeIds) {
+    @DeleteMapping
+    public ResponseDTO<Void> remove(@RequestParam List<Integer> noticeIds) {
         noticeApplicationService.deleteNotice(new BulkOperationCommand<>(noticeIds));
         return ResponseDTO.ok();
     }

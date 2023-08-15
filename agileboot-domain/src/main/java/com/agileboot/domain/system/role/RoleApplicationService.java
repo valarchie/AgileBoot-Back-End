@@ -17,11 +17,11 @@ import com.agileboot.domain.system.role.query.UnallocatedRoleQuery;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
-import com.agileboot.orm.system.service.ISysRoleService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.menu.db.SysMenuService;
+import com.agileboot.domain.system.role.db.SysRoleService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
@@ -37,20 +37,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleApplicationService {
 
-    @NonNull
-    private RoleModelFactory roleModelFactory;
+    private final RoleModelFactory roleModelFactory;
 
-    @NonNull
-    private UserModelFactory userModelFactory;
+    private final UserModelFactory userModelFactory;
 
-    @NonNull
-    private ISysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private ISysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private ISysMenuService menuService;
+    private final SysMenuService menuService;
 
 
     public PageDTO<RoleDTO> getRoleList(RoleQuery query) {
@@ -88,8 +83,6 @@ public class RoleApplicationService {
                 roleModel.checkRoleCanBeDelete();
 
                 roleModel.deleteById();
-
-                CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
             }
         }
     }
@@ -103,8 +96,6 @@ public class RoleApplicationService {
         roleModel.checkRoleNameUnique();
 
         roleModel.updateById();
-
-        CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
     }
 
     public void updateStatus(UpdateStatusCommand command) {
@@ -113,8 +104,6 @@ public class RoleApplicationService {
         roleModel.setStatus(command.getStatus());
 
         roleModel.updateById();
-
-        CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
     }
 
     public void updateDataScope(UpdateDataScopeCommand command) {
@@ -125,8 +114,6 @@ public class RoleApplicationService {
         roleModel.generateDeptIdSet();
 
         roleModel.updateById();
-
-        CacheCenter.roleModelInfoCache.delete(roleModel.getRoleId());
     }
 
 

@@ -1,54 +1,76 @@
 package com.agileboot.domain.system.menu.dto;
 
-import cn.hutool.core.util.BooleanUtil;
-import com.agileboot.orm.common.enums.StatusEnum;
-import com.agileboot.orm.common.util.BasicEnumUtil;
-import com.agileboot.orm.system.entity.SysMenuEntity;
+import cn.hutool.core.util.StrUtil;
+import com.agileboot.common.utils.jackson.JacksonUtil;
+import com.agileboot.common.enums.common.MenuTypeEnum;
+import com.agileboot.common.enums.common.StatusEnum;
+import com.agileboot.common.enums.BasicEnumUtil;
+import com.agileboot.domain.system.menu.db.SysMenuEntity;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
 @Data
+@NoArgsConstructor
 public class MenuDTO {
 
     public MenuDTO(SysMenuEntity entity) {
         if (entity != null) {
-            this.menuId = entity.getMenuId();
+            this.id = entity.getMenuId();
             this.parentId = entity.getParentId();
             this.menuName = entity.getMenuName();
-            this.menuType = entity.getMenuType();
-            this.icon = entity.getIcon();
-            this.orderNum = entity.getOrderNum();
-            this.component = entity.getComponent();
-            this.perms = entity.getPerms();
+            this.routerName = entity.getRouterName();
             this.path = entity.getPath();
             this.status = entity.getStatus();
+            this.isButton = entity.getIsButton();
             this.statusStr = BasicEnumUtil.getDescriptionByValue(StatusEnum.class, entity.getStatus());
+
+            if (!entity.getIsButton()) {
+                this.menuType = entity.getMenuType();
+                this.menuTypeStr = BasicEnumUtil.getDescriptionByValue(MenuTypeEnum.class, entity.getMenuType());
+            } else {
+                this.menuType = 0;
+            }
+
+            if (StrUtil.isNotEmpty(entity.getMetaInfo()) && JacksonUtil.isJson(entity.getMetaInfo())) {
+                MetaDTO meta = JacksonUtil.from(entity.getMetaInfo(), MetaDTO.class);
+                this.rank = meta.getRank();
+                this.icon = meta.getIcon();
+            }
             this.createTime = entity.getCreateTime();
-            this.isExternal = BooleanUtil.toInt(entity.getIsExternal());
-            this.isCache = BooleanUtil.toInt(entity.getIsCache());
-            this.isVisible = BooleanUtil.toInt(entity.getIsVisible());
-            this.query = entity.getQuery();
         }
     }
 
-    private Long menuId;
+    // 设置成id和parentId 便于前端处理树级结构
+    private Long id;
+
     private Long parentId;
-    private Integer menuType;
+
     private String menuName;
-    private String icon;
-    private Integer orderNum;
-    private String component;
+
+    private String routerName;
+
     private String path;
-    private String perms;
+
+    private Integer rank;
+
+    private Integer menuType;
+
+    private String menuTypeStr;
+
+    private Boolean isButton;
+
     private Integer status;
+
     private String statusStr;
+
     private Date createTime;
-    private Integer isExternal;
-    private Integer isCache;
-    private Integer isVisible;
-    private String query;
+
+    private String icon;
+
+
 
 }

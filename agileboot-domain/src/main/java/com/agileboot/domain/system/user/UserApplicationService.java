@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.common.command.BulkOperationCommand;
+import com.agileboot.domain.common.dto.CurrentLoginUserDTO;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.role.dto.RoleDTO;
 import com.agileboot.domain.system.user.command.AddUserCommand;
@@ -13,20 +14,20 @@ import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserAvatarCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
+import com.agileboot.domain.system.user.db.SearchUserDO;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.domain.system.user.dto.UserDetailDTO;
 import com.agileboot.domain.system.user.dto.UserProfileDTO;
 import com.agileboot.domain.system.user.model.UserModel;
 import com.agileboot.domain.system.user.model.UserModelFactory;
 import com.agileboot.domain.system.user.query.SearchUserQuery;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.result.SearchUserDO;
-import com.agileboot.orm.system.service.ISysPostService;
-import com.agileboot.orm.system.service.ISysRoleService;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.role.db.SysRoleEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.post.db.SysPostService;
+import com.agileboot.domain.system.role.db.SysRoleService;
+import com.agileboot.domain.system.user.db.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
@@ -42,17 +43,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserApplicationService {
 
-    @NonNull
-    private ISysUserService userService;
+    private final SysUserService userService;
 
-    @NonNull
-    private ISysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @NonNull
-    private ISysPostService postService;
+    private final SysPostService postService;
 
-    @NonNull
-    private UserModelFactory userModelFactory;
+    private final UserModelFactory userModelFactory;
 
 
     public PageDTO<UserDTO> getUserList(SearchUserQuery<SearchUserDO> query) {
@@ -68,6 +65,22 @@ public class UserApplicationService {
         SysRoleEntity roleEntity = userService.getRoleOfUser(userId);
 
         return new UserProfileDTO(userEntity, postEntity, roleEntity);
+    }
+
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @return 当前登录用户信息
+     */
+    public CurrentLoginUserDTO getLoginUserInfo(SystemLoginUser loginUser) {
+        CurrentLoginUserDTO permissionDTO = new CurrentLoginUserDTO();
+
+        permissionDTO.setUserInfo(new UserDTO(CacheCenter.userCache.getObjectById(loginUser.getUserId())));
+        permissionDTO.setRoleKey(loginUser.getRoleInfo().getRoleKey());
+        permissionDTO.setPermissions(loginUser.getRoleInfo().getMenuPermissions());
+
+        return permissionDTO;
     }
 
 
@@ -127,7 +140,7 @@ public class UserApplicationService {
         CacheCenter.userCache.delete(model.getUserId());
     }
 
-    public void deleteUsers(LoginUser loginUser, BulkOperationCommand<Long> command) {
+    public void deleteUsers(SystemLoginUser loginUser, BulkOperationCommand<Long> command) {
         for (Long id : command.getIds()) {
             UserModel userModel = userModelFactory.loadById(id);
             userModel.checkCanBeDelete(loginUser);
@@ -135,7 +148,7 @@ public class UserApplicationService {
         }
     }
 
-    public void updatePasswordBySelf(LoginUser loginUser, UpdateUserPasswordCommand command) {
+    public void updatePasswordBySelf(SystemLoginUser loginUser, UpdateUserPasswordCommand command) {
         UserModel userModel = userModelFactory.loadById(command.getUserId());
         userModel.modifyPassword(command);
         userModel.updateById();

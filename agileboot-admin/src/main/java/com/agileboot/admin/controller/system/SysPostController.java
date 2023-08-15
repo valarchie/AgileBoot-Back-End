@@ -10,8 +10,8 @@ import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.post.query.PostQuery;
-import com.agileboot.infrastructure.annotations.AccessLog;
-import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -41,8 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysPostController extends BaseController {
 
-    @NonNull
-    private PostApplicationService postApplicationService;
+    private final PostApplicationService postApplicationService;
 
     /**
      * 获取岗位列表

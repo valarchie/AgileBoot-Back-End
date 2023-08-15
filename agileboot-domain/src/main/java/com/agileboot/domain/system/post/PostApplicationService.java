@@ -8,8 +8,8 @@ import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.post.model.PostModel;
 import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.post.query.PostQuery;
-import com.agileboot.orm.system.entity.SysPostEntity;
-import com.agileboot.orm.system.service.ISysPostService;
+import com.agileboot.domain.system.post.db.SysPostEntity;
+import com.agileboot.domain.system.post.db.SysPostService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,11 +24,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostApplicationService {
 
-    @NonNull
-    private PostModelFactory postModelFactory;
+    private final PostModelFactory postModelFactory;
 
-    @NonNull
-    private ISysPostService postService;
+    private final SysPostService postService;
 
     public PageDTO<PostDTO> getPostList(PostQuery query) {
         Page<SysPostEntity> page = postService.page(query.toPage(), query.toQueryWrapper());

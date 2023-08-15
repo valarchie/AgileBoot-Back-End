@@ -76,8 +76,7 @@ public abstract class AbstractGuavaCacheTemplate<T> {
             Optional<T> optional = guavaCache.get(key);
             return optional.orElse(null);
         } catch (ExecutionException e) {
-            log.error("get cache object from guava cache failed.");
-            e.printStackTrace();
+            log.error("get cache object from guava cache failed.", e);
             return null;
         }
     }
@@ -97,8 +96,9 @@ public abstract class AbstractGuavaCacheTemplate<T> {
 
     /**
      * 从数据库加载数据
-     * @param id
-     * @return
+     *
+     * @param id id
+     * @return T
      */
     public abstract T getObjectFromDb(Object id);
 

@@ -1,7 +1,6 @@
 package com.agileboot.domain.system.user.model;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,15 +10,15 @@ import com.agileboot.domain.system.dept.model.DeptModelFactory;
 import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.domain.system.user.db.SysUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class UserModelTest {
 
-    private final ISysUserService userService = mock(ISysUserService.class);
+    private final SysUserService userService = mock(SysUserService.class);
     private final PostModelFactory postModelFactory = mock(PostModelFactory.class);
     private final DeptModelFactory deptModelFactory = mock(DeptModelFactory.class);
     private final RoleModelFactory roleModelFactory = mock(RoleModelFactory.class);
@@ -39,8 +38,8 @@ class UserModelTest {
         userWithNewName.setUserId(USER_ID);
         userWithNewName.setUsername("user 2");
 
-        when(userService.isUserNameDuplicated(eq("user 1"))).thenReturn(true);
-        when(userService.isUserNameDuplicated(eq("user 2"))).thenReturn(false);
+        when(userService.isUserNameDuplicated("user 1")).thenReturn(true);
+        when(userService.isUserNameDuplicated("user 2")).thenReturn(false);
 
         ApiException exception = assertThrows(ApiException.class, userWithSameName::checkUsernameIsUnique);
         Assertions.assertEquals(Business.USER_NAME_IS_NOT_UNIQUE, exception.getErrorCode());
@@ -73,8 +72,8 @@ class UserModelTest {
         userWithNewNumber.setUserId(USER_ID);
         userWithNewNumber.setEmail("2@2.com");
 
-        when(userService.isEmailDuplicated(eq("1@1.com"), eq(USER_ID))).thenReturn(true);
-        when(userService.isEmailDuplicated(eq("2@2.com"), eq(USER_ID))).thenReturn(false);
+        when(userService.isEmailDuplicated("1@1.com", USER_ID)).thenReturn(true);
+        when(userService.isEmailDuplicated("2@2.com", USER_ID)).thenReturn(false);
 
         ApiException exception = assertThrows(ApiException.class, userWithSameEmail::checkEmailIsUnique);
         Assertions.assertEquals(Business.USER_EMAIL_IS_NOT_UNIQUE, exception.getErrorCode());
@@ -85,7 +84,7 @@ class UserModelTest {
     void testCheckCanBeDeleteWhenDeleteItself() {
         UserModel userModel = userModelFactory.create();
         userModel.setUserId(USER_ID);
-        LoginUser loginUser = new LoginUser();
+        SystemLoginUser loginUser = new SystemLoginUser();
         loginUser.setUserId(USER_ID);
 
         ApiException exception = assertThrows(ApiException.class, () -> userModel.checkCanBeDelete(loginUser));
@@ -98,7 +97,7 @@ class UserModelTest {
         UserModel userModel = userModelFactory.create();
         long adminId = 1L;
         userModel.setUserId(adminId);
-        LoginUser loginUser = new LoginUser();
+        SystemLoginUser loginUser = new SystemLoginUser();
         loginUser.setUserId(2L);
 
         ApiException exception = assertThrows(ApiException.class, () -> userModel.checkCanBeDelete(loginUser));
@@ -111,7 +110,7 @@ class UserModelTest {
     void testCheckCanBeDeleteWhenSuccessful() {
         UserModel userModel = userModelFactory.create();
         userModel.setUserId(2L);
-        LoginUser loginUser = new LoginUser();
+        SystemLoginUser loginUser = new SystemLoginUser();
         loginUser.setUserId(ADMIN_USER_ID);
 
         Assertions.assertDoesNotThrow(() -> userModel.checkCanBeDelete(loginUser));

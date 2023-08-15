@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 读取项目相关配置
- *
+ * TODO 移走  不合适放在这里common包底下
  * @author valarchie
  */
 @Component
@@ -56,7 +56,7 @@ public class AgileBootConfig {
      */
     private static String rsaPrivateKey;
 
-    private static String apiDocsPathPrefix;
+    private static String apiPrefix;
 
     public static String getFileBaseDir() {
         return fileBaseDir;
@@ -66,12 +66,12 @@ public class AgileBootConfig {
         AgileBootConfig.fileBaseDir = fileBaseDir  + File.separator + Constants.RESOURCE_PREFIX;
     }
 
-    public static String getApiDocsPathPrefix() {
-        return apiDocsPathPrefix;
+    public static String getApiPrefix() {
+        return apiPrefix;
     }
 
-    public void setApiDocsPathPrefix(String apiDocsPathPrefix) {
-        AgileBootConfig.apiDocsPathPrefix = apiDocsPathPrefix;
+    public void setApiPrefix(String apiDocsPathPrefix) {
+        AgileBootConfig.apiPrefix = apiDocsPathPrefix;
     }
 
     public static boolean isAddressEnabled() {

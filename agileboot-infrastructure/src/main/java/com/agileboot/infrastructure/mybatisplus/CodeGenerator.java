@@ -32,11 +32,6 @@ import org.yaml.snakeyaml.Yaml;
 @lombok.Builder
 public class CodeGenerator {
 
-    public static final String DATA_SOURCE_FULL_PATH = "spring.datasource.dynamic.datasource.master.";
-    public static final String URL_PATH = DATA_SOURCE_FULL_PATH + "url";
-    public static final String USERNAME_PATH = DATA_SOURCE_FULL_PATH + "username";
-    public static final String PASSWORD_PATH = DATA_SOURCE_FULL_PATH + "password";
-
     private String author;
     private String module;
     private String tableName;
@@ -49,21 +44,24 @@ public class CodeGenerator {
     /**
      * 避免覆盖掉原有生成的类  生成的类 放在orm子模块下的/target/generated-code目录底下
      * 有需要更新的实体自己在手动覆盖  或者 挪动过去
-     * @param args
      */
     public static void main(String[] args) {
         // 默认读取application-dev yml中的master数据库配置
-        JSON ymlJson = JSONUtil.parse(new Yaml().load(ResourceUtil.getStream("application-dev.yml")));
+//        JSON ymlJson = JSONUtil.parse(new Yaml().load(ResourceUtil.getStream("application-dev.yml")));
+
+        String databaseUrl = "jdbc:mysql://localhost:33067/agileboot-pure";
+        String username = "root";
+        String password = "12345";
 
         CodeGenerator generator = CodeGenerator.builder()
-            .databaseUrl(JSONUtil.getByPath(ymlJson, URL_PATH).toString())
-            .username(JSONUtil.getByPath(ymlJson, USERNAME_PATH).toString())
-            .password(JSONUtil.getByPath(ymlJson, PASSWORD_PATH).toString())
+            .databaseUrl(databaseUrl)
+            .username(username)
+            .password(password)
             .author("valarchie")
             //生成的类 放在orm子模块下的/target/generated-code目录底下
             .module("/agileboot-orm/target/generated-code")
             .parentPackage("com.agileboot")
-            .tableName("sys_config")
+            .tableName("sys_menu")
             // 决定是否继承基类
             .isExtendsFromBaseEntity(true)
             .build();
@@ -239,7 +237,7 @@ public class CodeGenerator {
         builder.serviceBuilder()
 //                    .superServiceClass(BaseService.class)
 //                    .superServiceImplClass(BaseServiceImpl.class)
-            .formatServiceFileName("I%sService")
+            .formatServiceFileName("%sService")
             .formatServiceImplFileName("%sServiceImpl")
             .build();
     }

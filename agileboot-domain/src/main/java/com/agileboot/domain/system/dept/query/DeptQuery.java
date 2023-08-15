@@ -1,8 +1,7 @@
 package com.agileboot.domain.system.dept.query;
 
-import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.common.query.AbstractQuery;
-import com.agileboot.orm.system.entity.SysDeptEntity;
+import com.agileboot.common.core.page.AbstractQuery;
+import com.agileboot.domain.system.dept.db.SysDeptEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,19 +17,16 @@ public class DeptQuery extends AbstractQuery<SysDeptEntity> {
 
     private Long deptId;
 
-    private Integer status;
-
     private Long parentId;
 
-    private String deptName;
 
     @Override
-    public QueryWrapper<SysDeptEntity> toQueryWrapper() {
-
+    public QueryWrapper<SysDeptEntity> addQueryCondition() {
+        // TODO parentId 这个似乎没使用
         return new QueryWrapper<SysDeptEntity>()
-            .eq(status != null, "status", status)
-            .eq(parentId != null, "parent_id", parentId)
-            .like(StrUtil.isNotEmpty(deptName), "dept_name", deptName);
+//            .eq(status != null, "status", status)
+            .eq(parentId != null, "parent_id", parentId);
+//            .like(StrUtil.isNotEmpty(deptName), "dept_name", deptName);
 //            .and(deptId != null && isExcludeCurrentDept, o ->
 //                o.ne("dept_id", deptId)
 //                    .or()

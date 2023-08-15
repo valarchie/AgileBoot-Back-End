@@ -21,11 +21,6 @@ public class AddDeptCommand {
     private Long parentId;
 
     /**
-     * 祖级列表
-     */
-    private String ancestors;
-
-    /**
      * 部门名称
      */
     @NotBlank(message = "部门名称不能为空")
@@ -55,6 +50,9 @@ public class AddDeptCommand {
     @Email(message = "邮箱格式不正确")
     @Size(max = 50, message = "邮箱长度不能超过50个字符")
     private String email;
+
+
+    private Integer status;
 
 
 }

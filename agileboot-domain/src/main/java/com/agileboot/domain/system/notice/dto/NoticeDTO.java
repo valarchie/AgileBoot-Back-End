@@ -1,8 +1,8 @@
 package com.agileboot.domain.system.notice.dto;
 
 import com.agileboot.domain.common.cache.CacheCenter;
-import com.agileboot.orm.system.entity.SysNoticeEntity;
-import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.domain.system.notice.db.SysNoticeEntity;
+import com.agileboot.domain.system.user.db.SysUserEntity;
 import java.util.Date;
 import lombok.Data;
 

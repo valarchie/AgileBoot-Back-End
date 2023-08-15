@@ -1,14 +1,16 @@
 package com.agileboot.domain.system.role.query;
 
 import cn.hutool.core.util.StrUtil;
-import com.agileboot.orm.common.query.AbstractPageQuery;
-import com.agileboot.orm.system.entity.SysUserEntity;
+import com.agileboot.common.core.page.AbstractPageQuery;
+import com.agileboot.domain.system.user.db.SysUserEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class AllocatedRoleQuery extends AbstractPageQuery<SysUserEntity> {
 
@@ -17,7 +19,7 @@ public class AllocatedRoleQuery extends AbstractPageQuery<SysUserEntity> {
     private String phoneNumber;
 
     @Override
-    public QueryWrapper<SysUserEntity> toQueryWrapper() {
+    public QueryWrapper<SysUserEntity> addQueryCondition() {
         QueryWrapper<SysUserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("r.role_id", roleId)
             .like(StrUtil.isNotEmpty(username), "u.username", username)

@@ -47,8 +47,8 @@ public class RedisCacheTemplate<T> {
 
     /**
      * 从缓存中获取对象   如果获取不到的话  从DB层面获取
-     * @param id
-     * @return
+     *
+     * @param id id
      */
     public T getObjectById(Object id) {
         String cachedKey = generateKey(id);
@@ -64,15 +64,14 @@ public class RedisCacheTemplate<T> {
 
             return optional.get();
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.error("从缓存中获取对象失败", e);
             return null;
         }
     }
 
     /**
      * 从缓存中获取 对象， 即使找不到的话 也不从DB中找
-     * @param id
-     * @return
+     * @param id id
      */
     public T getObjectOnlyInCacheById(Object id) {
         String cachedKey = generateKey(id);
@@ -81,7 +80,7 @@ public class RedisCacheTemplate<T> {
             log.debug("find the guava cache of key: {}", cachedKey);
             return optional.orElse(null);
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.error("从缓存中获取对象失败", e);
             return null;
         }
     }
@@ -89,7 +88,6 @@ public class RedisCacheTemplate<T> {
     /**
      * 从缓存中获取 对象， 即使找不到的话 也不从DB中找
      * @param cachedKey 直接通过redis的key来搜索
-     * @return
      */
     public T getObjectOnlyInCacheByKey(String cachedKey) {
         try {
@@ -97,7 +95,7 @@ public class RedisCacheTemplate<T> {
             log.debug("find the guava cache of key: {}", cachedKey);
             return optional.orElse(null);
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.error("从缓存中获取对象失败", e);
             return null;
         }
     }

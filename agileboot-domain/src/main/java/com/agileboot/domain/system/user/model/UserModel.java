@@ -13,22 +13,24 @@ import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.command.UpdateProfileCommand;
 import com.agileboot.domain.system.user.command.UpdateUserCommand;
 import com.agileboot.domain.system.user.command.UpdateUserPasswordCommand;
-import com.agileboot.infrastructure.security.AuthenticationUtils;
-import com.agileboot.infrastructure.web.domain.login.LoginUser;
-import com.agileboot.orm.system.entity.SysUserEntity;
-import com.agileboot.orm.system.service.ISysUserService;
+import com.agileboot.infrastructure.user.AuthenticationUtils;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
+import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.domain.system.user.db.SysUserService;
 import java.util.Objects;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @author valarchie
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class UserModel extends SysUserEntity {
 
-    private ISysUserService userService;
+    private SysUserService userService;
 
     private PostModelFactory postModelFactory;
 
@@ -36,7 +38,7 @@ public class UserModel extends SysUserEntity {
 
     private RoleModelFactory roleModelFactory;
 
-    public UserModel(SysUserEntity entity, ISysUserService userService, PostModelFactory postModelFactory,
+    public UserModel(SysUserEntity entity, SysUserService userService, PostModelFactory postModelFactory,
         DeptModelFactory deptModelFactory, RoleModelFactory roleModelFactory) {
         this(userService, postModelFactory, deptModelFactory, roleModelFactory);
 
@@ -45,7 +47,7 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-    public UserModel(ISysUserService userService, PostModelFactory postModelFactory,
+    public UserModel(SysUserService userService, PostModelFactory postModelFactory,
         DeptModelFactory deptModelFactory, RoleModelFactory roleModelFactory) {
         this.userService = userService;
         this.postModelFactory = postModelFactory;
@@ -69,7 +71,7 @@ public class UserModel extends SysUserEntity {
     public void loadUpdateProfileCommand(UpdateProfileCommand command) {
         if (command != null) {
             this.setSex(command.getSex());
-            this.setNickName(command.getNickName());
+            this.setNickname(command.getNickName());
             this.setPhoneNumber(command.getPhoneNumber());
             this.setEmail(command.getEmail());
         }
@@ -112,7 +114,7 @@ public class UserModel extends SysUserEntity {
         }
     }
 
-    public void checkCanBeDelete(LoginUser loginUser) {
+    public void checkCanBeDelete(SystemLoginUser loginUser) {
         if (Objects.equals(getUserId(), loginUser.getUserId())
             || this.getIsAdmin()) {
             throw new ApiException(ErrorCode.Business.USER_CURRENT_USER_CAN_NOT_BE_DELETE);

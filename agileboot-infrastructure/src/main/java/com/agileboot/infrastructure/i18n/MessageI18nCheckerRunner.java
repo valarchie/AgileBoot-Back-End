@@ -40,12 +40,12 @@ public class MessageI18nCheckerRunner implements ApplicationRunner {
      */
     public void checkEveryMessage() {
         for (Object errorCode : allErrorCodes) {
-            ErrorCodeInterface errorInterface = (ErrorCodeInterface)errorCode;
+            ErrorCodeInterface errorInterface = (ErrorCodeInterface) errorCode;
             try {
                 MessageUtils.message(errorInterface.i18nKey());
             } catch (Exception e) {
-                log.warn(" in the file /resources/i18n/messages.properties, could not find i18n message for:"
-                    + errorInterface.i18nKey());
+                log.warn("could not find i18n message for:{}  in the file /resources/i18n/messages.properties.",
+                    errorInterface.i18nKey());
             }
         }
     }

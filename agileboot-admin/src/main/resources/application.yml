@@ -38,12 +38,9 @@ springdoc:
     groups:
       enabled: true
   group-configs:
-    - group: '公共管理API'
+    - group: '公共API'
       packages-to-scan: com.agileboot.admin.controller.common
-    - group: '监控管理API'
-      packages-to-scan: com.agileboot.admin.controller.monitor
-    - group: '系统管理API'
+    - group: '内置系统API'
       packages-to-scan: com.agileboot.admin.controller.system
-    - group: '工具管理API'
-      packages-to-scan: com.agileboot.admin.controller.tool
+
 
