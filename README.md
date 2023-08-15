@@ -15,8 +15,7 @@
 
 <img alt="logo" height="200" src="https://oscimg.oschina.net/oscnet/up-eda2a402cc061f1f5f40d9ac4c084f4c98c.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v1.8.0 </h1>
-<h4 align="center">(2.0.0版本将进行大版本重构以及启动新的前端框架pure-admin)</h4>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AgileBoot v2.0.0 </h1>
 <h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发脚手架</h4>
 <p align="center">
 </p>
@@ -27,7 +26,8 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 适合个人开发者的小型项目或者公司内部项目使用。也可作为供初学者学习使用的案例。
 
 
-* 前端采用Vue3、Element Plus。对应前端仓库 [AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Front-End) ，保持同步更新。
+* 前端是基于优秀的开源项目[Pure-Admin](https://github.com/pure-admin/vue-pure-admin)开发而成。在此感谢Pure-Admin作者。
+* 前端采用Vue3、Element Plus、TypeScript、Pinia。对应前端仓库 [AgileBoot-Front-End](https://github.com/valarchie/AgileBoot-Front-End) ，保持同步更新。
 * 后端采用Spring Boot、Spring Security & Jwt、Redis & MySql、Mybatis Plus、Hutool工具包。
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持注解式主从数据库切换，注解式请求限流，注解式重复请求拦截。
