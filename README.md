@@ -171,16 +171,18 @@ git clone https://github.com/valarchie/AgileBoot-Front-End
 ```
 
 #### 前端启动
-```
-1. npm install
+详细步骤请查看对应前端部分
 
-2. npm run dev
+```
+1. pnpm install
+
+2. pnpm run dev
 
 3. 当出现以下字样时即为启动成功
 
 vite v2.6.14 dev server running at:
 
-> Local: http://127.0.0.1:3000/
+> Local: http://127.0.0.1:80/
 
 ready in 4376ms.
 
@@ -235,8 +237,6 @@ agileboot.embedded.redis: true
 |     | 连接池监视 | 监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈 |
 
 
-目前版本是V1.8.0，将在2.0版本后陆续新增新功能。
-
 ## 🐯 工程结构 🐯
 
 ``` 
@@ -247,25 +247,20 @@ agileboot
 │
 ├── agileboot-common -- 精简基础工具模块
 │
-├── agileboot-infrastructure -- 基础设施模块（主要是配置和集成）
+├── agileboot-infrastructure -- 基础设施模块（主要是配置和集成，不包含业务逻辑）
 │
 ├── agileboot-domain -- 业务模块
 ├    ├── user -- 用户模块（举例）
 ├         ├── command -- 命令参数接收模型（命令）
 ├         ├── dto -- 返回数据类
+├         ├── db -- DB操作类
+├              ├── entity -- 实体类
+├              ├── service -- DB Service
+├              ├── mapper -- DB Dao
 ├         ├── model -- 领域模型类
 ├         ├── query -- 查询参数模型（查询）
 │         ├────── UserApplicationService -- 应用服务（事务层，操作领域模型类完成业务逻辑）
-│
-├── agileboot-integration-test -- 集成测试模块
-│
-├── agileboot-orm -- 数据映射模块（仅包含数据相关逻辑）
-├    ├── entiy -- 实体类
-├    ├── enums -- 数据相关枚举 
-├    ├── mapper -- DAO 
-├    ├── query -- 封装查询对象 
-├    ├── result -- 封装多表查询对象 
-└──  └── service -- 服务层
+
 ```
 
 ### 代码流转
@@ -289,11 +284,16 @@ agileboot
 │                ├── member -- 会员模块
 │
 ├── agileboot-domain -- 
-├                ├── member -- 会员模块
-│
-├── agileboot-orm -- 
-│              ├── member -- 会员模块
-│    
+├                ├── member -- 会员模块（举例）
+├                     ├── command -- 命令参数接收模型（命令）
+├                     ├── dto -- 返回数据类
+├                     ├── db -- DB操作类
+├                          ├── entity -- 实体类
+├                          ├── service -- DB Service
+├                          ├── mapper -- DB Dao
+├                     ├── model -- 领域模型类
+├                     ├── query -- 查询参数模型（查询）
+│                     ├────── MemberApplicationService -- 应用服务（事务层，操作领域模型类完成业务逻辑）
 └─
 ```
 
@@ -318,7 +318,7 @@ agileboot
 - 请导入统一的代码格式化模板（Google）: Settings > Editor > Code Style > Java > 设置按钮 > import schema > 选择项目根目录下的GoogleStyle.xml文件
 - 如需要生成新的表，请使用CodeGenerator类进行生成。
   - 填入数据库地址，账号密码，库名。然后填入所需的表名执行代码即可。（大概看一下代码就知道怎么填啦）
-  - 生成的类在orm模块下的target/classes目录下
+  - 生成的类在infrastructure模块下的target/classes目录下
   - 不同的数据库keywordsHandler方法请填入对应不同数据库handler。（搜索keywordsHandler关键字）
 - 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：
   - [AgileBoot - 手把手一步一步带你Run起全栈项目(SpringBoot+Vue3)](https://juejin.cn/post/7153812187834744845)
