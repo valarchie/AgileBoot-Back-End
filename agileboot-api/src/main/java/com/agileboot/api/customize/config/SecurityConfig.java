@@ -5,7 +5,6 @@ import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode.Client;
 import com.agileboot.common.utils.ServletHolderUtil;
 import com.agileboot.common.utils.jackson.JacksonUtil;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

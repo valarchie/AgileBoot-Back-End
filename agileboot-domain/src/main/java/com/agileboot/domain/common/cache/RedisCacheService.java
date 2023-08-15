@@ -13,7 +13,6 @@ import com.agileboot.domain.system.role.db.SysRoleService;
 import com.agileboot.domain.system.user.db.SysUserService;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

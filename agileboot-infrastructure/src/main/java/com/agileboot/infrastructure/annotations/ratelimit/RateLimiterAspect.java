@@ -3,7 +3,6 @@ package com.agileboot.infrastructure.annotations.ratelimit;
 import com.agileboot.infrastructure.annotations.ratelimit.implementation.MapRateLimitChecker;
 import com.agileboot.infrastructure.annotations.ratelimit.implementation.RedisRateLimitChecker;
 import java.lang.reflect.Method;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

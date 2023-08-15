@@ -5,7 +5,6 @@ import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.domain.system.dept.command.AddDeptCommand;
 import com.agileboot.domain.system.dept.db.SysDeptEntity;
 import com.agileboot.domain.system.dept.db.SysDeptService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

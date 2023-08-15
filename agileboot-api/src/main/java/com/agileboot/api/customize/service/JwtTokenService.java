@@ -15,7 +15,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import lombok.Data;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

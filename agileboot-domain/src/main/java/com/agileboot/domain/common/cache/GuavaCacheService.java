@@ -5,7 +5,6 @@ import com.agileboot.infrastructure.cache.guava.AbstractGuavaCacheTemplate;
 import com.agileboot.domain.system.dept.db.SysDeptEntity;
 import com.agileboot.domain.system.config.db.SysConfigService;
 import com.agileboot.domain.system.dept.db.SysDeptService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
