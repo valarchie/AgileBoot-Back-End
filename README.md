@@ -35,8 +35,8 @@ AgileBoot是一套开源的全栈精简快速开发平台，毫无保留给个�
 * 支持加载动态权限菜单，实时权限控制。
 * ***有大量的单元测试，集成测试覆盖确保业务逻辑正确***。
 
-V1.0.0版本使用JS开发，V2.0.0版本使用TS开发。  
-V1.0.0地址：[后端(AgileBoot-Back-End-Basic)](https://github.com/valarchie/AgileBoot-Back-End-Basic) -  [前端(AgileBoot-Front-End-Basic)](https://github.com/valarchie/AgileBoot-Front-End-Basic)
+***V1.0.0版本使用JS开发，V2.0.0版本使用TS开发***。  
+***V1.0.0地址：[后端(AgileBoot-Back-End-Basic)](https://github.com/valarchie/AgileBoot-Back-End-Basic) -  [前端(AgileBoot-Front-End-Basic)](https://github.com/valarchie/AgileBoot-Front-End-Basic)***
 
 > 有任何问题或者建议，可以在 _Issues_ 中提给作者。  
 > 
