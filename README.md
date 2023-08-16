@@ -151,9 +151,9 @@ git clone https://github.com/valarchie/AgileBoot-Front-End
 #### 后端启动
 ```
 1. 生成所需的数据库表
-找到后端项目根目录下的sql目录中的agileboot_xxxxx.sql脚本文件。 导入到你新建的数据库中。
+找到后端项目根目录下的sql目录中的agileboot_xxxxx.sql脚本文件(取最新的sql文件)。 导入到你新建的数据库中。
 
-2. 在infrastructure模块底下，找到resource目录下的application-dev.yml文件
+2. 在admin模块底下，找到resource目录下的application-dev.yml文件
 配置数据库以及Redis的 地址、端口、账号密码
 
 3. 在根目录执行mvn install
@@ -323,6 +323,7 @@ agileboot
 - 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：
   - [AgileBoot - 手把手一步一步带你Run起全栈项目(SpringBoot+Vue3)](https://juejin.cn/post/7153812187834744845)
 - 注意：管理后台的后端启动类是AgileBoot**Admin**Application
+- Swagger的API地址为 http://localhost:8080/v3/api-docs/
 
 ## 🎬 AgileBoot全栈交流群 🎬
 
