@@ -1,8 +1,10 @@
 package com.agileboot.admin.controller.system;
 
+import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.common.core.base.BaseController;
 import com.agileboot.common.core.dto.ResponseDTO;
 import com.agileboot.common.core.page.PageDTO;
+import com.agileboot.common.enums.common.BusinessTypeEnum;
 import com.agileboot.common.utils.poi.CustomExcelUtil;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.PostApplicationService;
@@ -10,8 +12,6 @@ import com.agileboot.domain.system.post.command.AddPostCommand;
 import com.agileboot.domain.system.post.command.UpdatePostCommand;
 import com.agileboot.domain.system.post.dto.PostDTO;
 import com.agileboot.domain.system.post.query.PostQuery;
-import com.agileboot.admin.customize.aop.accessLog.AccessLog;
-import com.agileboot.common.enums.common.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -53,13 +53,20 @@ public class SysPostController extends BaseController {
         return ResponseDTO.ok(pageDTO);
     }
 
+    /**
+     * 导出查询到的所有岗位信息到excel文件
+     * @param response http响应
+     * @param query 查询参数
+     * @author Kevin Zhang
+     * @date 2023-10-02
+     */
     @Operation(summary = "职位列表导出")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.EXPORT)
     @PreAuthorize("@permission.has('system:post:export')")
-    @PostMapping("/export")
+    @GetMapping("/excel")
     public void export(HttpServletResponse response, PostQuery query) {
-        PageDTO<PostDTO> pageDTO = postApplicationService.getPostList(query);
-        CustomExcelUtil.writeToResponse(pageDTO.getRows(), PostDTO.class, response);
+        List<PostDTO> all = postApplicationService.getPostListAll(query);
+        CustomExcelUtil.writeToResponse(all, PostDTO.class, response);
     }
 
     /**
