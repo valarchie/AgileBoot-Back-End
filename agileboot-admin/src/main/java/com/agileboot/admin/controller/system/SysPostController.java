@@ -54,7 +54,7 @@ public class SysPostController extends BaseController {
     }
 
     /**
-     *
+     * 导出查询到的所有岗位信息到excel文件
      * @param response http响应
      * @param query 查询参数
      * @author Kevin Zhang
