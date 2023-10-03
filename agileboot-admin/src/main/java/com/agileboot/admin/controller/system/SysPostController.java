@@ -16,6 +16,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -110,9 +113,9 @@ public class SysPostController extends BaseController {
     @Operation(summary = "删除职位")
     @PreAuthorize("@permission.has('system:post:remove')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.DELETE)
-    @DeleteMapping("/{postIds}")
-    public ResponseDTO<Void> remove(@PathVariable List<Long> postIds) {
-        postApplicationService.deletePost(new BulkOperationCommand<>(postIds));
+    @DeleteMapping
+    public ResponseDTO<Void> remove(@RequestParam @NotNull @NotEmpty List<Long> ids) {
+        postApplicationService.deletePost(new BulkOperationCommand<>(ids));
         return ResponseDTO.ok();
     }
 
