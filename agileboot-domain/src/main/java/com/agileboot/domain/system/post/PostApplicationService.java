@@ -1,5 +1,6 @@
 package com.agileboot.domain.system.post;
 
+import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.core.page.PageDTO;
 import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.post.command.AddPostCommand;

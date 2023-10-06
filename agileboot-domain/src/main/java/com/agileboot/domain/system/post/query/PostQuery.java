@@ -24,6 +24,11 @@ public class PostQuery extends AbstractPageQuery<SysPostEntity> {
             .eq(status != null, "status", status)
             .eq(StrUtil.isNotEmpty(postCode), "post_code", postCode)
             .like(StrUtil.isNotEmpty(postName), "post_name", postName);
+        // 当前端没有选择排序字段时，则使用post_sort字段升序排序（在父类AbstractQuery中默认为升序）
+        if (StrUtil.isEmpty(this.getOrderColumn())) {
+            this.setOrderColumn("post_sort");
+        }
+        this.setTimeRangeColumn("create_time");
 
         return queryWrapper;
     }
