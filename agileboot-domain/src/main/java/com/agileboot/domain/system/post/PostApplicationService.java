@@ -29,11 +29,6 @@ public class PostApplicationService {
     private final SysPostService postService;
 
     public PageDTO<PostDTO> getPostList(PostQuery query) {
-        // 当前端没有选择排序字段时，则使用post_sort字段排序，在AbstractQuery中默认为升序
-        if (StrUtil.isEmpty(query.getOrderColumn())) {
-            query.setOrderColumn("post_sort");
-        }
-        query.setTimeRangeColumn("create_time");
         Page<SysPostEntity> page = postService.page(query.toPage(), query.toQueryWrapper());
         List<PostDTO> records = page.getRecords().stream().map(PostDTO::new).collect(Collectors.toList());
         return new PageDTO<>(records, page.getTotal());
