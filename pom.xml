@@ -175,14 +175,14 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- 定时任务-->
+            <!-- app预留接口-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- 代码生成-->
+            <!-- 核心业务领域-->
             <dependency>
                 <groupId>com.agileboot</groupId>
                 <artifactId>agileboot-domain</artifactId>

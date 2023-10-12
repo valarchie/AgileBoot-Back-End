@@ -18,12 +18,6 @@
 
     <dependencies>
 
-        <!-- 核心模块-->
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-infrastructure</artifactId>
-        </dependency>
-
         <!-- 业务领域 -->
         <dependency>
             <groupId>com.agileboot</groupId>

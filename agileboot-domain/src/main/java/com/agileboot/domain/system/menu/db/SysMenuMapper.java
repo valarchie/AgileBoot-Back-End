@@ -29,7 +29,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
         + "WHERE u.user_id = #{userId} "
         + " AND m.status = 1 "
         + " AND m.deleted = 0 "
-        + "ORDER BY m.parent_id, m.order_num")
+        + "ORDER BY m.parent_id")
     List<SysMenuEntity> selectMenuListByUserId(@Param("userId")Long userId);
 
 
