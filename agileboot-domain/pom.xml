@@ -18,12 +18,6 @@
 
     <dependencies>
 
-        <!-- 通用工具-->
-        <dependency>
-            <groupId>com.agileboot</groupId>
-            <artifactId>agileboot-common</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-infrastructure</artifactId>
