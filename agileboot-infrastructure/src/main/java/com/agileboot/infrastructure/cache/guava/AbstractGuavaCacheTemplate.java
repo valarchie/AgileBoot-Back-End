@@ -50,12 +50,14 @@ public abstract class AbstractGuavaCacheTemplate<T> {
         // 所有segment的初始总容量大小
         .initialCapacity(128)
         // 用于测试，可任意改变当前时间。参考：https://www.geek-share.com/detail/2689756248.html
-        .ticker(new Ticker() {
-            @Override
-            public long read() {
-                return 0;
-            }
-        })
+        // 大坑  设置ticket为0  会导致缓存不会失效 定时刷新也不会触发,因为距离上次刷新时刻(永远是0)不会超过refreshAfterWrite定义的间隔。
+        // 所以可以总结,这个Ticker直接返回0,会导致Cache的所有基于时间的过期和刷新策略都无法正常工作。Cache内容也不会按预期失效或刷新。
+//        .ticker(new Ticker() {
+//            @Override
+//            public long read() {
+//                return 0;
+//            }
+//        })
         .build(new CacheLoader<String, Optional<T>>() {
             @Override
             public Optional<T> load(String key) {
