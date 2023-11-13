@@ -92,7 +92,7 @@ public class SysRoleController extends BaseController {
      */
     @Operation(summary = "删除角色")
     @PreAuthorize("@permission.has('system:role:remove')")
-    @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.ADD)
+    @AccessLog(title = "角色管理", businessType = BusinessTypeEnum.DELETE)
     @DeleteMapping(value = "/{roleId}")
     public ResponseDTO<Void> remove(@PathVariable("roleId") List<Long> roleIds) {
         roleApplicationService.deleteRoleByBulk(roleIds);
