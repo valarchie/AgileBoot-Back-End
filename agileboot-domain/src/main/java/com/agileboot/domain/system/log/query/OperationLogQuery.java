@@ -1,4 +1,4 @@
-package com.agileboot.domain.system.log.dto;
+package com.agileboot.domain.system.log.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.core.page.AbstractPageQuery;

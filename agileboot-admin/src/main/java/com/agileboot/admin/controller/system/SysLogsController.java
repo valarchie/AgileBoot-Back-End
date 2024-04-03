@@ -10,7 +10,7 @@ import com.agileboot.domain.system.log.LogApplicationService;
 import com.agileboot.domain.system.log.dto.LoginLogDTO;
 import com.agileboot.domain.system.log.query.LoginLogQuery;
 import com.agileboot.domain.system.log.dto.OperationLogDTO;
-import com.agileboot.domain.system.log.dto.OperationLogQuery;
+import com.agileboot.domain.system.log.query.OperationLogQuery;
 import com.agileboot.admin.customize.aop.accessLog.AccessLog;
 import com.agileboot.common.enums.common.BusinessTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;

@@ -5,7 +5,7 @@ import com.agileboot.domain.common.command.BulkOperationCommand;
 import com.agileboot.domain.system.log.dto.LoginLogDTO;
 import com.agileboot.domain.system.log.query.LoginLogQuery;
 import com.agileboot.domain.system.log.dto.OperationLogDTO;
-import com.agileboot.domain.system.log.dto.OperationLogQuery;
+import com.agileboot.domain.system.log.query.OperationLogQuery;
 import com.agileboot.domain.system.log.db.SysLoginInfoEntity;
 import com.agileboot.domain.system.log.db.SysOperationLogEntity;
 import com.agileboot.domain.system.log.db.SysLoginInfoService;
