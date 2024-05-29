@@ -323,7 +323,7 @@ agileboot
 - 项目基础环境搭建，请参考docker目录下的指南搭建。保姆级启动说明：
   - [AgileBoot - 手把手一步一步带你Run起全栈项目(SpringBoot+Vue3)](https://juejin.cn/post/7153812187834744845)
 - 注意：管理后台的后端启动类是AgileBoot**Admin**Application
-- Swagger的API地址为 http://localhost:8080/v3/api-docs/
+- Swagger的API地址为 http://localhost:8080/v3/api-docs
 
 ## 🎬 AgileBoot全栈交流群 🎬
 
