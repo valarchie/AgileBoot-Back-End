@@ -16,6 +16,7 @@ import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.agileboot.common.enums.common.StatusEnum;
 import com.agileboot.domain.system.menu.db.SysMenuEntity;
 import com.agileboot.domain.system.menu.db.SysMenuService;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -153,6 +154,10 @@ public class MenuApplicationService {
                     List<Tree<Long>> children = tree.getChildren();
                     if (CollUtil.isNotEmpty(children)) {
                         routerDTO.setChildren(buildRouterTree(children));
+                    }else if (tree.getParentId().equals(0L)){
+                        List<RouterDTO> subChildren = new ArrayList<>();
+                        subChildren.add(new RouterDTO((SysMenuEntity)entity));
+                        routerDTO.setChildren(subChildren);
                     }
                     routers.add(routerDTO);
                 }
