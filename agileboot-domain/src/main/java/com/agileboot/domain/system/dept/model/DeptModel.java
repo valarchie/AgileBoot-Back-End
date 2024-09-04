@@ -71,19 +71,24 @@ public class DeptModel extends SysDeptEntity {
     }
 
     public void generateAncestors() {
-        if (getParentId() == 0) {
-            setAncestors(getParentId().toString());
+
+        // 处理 getParentId 可能为 null 的情况
+        if (getParentId() == null || getParentId() == 0) {
+            setAncestors(String.valueOf(getParentId() == null ? 0 : getParentId()));
             return;
         }
 
         SysDeptEntity parentDept = deptService.getById(getParentId());
 
+        // 检查 parentDept 是否为 null 或者状态为禁用
         if (parentDept == null || StatusEnum.DISABLE.equals(
             BasicEnumUtil.fromValue(StatusEnum.class, parentDept.getStatus()))) {
             throw new ApiException(ErrorCode.Business.DEPT_PARENT_DEPT_NO_EXIST_OR_DISABLED);
         }
 
-        setAncestors(parentDept.getAncestors() + "," + getParentId());
+        // 处理 parentDept.getAncestors() 可能为 null 的情况
+        String ancestors = parentDept.getAncestors() == null ? "" : parentDept.getAncestors();
+        setAncestors(ancestors + "," + getParentId());
     }
 
 
