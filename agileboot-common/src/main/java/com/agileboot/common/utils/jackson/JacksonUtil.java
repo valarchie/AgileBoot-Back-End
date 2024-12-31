@@ -82,6 +82,10 @@ public class JacksonUtil {
         }
     }
 
+    private JacksonUtil() {
+        throw new IllegalStateException("Utility class JacksonUtil can not be instantiated");
+    }
+
     public static ObjectMapper initMapper() {
         JsonMapper.Builder builder = JsonMapper.builder()
             .enable(JSON_READ_FEATURES_ENABLED.toArray(new JsonReadFeature[0]));
